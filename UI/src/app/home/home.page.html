@@ -1,0 +1,38 @@
+<ion-split-pane contentId="home-content" when="lg">
+    <ion-menu
+        contentId="home-content"
+        persistent="true"
+        type="overlay"
+        persistent="true"
+        class="ns-menu"
+        style="overflow-y: auto"
+    >
+        <ion-menu-toggle autoHide="false">
+            <ion-header class="abs-menu-header">
+                <ion-toolbar color="primary">
+                    <div class="abs-main-logo"></div>
+                </ion-toolbar>
+            </ion-header>
+        </ion-menu-toggle>
+
+        <ion-content color="secondary">
+            <ion-list class="menu-list">
+                <ion-item lines="inset" button color="secondary">
+                    <ion-icon name="trophy-outline" slot="start"></ion-icon>
+                    My Awards
+                </ion-item>
+                <ion-item lines="inset" button color="secondary">
+                    <ion-icon name="chatbox-outline" slot="start"></ion-icon>
+                    My Feedbacks
+                </ion-item>
+                <ion-item (click)="logout()" lines="inset" button color="secondary">
+                    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+                    Logout
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet id="home-content"></ion-router-outlet>
+</ion-split-pane>
+
