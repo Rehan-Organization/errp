@@ -13,7 +13,7 @@ export class ViewAwardComponent implements OnInit {
   ngOnInit() {}
 
   createAwards(){
-    this.router.navigate(['/home/create'])
+    this.router.navigate(['/home/awardTypes/create'])
   }
 
 }

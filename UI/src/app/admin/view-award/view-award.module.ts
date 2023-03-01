@@ -16,6 +16,10 @@ import { CreateAwardComponent } from '../create-award/create-award.component';
       {
         path: '',
         component: ViewAwardComponent
+      },
+      {
+        path:'create',
+        component:CreateAwardComponent
       }
     ])
   ]
