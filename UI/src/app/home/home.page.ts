@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppAuthService } from '../providers/app-auth.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { AppAuthService } from '../providers/app-auth.service';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    constructor(private http: HttpClient, private authService: AppAuthService) {
+    constructor(private http: HttpClient, private authService: AppAuthService, private router:Router) {
         this.http.get('/test').subscribe(
             () => {
                 console.log('TEST SUCCESS');
@@ -23,6 +24,11 @@ export class HomePage {
         this.authService.logout().subscribe(() => {
             
         })
+
+    
+    }
+    viewAwards(){
+        this.router.navigate(['/home/awardTypes'])
     }
 }
 
