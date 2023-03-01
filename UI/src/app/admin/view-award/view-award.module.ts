@@ -8,7 +8,7 @@ import { CreateAwardComponent } from '../create-award/create-award.component';
 
 
 @NgModule({
-  declarations: [ViewAwardComponent],
+  declarations: [ViewAwardComponent, CreateAwardComponent],
   imports: [
     CommonModule,
     IonicModule,

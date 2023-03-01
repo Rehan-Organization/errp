@@ -2,10 +2,16 @@
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
-         </ion-buttons>
-        View Award
+        </ion-buttons>
+        <ion-title>View Award</ion-title>
     </ion-toolbar>
     <ion-button (click)="createAwards()">Create Award</ion-button>
 </ion-header>
+<ion-content>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button>
+            <ion-icon name="chevron-forward-circle"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
-
+</ion-content>
