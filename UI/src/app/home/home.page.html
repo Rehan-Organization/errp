@@ -25,10 +25,15 @@
                     <ion-icon name="chatbox-outline" slot="start"></ion-icon>
                     My Feedbacks
                 </ion-item>
+                <ion-item (click)="myAchievement()" lines="inset" button color="secondary">
+                    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+                    My Achievement
+                </ion-item>
                 <ion-item (click)="logout()" lines="inset" button color="secondary">
                     <ion-icon name="log-out-outline" slot="start"></ion-icon>
                     Logout
                 </ion-item>
+
             </ion-list>
         </ion-content>
     </ion-menu>
