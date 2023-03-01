@@ -2,26 +2,26 @@ import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-import { ViewAwardComponent } from './view-award.component';
-import { CreateAwardComponent } from '../create-award/create-award.component';
+import { AwardListComponent } from './award-list.component';
+import { AwardFormComponent } from '../award-form/award-form.component';
 
 
 
 @NgModule({
-  declarations: [ViewAwardComponent, CreateAwardComponent],
+  declarations: [AwardListComponent,AwardFormComponent],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule.forChild([
       {
         path: '',
-        component: ViewAwardComponent
+        component: AwardListComponent
       },
       {
         path:'create',
-        component:CreateAwardComponent
+        component:AwardFormComponent
       }
     ])
   ]
 })
-export class ViewAwardModule { }
+export class AwardListModule { }

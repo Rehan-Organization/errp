@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-award',
-  templateUrl: './view-award.component.html',
-  styleUrls: ['./view-award.component.scss'],
+  templateUrl: './award-list.component.html',
+  styleUrls: ['./award-list.component.scss'],
 })
-export class ViewAwardComponent implements OnInit {
+export class AwardListComponent implements OnInit {
 
   constructor(private router:Router) { }
 

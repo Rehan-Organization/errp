@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ViewAwardComponent } from './view-award.component';
+import { AwardListComponent } from './award-list.component';
 
 describe('ViewAwardComponent', () => {
-  let component: ViewAwardComponent;
-  let fixture: ComponentFixture<ViewAwardComponent>;
+  let component: AwardListComponent;
+  let fixture: ComponentFixture<AwardListComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewAwardComponent ],
+      declarations: [ AwardListComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ViewAwardComponent);
+    fixture = TestBed.createComponent(AwardListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -9,7 +9,7 @@ const routes: Routes = [
     children:[
       {
         path:'awardTypes',
-        loadChildren: () => import('./../admin/view-award/view-award.module').then(m => m.ViewAwardModule)
+        loadChildren: () => import('../award-type/award-list/award-list.module').then(m => m.AwardListModule)
       }
      
     ]
