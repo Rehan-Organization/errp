@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="AwardType")
+@Table(name="awardtype")
 public class AwardType {
 	
 	@Id

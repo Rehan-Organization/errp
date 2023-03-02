@@ -10,17 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abs.errp.entity.AwardType;
 
 
+@RequestMapping("/AllAwards")
 @RestController
 public class AwardTypeController {
 
 	
    
-	AwardTypeService awardTypeServices;
+	private AwardTypeService awardTypeServices;
 	
-	public AwardTypeController()
-	{
-		
-	}
+
 
 	public AwardTypeController(AwardTypeService awardTypeServices) {
 		super();
@@ -29,11 +27,8 @@ public class AwardTypeController {
 	
 	
 	
-	
-	//APIs for awardtype
-	
-	//get all award types
-	@GetMapping("/getAllAwards")
+
+	@GetMapping
 	public List<AwardType> getAllAwardTypes()
 	{
 		return awardTypeServices.getAllAwardTypes();

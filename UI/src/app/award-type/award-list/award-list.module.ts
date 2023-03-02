@@ -8,7 +8,7 @@ import { AwardFormComponent } from '../award-form/award-form.component';
 
 
 @NgModule({
-  declarations: [AwardListComponent,AwardFormComponent],
+  declarations: [AwardListComponent, AwardFormComponent],
   imports: [
     CommonModule,
     IonicModule,

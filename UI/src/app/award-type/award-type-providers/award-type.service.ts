@@ -1,0 +1,17 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { URLS } from 'src/app/constants/urls.contants';
+import { AwardType } from '../award-type-model/award-type';
+
+@Injectable({
+    providedIn: 'root',
+})
+export class AwardTypeService {
+    constructor(private http: HttpClient) {}
+
+    getAwardTypeList(): Observable<AwardType[]> {
+        return this.http.get<AwardType[]>(URLS.ALL_AWARD_TYPES);
+    }
+}
+
