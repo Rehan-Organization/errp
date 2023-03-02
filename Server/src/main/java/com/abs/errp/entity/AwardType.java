@@ -14,6 +14,7 @@ import javax.persistence.Table;
 public class AwardType {
 	
 	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
 	@Column(name="NAME")
