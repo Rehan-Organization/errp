@@ -32,11 +32,12 @@ public class LoginController {
 	@Autowired
 	AuthenticationManager authManager;
 	
+	@Autowired
+	LoggedInUserContext userContext;
+	
 	@GetMapping("/test")
-	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<ErrpUser> test() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.err.println("ADmin is in");
+		LoggedInUser user = this.userContext.getLoggedInUser();
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
@@ -95,7 +96,7 @@ public class LoginController {
 
 //        response.addHeader("x-auth-token", session.getId());
         
-        User user = (User) sc.getAuthentication().getPrincipal();
+        LoggedInUser user = (LoggedInUser) sc.getAuthentication().getPrincipal();
 
         wrapper.setUser(user);
         
