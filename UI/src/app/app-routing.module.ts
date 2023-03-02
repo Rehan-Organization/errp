@@ -14,6 +14,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'login', loadChildren: () => import('./feedback/add-feedback/add-feedback.module').then(m => m.AddFeedbackModule) },
+
 ];
 
 @NgModule({
