@@ -23,6 +23,9 @@ export class HomePage {
     myAchievement(){
         this.router.navigate(["/home/myAchievement"])
     }
+    myAwards(){
+        this.router.navigate(["/home/myAwards"])
+    }
 
     logout() {
         this.authService.logout().subscribe(() => {

@@ -14,7 +14,7 @@ public class Achievements {
 	
 	@Id
 	@Column(name="ACHIEVEMENT_ID")
-	private long id;
+	private int id;
 	
 	@Column(name ="TITLE")
 	private String title;
@@ -33,62 +33,98 @@ public class Achievements {
 	
 	@Column(name="EMPLOYEE_COMMENTS")
 	private String employeeComments;
+	
+	
 
-	public long getId() {
+	public Achievements() {
+		super();
+	}
+
+
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+
+
+	public void setId(int id) {
 		this.id = id;
 	}
+
+
 
 	public String getTitle() {
 		return title;
 	}
 
+
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+
 
 	public String getDescription() {
 		return description;
 	}
 
+
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
 
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
+
+
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+
+
 
 	public Date getLastUpdatedDate() {
 		return lastUpdatedDate;
 	}
 
+
+
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
+
+
 
 	public int getNotificationStatus() {
 		return notificationStatus;
 	}
 
+
+
 	public void setNotificationStatus(int notificationStatus) {
 		this.notificationStatus = notificationStatus;
 	}
+
+
 
 	public String getEmployeeComments() {
 		return employeeComments;
 	}
 
+
+
 	public void setEmployeeComments(String employeeComments) {
 		this.employeeComments = employeeComments;
 	}
+
+	
 
 	
 	

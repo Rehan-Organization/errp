@@ -35,5 +35,9 @@ public class Notification {
 
 	@Column(name = "EVENT_TYPE")
 	private int eventType;
+	
+	
+
+	
 
 }

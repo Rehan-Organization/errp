@@ -14,6 +14,10 @@ const routes: Routes = [
         {
           path: 'myAchievement',
           loadChildren: () => import('../Achievement/achievement-list/achievement-list.module').then(m => m.MyAchievementModule)
+        },
+        {
+          path:'myAwards',
+          loadChildren:()=>import('../Awards/award-list/award-list.module').then(m=>m.AwardListModule)
         }
       ]
 }
