@@ -23,11 +23,21 @@ public class FeedbackController {
 		this.feedbackService = feedbackService;
 	}
 	
+//	@GetMapping("/fetchReportees")
+//	public List<ErrpUser> fetchAllFeedbacks(){
+//		return null://feedbackService.fetchAllUserBySupervisorId();
+//	}
+	
 	@PostMapping()
 	public ResponseEntity<Feedback> saveFeedback(@RequestBody Feedback feedback){
 		System.out.println(feedback.toString());
 		return feedbackService.saveFeedback(feedback);
 	}
+	
+//	@GetMapping()
+//	public List<ErrpUser> fetchUsers(){
+//		return feedbackService.fetchAllUsers();
+//	}
 	
 	
 }
