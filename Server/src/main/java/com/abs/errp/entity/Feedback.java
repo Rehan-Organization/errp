@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="FEEDBACK")
+@Table(name="feedback")
 public class Feedback {
 	
 	@Id
@@ -32,6 +32,114 @@ public class Feedback {
 	
 	@Column(name="LAST_UPDATED_DATE")
 	private Date lastUpdatedDate;
+
+	
+
+
+	public long getId() {
+		return id;
+	}
+
+
+
+
+	public long getSenderId() {
+		return senderId;
+	}
+
+
+
+
+	public long getReceiverId() {
+		return receiverId;
+	}
+
+
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+
+
+
+	public Date getLastUpdatedDate() {
+		return lastUpdatedDate;
+	}
+
+
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+
+
+	public void setSenderId(long senderId) {
+		this.senderId = senderId;
+	}
+
+
+
+
+	public void setReceiverId(long receiverId) {
+		this.receiverId = receiverId;
+	}
+
+
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+
+
+
+	public void setLastUpdatedDate(Date lastUpdatedDate) {
+		this.lastUpdatedDate = lastUpdatedDate;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "Feedback [id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", title=" + title
+				+ ", description=" + description + ", createdDate=" + createdDate + ", lastUpdatedDate="
+				+ lastUpdatedDate + "]";
+	}
 	
 	
 
