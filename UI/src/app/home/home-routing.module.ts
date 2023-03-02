@@ -10,6 +10,10 @@ const routes: Routes = [
       {
         path:'awardTypes',
         loadChildren: () => import('../award-type/award-list/award-list.module').then(m => m.AwardListModule)
+      },
+      {
+        path:'create',
+        loadChildren: () => import('../award-type/award-form/award-form.module').then(m => m.AwardFormModule)
       }
      
     ]
