@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Achievement } from '../achievement';
+import { AchievementService } from '../achievement.service';
 
 
 @Component({
@@ -9,14 +11,28 @@ import { Router } from '@angular/router';
 })
 export class MyAchievementComponent implements OnInit {
 
-  constructor(private router:Router) {}
+  //achievement : Achievement[] = [];
 
-  ngOnInit() {}
+  constructor(private router:Router, private achievementService : AchievementService) {}
+
+  Achievement : Achievement[] = [];
+
+  ngOnInit() {
+
+    this.getAwards();
+
+  }
+
+  getAwards()
+  {
+    this.achievementService.getAllAchievement().subscribe(Achievement => this.Achievement = Achievement);
+  }
 
   addAchievement(){
     this.router.navigate(["/home/myAchievement/addAchievement"])
   }
   
+
 }
   
 
