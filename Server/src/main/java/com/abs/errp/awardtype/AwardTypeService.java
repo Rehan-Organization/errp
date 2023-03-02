@@ -7,5 +7,6 @@ import com.abs.errp.entity.AwardType;
 public interface AwardTypeService {
 	
 	List<AwardType> getAllAwardTypes();
+	AwardType saveAwardType(AwardType awardType);
 
 }

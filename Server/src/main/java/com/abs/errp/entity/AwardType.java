@@ -10,11 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="awardtype")
+@Table(name="AwardType")
 public class AwardType {
 	
 	@Id
-	@GeneratedValue(strategy =GenerationType.AUTO )
 	private long id;
 
 	@Column(name="NAME")

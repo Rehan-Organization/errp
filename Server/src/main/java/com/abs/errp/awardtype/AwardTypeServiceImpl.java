@@ -28,4 +28,12 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 		
 	}
 
+
+	@Override
+	public AwardType saveAwardType(AwardType awardType) {
+		
+		return awardServiceRespository.save(awardType);
+		
+	}
+
 }
