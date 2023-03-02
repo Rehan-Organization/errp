@@ -8,13 +8,13 @@
 </ion-header>
 
 <ion-content>
-    <ion-card>
-        <ion-list>
+    <ion-card *ngFor="let award of awardTypeList">
+       
 
-            <ion-item *ngFor="let award of awardTypeList">
+            <ion-item >
                
                 <ion-label>
-                    <h4 style="color: var(--ion-color-danger); font-weight: 700;">Disabled</h4>
+                    <h4 style="color: var(--ion-color-danger); font-weight: 700;" *ngIf="!award.awardStatus">Disabled</h4>
                     <h3>
                        {{award.awardName}} <span style="font-weight: 700; color: var(--ion-color-secondary)">({{award.awardPoints}})</span>
                     </h3>
@@ -23,17 +23,17 @@
                     </p>
                 </ion-label>
                 <div slot="end">
-                    <ion-button slot="icon-only" color="primary" fill="clear"><i class="fas fa-edit"></i></ion-button>
-                    <ion-button slot="icon-only" color="primary" fill="clear"><i class="fas fa-ban"></i></ion-button>    
+                    <ion-button slot="icon-only" color="primary" fill="clear" *ngIf="award.awardStatus"><i class="fas fa-edit"></i></ion-button>
+                    <ion-button slot="icon-only" color="primary" fill="clear"  *ngIf="award.awardStatus"><i class="fas fa-ban"></i></ion-button>    
                 </div>
             </ion-item> 
 
-        </ion-list>
+        
     </ion-card>
     
 
     <ion-fab slot="fixed" horizontal="end" vertical="bottom">
-        <ion-fab-button (click)=" createAwards()">
+        <ion-fab-button (click)=" createAwards(awardTypeList)">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>

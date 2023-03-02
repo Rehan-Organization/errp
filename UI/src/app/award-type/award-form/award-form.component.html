@@ -14,21 +14,21 @@
         <ion-list>
           <ion-item>
             <ion-label position="stacked">Enter Name for Award</ion-label>
-            <ion-input placeholder="Name"></ion-input>
+            <ion-input placeholder="Name" [(ngModel)]="awardType.awardName" name="name"></ion-input>
           </ion-item>
           <br>
           <ion-item>
             <ion-label position="stacked">Enter points for Award</ion-label>
-            <ion-input type="number" placeholder="Points"></ion-input>
+            <ion-input type="number" placeholder="Points" [(ngModel)]="awardType.awardPoints" name="awardPoints"></ion-input>
           </ion-item>
           <br>
           <ion-item>
             <ion-label position="stacked">Enter Discription for Award</ion-label>
-            <ion-input placeholder="Discription"></ion-input>
+            <ion-input placeholder="Discription" [(ngModel)]="awardType.description" name="awardDescription"></ion-input>
           </ion-item>
         </ion-list>
 
-        <ion-button>Create</ion-button>
+        <ion-button (click)="createAward()" >Create</ion-button>
       </form>
     </ion-card-content>
   </ion-card>

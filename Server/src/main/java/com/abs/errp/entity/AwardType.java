@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+
 @Entity
 @Table(name="AwardType")
 public class AwardType {
@@ -29,8 +31,9 @@ public class AwardType {
 	@Column(name="LAST_UPDATED_DATE")
 	private Date lastUpdatedDate;
 	
+	
 	@Column(name = "AWARD_STATUS")
-	private int awardStatus;
+	private int awardStatus = 1;
 	
 	@Column(name="AWARD_POINTS")
 	private int awardPoints;

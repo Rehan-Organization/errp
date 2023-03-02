@@ -3,5 +3,6 @@ export const URLS = {
     base: environment.baseUrl,
     LOGIN: '/authenticate',
     LOGOUT: '/logout',
-    ALL_AWARD_TYPES: '/AllAwards'
+    ALL_AWARD_TYPES: '/allAwardList',
+    NEW_AWARD_TYPE: '/saveAwardTypes'
 }

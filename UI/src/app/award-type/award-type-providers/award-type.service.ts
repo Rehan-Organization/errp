@@ -13,5 +13,12 @@ export class AwardTypeService {
     getAwardTypeList(): Observable<AwardType[]> {
         return this.http.get<AwardType[]>(URLS.ALL_AWARD_TYPES);
     }
+
+    saveAwardType(awardtype : AwardType): Observable<AwardType>
+    {
+      return this.http.post(URLS.NEW_AWARD_TYPE,awardtype)
+    }
+
+  
 }
 

@@ -31,7 +31,7 @@ public class AwardTypeController {
 	
 
 	
-	@GetMapping("/getAllAwardTypes")
+	@GetMapping("/allAwardList")
 	public List<AwardType> getAllAwardTypes()
 	{
 		return awardTypeServices.getAllAwardTypes();

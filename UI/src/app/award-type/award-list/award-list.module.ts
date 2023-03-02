@@ -4,14 +4,15 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { AwardListComponent } from './award-list.component';
 import { AwardFormComponent } from '../award-form/award-form.component';
-
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [AwardListComponent],
+  declarations: [AwardListComponent, AwardFormComponent],
   imports: [
     CommonModule,
     IonicModule,
+    FormsModule,
     RouterModule.forChild([
       {
         path: '',

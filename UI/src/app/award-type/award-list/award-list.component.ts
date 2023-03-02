@@ -25,7 +25,7 @@ export class AwardListComponent implements OnInit {
             });
     }
 
-    createAwards() {
-        this.router.navigate(['/home/awardTypes/create']);
+    createAwards(awardtype:AwardType[]) {
+        this.router.navigate(['/home/awardTypes/create',awardtype]);
     }
 }
