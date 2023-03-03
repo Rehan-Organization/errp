@@ -12,6 +12,7 @@ import { AchievementService } from '../achievement.service';
 export class MyAchievementComponent implements OnInit {
 
   //achievement : Achievement[] = [];
+  userId = 2
 
   constructor(private router:Router, private achievementService : AchievementService) {}
 
@@ -25,7 +26,7 @@ export class MyAchievementComponent implements OnInit {
 
   getAwards()
   {
-    this.achievementService.getAllAchievement().subscribe(Achievement => this.Achievement = Achievement);
+    this.achievementService.getAllAchievement(this.userId).subscribe(Achievement => this.Achievement = Achievement);
   }
 
   addAchievement(){

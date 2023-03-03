@@ -10,11 +10,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ACHIEVEMENTS")
-public class Achievements {
+public class Achievement {
 	
 	@Id
 	@Column(name="ACHIEVEMENT_ID")
-	private int id;
+	private long id;
+	
+	@Column(name = "EMPLOYEE_ID")
+	private long employeeId;
 	
 	@Column(name ="TITLE")
 	private String title;
@@ -29,28 +32,55 @@ public class Achievements {
 	private Date lastUpdatedDate;
 	
 	@Column(name = "ACHIEVEMENT_STATUS")
-	private int notificationStatus;
+	private int achievementStatus;
 	
-	@Column(name="EMPLOYEE_COMMENTS")
-	private String employeeComments;
-	
-	
-
-	public Achievements() {
+	public Achievement() {
 		super();
 	}
 
 
 
-	public int getId() {
+
+
+
+
+	public long getId() {
 		return id;
 	}
 
 
 
-	public void setId(int id) {
+
+
+
+
+	public void setId(long id) {
 		this.id = id;
 	}
+
+
+
+
+
+
+
+	public long getEmployeeId() {
+		return employeeId;
+	}
+
+
+
+
+
+
+
+	public void setEmployeeId(long employeeId) {
+		this.employeeId = employeeId;
+	}
+
+
+
+
 
 
 
@@ -60,9 +90,17 @@ public class Achievements {
 
 
 
+
+
+
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+
+
+
 
 
 
@@ -72,9 +110,17 @@ public class Achievements {
 
 
 
+
+
+
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+
+
 
 
 
@@ -84,9 +130,17 @@ public class Achievements {
 
 
 
+
+
+
+
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+
+
+
+
 
 
 
@@ -96,33 +150,42 @@ public class Achievements {
 
 
 
+
+
+
+
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 
 
 
-	public int getNotificationStatus() {
-		return notificationStatus;
+
+
+
+
+	public int getAchievementStatus() {
+		return achievementStatus;
 	}
 
 
 
-	public void setNotificationStatus(int notificationStatus) {
-		this.notificationStatus = notificationStatus;
+
+
+
+
+	public void setAchievementStatus(int achievementStatus) {
+		this.achievementStatus = achievementStatus;
 	}
 
 
 
-	public String getEmployeeComments() {
-		return employeeComments;
-	}
 
 
 
-	public void setEmployeeComments(String employeeComments) {
-		this.employeeComments = employeeComments;
-	}
+
+
+
 
 	
 

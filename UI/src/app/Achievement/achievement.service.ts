@@ -10,7 +10,7 @@ export class AchievementService {
 
   constructor(private httpClient : HttpClient) { }
 
-  getAllAchievement() : Observable<Achievement[]>{
-    return this.httpClient.get<Achievement[]>('/achievement')
+  getAllAchievement(userId:number) : Observable<Achievement[]>{
+    return this.httpClient.get<Achievement[]>('/achievement/'+userId)
   }
 }

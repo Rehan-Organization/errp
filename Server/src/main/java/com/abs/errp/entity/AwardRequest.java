@@ -7,14 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="EMPLOYEE_AWARDS")
-public class EmployeeAwards {
-	
+@Table(name="AWARD_REQUEST")
+public class AwardRequest {
+
 	@Id
-	@Column(name="EMPLOYEE_AWARD_ID")
-	private long employeeAwardId;
+	@Column(name="REQUEST_ID")
+	private long id;
 	
 	@Column(name="AWARD_ID")
 	private long awardId;
@@ -25,17 +24,23 @@ public class EmployeeAwards {
 	@Column(name="AWARD_RAISER_ID")
 	private long awardRaiserId;
 	
-	@Column(name="ACHIEVEMENT_ID")
-	private long achievementId;
+	@Column(name="SUBMITTED_TO_ID")
+	private long submittedToId;
 	
-	@Column(name="REQUEST_ID")
-	private long requestId;
+	@Column(name ="TITLE")
+	private String title;
 	
-	@Column(name="APPROVED_BY_ID")
-	private long approvedById;
+	@Column(name="DESCRIPTION")
+	private String description;
 	
-	@Column(name="APPROVED_DATE")
-	private Date approvedDate;
+	@Column(name="CREATED_DATE")
+	private Date createdDate;
+	
+	@Column(name="LAST_UPDATED_DATE")
+	private Date lastUpdatedDate;
+	
+	@Column(name = "REQUEST_STATUS")
+	private int notificationStatus;
 	
 	@Column(name="REMARKS")
 	private String remarks;
@@ -43,13 +48,17 @@ public class EmployeeAwards {
 	@Column(name="SUPERVISOR_COMMENTS")
 	private String supervisorComments;
 
-	public EmployeeAwards() {
+	public AwardRequest() {
 		super();
 	}
+
+	
+	
 	
 	
 
-
 	
-
+	
+	
+	
 }
