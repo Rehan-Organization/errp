@@ -8,17 +8,14 @@ import { AwardType } from '../award-type-model/award-type';
     providedIn: 'root',
 })
 export class AwardTypeService {
-    constructor(private http: HttpClient) {}
+
+    constructor(private http: HttpClient) { }
 
     getAwardTypeList(): Observable<AwardType[]> {
         return this.http.get<AwardType[]>(URLS.ALL_AWARD_LIST);
     }
-
-    saveAwardType(awardtype : AwardType): Observable<AwardType>
-    {
-      return this.http.post(URLS.NEW_AWARD_TYPE,awardtype)
+    saveAwardType(awardtype: AwardType): Observable<AwardType> {
+        return this.http.post(URLS.NEW_AWARD_TYPE, awardtype);
     }
-
-  
 }
 
