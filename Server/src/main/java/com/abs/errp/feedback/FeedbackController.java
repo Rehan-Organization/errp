@@ -34,10 +34,12 @@ public class FeedbackController {
 		return feedbackService.saveFeedback(feedback);
 	}
 	
-//	@GetMapping()
-//	public List<ErrpUser> fetchUsers(){
-//		return feedbackService.fetchAllUsers();
-//	}
-	
+
+	@GetMapping()
+	public List<ErrpUser> fetchAllUsers()
+	{
+		return this.feedbackService.fetchAllUsers();
+	}
+
 	
 }

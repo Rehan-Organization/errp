@@ -16,17 +16,14 @@ import com.abs.errp.user.ErrpUser;
 public class FeedbackServiceImpl implements FeedbackService{
 	
 	private FeedbackRepository feedbackRepository;
-//	private ErrpUserRepository errpUserRepository;
-//	@Autowired
-//	private LoggedInUserContext userContext;
-//
-//	
-//	LoggedInUser user = this.userContext.getLoggedInUser();
-	
-	public FeedbackServiceImpl(FeedbackRepository feedbackRepository, ErrpUserRepository errpUserRepository) {
+
+	private ErrpUserRepository errpUserRepository;
+
+	public FeedbackServiceImpl(FeedbackRepository feedbackRepository,ErrpUserRepository errpUserRepository) {
 		super();
 		this.feedbackRepository = feedbackRepository;
-//		this.errpUserRepository = errpUserRepository;
+		this.errpUserRepository = errpUserRepository;
+
 	}
 
 	@Override
@@ -42,6 +39,15 @@ public class FeedbackServiceImpl implements FeedbackService{
 //	}
 //	
 	
+
+	@Override
+	public List<ErrpUser> fetchAllUsers() {
+		ErrpUser e=new ErrpUser();
+		long id=3;
+		e.setEmployeeId(id);
+		return errpUserRepository.findBySupervisor(e);
+	}
+
 	
 	
 }

@@ -9,5 +9,7 @@ import com.abs.errp.user.ErrpUser;
 
 public interface FeedbackService {
 		ResponseEntity<Feedback> saveFeedback(Feedback feedback);
-//		List<ErrpUser> fetchAllUsers();
+
+		List<ErrpUser> fetchAllUsers();
+
 }
