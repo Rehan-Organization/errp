@@ -7,10 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
-    children: ([{
-      path:'addfeedback', component:AddFeedbackComponent
+    children: ([{ 
+      path: 'addfeedback', loadChildren: () => import('../feedback/add-feedback/add-feedback.module').then(m => m.AddFeedbackModule)
     }])
   }
+    // children: ([{
+    //   path:'addfeedback', component:AddFeedbackComponent
+    // }])
+  // }
 ];
 
 @NgModule({
