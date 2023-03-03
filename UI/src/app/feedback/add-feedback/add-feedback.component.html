@@ -13,9 +13,10 @@
     <ion-list>
 
       <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline" >
-        <ion-select [(ngModel)] = "employee.employeeName" placeholder="Select employee"  >
-          <ion-select-option *ngFor="let reportee of empData">
-            {{reportee}}
+        <ion-select [(ngModel)]="selectedValue" placeholder="Select employee">
+          <ion-select-option *ngFor="let employee of employees" [value]="employee.employeeId">
+            {{employee.employeeName}}
+            <!-- <ion-input hidden [(ngModel)]="employee.employeeId"></ion-input> -->
           </ion-select-option>
         </ion-select>
       </ion-item>
@@ -31,10 +32,11 @@
       </ion-item>
 
     </ion-list>
-    
-    <ion-button class="ion-margin-bottom ion-margin-start ion-margin-end" (click)=clearFeedbackData()>Cancel</ion-button>
+    <ion-button class="ion-margin-bottom ion-margin-start ion-margin-end" (click)=cancelForm()>Cancel</ion-button>
     <ion-button color="primary" class="ion-margin-bottom ion-margin-start ion-margin-end" (click)=addFeedback(feedback)>Submit</ion-button>
 
   </ion-card>
 
 </ion-content>
+
+

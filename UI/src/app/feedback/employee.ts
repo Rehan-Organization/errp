@@ -1,7 +1,7 @@
 export interface Employee{
-    id?:number;
-    name?: string;
-    title?: string;
-    desc?: string;
+    employeeId?:number;
+    username?:string;
+    employeeName?: string;
+    supervisorId?:number;
   }
   

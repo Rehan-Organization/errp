@@ -4,5 +4,6 @@ export const URLS = {
     LOGIN: '/authenticate',
     LOGOUT: '/logout',
     FEEDBACK: '/api/v1',
-    SAVEFEEDBACK :'/api/v1/saveFeedback'
+    SAVEFEEDBACK :'/api/v1/saveFeedback',
+    FETCHREPORTEES:'/api/v1/getReportees'
 }
