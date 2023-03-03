@@ -38,7 +38,7 @@ public class AwardTypeController {
 	}
 	
 	
-	@PostMapping("/saveAwardTypes")
+	@PostMapping("/newAwardType")
 	public ResponseEntity<AwardType> saveAwardType(@RequestBody AwardType awardType){
 		return new ResponseEntity<AwardType>(awardTypeServices.saveAwardType(awardType),HttpStatus.CREATED);
 		

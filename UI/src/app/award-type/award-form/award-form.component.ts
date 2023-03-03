@@ -1,9 +1,8 @@
-import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { parse } from 'path';
 import { AwardType } from '../award-type-model/award-type';
 import { AwardTypeService } from '../award-type-providers/award-type.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-award',
@@ -12,32 +11,46 @@ import { AwardTypeService } from '../award-type-providers/award-type.service';
 })
 export class AwardFormComponent implements OnInit {
 
-  
   awardType : AwardType = {}
 
-  constructor(private router: Router, private awardtypeservice: AwardTypeService, private route: ActivatedRoute) { 
-    
-  }
+  constructor(private router: Router, private awardtypeservice: AwardTypeService, private route: ActivatedRoute, private alertController: AlertController) { }
 
-
-
-  createAward()
+  async createAward()
   {   
-       
-      const today= new Date();
-      this.awardType.createdDate = today;
-      this.awardType.lastUpdatedDate = today;
-      console.log(this.awardType)
-      this.awardtypeservice.saveAwardType(this.awardType).subscribe(data => {console.log(data)}) 
-      this.router.navigate(['/home/awardTypes'])
+    const today= new Date();
+    this.awardType.createdDate = today;
+    this.awardType.lastUpdatedDate = today;
+
+    this.alertController.create({
+      header: 'Confirm Alert',
+      message: 'Are you sure? you want to create new award?',
+      buttons: [
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.awardtypeservice.saveAwardType(this.awardType).subscribe(),
+            this.router.navigate(['/home/awardTypes'])
+          }
+        },
+        {
+          text: 'Cancel',
+        }
+      ]
+    }).then(res => {
+      res.present();
+    });
+
+
+   
   }
 
 
   ngOnInit() 
   {
-
-    // this.awardTypeList = (this.route.snapshot.paramMap.get('awardtype')!)
-    
+ 
   }
 
 }
+
+
+

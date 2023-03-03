@@ -11,7 +11,7 @@ export class AwardTypeService {
     constructor(private http: HttpClient) {}
 
     getAwardTypeList(): Observable<AwardType[]> {
-        return this.http.get<AwardType[]>(URLS.ALL_AWARD_TYPES);
+        return this.http.get<AwardType[]>(URLS.ALL_AWARD_LIST);
     }
 
     saveAwardType(awardtype : AwardType): Observable<AwardType>
