@@ -1,6 +1,8 @@
 package com.abs.errp.awardtype;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -38,5 +40,27 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 		return awardServiceRespository.save(awardType);
 		
 	}
+
+
+	@Override
+	public AwardType findAwardByName(String awardName) {
+		return awardServiceRespository.findByAwardName(awardName);
+	}
+
+
+	
+
+
+	
+
+
+
+
+	
+
+
+
+	
+	
 
 }
