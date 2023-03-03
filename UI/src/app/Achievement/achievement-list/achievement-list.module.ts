@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { MyAchievementComponent } from './achievement-list.component';
 import { AddAchievementComponent } from '../achievement-form/achievement-form.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -12,6 +13,7 @@ import { AddAchievementComponent } from '../achievement-form/achievement-form.co
   imports: [
     CommonModule,
     IonicModule,
+    FormsModule,
     RouterModule.forChild([
     {
       path: '',

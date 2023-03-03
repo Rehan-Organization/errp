@@ -13,4 +13,8 @@ export class AchievementService {
   getAllAchievement(userId:number) : Observable<Achievement[]>{
     return this.httpClient.get<Achievement[]>('/achievement/'+userId)
   }
+
+  postAchievement(achievement : Achievement) : Observable<Achievement>{
+    return this.httpClient.post<Achievement>('/achievement',achievement)
+  } 
 }

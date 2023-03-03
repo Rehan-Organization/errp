@@ -3,25 +3,32 @@
       <ion-title>Add Achievement</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
 
-    <ion-card>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <form action="">
       <ion-card-header>
         <ion-card-title>Card Title</ion-card-title>
         <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
       </ion-card-header>
       
-      <ion-card-content>
+      
         <ion-item>
           <ion-label position="floating">Title</ion-label>
-          <ion-input [clearInput]="true" placeholder="Enter title for an Achievement"></ion-input>
+          <ion-input [clearInput]="true" placeholder="Enter title for an Achievement" [(ngModel)]="achievement.title" name="title"></ion-input>
         </ion-item>
+       
         <ion-item>
           <ion-label position="floating">Description</ion-label>
-          <ion-input [clearInput]="true" placeholder="Enter Description"></ion-input>
+          <ion-input [clearInput]="true" placeholder="Enter Description" [(ngModel)]="achievement.description" name="description"></ion-input>
         </ion-item>
-        <ion-button color="primary" >Save</ion-button>
+       
+        <ion-button color="primary"  (click)=addAchievement(achievement)>Save</ion-button>
+       
         <ion-button color="primary">Submit</ion-button>
+        </form>
       </ion-card-content>
     </ion-card>
 </ion-content>
