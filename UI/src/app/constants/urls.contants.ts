@@ -3,5 +3,6 @@ export const URLS = {
     base: environment.baseUrl,
     LOGIN: '/authenticate',
     LOGOUT: '/logout',
-    FEEDBACK: '/feedbacks'
+    FEEDBACK: '/api/v1',
+    SAVEFEEDBACK :'/api/v1/saveFeedback'
 }
