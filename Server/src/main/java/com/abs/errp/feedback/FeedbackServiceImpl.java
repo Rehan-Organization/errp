@@ -13,10 +13,12 @@ import com.abs.errp.user.ErrpUser;
 public class FeedbackServiceImpl implements FeedbackService{
 	
 	private FeedbackRepository feedbackRepository;
+	private ErrpUserRepository errpUserRepository;
 
-	public FeedbackServiceImpl(FeedbackRepository feedbackRepository) {
+	public FeedbackServiceImpl(FeedbackRepository feedbackRepository,ErrpUserRepository errpUserRepository) {
 		super();
 		this.feedbackRepository = feedbackRepository;
+		this.errpUserRepository = errpUserRepository;
 	}
 
 	@Override
@@ -24,9 +26,12 @@ public class FeedbackServiceImpl implements FeedbackService{
 		return new ResponseEntity<Feedback>(feedbackRepository.save(feedback),HttpStatus.CREATED);
 	}
 	
-	public List<Feedback> fetchAll(){
-		List<Feedback> list=feedbackRepository.findAll();
-		return list;
+	@Override
+	public List<ErrpUser> fetchAllUsers() {
+		ErrpUser e=new ErrpUser();
+		long id=3;
+		e.setEmployeeId(id);
+		return errpUserRepository.findBySupervisor(e);
 	}
 	
 	
