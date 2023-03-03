@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { Employee } from '../employee';
 import { Feedback } from '../feedback';
 import { FeedbackService } from '../feedback.service';
@@ -18,7 +17,7 @@ export class AddFeedbackComponent implements OnInit {
   
   employee:Employee ={};
   empData = ["pratiksha", "prajakta"]
-  constructor(private feedbackService:FeedbackService, private route: ActivatedRoute, private toaster: ToastController) {
+  constructor(private feedbackService:FeedbackService, private route: ActivatedRoute) {
    }
 
   ngOnInit() {
@@ -27,7 +26,7 @@ export class AddFeedbackComponent implements OnInit {
 
   addFeedback(feedback: Feedback)
   {
-    this.feedbackService.postFeedback(feedback).subscribe(feedbackResponse => {
+    this.feedbackService.saveFeedback(feedback).subscribe(feedbackResponse => {
       console.log(feedbackResponse)
    });
   }

@@ -9,15 +9,14 @@ import { Feedback } from './feedback';
 })
 export class FeedbackService {
 
-  
-  
   constructor(private http: HttpClient) { }
 
-  postFeedback(feedback: Feedback): Observable<Feedback>{
-    return this.http.post<Feedback>(URLS.FEEDBACK, feedback);
+  saveFeedback(feedback: Feedback): Observable<Feedback>{
+   
+    return this.http.post<Feedback>(URLS.SAVEFEEDBACK,feedback);
   }
 
   getReportees(): Observable<Employee>{
-    return this.http.get<Employee>(URLS.FEEDBACK)
+    return this.http.get<Employee>(`${URLS.FEEDBACK}/getReportees`);
   }
 }
