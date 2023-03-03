@@ -14,7 +14,7 @@ import com.abs.errp.entity.Feedback;
 import com.abs.errp.user.ErrpUser;
 
 @RestController
-@RequestMapping("/feedbacks")
+@RequestMapping("/api/v1/")
 public class FeedbackController {
 	private FeedbackService feedbackService;
 
@@ -23,16 +23,22 @@ public class FeedbackController {
 		this.feedbackService = feedbackService;
 	}
 	
-	@PostMapping()
+	@PostMapping("/saveFeedback")
 	public ResponseEntity<Feedback> saveFeedback(@RequestBody Feedback feedback){
 		System.out.println(feedback.toString());
 		return feedbackService.saveFeedback(feedback);
 	}
 	
-	@GetMapping()
+
+	@GetMapping("/getReportees")
 	public List<ErrpUser> fetchAllUsers()
 	{
 		return this.feedbackService.fetchAllUsers();
 	}
-	
+
+	@GetMapping("/getFeedbacks")
+	public List<Feedback> fetchAllFeedbacks()
+	{
+		return this.feedbackService.fetchALlFeedbacks();
+	}
 }

@@ -33,7 +33,7 @@ export class AddFeedbackComponent implements OnInit {
 
   fetchFeedback()
   {
-    this.feedbackService.getFeedback().subscribe(reportee => {
+    this.feedbackService.getReportees().subscribe(reportee => {
       this.employee=reportee;
     });
   }

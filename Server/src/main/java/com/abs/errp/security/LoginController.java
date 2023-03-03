@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.abs.errp.user.ErrpUser;
 
+@CrossOrigin("*")
 @RestController
 public class LoginController {
 
@@ -38,6 +40,7 @@ public class LoginController {
 	@GetMapping("/test")
 	public ResponseEntity<ErrpUser> test() {
 		LoggedInUser user = this.userContext.getLoggedInUser();
+		
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
