@@ -11,6 +11,6 @@ public interface AwardTypeService {
 	List<AwardType> getAllAwardTypes();
 	AwardType saveAwardType(AwardType awardType);
 	AwardType findAwardByName(String awardName);
-	
+	AwardType deactivateAwardType(Long id,AwardType awardType);
 
 }

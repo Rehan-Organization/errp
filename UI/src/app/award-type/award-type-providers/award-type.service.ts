@@ -17,5 +17,9 @@ export class AwardTypeService {
     saveAwardType(awardtype: AwardType): Observable<AwardType> {
         return this.http.post(URLS.NEW_AWARD_TYPE, awardtype);
     }
+
+    deactivateAwardType(id:any, award: AwardType): Observable<AwardType> {
+       return this.http.put(URLS.DEACTIVATE_AWARD_TYPE+id,award);
+ }
 }
 

@@ -3,6 +3,8 @@ package com.abs.errp.awardtype;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -37,7 +39,18 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 
 	@Override
 	public AwardType saveAwardType(AwardType awardType) {
-		return awardServiceRespository.save(awardType);
+
+        String awardName = awardType.getAwardName();
+		Optional<AwardType> award = Optional.ofNullable(findAwardByName(awardName));
+		
+			if(award.isPresent()) {	
+				
+				throw new AwardNameAlreadyExitsException("Award name alredy exsists");
+			}
+			else{				
+				return awardServiceRespository.save(awardType);
+			}
+		
 		
 	}
 
@@ -50,7 +63,16 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 
 	
 
+	@Override
+	public AwardType deactivateAwardType(Long id,AwardType awardType) {
 
+		AwardType award = this.awardServiceRespository.getById(id);
+		award.setAwardStatus(0);
+		return awardServiceRespository.save(award);
+
+	}
+	
+	
 	
 
 

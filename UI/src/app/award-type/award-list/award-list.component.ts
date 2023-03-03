@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AwardType } from '../award-type-model/award-type';
 import { AwardTypeService } from '../award-type-providers/award-type.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-view-award',
@@ -9,7 +10,7 @@ import { AwardTypeService } from '../award-type-providers/award-type.service';
     styleUrls: ['./award-list.component.scss'],
 })
 export class AwardListComponent implements OnInit {
-    constructor(private router: Router, private awardtypeservice: AwardTypeService) {}
+    constructor(private router: Router, private awardTypeservice: AwardTypeService,private alertController: AlertController) {}
 
     awardTypeList: AwardType[] = [];
 
@@ -18,14 +19,36 @@ export class AwardListComponent implements OnInit {
     }
 
     getAllaward() {
-        this.awardtypeservice
+        this.awardTypeservice
             .getAwardTypeList()
             .subscribe((awardTypeList) => {
               this.awardTypeList = awardTypeList
             });
     }
 
-    createAwards(awardtype:AwardType[]) {
-        this.router.navigate(['/home/awardTypes/create',awardtype]);
+    createAward() {
+        this.router.navigate(['/home/awardTypes/create']);
+    }
+
+    deactivateAward(award :AwardType) {
+
+        this.alertController.create({
+            header: 'Confirm Alert',
+            message: 'Are you sure? you want to deactivate award?',
+            buttons: [
+              {
+                text: 'Confirm',
+                handler: () => {
+                this.awardTypeservice.deactivateAwardType(award.id,award).subscribe();
+                }
+              },
+              {
+                text: 'Cancel',
+              }
+            ]
+          }).then(res => {
+            res.present();
+          });
+      
     }
 }

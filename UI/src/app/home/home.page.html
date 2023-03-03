@@ -25,10 +25,6 @@
                     <ion-icon name="chatbox-outline" slot="start"></ion-icon>
                     My Feedbacks
                 </ion-item>
-                <ion-item (click)="viewAwards()" lines="inset" button color="secondary">
-                    <ion-icon name="log-out-outline" slot="start"></ion-icon>
-                    View Awards
-                </ion-item>
                 <ion-item (click)="logout()" lines="inset" button color="secondary">
                     <ion-icon name="log-out-outline" slot="start"></ion-icon>
                     Logout
@@ -37,6 +33,15 @@
               
 
                
+            </ion-list>
+            <ion-list class="menu-list">
+                <ion-list-header>
+                    <ion-label>Admin</ion-label>
+                </ion-list-header>
+                <ion-item (click)="viewAwards()" lines="inset" button color="secondary">
+                    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+                    View Awards
+                </ion-item>
             </ion-list>
         </ion-content>
     </ion-menu>
