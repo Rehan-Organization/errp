@@ -17,7 +17,7 @@ export class FeedbackService {
     return this.http.post<Feedback>(URLS.FEEDBACK, feedback);
   }
 
-  getFeedback(): Observable<Employee>{
+  getReportees(): Observable<Employee>{
     return this.http.get<Employee>(URLS.FEEDBACK)
   }
 }
