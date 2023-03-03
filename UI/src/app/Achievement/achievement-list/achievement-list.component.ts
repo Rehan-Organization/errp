@@ -11,12 +11,8 @@ import { AchievementService } from '../achievement.service';
 })
 export class AchievementListComponent implements OnInit {
 
-<<<<<<< Updated upstream
   //achievement : Achievement[] = [];
   userId = 2
-=======
-  
->>>>>>> Stashed changes
 
   constructor(private router:Router, private achievementService : AchievementService) {}
 
@@ -30,11 +26,7 @@ export class AchievementListComponent implements OnInit {
 
   getAchievement()
   {
-<<<<<<< Updated upstream
-    this.achievementService.getAllAchievement(this.userId).subscribe(Achievement => this.Achievement = Achievement);
-=======
-    this.achievementService.getAllAchievement().subscribe(Achievement => this.achievements = Achievement);
->>>>>>> Stashed changes
+    this.achievementService.getAllAchievement(this.userId).subscribe(Achievement => this.achievements = Achievement);
   }
 
   addAchievement(){
