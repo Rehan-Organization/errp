@@ -3,7 +3,7 @@
       <ion-title>Add Achievement</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="ion-padding">
 
     <ion-card>
       <ion-card-header>
@@ -12,16 +12,40 @@
       </ion-card-header>
       
       <ion-card-content>
-        <ion-item>
+
+        <ion-item fill="outline" id="title" counter="true" [counterFormatter]="customCounterFormatter">
           <ion-label position="floating">Title</ion-label>
-          <ion-input [clearInput]="true" placeholder="Enter title for an Achievement"></ion-input>
+          <ion-input 
+          maxlength="50" minlength="20"
+          [clearInput]="true" 
+          placeholder="Enter title for an Achievement"
+          ></ion-input>
         </ion-item>
-        <ion-item>
+
+        <ion-item fill="outline" id="description" counter="true" [counterFormatter]="customCounterFormatter">
           <ion-label position="floating">Description</ion-label>
-          <ion-input [clearInput]="true" placeholder="Enter Description"></ion-input>
+          <ion-input 
+          maxlength="200" 
+          [clearInput]="true" 
+          placeholder="Enter Description"
+          ></ion-input>
         </ion-item>
+
+        <ion-item fill="outline" id="description" counter="true" [counterFormatter]="customCounterFormatter">
+          <ion-label position="floating">Description</ion-label>
+          <ion-input 
+          class=" " (keypress)="onKeyPress($event)"
+          maxlength="200" minlength="50"
+          [clearInput]="true" 
+          placeholder="Enter Description"
+          (ionChange)="onInputChange(asInputCustomEvent($event))"
+          inputmode="text"
+          ></ion-input>
+        </ion-item>
+
         <ion-button color="primary" >Save</ion-button>
         <ion-button color="primary">Submit</ion-button>
+
       </ion-card-content>
     </ion-card>
 </ion-content>

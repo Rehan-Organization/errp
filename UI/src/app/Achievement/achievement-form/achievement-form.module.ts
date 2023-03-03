@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddAchievementComponent } from './achievement-form.component';
+import { AchievementFormComponent } from './achievement-form.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 
-
 @NgModule({
-  declarations: [AddAchievementComponent],
+  declarations: [AchievementFormComponent],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule.forChild([{
       path: '',
-      component: AddAchievementComponent
+      component: AchievementFormComponent
     }])
   ]
 })

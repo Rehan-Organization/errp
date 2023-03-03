@@ -9,7 +9,7 @@ import { AchievementService } from '../achievement.service';
   templateUrl: './achievement-list.component.html',
   styleUrls: ['./achievement-list.component.scss'],
 })
-export class MyAchievementComponent implements OnInit {
+export class AchievementListComponent implements OnInit {
 
   //achievement : Achievement[] = [];
 
