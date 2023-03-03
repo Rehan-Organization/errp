@@ -11,21 +11,30 @@ import { AchievementService } from '../achievement.service';
 })
 export class AchievementListComponent implements OnInit {
 
+<<<<<<< Updated upstream
   //achievement : Achievement[] = [];
+  userId = 2
+=======
+  
+>>>>>>> Stashed changes
 
   constructor(private router:Router, private achievementService : AchievementService) {}
 
-  Achievement : Achievement[] = [];
+  achievements : Achievement[] = [];
 
   ngOnInit() {
 
-    this.getAwards();
+    this.getAchievement();
 
   }
 
-  getAwards()
+  getAchievement()
   {
-    this.achievementService.getAllAchievement().subscribe(Achievement => this.Achievement = Achievement);
+<<<<<<< Updated upstream
+    this.achievementService.getAllAchievement(this.userId).subscribe(Achievement => this.Achievement = Achievement);
+=======
+    this.achievementService.getAllAchievement().subscribe(Achievement => this.achievements = Achievement);
+>>>>>>> Stashed changes
   }
 
   addAchievement(){

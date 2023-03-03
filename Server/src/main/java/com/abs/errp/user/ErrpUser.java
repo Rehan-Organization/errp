@@ -1,8 +1,10 @@
 package com.abs.errp.user;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.abs.errp.entity.Achievement;
 
 @Entity(name = "ERRP_USER")
 public class ErrpUser {
@@ -31,11 +35,15 @@ public class ErrpUser {
 
 	@Column(name = "ENABLED")
 	private boolean enabled;
+	
+
+	
 
 	@ManyToOne
 	@JoinColumn(name = "SUPERVISOR_ID")
 	private ErrpUser supervisor;
-
+	
+	
 	@OneToMany(mappedBy = "supervisor")
 	private Set<ErrpUser> reportees;
 	
