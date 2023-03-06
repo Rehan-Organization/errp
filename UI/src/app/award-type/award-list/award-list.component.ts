@@ -45,7 +45,8 @@ export class AwardListComponent implements OnInit {
                     {
                         text: 'Confirm',
                         handler: () => {
-                            this.awardTypeService.deactivateAwardType(award.id, award).subscribe();
+                            award.awardStatus = 0;
+                            this.awardTypeService.updateAwardType(award.id, award).subscribe();
                         },
                     },
                 ],

@@ -50,9 +50,9 @@ public class AwardTypeController {
 	
 
 
-	@PutMapping("/deactivateAwardType/{id}")
-	public ResponseEntity<AwardType> deactivateAwardType(@PathVariable long id,@RequestBody AwardType awardType){
-		return new ResponseEntity<AwardType>(awardTypeServices.deactivateAwardType(id,awardType),HttpStatus.CREATED);
+	@PutMapping("/updateAwardType/{id}")
+	public ResponseEntity<AwardType> updateAwardType(@PathVariable long id,@RequestBody AwardType awardType){
+		return new ResponseEntity<AwardType>(awardTypeServices.updateAwardType(id,awardType),HttpStatus.CREATED);
 		
 	}
 	

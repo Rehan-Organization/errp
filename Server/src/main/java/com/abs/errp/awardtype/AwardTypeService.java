@@ -12,6 +12,6 @@ public interface AwardTypeService {
 	
 	AwardType findAwardByName(String awardName);
 	
-	AwardType deactivateAwardType(Long id,AwardType awardType);
+	AwardType updateAwardType(Long id,AwardType awardType);
 
 }

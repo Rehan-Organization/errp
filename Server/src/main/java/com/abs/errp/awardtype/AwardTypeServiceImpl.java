@@ -55,10 +55,17 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 	
 
 	@Override
-	public AwardType deactivateAwardType(Long id,AwardType awardType) {
+	public AwardType updateAwardType(Long id,AwardType awardType) {
 
 		AwardType award = this.awardServiceRespository.getReferenceById(id);
-		award.setAwardStatus(0);
+		
+		award.setAwardName(awardType.getAwardName());
+		award.setAwardPoints(awardType.getAwardPoints());
+		award.setAwardStatus(awardType.getAwardStatus());
+		award.setCreatedDate(awardType.getCreatedDate());
+		award.setLastUpdatedDate(awardType.getLastUpdatedDate());
+		award.setDescription(awardType.getDescription());
+		
 		return awardServiceRespository.save(award);
 
 	}
@@ -68,6 +75,7 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 
 
 
+	
 
 	
 
