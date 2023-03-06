@@ -21,7 +21,12 @@ import { FormsModule } from '@angular/forms';
       {
         path:'create',
         component:AwardFormComponent
+      },
+      {
+        path:'edit/:id',
+        component:AwardFormComponent
       }
+    
     ])
   ]
 })

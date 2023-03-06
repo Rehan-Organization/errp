@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.abs.errp.awardtype.Exception.AwardNameAlreadyExistsException;
+import com.abs.errp.awardtype.Exception.AwardTypeNotFoundException;
+
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 
@@ -36,7 +39,7 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 		Optional<AwardType> award = Optional.ofNullable(findAwardByName(awardName));
 		
 			if(award.isPresent()) {	
-				throw new AwardNameAlreadyExitsException("Award name alredy exsists");
+				throw new AwardNameAlreadyExistsException("Award name alredy exsists");
 			}
 			else{		
 				return awardServiceRespository.save(awardType);
@@ -68,6 +71,18 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 		
 		return awardServiceRespository.save(award);
 
+	}
+
+
+	@Override
+	public AwardType getAwardTypeById(long id) {
+		if(awardServiceRespository.findById(id).isPresent()) {
+			return awardServiceRespository.findById(id).get();
+		}
+		else {
+			
+			throw new AwardTypeNotFoundException("AwardType","Id",id);
+		}
 	}
 	
 	

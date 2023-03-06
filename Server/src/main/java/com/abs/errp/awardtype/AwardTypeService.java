@@ -12,6 +12,8 @@ public interface AwardTypeService {
 	
 	AwardType findAwardByName(String awardName);
 	
+	AwardType getAwardTypeById(long id);
+	
 	AwardType updateAwardType(Long id,AwardType awardType);
 
 }

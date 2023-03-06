@@ -13,13 +13,22 @@ export class AwardFormComponent implements OnInit {
     awardTypeList: AwardType[] = [];
     awardType: AwardType = {};
     errorMessage: string = '';
-
+    flag : boolean = false;
+    
     constructor(
         private router: Router,
         private awardTypeService: AwardTypeService,
         private route: ActivatedRoute,
         private alertController: AlertController
-    ) {}
+    ) {
+        if(this.router.url=="/home/awardTypes/create"){
+            this.flag=true;
+        }
+        else if(this.router.url=="/home/awardTypes/edit/award.id"){
+            this.flag=false;
+        }
+    }
+
 
     numericOnly(event: { key: string }): boolean {
         let pattern = /^([0-9])$/;
@@ -31,6 +40,7 @@ export class AwardFormComponent implements OnInit {
         const today = new Date();
         this.awardType.createdDate = today;
         this.awardType.lastUpdatedDate = today;
+        
 
         if (!this.awardType.awardName?.trim()) {
             this.showAlert('Award name cannot be empty!');
@@ -86,5 +96,61 @@ export class AwardFormComponent implements OnInit {
             });
     }
 
-    ngOnInit() {}
+    updateAward() {
+        const today = new Date();
+        this.awardType.lastUpdatedDate = today;
+       
+       
+
+        if (!this.awardType.awardName?.trim()) {
+            this.showAlert('Award name cannot be empty!');
+        } else if (this.awardType.awardPoints == null) {
+            this.showAlert('Award points cannot be empty!');
+        } else if (!this.awardType.description?.trim()) {
+            this.showAlert('Award description cannot be empty!');
+        } else {
+            this.alertController
+                .create({
+                    header: 'Are you sure?',
+                    message: 'update award?',
+                    buttons: [
+                        {
+                            text: 'Cancel',
+                        },
+                        {
+                            text: 'Confirm',
+                            handler: () => {
+                                this.awardTypeService
+                                    .updateAwardType(this.awardType.id, this.awardType)
+                                    .subscribe(
+                                        (data) => {
+                                            (this.awardType = data),
+                                                this.router.navigate(['/home/awardTypes']);
+                                        },
+                                        (err) => {
+                                            (this.errorMessage = err.message),
+                                                this.showAlert(this.errorMessage);
+                                        }
+                                    );
+                            },
+                        },
+                    ],
+                })
+                .then((res) => {
+                    res.present();
+                });
+        }
+    }
+
+    ngOnInit() {
+        const isIdPresent = this.route.snapshot.paramMap.has('id');
+        if (isIdPresent) {
+            const id = this.route.snapshot.paramMap.get('id');
+            this.awardTypeService.getAwardType(id).subscribe((data) => {
+                this.awardType = data;
+            });
+        }
+    }
+
+   
 }

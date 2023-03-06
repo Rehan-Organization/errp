@@ -20,4 +20,8 @@ export class AwardTypeService {
     updateAwardType(id: any, award: AwardType): Observable<AwardType> {
         return this.http.put(URLS.UPDATE_AWARD_TYPE + id, award);
     }
+
+    getAwardType(id:any):Observable<AwardType>{
+        return this.http.get(URLS.GET_AWARD_TYPE + id);
+    }
 }
