@@ -1,48 +1,78 @@
 package com.abs.errp.feedback;
 
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.abs.errp.entity.Feedback;
+import com.abs.errp.security.LoggedInUser;
+import com.abs.errp.security.LoggedInUserContext;
 import com.abs.errp.user.ErrpUser;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService{
 	
+	@Autowired
+	LoggedInUserContext userContext;
+	
 	private FeedbackRepository feedbackRepository;
-
 	private ErrpUserRepository errpUserRepository;
 
 	public FeedbackServiceImpl(FeedbackRepository feedbackRepository,ErrpUserRepository errpUserRepository) {
 		super();
 		this.feedbackRepository = feedbackRepository;
 		this.errpUserRepository = errpUserRepository;
-
 	}
 
 	@Override
 	public ResponseEntity<Feedback> saveFeedback(Feedback feedback) {
-		feedback.setCreatedDate(new Date());
-		feedback.setLastUpdatedDate(new Date());
-//		feedback.setSenderId(0); 
 		return new ResponseEntity<Feedback>(feedbackRepository.save(feedback),HttpStatus.CREATED);
 	}
 
 
 	@Override
-	public List<ErrpUser> fetchAllUsers() {
+	public ResponseEntity<List<ErrpUser>> fetchAllUsers() {
+		LoggedInUser user = this.userContext.getLoggedInUser();
 		ErrpUser e=new ErrpUser();
-		long id=0;
-		e.setEmployeeId(id);
-		return errpUserRepository.findBySupervisor(e);
+		e.setEmployeeId(user.getEmployeeId());
+		List<ErrpUser> userData = errpUserRepository.findBySupervisor(e);
+		return ResponseEntity.ok(userData);
 	}
 
 	@Override
-	public List<Feedback> fetchAllFeedbacks() {
-		return feedbackRepository.findAll();
+	public ResponseEntity<List<Feedback>> fetchMyFeedbacks(long flag) {
+		LoggedInUser user = this.userContext.getLoggedInUser();
+		List<Feedback> FeedbackData;
+		if(flag==1)
+		{
+		    FeedbackData = feedbackRepository.findBySenderId(user.getEmployeeId());
+		}
+		else {
+			FeedbackData = feedbackRepository.findByReceiverId(user.getEmployeeId());
+		}
+		Collections.reverse(FeedbackData);
+		return ResponseEntity.ok(FeedbackData);
 	}
 
+	@Override
+	public ResponseEntity<Feedback> modifyFeedbacks(Feedback feedback, long id) {
+		Feedback updateFeedback = feedbackRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Feedback not exist with id: " + id));
+
+		updateFeedback.setTitle(feedback.getTitle());
+		updateFeedback.setDescription(feedback.getDescription());
+		updateFeedback.setLastUpdatedDate(feedback.getLastUpdatedDate());
+
+		feedbackRepository.save(updateFeedback);
+
+        return ResponseEntity.ok(updateFeedback);
+	}
+
+	@Override
+	public void deleteByFeedbackId(long id) {
+		feedbackRepository.deleteById(id);
+	}
 
 }

@@ -1,20 +1,18 @@
 package com.abs.errp.feedback;
 
 import java.util.List;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.abs.errp.entity.Feedback;
 import com.abs.errp.user.ErrpUser;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/")
 public class FeedbackController {
@@ -31,16 +29,27 @@ public class FeedbackController {
 		return feedbackService.saveFeedback(feedback);
 	}
 	
-
 	@GetMapping("/getReportees")
-	public List<ErrpUser> fetchAllUsers()
+	public ResponseEntity<List<ErrpUser>> fetchAllUsers()
 	{
 		return this.feedbackService.fetchAllUsers();
 	}
-
-	@GetMapping("/getFeedbacks")
-	public List<Feedback> fetchAllFeedbacks()
+	
+	@GetMapping("/getFeedbacks/{isMyFeedback}")
+	public ResponseEntity<List<Feedback>> fetchAllFeedbacks(@PathVariable long isMyFeedback)
 	{
-		return this.feedbackService.fetchAllFeedbacks();
+		return this.feedbackService.fetchMyFeedbacks(isMyFeedback);
+	}
+	
+	@PutMapping("/saveFeedback/{id}")
+	public ResponseEntity<Feedback> updateFeedbacks(@RequestBody Feedback feedback, @PathVariable long id)
+	{
+		ResponseEntity<Feedback> updatedFeedback = this.feedbackService.modifyFeedbacks(feedback, id);
+		return updatedFeedback;
+	}
+	
+	@DeleteMapping("/removeFeedback/{id}")
+	   void deleteFeedback(@PathVariable("id") Long id) {
+	   this.feedbackService.deleteByFeedbackId(id);
 	}
 }

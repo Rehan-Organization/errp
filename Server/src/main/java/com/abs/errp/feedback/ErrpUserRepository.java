@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.abs.errp.user.ErrpUser;
 
 public interface ErrpUserRepository extends JpaRepository<ErrpUser,Long> {
-    List<ErrpUser> findBySupervisor(ErrpUser e);
+	List<ErrpUser> findBySupervisor(ErrpUser e);
 }
