@@ -7,9 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
-    children: ([{ 
-      path: 'addfeedback', loadChildren: () => import('../feedback/add-feedback/add-feedback.module').then(m => m.AddFeedbackModule)
-    }])
+    children: [
+      {
+        path: 'viewFeedback', loadChildren: () => import('../feedback/view-feedback/view-feedback.module').then(m => m.ViewFeedbackModule)
+      }
+    ]
   }
     // children: ([{
     //   path:'addfeedback', component:AddFeedbackComponent

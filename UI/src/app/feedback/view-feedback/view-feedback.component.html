@@ -1,0 +1,56 @@
+<ion-header class="abs-menu-header">
+  <ion-toolbar color="primary">
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline" >
+          <ion-select [(ngModel)]="choosenOption"  placeholder="Select employee" (ionChange)="fetchFeedbacks()" >
+            <ion-select-option *ngFor="let option of options" [value]="option">
+              {{option}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-item *ngIf="flag" class="search">
+          <ion-label>Search Employee:</ion-label>
+          <ion-input placeholder="Enter Name" [(ngModel)]="enteredName">
+
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button color="medium" (click)="addFeedback()">Add Feedback</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card *ngFor="let feedback of defaultFeedbacks">
+    <div *ngIf="enteredName === '' || map.get(feedback.receiverId)?.toLowerCase()?.includes(enteredName)">
+      <ion-card-header>
+        <ion-card-title>
+          {{feedback.title}}
+        </ion-card-title><ion-card-subtitle>
+          <ion-grid>
+            <ion-row>
+              <ion-col *ngIf="flag">{{map.get(feedback.receiverId)}}</ion-col>
+              <ion-col *ngIf="!flag">{{map.get(feedback.senderId)}}</ion-col>
+              <ion-col size="auto">{{feedback.last_updated_date}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>{{feedback.description}}</ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col></ion-col>
+          <ion-col size="auto" *ngIf="flag"><ion-button color="danger" (click)="deleteFeedback(feedback)">Delete</ion-button></ion-col>
+          <ion-col size="auto" *ngIf="flag"><ion-button color="navy" (click)="updateFeedback(feedback)">Update</ion-button></ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-card>
+</ion-content>

@@ -20,8 +20,8 @@ export class HomePage {
         );
     }
 
-    addFeedBack(){
-        this.router.navigate(["home/addfeedback"])
+    viewFeedBack(){
+        this.router.navigate(["home/viewFeedback"])
     }
 
     logout() {
