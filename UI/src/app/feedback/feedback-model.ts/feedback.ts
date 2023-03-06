@@ -1,5 +1,5 @@
 export interface Feedback{
-   feedback_id?:number,
+   id?:number,
    sender_id?:number,
    receiver_id?:number,
    title?:String,

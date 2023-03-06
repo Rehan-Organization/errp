@@ -24,6 +24,7 @@ export class AddFeedbackComponent implements OnInit {
   
   addFeedback(feedback: Feedback)
   {
+    alert(this.employees.length);
     feedback.receiverId=this.selectedValue;
     this.feedbackService.saveFeedback(feedback).subscribe(feedbackResponse => {
       console.log(feedbackResponse)

@@ -15,13 +15,11 @@ export class FeedbackService {
 
   fetchAllFeedbacks(id:number) : Observable<Feedback[]>
   {
-    return this.http.post<Feedback[]>("http://localhost:8080/emp/feedbacks",id);
+    return this.http.get<Feedback[]>(URLS.FETCHFEEDBACKS+"/"+id);
   }
   removeFeedback(id:any) : Observable<Feedback>
   {
-    // let queryParams = new HttpParams();    
-    // queryParams = queryParams.append("id",id);      
-    return this.http.delete('http://localhost:8080/emp/deleteFeedback?id=`${idi}`');
+    return this.http.delete(URLS.DELETEFEEDBACK+"/"+id);
   }
 
   saveFeedback(feedback: Feedback): Observable<Feedback>{
@@ -29,7 +27,7 @@ export class FeedbackService {
   }
 
   getReportees(): Observable<Employee[]>{
-    return this.http.get<Employee[]>("http://localhost:8080/api/v1/getReportees");
+    return this.http.get<Employee[]>(URLS.FETCHREPORTEES);
   }
   fetchEmployee(id?:number)
   {

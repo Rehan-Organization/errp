@@ -26,152 +26,6 @@ export class ViewFeedbackComponent implements OnInit {
     choosenOption: string = 'My Feedbacks';
     flag?: number;
     enteredName: string = '';
-    defaultFeedbacks: Feedback[] = [
-        {
-            feedbackId: 1,
-            senderId: 1,
-            receiverId: 2,
-            employeeName: "pushkar joshi",
-            supervisorName: 'Om Jadhao',
-            title: 'good performance',
-            description:
-                'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-            created_date: new Date(),
-            last_updated_date: new Date(),
-        },
-        {
-            feedbackId: 2,
-            senderId: 2,
-            receiverId: 3,
-            employeeName: "Shankar Waghmode",
-            supervisorName: 'Om Jadhao',
-            title: 'good performance',
-            description:
-                'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-            created_date: new Date(),
-            last_updated_date: new Date(),
-        },
-        {
-            feedbackId: 3,
-            senderId: 3,
-            receiverId: 4,
-            employeeName: "Raj Jadhav",
-            supervisorName: 'Om Jadhao',
-            title: 'good performance',
-            description:
-                'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-            created_date: new Date(),
-            last_updated_date: new Date(),
-        },
-        {
-          feedbackId: 1,
-          senderId: 1,
-          receiverId: 2,
-          employeeName: "pushkar joshi",
-          supervisorName: 'Om Jadhao',
-          title: 'good performance',
-          description:
-              'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-          created_date: new Date(),
-          last_updated_date: new Date(),
-      },
-      {
-          feedbackId: 2,
-          senderId: 2,
-          receiverId: 3,
-          employeeName: "Shankar Waghmode",
-          supervisorName: 'Om Jadhao',
-          title: 'good performance',
-          description:
-              'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-          created_date: new Date(),
-          last_updated_date: new Date(),
-      },
-      {
-          feedbackId: 3,
-          senderId: 3,
-          receiverId: 4,
-          employeeName: "Raj Jadhav",
-          supervisorName: 'Om Jadhao',
-          title: 'good performance',
-          description:
-              'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-          created_date: new Date(),
-          last_updated_date: new Date(),
-      },
-      {
-        feedbackId: 1,
-        senderId: 1,
-        receiverId: 2,
-        employeeName: "pushkar joshi",
-        supervisorName: 'Om Jadhao',
-        title: 'good performance',
-        description:
-            'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-        created_date: new Date(),
-        last_updated_date: new Date(),
-    },
-    {
-        feedbackId: 2,
-        senderId: 2,
-        receiverId: 3,
-        employeeName: "Shankar Waghmode",
-        supervisorName: 'Om Jadhao',
-        title: 'good performance',
-        description:
-            'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-        created_date: new Date(),
-        last_updated_date: new Date(),
-    },
-    {
-        feedbackId: 3,
-        senderId: 3,
-        receiverId: 4,
-        employeeName: "Raj Jadhav",
-        supervisorName: 'Om Jadhao',
-        title: 'good performance',
-        description:
-            'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-        created_date: new Date(),
-        last_updated_date: new Date(),
-    },
-    {
-      feedbackId: 1,
-      senderId: 1,
-      receiverId: 2,
-      employeeName: "pushkar joshi",
-      supervisorName: 'Om Jadhao',
-      title: 'good performance',
-      description:
-          'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-      created_date: new Date(),
-      last_updated_date: new Date(),
-  },
-  {
-      feedbackId: 2,
-      senderId: 2,
-      receiverId: 3,
-      employeeName: "Shankar Waghmode",
-      supervisorName: 'Om Jadhao',
-      title: 'good performance',
-      description:
-          'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-      created_date: new Date(),
-      last_updated_date: new Date(),
-  },
-  {
-      feedbackId: 3,
-      senderId: 3,
-      receiverId: 4,
-      employeeName: "Raj Jadhav",
-      supervisorName: 'Om Jadhao',
-      title: 'good performance',
-      description:
-          'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-      created_date: new Date(),
-      last_updated_date: new Date(),
-  }
-    ];
     ngOnInit() {
         // this.updateSubscription = interval(3000).subscribe((val) => { this.fetchFeedbacks()});
         this.fetchFeedbacks();
@@ -217,20 +71,20 @@ export class ViewFeedbackComponent implements OnInit {
     deleteFeedback(feedback: Feedback) {
         if (confirm('Are you sure you want to delete ? ')) {
             // this.feedbacks = this.feedbacks.filter(newFeedback => newFeedback.id != feedback.id);
-            this.feedbackService.removeFeedback(feedback.feedbackId).subscribe((feedback) => {
+            this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
                 if (feedback == null) alert('Failed to delete');
                 else {
                     alert('Successfully deleted feedback');
                     // this.fetchFeedbacks();
                     this.feedbacks = this.feedbacks.filter(
-                        (newFeedback) => newFeedback.feedbackId != feedback.feedbackId
+                        (newFeedback) => newFeedback.id != feedback.id
                     );
                 }
             });
         }
     }
     updateFeedback(feedback: Feedback) {
-        alert(feedback.feedbackId);
+        alert(feedback.id);
         // this.router.navigate["home/updatefeedback"];
     }
 }

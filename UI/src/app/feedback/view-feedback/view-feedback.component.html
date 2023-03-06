@@ -1,9 +1,5 @@
 <ion-header class="abs-menu-header">
     <ion-toolbar color="primary">
-        <ion-segment value="all">
-            <!-- <ion-segment-button value="all">My Feedbacks</ion-segment-button> -->
-            <!-- <ion-segment-button value="favorites">Given Feedbacks</ion-segment-button> -->
-        </ion-segment>
     </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -43,18 +39,18 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-card *ngFor="let feedback of defaultFeedbacks | paginate : { itemsPerPage: 5, currentPage: p }">
+    <ion-card *ngFor="let feedback of feedbacks ">
         <div *ngIf="enteredName === '' || feedback.employeeName?.toLowerCase()?.includes(enteredName)">
             <ion-card-header>
                 <ion-card-subtitle>
                     {{ feedback.employeeName }}
-                    <!-- <ion-grid>
+                    <ion-grid>
                       <ion-row>
-                          <ion-col *ngIf="flag">{{ map.get(feedback.receiverId) }}</ion-col>
-                          <ion-col *ngIf="!flag">{{ map.get(feedback.senderId) }}</ion-col>
-                          <ion-col size="auto">{{ feedback.last_updated_date }}</ion-col>
+                          <ion-col *ngIf="flag">{{ feedback.employeeName }}</ion-col>
+                          <ion-col *ngIf="!flag">{{ feedback.supervisorName }}</ion-col>
+                          <ion-col size="auto">{{ feedback.lastUpdatedDate }}</ion-col>
                       </ion-row>
-                  </ion-grid> -->
+                  </ion-grid>
                 </ion-card-subtitle>
                 <ion-card-title>
                     {{ feedback.title }}
@@ -75,7 +71,4 @@
         </div>
     </ion-card>
 </ion-content>
-<div>
-    <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
-</div>
 
