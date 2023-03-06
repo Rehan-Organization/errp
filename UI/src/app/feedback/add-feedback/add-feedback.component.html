@@ -1,44 +1,41 @@
 <ion-header class="abs-menu-header">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
+    <ion-card class="ion-margin-bottom ion-margin-top">
+        <ion-card-header>
+            <ion-card-title>Add Feedback</ion-card-title>
+        </ion-card-header>
+        <ion-list>
+            <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline">
+                <ion-select [(ngModel)]="selectedValue" placeholder="Select employee">
+                    <ion-select-option *ngFor="let employee of employees" [value]="employee.employeeId">
+                        {{ employee.employeeName }}
+                        <!-- <ion-input hidden [(ngModel)]="employee.employeeId"></ion-input> -->
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
 
-  <ion-card class="ion-margin-bottom ion-margin-top">
+            <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
+                <ion-label position="floating">Title</ion-label>
+                <ion-input placeholder="Enter title" [(ngModel)]="feedback.title"></ion-input>
+            </ion-item>
 
-    <ion-card-header>
-      <ion-card-title>Add Feedback</ion-card-title>
-    </ion-card-header>
-    <ion-list>
-
-      <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline" >
-        <ion-select [(ngModel)]="selectedValue" placeholder="Select employee">
-          <ion-select-option *ngFor="let employee of employees" [value]="employee.employeeId">
-            {{employee.employeeName}}
-            <!-- <ion-input hidden [(ngModel)]="employee.employeeId"></ion-input> -->
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
-        <ion-label position="floating">Title</ion-label>
-        <ion-input placeholder="Enter title" [(ngModel)]="feedback.title"></ion-input>
-      </ion-item>
-
-      <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
-        <ion-label position="floating">Description</ion-label>
-        <ion-textarea placeholder="Enter description" [(ngModel)]="feedback.description"></ion-textarea>
-      </ion-item>
-
-    </ion-list>
-    <ion-button class="ion-margin-bottom ion-margin-start ion-margin-end" (click)=cancelForm()>Cancel</ion-button>
-    <ion-button color="primary" class="ion-margin-bottom ion-margin-start ion-margin-end" (click)=addFeedback(feedback)>Submit</ion-button>
-
-  </ion-card>
-
+            <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
+                <ion-label position="floating">Description</ion-label>
+                <ion-textarea placeholder="Enter description" [(ngModel)]="feedback.description"></ion-textarea>
+            </ion-item>
+        </ion-list>
+        <ion-button class="ion-margin-bottom ion-margin-start ion-margin-end" (click)="cancelForm()">Cancel</ion-button>
+        <ion-button
+            color="primary"
+            class="ion-margin-bottom ion-margin-start ion-margin-end"
+            (click)="addFeedback(feedback)"
+            >Submit</ion-button
+        >
+    </ion-card>
 </ion-content>
-
-

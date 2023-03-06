@@ -5,16 +5,13 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-
-
 @NgModule({
-  declarations: [AddFeedbackComponent],
-  imports: [
-    CommonModule,
-    IonicModule,
-    FormsModule,
-    RouterModule.forChild([{path:'', component:AddFeedbackComponent}])
-    
-  ]
+    declarations: [AddFeedbackComponent],
+    imports: [
+        CommonModule,
+        IonicModule,
+        FormsModule,
+        RouterModule.forChild([{ path: '', component: AddFeedbackComponent }]),
+    ],
 })
-export class AddFeedbackModule { }
+export class AddFeedbackModule {}

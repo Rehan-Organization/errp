@@ -1,6 +1,5 @@
 <ion-header class="abs-menu-header">
-    <ion-toolbar color="primary">
-    </ion-toolbar>
+    <ion-toolbar color="primary"> </ion-toolbar>
 </ion-header>
 <ion-content>
     <ion-grid>
@@ -14,7 +13,7 @@
                         <ion-label>Feedbacks Given By Me</ion-label>
                     </ion-segment-button>
                 </ion-segment>
-                <ion-searchbar [(ngModel)]="enteredName"></ion-searchbar>
+                <ion-searchbar [(ngModel)]="searchEmployee"></ion-searchbar>
 
                 <!-- <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline">
                     <ion-select
@@ -39,18 +38,18 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-card *ngFor="let feedback of feedbacks ">
-        <div *ngIf="enteredName === '' || feedback.employeeName?.toLowerCase()?.includes(enteredName)">
+    <ion-card *ngFor="let feedback of feedbacks">
+        <div *ngIf="searchEmployee === '' || feedback.employeeName?.toLowerCase()?.includes(searchEmployee)">
             <ion-card-header>
                 <ion-card-subtitle>
                     {{ feedback.employeeName }}
                     <ion-grid>
-                      <ion-row>
-                          <ion-col *ngIf="flag">{{ feedback.employeeName }}</ion-col>
-                          <ion-col *ngIf="!flag">{{ feedback.supervisorName }}</ion-col>
-                          <ion-col size="auto">{{ feedback.lastUpdatedDate }}</ion-col>
-                      </ion-row>
-                  </ion-grid>
+                        <ion-row>
+                            <ion-col *ngIf="isMyFeedbacks">{{ feedback.employeeName }}</ion-col>
+                            <ion-col *ngIf="!isMyFeedbacks">{{ feedback.supervisorName }}</ion-col>
+                            <ion-col size="auto">{{ feedback.lastUpdatedDate }}</ion-col>
+                        </ion-row>
+                    </ion-grid>
                 </ion-card-subtitle>
                 <ion-card-title>
                     {{ feedback.title }}
@@ -60,10 +59,10 @@
             <ion-grid>
                 <ion-row>
                     <ion-col></ion-col>
-                    <ion-col size="auto" *ngIf="flag"
+                    <ion-col size="auto" *ngIf="isMyFeedbacks"
                         ><ion-button color="danger" (click)="deleteFeedback(feedback)">Delete</ion-button></ion-col
                     >
-                    <ion-col size="auto" *ngIf="flag"
+                    <ion-col size="auto" *ngIf="isMyFeedbacks"
                         ><ion-button color="navy" (click)="updateFeedback(feedback)">Update</ion-button></ion-col
                     >
                 </ion-row>
