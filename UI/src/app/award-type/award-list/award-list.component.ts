@@ -10,45 +10,48 @@ import { AlertController } from '@ionic/angular';
     styleUrls: ['./award-list.component.scss'],
 })
 export class AwardListComponent implements OnInit {
-    constructor(private router: Router, private awardTypeservice: AwardTypeService,private alertController: AlertController) {}
+    constructor(
+        private router: Router,
+        private awardTypeService: AwardTypeService,
+        private alertController: AlertController
+    ) {}
 
     awardTypeList: AwardType[] = [];
-
+    
     ngOnInit() {
         this.getAllaward();
     }
 
     getAllaward() {
-        this.awardTypeservice
-            .getAwardTypeList()
-            .subscribe((awardTypeList) => {
-              this.awardTypeList = awardTypeList
-            });
+        this.awardTypeService.getAwardTypeList().subscribe((awardTypeList) => {
+            this.awardTypeList = awardTypeList.reverse();
+        });
+        
     }
 
     createAward() {
         this.router.navigate(['/home/awardTypes/create']);
     }
 
-    deactivateAward(award :AwardType) {
-
-        this.alertController.create({
-            header: 'Confirm Alert',
-            message: 'Are you sure? you want to deactivate award?',
-            buttons: [
-              {
-                text: 'Confirm',
-                handler: () => {
-                this.awardTypeservice.deactivateAwardType(award.id,award).subscribe();
-                }
-              },
-              {
-                text: 'Cancel',
-              }
-            ]
-          }).then(res => {
-            res.present();
-          });
-      
+    deactivateAward(award: AwardType) {
+        this.alertController
+            .create({
+                header: 'Are you sure?',
+                message: 'deactivate this award?',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                    },
+                    {
+                        text: 'Confirm',
+                        handler: () => {
+                            this.awardTypeService.deactivateAwardType(award.id, award).subscribe();
+                        },
+                    },
+                ],
+            })
+            .then((res) => {
+                res.present();
+            });
     }
 }

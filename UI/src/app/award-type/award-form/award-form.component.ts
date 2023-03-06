@@ -16,7 +16,7 @@ export class AwardFormComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private awardtypeservice: AwardTypeService,
+        private awardTypeService: AwardTypeService,
         private route: ActivatedRoute,
         private alertController: AlertController
     ) {}
@@ -36,18 +36,21 @@ export class AwardFormComponent implements OnInit {
             this.showAlert('Award name cannot be empty!');
         } else if (this.awardType.awardPoints == null) {
             this.showAlert('Award points cannot be empty!');
-        } else if (this.awardType.description?.trim == null) {
+        } else if (!this.awardType.description?.trim()) {
             this.showAlert('Award description cannot be empty!');
         } else {
             this.alertController
                 .create({
-                    header: 'Confirm Alert',
-                    message: 'Are you sure? you want to create new award?',
+                    header: 'Are you sure?',
+                    message: 'create new award?',
                     buttons: [
+                        {
+                            text: 'Cancel',
+                        },
                         {
                             text: 'Confirm',
                             handler: () => {
-                                this.awardtypeservice.saveAwardType(this.awardType).subscribe(
+                                this.awardTypeService.saveAwardType(this.awardType).subscribe(
                                     (data) => {
                                         (this.awardType = data),
                                             this.router.navigate(['/home/awardTypes']);
@@ -58,9 +61,6 @@ export class AwardFormComponent implements OnInit {
                                     }
                                 );
                             },
-                        },
-                        {
-                            text: 'Cancel',
                         },
                     ],
                 })
