@@ -1,39 +1,45 @@
 <ion-header class="abs-menu-header">
-  <ion-toolbar color="primary">
-      
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button> </ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
+    <ion-card>
+        <form [formGroup]="feedbackForm" novalidate>
+            <ion-list>
+                <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline">
+                    <ion-select placeholder="Select employee">
+                        <ion-select-option *ngFor="let employee of employees">
+                            {{ employee }}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
 
-  <ion-card>
-    <form #form="ngForm"  [formGroup]="feebackForm">
-      <ion-list >
-        <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline" >
-          <ion-select  placeholder="Select employee"  >
-            <ion-select-option *ngFor="let employee of employees" >
-              {{employee}}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-  
-        <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
-          <ion-label position="floating">Title</ion-label>
-          <ion-input placeholder="Enter title" ></ion-input>
-        </ion-item>
-  
-        <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
-          <ion-label position="floating">Description</ion-label>
-          <ion-textarea placeholder="Enter description" ></ion-textarea>
-        </ion-item>
-  
-      </ion-list>
+                <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
+                    <ion-label position="floating">Title</ion-label>
+                    <ion-input placeholder="Enter title" formControlName="title" required ></ion-input>
+                    <div
+                        *ngIf="feedbackForm.controls.title.invalid && feedbackForm.controls.title.touched"
+                        color="primary"
+                    >
+                        Field cannot be empty
+                    </div>
+                </ion-item>
 
-        <ion-button class="ion-margin-bottom ion-margin-start ion-margin-end">Cancel</ion-button>
-        <ion-button color="primary" class="ion-margin-bottom ion-margin-start ion-margin-end">Submit</ion-button>
-    </form>
+                <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
+                    <ion-label position="floating">Description</ion-label>
+                    <ion-textarea placeholder="Enter description" formControlName="description" required required  ></ion-textarea>
 
-    
+                    <div *ngIf="feedbackForm.controls.description.invalid && feedbackForm.controls.description.touched" >
+                        Description cannot be empty
+                    </div>
+                </ion-item>
+            </ion-list>
 
-  </ion-card>
-    
+            <ion-button class="ion-margin-bottom ion-margin-start ion-margin-end" (click)="cancel()">Cancel</ion-button>
+            <ion-button color="primary" class="ion-margin-bottom ion-margin-start ion-margin-end" (click)="addFeedback()">Submit</ion-button>
+        </form>
+    </ion-card>
 </ion-content>
