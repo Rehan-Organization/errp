@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.abs.errp.entity.AwardType;
 
-import net.bytebuddy.implementation.bytecode.Throw;
-
 @RestController
 public class AwardTypeController {
 

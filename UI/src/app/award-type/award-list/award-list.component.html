@@ -24,7 +24,7 @@
             </ion-label>
                 <div slot="end">
                     <ion-button slot="icon-only" color="primary" fill="clear" *ngIf="award.awardStatus"><i class="fas fa-edit"></i></ion-button>
-                    <ion-button slot="icon-only" color="primary" fill="clear"  *ngIf="award.awardStatus" (click)="deactivateAward(award)"><i class="fas fa-ban"></i></ion-button>    
+                    <ion-button slot="icon-only" color="primary" fill="clear"  *ngIf="award.awardStatus" (click)="updateAward(award)"><i class="fas fa-ban"></i></ion-button>    
                 </div>
             </ion-item>    
         </ion-list>   

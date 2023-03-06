@@ -33,7 +33,7 @@ export class AwardListComponent implements OnInit {
         this.router.navigate(['/home/awardTypes/create']);
     }
 
-    deactivateAward(award: AwardType) {
+    updateAward(award: AwardType) {
         this.alertController
             .create({
                 header: 'Are you sure?',

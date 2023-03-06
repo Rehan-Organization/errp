@@ -9,7 +9,11 @@ import { AppAuthService } from '../providers/app-auth.service';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    constructor(private http: HttpClient, private authService: AppAuthService, private router:Router) {
+    constructor(
+        private http: HttpClient,
+        private authService: AppAuthService,
+        private router: Router
+    ) {
         this.http.get('/test').subscribe(
             () => {
                 console.log('TEST SUCCESS');
@@ -21,14 +25,12 @@ export class HomePage {
     }
 
     logout() {
-        this.authService.logout().subscribe(() => {
-            
-        })
-
-    
+        this.authService.logout().subscribe(() => {});
     }
-    viewAwards(){
-        this.router.navigate(['/home/awardTypes'])
+    viewAwards() {
+        this.router.navigate(['/home/awardTypes']);
+    }
+    leaderBoard() {
+        this.router.navigate(['/home/leaderboard']);
     }
 }
-
