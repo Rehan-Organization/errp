@@ -4,6 +4,9 @@ import { Employee } from '../employee';
 import { Feedback } from '../feedback';
 import { FeedbackService } from '../feedback.service';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-add-feedback',
   templateUrl: './add-feedback.component.html',
@@ -11,35 +14,19 @@ import { FeedbackService } from '../feedback.service';
 })
 export class AddFeedbackComponent implements OnInit {
 
-  feedback:Feedback = {};
-  
-  employees:Employee []=[];
-  selectedValue:number=5;
-  constructor(private feedbackService:FeedbackService, private route: ActivatedRoute) {
-   }
+  employees:any=[
+    "Avadhut Patil","Athrav Pandit",'Adarsh Suryawanshi'
+]
+
+feebackForm=new FormGroup({
+  name:new FormControl('',Validators.required),
+  email:new FormControl('',[Validators.required,Validators.email]),})
+
+
+  constructor() { }
 
   ngOnInit() {
-    this. fetchFeedback();
+    
   }
-  
-  addFeedback(feedback: Feedback)
-  {
-    feedback.receiverId=this.selectedValue;
-    this.feedbackService.saveFeedback(feedback).subscribe(feedbackResponse => {
-      console.log(feedbackResponse)
-   });
-  }
-  fetchFeedback()
-  {
-    this.feedbackService.getReportees().subscribe(reportee => this.employees=reportee);
-  }
-
-
-  
-   cancelForm(){
-    // this.employee[employeeName] = '';
-    // this.feedback.title = '';
-    // this.feedback.description = '';
-   }
 
 }
