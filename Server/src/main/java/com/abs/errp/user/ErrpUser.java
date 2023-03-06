@@ -12,8 +12,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "ERRP_USER")
+@Table(name="ERRP_USER")
 public class ErrpUser {
 
 	@Id
@@ -31,11 +35,13 @@ public class ErrpUser {
 
 	@Column(name = "ENABLED")
 	private boolean enabled;
-
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "SUPERVISOR_ID")
 	private ErrpUser supervisor;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "supervisor")
 	private Set<ErrpUser> reportees;
 	
