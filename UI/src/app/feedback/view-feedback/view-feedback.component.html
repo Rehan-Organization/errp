@@ -1,56 +1,81 @@
 <ion-header class="abs-menu-header">
-  <ion-toolbar color="primary">
-
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-segment value="all">
+            <!-- <ion-segment-button value="all">My Feedbacks</ion-segment-button> -->
+            <!-- <ion-segment-button value="favorites">Given Feedbacks</ion-segment-button> -->
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline" >
-          <ion-select [(ngModel)]="choosenOption"  placeholder="Select employee" (ionChange)="fetchFeedbacks()" >
-            <ion-select-option *ngFor="let option of options" [value]="option">
-              {{option}}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-      <ion-col size="auto">
-        <ion-item *ngIf="flag" class="search">
-          <ion-label>Search Employee:</ion-label>
-          <ion-input placeholder="Enter Name" [(ngModel)]="enteredName">
-
-          </ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col size="auto">
-        <ion-button color="medium" (click)="addFeedback()">Add Feedback</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-card *ngFor="let feedback of defaultFeedbacks">
-    <div *ngIf="enteredName === '' || map.get(feedback.receiverId)?.toLowerCase()?.includes(enteredName)">
-      <ion-card-header>
-        <ion-card-title>
-          {{feedback.title}}
-        </ion-card-title><ion-card-subtitle>
-          <ion-grid>
-            <ion-row>
-              <ion-col *ngIf="flag">{{map.get(feedback.receiverId)}}</ion-col>
-              <ion-col *ngIf="!flag">{{map.get(feedback.senderId)}}</ion-col>
-              <ion-col size="auto">{{feedback.last_updated_date}}</ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>{{feedback.description}}</ion-card-content>
-      <ion-grid>
+    <ion-grid>
         <ion-row>
-          <ion-col></ion-col>
-          <ion-col size="auto" *ngIf="flag"><ion-button color="danger" (click)="deleteFeedback(feedback)">Delete</ion-button></ion-col>
-          <ion-col size="auto" *ngIf="flag"><ion-button color="navy" (click)="updateFeedback(feedback)">Update</ion-button></ion-col>
+            <ion-col>
+                <ion-segment value="default" [(ngModel)]="choosenOption" (ionChange)="fetchFeedbacks()">
+                    <ion-segment-button value="My Feedbacks">
+                        <ion-label>My Feedbacks</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="Feedbacks Given By Me">
+                        <ion-label>Feedbacks Given By Me</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+                <ion-searchbar [(ngModel)]="enteredName"></ion-searchbar>
+
+                <!-- <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline">
+                    <ion-select
+                        [(ngModel)]="choosenOption"
+                        placeholder="Select employee"
+                        (ionChange)="fetchFeedbacks()"
+                    >
+                        <ion-select-option *ngFor="let option of options" [value]="option">
+                            {{ option }}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item> -->
+            </ion-col>
+            <!-- <ion-col size="auto">
+                <ion-item *ngIf="flag" class="search">
+                    <ion-label>Search Employee:</ion-label>
+                    <ion-input placeholder="Enter Name" [(ngModel)]="enteredName"> </ion-input>
+                </ion-item>
+            </ion-col> -->
+            <ion-col size="auto">
+                <ion-button color="medium" (click)="addFeedback()">Add Feedback</ion-button>
+            </ion-col>
         </ion-row>
-      </ion-grid>
-    </div>
-  </ion-card>
+    </ion-grid>
+    <ion-card *ngFor="let feedback of defaultFeedbacks | paginate : { itemsPerPage: 5, currentPage: p }">
+        <div *ngIf="enteredName === '' || feedback.employeeName?.toLowerCase()?.includes(enteredName)">
+            <ion-card-header>
+                <ion-card-subtitle>
+                    {{ feedback.employeeName }}
+                    <!-- <ion-grid>
+                      <ion-row>
+                          <ion-col *ngIf="flag">{{ map.get(feedback.receiverId) }}</ion-col>
+                          <ion-col *ngIf="!flag">{{ map.get(feedback.senderId) }}</ion-col>
+                          <ion-col size="auto">{{ feedback.last_updated_date }}</ion-col>
+                      </ion-row>
+                  </ion-grid> -->
+                </ion-card-subtitle>
+                <ion-card-title>
+                    {{ feedback.title }}
+                </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>{{ feedback.description }}</ion-card-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col></ion-col>
+                    <ion-col size="auto" *ngIf="flag"
+                        ><ion-button color="danger" (click)="deleteFeedback(feedback)">Delete</ion-button></ion-col
+                    >
+                    <ion-col size="auto" *ngIf="flag"
+                        ><ion-button color="navy" (click)="updateFeedback(feedback)">Update</ion-button></ion-col
+                    >
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ion-card>
 </ion-content>
+<div>
+    <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+</div>
+

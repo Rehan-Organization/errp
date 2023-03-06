@@ -17,7 +17,7 @@ export class FeedbackService {
   {
     return this.http.post<Feedback[]>("http://localhost:8080/emp/feedbacks",id);
   }
-  removeFeedback(idi:any) : Observable<Feedback>
+  removeFeedback(id:any) : Observable<Feedback>
   {
     // let queryParams = new HttpParams();    
     // queryParams = queryParams.append("id",id);      
@@ -29,7 +29,7 @@ export class FeedbackService {
   }
 
   getReportees(): Observable<Employee[]>{
-    return this.http.get<Employee[]>(URLS.FETCHREPORTEES);
+    return this.http.get<Employee[]>("http://localhost:8080/api/v1/getReportees");
   }
   fetchEmployee(id?:number)
   {

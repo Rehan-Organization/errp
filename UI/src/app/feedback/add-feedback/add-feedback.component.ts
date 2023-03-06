@@ -19,7 +19,7 @@ export class AddFeedbackComponent implements OnInit {
    }
 
   ngOnInit() {
-    this. fetchFeedback();
+    this. fetchReportees();
   }
   
   addFeedback(feedback: Feedback)
@@ -29,7 +29,7 @@ export class AddFeedbackComponent implements OnInit {
       console.log(feedbackResponse)
    });
   }
-  fetchFeedback()
+  fetchReportees()
   {
     this.feedbackService.getReportees().subscribe(reportee => this.employees=reportee);
   }
