@@ -6,20 +6,20 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-card class="ion-margin-bottom ion-margin-top">
+    <ion-card>
         <ion-card-header>
-            <ion-card-title *ngIf='urlId==null'>Add Feedback</ion-card-title>
-            <ion-card-title *ngIf='urlId!=null'>Update Feedback</ion-card-title>
+            <ion-card-title *ngIf="urlId == null">Add Feedback</ion-card-title>
+            <ion-card-title *ngIf="urlId != null">Update Feedback</ion-card-title>
         </ion-card-header>
-        <ion-list>
-            <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline" *ngIf='urlId==null'>
-                <ion-select [(ngModel)]="selectedValue" placeholder="Select employee">
-                    <ion-select-option *ngFor="let employee of employees" [value]="employee.employeeId">
-                        {{ employee.employeeName }}
-                        <!-- <ion-input hidden [(ngModel)]="employee.employeeId"></ion-input> -->
-                    </ion-select-option>
-                </ion-select>
-            </ion-item>
+        <ion-card-content>
+            <ion-list>
+                <ion-item fill="outline" *ngIf="urlId == null">
+                    <ion-select [(ngModel)]="selectedValue" placeholder="Select employee">
+                        <ion-select-option *ngFor="let employee of employees" [value]="employee">
+                            {{ employee.employeeName }}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
 
                 <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
                     <ion-label position="floating">Title</ion-label>
@@ -33,25 +33,18 @@
                     
                 </ion-item>
 
-            <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
-                <ion-label position="floating">Description</ion-label>
-                <ion-textarea placeholder="Enter description" [(ngModel)]="feedback.description"></ion-textarea>
-            </ion-item>
-        </ion-list>
-        <ion-button class="ion-margin-bottom ion-margin-start ion-margin-end" (click)="cancelForm()">Cancel</ion-button>
-        <ion-button *ngIf='urlId==null'
-            color="primary"
-            class="ion-margin-bottom ion-margin-start ion-margin-end"
-            (click)="addFeedback(feedback)">
-            Submit
-            </ion-button
-        >
-        <ion-button *ngIf='urlId!=null'
-            color="primary"
-            class="ion-margin-bottom ion-margin-start ion-margin-end"
-            (click)="updateFeedback()">
-            Update
-            </ion-button
-        >
+                <ion-item fill="outline">
+                    <ion-label position="floating">Description</ion-label>
+                    <ion-textarea placeholder="Enter description" [(ngModel)]="feedback.description"></ion-textarea>
+                </ion-item>
+            </ion-list>
+            <ion-button *ngIf="urlId == null" color="primary" class="ion-float-right" (click)="addFeedback(feedback)">
+                Submit
+            </ion-button>
+            <ion-button *ngIf="urlId != null" color="primary" class="ion-float-right" (click)="updateFeedback()">
+                Update
+            </ion-button>
+            <ion-button fill="clear" class="ion-float-right" (click)="cancelForm()">Cancel</ion-button>
+        </ion-card-content>
     </ion-card>
 </ion-content>

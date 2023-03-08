@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Employee } from '../feedback-model.ts/employee';
 import { Feedback } from '../feedback-model.ts/feedback';
-
 import { FeedbackService } from '../feedback.service';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { AlertController, ToastController } from '@ionic/angular';
@@ -40,17 +38,17 @@ export class AddFeedbackComponent implements OnInit {
     urlId?:any;
     fetchedFeedback:Feedback[]=[];
     ngOnInit() {
-      this.urlId=this.route.snapshot.paramMap.get("id");
-      console.log("url id"+this.urlId);
-      if(this.urlId!=null)
-      {
-        this.feedbackService.fetchFeedback(this.urlId).subscribe(feedback=> this.feedback=feedback);
-      }
-      else{
-            this.feedback.title="";
-            this.feedback.description="";
-      }
-      // this.route.snapshot.paramMap('id')
+        this.urlId = this.route.snapshot.paramMap.get('id');
+        console.log('url id' + this.urlId);
+        if (this.urlId != null) {
+            this.feedbackService
+                .fetchFeedback(this.urlId)
+                .subscribe((feedback) => (this.feedback = feedback));
+        } else {
+            this.feedback.title = '';
+            this.feedback.description = '';
+        }
+        // this.route.snapshot.paramMap('id')
         this.fetchReportees();
     }
 
@@ -79,8 +77,8 @@ export class AddFeedbackComponent implements OnInit {
         this.feedbackService.getReportees().subscribe((reportee) => (this.employees = reportee));
     }
 
-    updateFeedback(){
-      this.feedbackService.updateFeedback(this.feedback,this.urlId).subscribe();
+    updateFeedback() {
+        this.feedbackService.updateFeedback(this.feedback, this.urlId).subscribe();
     }
 
     cancelForm() {

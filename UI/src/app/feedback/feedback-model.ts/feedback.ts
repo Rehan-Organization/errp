@@ -1,10 +1,11 @@
 export interface Feedback{
    id?:number,
-   sender_id?:number,
-   receiver_id?:number,
+   senderId?:number,
+   receiverId?:any,
+   supervisorName?:string,
+   employeeName?:string,
    title?:String,
    description?:string,
    created_date?:Date,
-   last_updated_date?:Date
+   lastUpdatedDate?:Date
  }
- 

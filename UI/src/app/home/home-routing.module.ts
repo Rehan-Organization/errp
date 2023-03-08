@@ -4,23 +4,23 @@ import { AddFeedbackComponent } from '../feedback/add-feedback/add-feedback.comp
 import { HomePage } from './home.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomePage,
-    children: [
-      {
-        path: 'viewFeedback', loadChildren: () => import('../feedback/view-feedback/view-feedback.module').then(m => m.ViewFeedbackModule)
-      }
-    ]
-  }
-    // children: ([{
-    //   path:'addfeedback', component:AddFeedbackComponent
-    // }])
-  // }
+    {
+        path: '',
+        component: HomePage,
+        children: [
+            {
+                path: 'viewFeedback',
+                loadChildren: () =>
+                    import('../feedback/view-feedback/view-feedback.module').then(
+                        (m) => m.ViewFeedbackModule
+                    ),
+            },
+        ],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class HomePageRoutingModule {}

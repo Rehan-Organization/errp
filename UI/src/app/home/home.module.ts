@@ -7,14 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HomePageRoutingModule } from './home-routing.module';
 
-
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HomePageRoutingModule
-  ],
-  declarations: [HomePage]
+    imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
+    declarations: [HomePage],
 })
 export class HomePageModule {}

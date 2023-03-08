@@ -42,15 +42,16 @@
             <ion-grid>
                 <ion-row>
                     <ion-col></ion-col>
-                    <ion-col size="auto" *ngIf="isMyFeedbacks">
-                        <ion-button color="danger" (click)="deleteFeedback(feedback)">Delete</ion-button>
-                    </ion-col>
-                    <ion-col size="auto" *ngIf="isMyFeedbacks">
-                        <ion-button color="navy" (click)="updateFeedback(feedback)">Update</ion-button>
-                    </ion-col>
+                    <ion-col size="auto" *ngIf="isMyFeedbacks"
+                        ><ion-button fill="clears" color="danger" (click)="deleteFeedback(feedback)"
+                            >Delete</ion-button
+                        ></ion-col
+                    >
+                    <ion-col size="auto" *ngIf="isMyFeedbacks"
+                        ><ion-button (click)="updateFeedback(feedback)">Update</ion-button></ion-col
+                    >
                 </ion-row>
             </ion-grid>
         </div>
     </ion-card>
 </ion-content>
-

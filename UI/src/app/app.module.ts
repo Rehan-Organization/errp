@@ -13,17 +13,22 @@ import { AuthInterceptor } from './providers/interceptors/auth-interceptor.servi
 import { ErrorResponseInterceptor } from './providers/interceptors/error-response-interceptor.service';
 
 export const httpInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: AddServerUrlInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: ErrorResponseInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AddServerUrlInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorResponseInterceptor, multi: true },
 ];
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [BrowserModule, IonicModule.forRoot({mode:'ios'}), AppRoutingModule, HttpClientModule,FormsModule],
+    imports: [
+      BrowserModule, 
+      IonicModule.forRoot({mode:'ios'}), 
+      AppRoutingModule, 
+      HttpClientModule,
+      FormsModule],
     providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-        httpInterceptorProviders
+        httpInterceptorProviders,
     ],
     bootstrap: [AppComponent],
     exports: [ReactiveFormsModule, FormsModule, BrowserModule]

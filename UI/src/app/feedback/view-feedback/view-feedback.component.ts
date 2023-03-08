@@ -60,8 +60,7 @@ export class ViewFeedbackComponent implements OnInit {
                             //else {
                                 //alert('Successfully deleted feedback');
                                 this.feedbacks = this.feedbacks.filter(
-                                    (newFeedback) => newFeedback.id != feedback.id
-                                );
+                                    (newFeedback) => newFeedback.id !=feedback.id);
                             }
                         //}
                         );
@@ -74,8 +73,6 @@ export class ViewFeedbackComponent implements OnInit {
         
     }
     updateFeedback(feedback: Feedback) {
-        // alert(feedback.id);
-        console.log(feedback);
-        this.router.navigate(['home/viewFeedback/add']);
+        this.router.navigate(['home/viewFeedback/add/' + feedback.id]);
     }
 }
