@@ -8,17 +8,17 @@ import { AddFeedbackComponent } from '../add-feedback/add-feedback.component';
 import { MomentModule } from 'ngx-moment';
 
 @NgModule({
-  declarations: [ViewFeedbackComponent,AddFeedbackComponent],
-  imports: [
-    CommonModule,
-    IonicModule,
-    FormsModule,
-    MomentModule,
-    RouterModule.forChild([
-      {path:'', component:ViewFeedbackComponent},
-      {path:'add',component:AddFeedbackComponent},
-      { path: 'add/:id', component: AddFeedbackComponent }
-    ])
-  ]
+    declarations: [ViewFeedbackComponent, AddFeedbackComponent],
+    imports: [
+        CommonModule,
+        IonicModule,
+        FormsModule,
+        MomentModule,
+        RouterModule.forChild([
+            { path: '', component: ViewFeedbackComponent },
+            { path: 'add', component: AddFeedbackComponent },
+            { path: 'add/:id', component: AddFeedbackComponent },
+        ]),
+    ],
 })
-export class ViewFeedbackModule { }
+export class ViewFeedbackModule {}

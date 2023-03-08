@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Employee } from '../employee';
-import { Feedback } from '../feedback';
+import { Employee } from '../feedback-model.ts/employee';
+import { Feedback } from '../feedback-model.ts/feedback';
 import { FeedbackService } from '../feedback.service';
 import { Observable, Subscription, interval } from 'rxjs';
 
@@ -40,7 +40,7 @@ export class ViewFeedbackComponent implements OnInit {
         this.router.navigate(['home/viewFeedback/add']);
     }
     deleteFeedback(feedback: Feedback) {
-      alert(feedback.id);
+        alert(feedback.id);
         if (confirm('Are you sure you want to delete ? ')) {
             this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
                 if (feedback == null) alert('Failed to delete');
@@ -54,7 +54,6 @@ export class ViewFeedbackComponent implements OnInit {
         }
     }
     updateFeedback(feedback: Feedback) {
-        this.router.navigate(["home/viewFeedback/add/" + feedback.id]);
+        this.router.navigate(['home/viewFeedback/add/' + feedback.id]);
     }
 }
-

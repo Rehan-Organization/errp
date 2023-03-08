@@ -42,13 +42,9 @@
         <div *ngIf="searchEmployee === '' || feedback.employeeName?.toLowerCase()?.includes(searchEmployee)">
             <ion-card-header>
                 <ion-card-subtitle>
-                    <ion-grid>
-                        <ion-row>
-                            <ion-col *ngIf="isMyFeedbacks">{{ feedback.employeeName }}</ion-col>
-                            <ion-col *ngIf="!isMyFeedbacks">{{ feedback.supervisorName }}</ion-col>
-                            <ion-col size="auto">{{ feedback.lastUpdatedDate | amDateFormat:'LL' }}</ion-col>
-                        </ion-row>
-                    </ion-grid>
+                    <p *ngIf="isMyFeedbacks">{{ feedback.employeeName }}</p>
+                    <p *ngIf="!isMyFeedbacks">{{ feedback.supervisorName }}</p>
+                    <p size="auto">{{ feedback.lastUpdatedDate | amDateFormat : 'LL' }}</p>
                 </ion-card-subtitle>
                 <ion-card-title>
                     {{ feedback.title }}
@@ -59,14 +55,15 @@
                 <ion-row>
                     <ion-col></ion-col>
                     <ion-col size="auto" *ngIf="isMyFeedbacks"
-                        ><ion-button color="danger" (click)="deleteFeedback(feedback)">Delete</ion-button></ion-col
+                        ><ion-button fill="clears" color="danger" (click)="deleteFeedback(feedback)"
+                            >Delete</ion-button
+                        ></ion-col
                     >
                     <ion-col size="auto" *ngIf="isMyFeedbacks"
-                        ><ion-button color="navy" (click)="updateFeedback(feedback)">Update</ion-button></ion-col
+                        ><ion-button (click)="updateFeedback(feedback)">Update</ion-button></ion-col
                     >
                 </ion-row>
             </ion-grid>
         </div>
     </ion-card>
 </ion-content>
-

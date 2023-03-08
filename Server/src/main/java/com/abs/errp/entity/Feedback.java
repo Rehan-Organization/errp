@@ -24,11 +24,11 @@ public class Feedback {
 	@Column(name="FEEDBACK_ID")
 	private long id;
 	
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "SENDER_ID", referencedColumnName = "EMPLOYEE_ID")
 	private ErrpUser senderId;
 	
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "RECEIVER_ID", referencedColumnName = "EMPLOYEE_ID")
 	private ErrpUser receiverId;
 	

@@ -30,6 +30,8 @@ public class FeedbackController {
 	@PostMapping("/saveFeedback")
 	public ResponseEntity<Feedback> saveFeedback(@RequestBody Feedback feedback){
 		System.out.println(feedback.toString());
+		System.out.println("save feedback function is called");
+
 		return feedbackService.saveFeedback(feedback);
 	}
 	

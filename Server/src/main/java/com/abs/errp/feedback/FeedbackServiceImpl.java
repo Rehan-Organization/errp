@@ -31,23 +31,28 @@ public class FeedbackServiceImpl implements FeedbackService{
 
 	@Override
 	public ResponseEntity<Feedback> saveFeedback(Feedback feedback) {
+		ErrpUser e = setErrpUser();
+		feedback.setSenderId(e);
 		return new ResponseEntity<Feedback>(feedbackRepository.save(feedback),HttpStatus.CREATED);
 	}
 
 	@Override
 	public ResponseEntity<List<ErrpUser>> fetchAllUsers() {
-		LoggedInUser user = this.userContext.getLoggedInUser();
-		ErrpUser e=new ErrpUser();
-		e.setEmployeeId(user.getEmployeeId());
+		ErrpUser e = setErrpUser();
 		List<ErrpUser> userData = errpUserRepository.findBySupervisor(e);
 		return ResponseEntity.ok(userData);
 	}
 
+	private ErrpUser setErrpUser() {
+		LoggedInUser user = this.userContext.getLoggedInUser();
+		ErrpUser e=new ErrpUser();
+		e.setEmployeeId(user.getEmployeeId());
+		return e;
+	}
+
 	@Override
 	public ResponseEntity<List<Feedback>> fetchMyFeedbacks(boolean isMyFeedback) {
-		LoggedInUser user = this.userContext.getLoggedInUser();
-		ErrpUser errpUser = new ErrpUser();
-		errpUser.setEmployeeId(user.getEmployeeId());
+		ErrpUser errpUser = setErrpUser();
 		List<Feedback> feedbackData = null;
 		if(isMyFeedback)
 		{

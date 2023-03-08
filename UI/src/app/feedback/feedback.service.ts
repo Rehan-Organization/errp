@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { URLS } from '../constants/urls.contants';
-import { Employee } from './employee';
-import { Feedback } from './feedback';
+import { Employee } from './feedback-model.ts/employee';
+import { Feedback } from './feedback-model.ts/feedback';
 @Injectable({
     providedIn: 'root',
 })
