@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from '../employee';
@@ -12,7 +13,7 @@ import { Observable, Subscription, interval } from 'rxjs';
 })
 export class ViewFeedbackComponent implements OnInit {
     private updateSubscription?: Subscription;
-    constructor(private feedbackService: FeedbackService, private router: Router) {}
+    constructor(private feedbackService: FeedbackService, private router: Router,private alertController:AlertController) {}
     employees: Employee[] = [];
     feedbacks: Feedback[] = [];
     options: string[] = ['My Feedbacks', 'Feedbacks Given By Me'];
@@ -38,21 +39,57 @@ export class ViewFeedbackComponent implements OnInit {
     addFeedback() {
         this.router.navigate(['home/viewFeedback/add']);
     }
-    deleteFeedback(feedback: Feedback) {
-        if (confirm('Are you sure you want to delete ? ')) {
-            this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
-                if (feedback == null) alert('Failed to delete');
-                else {
-                    alert('Successfully deleted feedback');
-                    this.feedbacks = this.feedbacks.filter(
-                        (newFeedback) => newFeedback.id != feedback.id
-                    );
+
+    async deleteFeedback(feedback: Feedback) {
+
+        const alert=await this.alertController.create({
+            header:'Are you sure you want to delete ?',
+            buttons:[
+                {
+                    text:'Cancel',
+                    role:'cancel',
+                    handler:()=>{
+                        //handle cancel toast.
+                    },
+                },
+                {
+                    text:'Delete',
+                    role:'confirm',
+                    handler:()=>{
+                        this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
+                            //if (feedback == null) alert('Failed to delete');
+                            //else {
+                                //alert('Successfully deleted feedback');
+                                this.feedbacks = this.feedbacks.filter(
+                                    (newFeedback) => newFeedback.id != feedback.id
+                                );
+                            }
+                        //}
+                        );
+                    }
                 }
-            });
-        }
+            
+            ]
+        })
+        await alert.present();
+
+        // if (confirm('Are you sure you want to delete ? ')) {
+        //     this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
+        //         if (feedback == null) alert('Failed to delete');
+        //         else {
+        //             alert('Successfully deleted feedback');
+        //             this.feedbacks = this.feedbacks.filter(
+        //                 (newFeedback) => newFeedback.id != feedback.id
+        //             );
+        //         }
+        //     });
+        // }
+
+        
     }
     updateFeedback(feedback: Feedback) {
         alert(feedback.id);
     }
+    
 }
 

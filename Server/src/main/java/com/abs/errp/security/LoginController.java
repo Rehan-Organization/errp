@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.abs.errp.user.ErrpUser;
 
-@CrossOrigin("*")
 @RestController
 public class LoginController {
 
