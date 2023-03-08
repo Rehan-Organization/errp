@@ -1,17 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AddFeedbackComponent } from './add-feedback.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
-    declarations: [AddFeedbackComponent],
+    declarations: [],
     imports: [
         CommonModule,
         IonicModule,
         FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild([{ path: '', component: AddFeedbackComponent }]),
     ],
+    exports: [BrowserModule],
 })
 export class AddFeedbackModule {}

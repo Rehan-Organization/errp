@@ -4,23 +4,37 @@ import { Employee } from '../feedback-model.ts/employee';
 import { Feedback } from '../feedback-model.ts/feedback';
 import { FeedbackService } from '../feedback.service';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { AlertController, ToastController } from '@ionic/angular';
+
 @Component({
     selector: 'app-add-feedback',
     templateUrl: './add-feedback.component.html',
     styleUrls: ['./add-feedback.component.scss'],
 })
 export class AddFeedbackComponent implements OnInit {
-    feedback: Feedback = {
-        title: '',
-        description: '',
-    };
+    // feedbackForm = new FormGroup({
+    //     title: new FormControl('', Validators.required),
+    //     description: new FormControl('', [Validators.required, Validators.required]),
+    // });
+
+
+    constructor(
+        private alertController: AlertController,
+        private toast: ToastController,
+        private feedbackService: FeedbackService,
+        private route: ActivatedRoute
+    ) {}
+
+    feedback: Feedback = {};
 
     employees: Employee[] = [];
-    selectedValue?: Employee;
-    constructor(private feedbackService: FeedbackService, private route: ActivatedRoute) {}
-    feedbackId?: number;
-    urlId?: any;
-    fetchedFeedback: Feedback[] = [];
+    selectedValue: number = 5;
+
+    feedbackId?:number;
+    urlId?:any;
+    fetchedFeedback:Feedback[]=[];
     ngOnInit() {
         this.urlId = this.route.snapshot.paramMap.get('id');
         console.log('url id' + this.urlId);
@@ -37,10 +51,25 @@ export class AddFeedbackComponent implements OnInit {
     }
 
     addFeedback(feedback: Feedback) {
-        feedback.receiverId = { employeeId: this.selectedValue?.employeeId };
-        this.feedbackService.saveFeedback(feedback).subscribe((feedbackResponse) => {
+        if (this.feedback.employeeName?.trim()) {
+            this.showAlert('Employee name cannot be empty!');
+        } else if (!this.feedback.title?.trim()) {
+            this.showAlert('Title cannot be empty!');
+        } else if (!this.feedback.description?.trim()) {
+            this.showAlert('Description cannot be empty!');
+        }else{
+            alert(this.employees.length);
+            feedback.receiverId = this.selectedValue;
+            this.feedbackService.saveFeedback(feedback).subscribe((feedbackResponse) => {
             console.log(feedbackResponse);
+
+            this.feedback.title = '';
+            this.feedback.description = '';
+
         });
+        }
+
+        
     }
     fetchReportees() {
         this.feedbackService.getReportees().subscribe((reportee) => (this.employees = reportee));
@@ -51,9 +80,15 @@ export class AddFeedbackComponent implements OnInit {
     }
 
     cancelForm() {
-        this.feedbackService
-            .fetchFeedback(this.urlId)
-            .subscribe((feedback) => (this.feedback = feedback));
-        console.log('shankar' + this.fetchedFeedback[0].title + ' ');
+        //this.employees[employeeName] = '';
+        this.feedback.title = '';
+        this.feedback.description = '';
     }
+
+    showAlert(message: string) { this.alertController
+         .create({header: 'Alert', 
+         message: message,
+         buttons: [ 
+            {text: 'Ok',},
+         ], }) .then((res) => { res.present(); });}
 }
