@@ -14,39 +14,23 @@
                     </ion-segment-button>
                 </ion-segment>
                 <ion-searchbar [(ngModel)]="searchEmployee"></ion-searchbar>
-
-                <!-- <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline">
-                    <ion-select
-                        [(ngModel)]="choosenOption"
-                        placeholder="Select employee"
-                        (ionChange)="fetchFeedbacks()"
-                    >
-                        <ion-select-option *ngFor="let option of options" [value]="option">
-                            {{ option }}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item> -->
             </ion-col>
-            <!-- <ion-col size="auto">
-                <ion-item *ngIf="flag" class="search">
-                    <ion-label>Search Employee:</ion-label>
-                    <ion-input placeholder="Enter Name" [(ngModel)]="enteredName"> </ion-input>
-                </ion-item>
-            </ion-col> -->
+
             <ion-col size="auto">
                 <ion-button color="medium" (click)="addFeedback()">Add Feedback</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-card *ngFor="let feedback of feedbacks">
-        <div *ngIf="searchEmployee === '' || feedback.employeeName?.toLowerCase()?.includes(searchEmployee)">
+    <ion-card *ngFor="let feedback of feedbacks; let i = index">
+        <div *ngIf="searchEmployee === '' || feedback.receiverId.employeeName?.toLowerCase()?.includes(searchEmployee)">
             <ion-card-header>
                 <ion-card-subtitle>
-                    <ion-grid>
+                  {{ feedback.receiverId.employeeName }}  
+                      <ion-grid>
                         <ion-row>
-                            <ion-col *ngIf="isMyFeedbacks">{{ feedback.employeeName }}</ion-col>
-                            <ion-col *ngIf="!isMyFeedbacks">{{ feedback.supervisorName }}</ion-col>
-                            <ion-col size="auto">{{ feedback.lastUpdatedDate | amDateFormat:'LL' }}</ion-col>
+                            <ion-col *ngIf="isMyFeedbacks">{{ feedback.receiverId.employeeName }}</ion-col>
+                            <ion-col *ngIf="!isMyFeedbacks">{{ feedback.senderId.employeeName }}</ion-col>
+                            <ion-col size="auto">{{ feedback.lastUpdatedDate }}</ion-col>
                         </ion-row>
                     </ion-grid>
                 </ion-card-subtitle>
@@ -58,12 +42,12 @@
             <ion-grid>
                 <ion-row>
                     <ion-col></ion-col>
-                    <ion-col size="auto" *ngIf="isMyFeedbacks"
-                        ><ion-button color="danger" (click)="deleteFeedback(feedback)">Delete</ion-button></ion-col
-                    >
-                    <ion-col size="auto" *ngIf="isMyFeedbacks"
-                        ><ion-button color="navy" (click)="updateFeedback(feedback)">Update</ion-button></ion-col
-                    >
+                    <ion-col size="auto" *ngIf="isMyFeedbacks">
+                        <ion-button color="danger" (click)="deleteFeedback(feedback)">Delete</ion-button>
+                    </ion-col>
+                    <ion-col size="auto" *ngIf="isMyFeedbacks">
+                        <ion-button color="navy" (click)="updateFeedback(feedback)">Update</ion-button>
+                    </ion-col>
                 </ion-row>
             </ion-grid>
         </div>

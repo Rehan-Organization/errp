@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Employee } from '../employee';
-import { Feedback } from '../feedback';
+import { Employee } from '../feedback-model.ts/employee';
+import { Feedback } from '../feedback-model.ts/feedback';
+
 import { FeedbackService } from '../feedback.service';
 
 @Component({
@@ -11,12 +12,12 @@ import { FeedbackService } from '../feedback.service';
 })
 export class AddFeedbackComponent implements OnInit {
     feedback: Feedback = {
-      "title":"",
-      "description":""
+        receiverId: {},
+        senderId: {}
     };
 
     employees: Employee[] = [];
-    selectedValue: number = 5;
+    selectedValue: number=0;
     constructor(private feedbackService: FeedbackService, private route: ActivatedRoute) {}
     feedbackId?:number;
     urlId?:any;
@@ -37,7 +38,10 @@ export class AddFeedbackComponent implements OnInit {
     }
 
     addFeedback(feedback: Feedback) {
-        feedback.receiverId = this.selectedValue;
+        alert(this.employees.length);
+        // // feedback.receiverId={}
+        feedback.receiverId.employeeId = this.selectedValue;
+        console.log(feedback.receiverId);
         this.feedbackService.saveFeedback(feedback).subscribe((feedbackResponse) => {
             console.log(feedbackResponse);
         });
@@ -51,7 +55,9 @@ export class AddFeedbackComponent implements OnInit {
     }
 
     cancelForm() {
-      this.feedbackService.fetchFeedback(this.urlId).subscribe(feedback=> this.feedback=feedback);
-      console.log("shankar"+this.fetchedFeedback[0].title+" ");
+        console.log(this.selectedValue);
+        // this.employee[employeeName] = '';
+        // this.feedback.title = '';
+        // this.feedback.description = '';
     }
 }

@@ -21,4 +21,4 @@ import { MomentModule } from 'ngx-moment';
     ])
   ]
 })
-export class ViewFeedbackModule { }
+export class ViewFeedbackModule {}
