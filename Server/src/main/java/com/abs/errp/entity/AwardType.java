@@ -17,26 +17,33 @@ public class AwardType {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="AWARD_ID")
 	private long id;
 
-	@Column(name="NAME")
+	@Column(name="AWARD_NAME")
 	private String awardName;
 	
-	@Column(name="DESCRIPTION")
+	@Column(name="AWARD_DESC")
 	private String description;
 	
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
-	@Column(name="LAST_UPDATED_DATE")
+	@Column(name="UPDATED_DATE")
 	private Date lastUpdatedDate;
-	
 	
 	@Column(name = "AWARD_STATUS")
 	private int awardStatus = 1;
 	
 	@Column(name="AWARD_POINTS")
 	private int awardPoints;
+	
+	@Column(name="CREATED_BY")
+	private long createdById;
+	
+	@Column(name="UPDATED_BY")
+	private long updatedById;
+	
 	
 	
 	

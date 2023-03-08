@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="EMPLOYEE_AWARDS")
+@Table(name="EMPLOYEE_AWARD")
 public class EmployeeAwards {
 	
 	@Id
@@ -22,7 +22,7 @@ public class EmployeeAwards {
 	@Column(name="AWARDEE_ID")
 	private long awardeeId;
 	
-	@Column(name="AWARD_RAISER_ID")
+	@Column(name="AWARD_RAISEd_By_ID")
 	private long awardRaiserId;
 	
 	@Column(name="ACHIEVEMENT_ID")

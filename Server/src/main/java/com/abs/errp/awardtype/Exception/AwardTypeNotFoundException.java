@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value=HttpStatus.NOT_FOUND)
 public class AwardTypeNotFoundException extends RuntimeException{
+	
+	private static final long serialVersionUID = 1L;
 	private String awardType;
 	private String fieldname;
 	private Object value;
