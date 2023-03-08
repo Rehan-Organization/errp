@@ -121,7 +121,7 @@ export class AwardFormComponent implements OnInit {
                             text: 'Confirm',
                             handler: () => {
                                 this.awardTypeService
-                                    .updateAwardType(this.awardType.id, this.awardType)
+                                    .updateAwardType(this.awardType.awardId, this.awardType)
                                     .subscribe(
                                         (data) => {
                                             (this.awardType = data),
@@ -143,10 +143,10 @@ export class AwardFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        const isIdPresent = this.route.snapshot.paramMap.has('id');
+        const isIdPresent = this.route.snapshot.paramMap.has('awardId');
         if (isIdPresent) {
-            const id = this.route.snapshot.paramMap.get('id');
-            this.awardTypeService.getAwardType(id).subscribe((data) => {
+            const awardId = this.route.snapshot.paramMap.get('id');
+            this.awardTypeService.getAwardType(awardId).subscribe((data) => {
                 this.awardType = data;
             });
         }

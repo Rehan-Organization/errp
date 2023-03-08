@@ -8,9 +8,14 @@
         style="overflow-y: auto"
     >
         <ion-menu-toggle autoHide="false">
-            <ion-header class="abs-menu-header">
+            <ion-header>
                 <ion-toolbar color="primary">
-                    <div class="abs-main-logo"></div>
+                    <ion-item lines="none" color="primary">
+                        <ion-label>
+                            <p>Welcome!</p>
+                            <h2>{{loggedInUser?.employeeName}}</h2>
+                        </ion-label>
+                    </ion-item>
                 </ion-toolbar>
             </ion-header>
         </ion-menu-toggle>

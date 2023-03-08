@@ -1,3 +1,4 @@
+import { LoggedInUserContext } from './logged-in-user-context.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -6,7 +7,11 @@ import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AppAuthService {
+<<<<<<< HEAD
     constructor(private http: HttpClient, private router: Router) {}
+=======
+    constructor(private http: HttpClient, private router: Router, private userContext: LoggedInUserContext) { }
+>>>>>>> main
 
     login(creds: { userName: string; password: string }) {
         return new Observable((observer) => {
@@ -32,6 +37,7 @@ export class AppAuthService {
 
     logout() {
         return new Observable((observer) => {
+<<<<<<< HEAD
             this.http.post(URLS.LOGOUT, {}).subscribe(
                 () => {
                     sessionStorage.clear();
@@ -46,5 +52,20 @@ export class AppAuthService {
                 }
             );
         });
+=======
+            this.http.post(URLS.LOGOUT, {}).subscribe(() => {
+                sessionStorage.clear();
+                this.userContext.clearUserContext();
+                this.router.navigateByUrl('login', { replaceUrl: true });
+                observer.next();
+                observer.complete();
+            }, (error) => {
+                console.error('Error during Logout', error);
+                observer.next();
+                observer.complete();
+
+            });
+        })
+>>>>>>> main
     }
 }

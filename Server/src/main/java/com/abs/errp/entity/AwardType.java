@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import net.bytebuddy.implementation.bind.annotation.Default;
-
 @Entity
 @Table(name="AwardType")
 public class AwardType {
@@ -18,7 +16,7 @@ public class AwardType {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="AWARD_ID")
-	private long id;
+	private long awardId;
 
 	@Column(name="AWARD_NAME")
 	private String awardName;
@@ -68,11 +66,11 @@ public class AwardType {
 
 
 	public long getId() {
-		return id;
+		return awardId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId(long awardId) {
+		this.awardId = awardId;
 	}
 
 	public String getAwardName() {

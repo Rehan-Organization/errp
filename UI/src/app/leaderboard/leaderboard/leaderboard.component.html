@@ -29,9 +29,9 @@
     <ion-content>
       <ion-card>
         <ion-item *ngFor="let emp of leaderboard ;let i = index" >
-          <i slot="start" class="fad fa-trophy {{emp.class}}"></i>
+          <i slot="start" class="fad fa-trophy" [ngStyle]="this.i == 0 ? {'color':'gold'}: this.i == 1 ? {'color': 'silver'} : this.i == 2 ? {'color': '#CD7F32'}:{'color': 'black'}"></i>
           <!-- <div slot="start">
-          <h5 [ngStyle]="this.i == 0 ? {'background-color':'red'}: this.i == 1 ? {'background-color': 'yellow'} : this.i == 2 ? {'background-color': 'green'}:{'background-color': 'white'}" >{{i+1}} </h5>
+          <h5 [ngStyle]="this.i == 0 ? {'color':'red'}: this.i == 1 ? {'background-color': 'yellow'} : this.i == 2 ? {'background-color': 'green'}:{'background-color': 'white'}" >{{i+1}} </h5>
           </div> -->
           <ion-label>
             <h2>{{emp.employeeName}}</h2>

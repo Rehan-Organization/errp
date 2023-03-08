@@ -1,12 +1,13 @@
 export interface AwardType {
 
-    id?: number;
+    awardId?: number;
     awardName?: string;
     description?: string;
     awardPoints?: number;
     awardStatus?: number;
     createdDate?: Date;
     lastUpdatedDate?: Date;
-
+    createdById?: number;
+    updatedById?: number
 
 }

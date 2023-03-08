@@ -58,9 +58,9 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 	
 
 	@Override
-	public AwardType updateAwardType(Long id,AwardType awardType) {
+	public AwardType updateAwardType(Long awardId,AwardType awardType) {
 
-		AwardType award = this.awardServiceRespository.getReferenceById(id);
+		AwardType award = this.awardServiceRespository.getReferenceById(awardId);
 		
 		award.setAwardName(awardType.getAwardName());
 		award.setAwardPoints(awardType.getAwardPoints());
@@ -75,13 +75,13 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 
 
 	@Override
-	public AwardType getAwardTypeById(long id) {
-		if(awardServiceRespository.findById(id).isPresent()) {
-			return awardServiceRespository.findById(id).get();
+	public AwardType getAwardTypeById(long awardId) {
+		if(awardServiceRespository.findById(awardId).isPresent()) {
+			return awardServiceRespository.findById(awardId).get();
 		}
 		else {
 			
-			throw new AwardTypeNotFoundException("AwardType","Id",id);
+			throw new AwardTypeNotFoundException("AwardType","Id",awardId);
 		}
 	}
 	

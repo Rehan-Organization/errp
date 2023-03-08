@@ -8,14 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,20 +22,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.abs.errp.user.ErrpUser;
-
 @RestController
 public class LoginController {
 
 	@Autowired
 	AuthenticationManager authManager;
 	
-	@GetMapping("/test")
-	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<ErrpUser> test() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.err.println("ADmin is in");
-		return new ResponseEntity(HttpStatus.OK);
+	@Autowired
+	LoggedInUserContext userContext;
+	
+	@GetMapping("/userContext")
+	public ResponseEntity<LoggedInUser> test() {
+		LoggedInUser user = this.userContext.getLoggedInUser();
+		return new ResponseEntity<LoggedInUser>(user, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/authenticate", method = { RequestMethod.POST }, consumes = {
@@ -95,7 +92,7 @@ public class LoginController {
 
 //        response.addHeader("x-auth-token", session.getId());
         
-        User user = (User) sc.getAuthentication().getPrincipal();
+        LoggedInUser user = (LoggedInUser) sc.getAuthentication().getPrincipal();
 
         wrapper.setUser(user);
         

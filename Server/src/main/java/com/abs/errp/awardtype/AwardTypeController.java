@@ -49,15 +49,15 @@ public class AwardTypeController {
 	
 
 
-	@PutMapping("/updateAwardType/{id}")
-	public ResponseEntity<AwardType> updateAwardType(@PathVariable long id,@RequestBody AwardType awardType){
-		return new ResponseEntity<AwardType>(awardTypeServices.updateAwardType(id,awardType),HttpStatus.CREATED);
+	@PutMapping("/updateAwardType/{awardId}")
+	public ResponseEntity<AwardType> updateAwardType(@PathVariable long awardId,@RequestBody AwardType awardType){
+		return new ResponseEntity<AwardType>(awardTypeServices.updateAwardType(awardId,awardType),HttpStatus.CREATED);
 		
 	}
 	
-	@GetMapping("/getAwardType/{id}")
-	public ResponseEntity<AwardType> getAwardTypeById(@PathVariable("id") long id){
-		return new ResponseEntity<AwardType>(awardTypeServices.getAwardTypeById(id), HttpStatus.OK);
+	@GetMapping("/getAwardType/{awardId}")
+	public ResponseEntity<AwardType> getAwardTypeById(@PathVariable("awardId") long awardId){
+		return new ResponseEntity<AwardType>(awardTypeServices.getAwardTypeById(awardId), HttpStatus.OK);
 	
 	}
 	

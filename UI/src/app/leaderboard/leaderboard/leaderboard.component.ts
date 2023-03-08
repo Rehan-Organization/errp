@@ -13,20 +13,20 @@ export class LeaderboardComponent implements OnInit {
         {
             employeeName: 'Adarsh',
             supervisorName: 'Rehan',
-            points: 50,
-            class: 'first'
+            points: 50
+          
         },
         {
             employeeName: 'Pushkar',
             supervisorName: 'Rehan',
-            points: 60,
-            class: 'second'
+            points: 60
+       
         },
         {
             employeeName: 'Shankar',
             supervisorName: 'Rehan',
-            points: 70,
-            class: 'third'
+            points: 70
+          
         },
         {
             employeeName: 'Vishal',
