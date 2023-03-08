@@ -1,5 +1,6 @@
 package com.abs.errp.security;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.session.MapSessionRepository;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -44,14 +48,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.defaultAuthenticationEntryPointFor(nsWebUnauthorizedEntryPoint(), new AntPathRequestMatcher("/**"))
 				.and().logout().disable();
 	}
+	
+	@Bean
+	protected CorsConfigurationSource corsConfigurationSource() {
+		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+
+		CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+		configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
+		configuration.setAllowedMethods(Collections.singletonList("*"));
+		configuration.setAllowedHeaders(Collections.singletonList("*"));
+		configuration.setAllowCredentials(true);
+		
+		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", configuration);
+
+		return urlBasedCorsConfigurationSource;
+	}
 
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new ErrpUserDetailsService();
-//		UserDetails user = User.withUsername("user")
-//				.password("$2a$12$di4uEHUa0aKdPV6qkOsdSu8/u9D2ig36gGr4FiJOUC49xAxXLe2/y").roles("USER").build();
-//
-//		return new InMemoryUserDetailsManager(user);
 	}
 
 	@Bean
