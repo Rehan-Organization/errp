@@ -14,57 +14,63 @@ import { AlertController, ToastController } from '@ionic/angular';
     styleUrls: ['./add-feedback.component.scss'],
 })
 export class AddFeedbackComponent implements OnInit {
-    employees: any = ['Avadhut Patil', 'Athrav Pandit', 'Adarsh Suryawanshi'];
+    // feedbackForm = new FormGroup({
+    //     title: new FormControl('', Validators.required),
+    //     description: new FormControl('', [Validators.required, Validators.required]),
+    // });
 
-    feedbackForm = new FormGroup({
-        title: new FormControl('', Validators.required),
-        description: new FormControl('', [Validators.required, Validators.required]),
-    });
 
-    toast_cancel = this.toast.create({
-        message: 'Canceled',
-        duration: 5000,
-        position: 'bottom',
-        color: 'primary',
-    });
+    constructor(
+        private alertController: AlertController,
+        private toast: ToastController,
+        private feedbackService: FeedbackService,
+        private route: ActivatedRoute
+    ) {}
 
-    toast_success = this.toast.create({
-        message: 'Feedback submitted successfully',
-        duration: 5000,
-        position: 'bottom',
-        color: 'primary',
-    });
+    feedback: Feedback = {};
 
-    constructor(private alertController: AlertController, private toast: ToastController) {}
+    employees: Employee[] = [];
+    selectedValue: number = 5;
 
-    async addFeedback() {
-        const alert = await this.alertController.create({
-            header: 'Confirm feedback',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    role: 'cancel',
-                    handler: async () => {
-                        (await this.toast_cancel).present();
-                    },
-                },
-                {
-                    text: 'OK',
-                    role: 'confirm',
-                    handler: async () => {
-                        (await this.toast_success).present();
-                    },
-                },
-            ],
+    ngOnInit() {
+        this.fetchReportees();
+    }
+
+    addFeedback(feedback: Feedback) {
+        if (this.feedback.employeeName?.trim()) {
+            this.showAlert('Employee name cannot be empty!');
+        } else if (!this.feedback.title?.trim()) {
+            this.showAlert('Title cannot be empty!');
+        } else if (!this.feedback.description?.trim()) {
+            this.showAlert('Description cannot be empty!');
+        }else{
+            alert(this.employees.length);
+            feedback.receiverId = this.selectedValue;
+            this.feedbackService.saveFeedback(feedback).subscribe((feedbackResponse) => {
+            console.log(feedbackResponse);
+
+            this.feedback.title = '';
+            this.feedback.description = '';
+
         });
+        }
 
-        await alert.present();
-        const { role } = await alert.onDidDismiss();
+        
+    }
+    fetchReportees() {
+        this.feedbackService.getReportees().subscribe((reportee) => (this.employees = reportee));
     }
 
-    cancel(){
-     
+    cancelForm() {
+        //this.employees[employeeName] = '';
+        this.feedback.title = '';
+        this.feedback.description = '';
     }
 
-    ngOnInit() {}
+    showAlert(message: string) { this.alertController
+         .create({header: 'Alert', 
+         message: message,
+         buttons: [ 
+            {text: 'Ok',},
+         ], }) .then((res) => { res.present(); });}
 }

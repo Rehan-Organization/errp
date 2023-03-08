@@ -1,5 +1,5 @@
 export interface Feedback{
-   feedbackId?:number,
+   id?:number,
    senderId?:number,
    receiverId?:number,
    supervisorName?:string,
@@ -7,6 +7,6 @@ export interface Feedback{
    title?:String,
    description?:string,
    created_date?:Date,
-   last_updated_date?:Date
+   lastUpdatedDate?:Date
  }
  

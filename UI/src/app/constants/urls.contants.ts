@@ -5,5 +5,7 @@ export const URLS = {
     LOGOUT: '/logout',
     FEEDBACK: '/api/v1',
     SAVEFEEDBACK :'/api/v1/saveFeedback',
-    FETCHREPORTEES:'/api/v1/getReportees'
+    FETCHREPORTEES:'/api/v1/getReportees',
+    FETCHFEEDBACKS:'/api/v1/getFeedbacks',
+    DELETEFEEDBACK:'/api/v1/removeFeedback'
 }
