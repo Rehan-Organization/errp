@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AddFeedbackComponent } from '../add-feedback/add-feedback.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   declarations: [ViewFeedbackComponent,AddFeedbackComponent],
@@ -14,11 +15,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     IonicModule,
     FormsModule,
-    ReactiveFormsModule
-  ,
+    ReactiveFormsModule,
+    MomentModule,
     RouterModule.forChild([
       {path:'', component:ViewFeedbackComponent},
-      {path:'add',component:AddFeedbackComponent}
+      {path:'add',component:AddFeedbackComponent},
+      { path: 'add/:id', component: AddFeedbackComponent }
     ])
   ]
 })

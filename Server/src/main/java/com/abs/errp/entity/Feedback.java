@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -18,13 +20,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Feedback {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="FEEDBACK_ID")
 	private long id;
 	
-	@Column(name="SENDER_ID")
-	private long senderId;
+    @OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "SENDER_ID", referencedColumnName = "EMPLOYEE_ID")
+	private ErrpUser senderId;
 	
-	@JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "RECEIVER_ID", referencedColumnName = "EMPLOYEE_ID")
 	private ErrpUser receiverId;
@@ -32,23 +35,19 @@ public class Feedback {
 	@Column(name ="TITLE")
 	private String title;
 	
-	@Column(name="DESCRIPTION")
+	@Column(name="FEEDBACK_DESC")
 	private String description;
 	
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
-	@Column(name="LAST_UPDATED_DATE")
+	@Column(name="UPDATED_DATE")
 	private Date lastUpdatedDate;
 
 	
 	
 	public long getId() {
 		return id;
-	}
-
-	public long getSenderId() {
-		return senderId;
 	}
 
 	public ErrpUser getReceiverId() {
@@ -59,23 +58,24 @@ public class Feedback {
 		return title;
 	}
 
-	public String getDescription() {
-		return description;
-	}
+	
 
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public Date getLastUpdatedDate() {
-		return lastUpdatedDate;
-	}
+	
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
-	public void setSenderId(long senderId) {
+
+	public ErrpUser getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(ErrpUser senderId) {
 		this.senderId = senderId;
 	}
 
@@ -87,12 +87,23 @@ public class Feedback {
 		this.title = title;
 	}
 
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	
+
+	public String getDescription() {
+		return description;
+	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+	public Date getLastUpdatedDate() {
+		return lastUpdatedDate;
 	}
 
 	public void setLastUpdatedDate(Date lastUpdatedDate) {

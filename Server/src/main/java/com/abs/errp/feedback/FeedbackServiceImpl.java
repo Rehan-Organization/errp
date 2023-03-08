@@ -1,7 +1,10 @@
 package com.abs.errp.feedback;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +34,6 @@ public class FeedbackServiceImpl implements FeedbackService{
 		return new ResponseEntity<Feedback>(feedbackRepository.save(feedback),HttpStatus.CREATED);
 	}
 
-
 	@Override
 	public ResponseEntity<List<ErrpUser>> fetchAllUsers() {
 		LoggedInUser user = this.userContext.getLoggedInUser();
@@ -42,22 +44,27 @@ public class FeedbackServiceImpl implements FeedbackService{
 	}
 
 	@Override
-	public ResponseEntity<List<Feedback>> fetchMyFeedbacks(long flag) {
+	public ResponseEntity<List<Feedback>> fetchMyFeedbacks(boolean isMyFeedback) {
 		LoggedInUser user = this.userContext.getLoggedInUser();
-		List<Feedback> FeedbackData;
-		if(flag==1)
+		ErrpUser errpUser = new ErrpUser();
+		errpUser.setEmployeeId(user.getEmployeeId());
+		List<Feedback> feedbackData = null;
+		if(isMyFeedback)
 		{
-		    FeedbackData = feedbackRepository.findBySenderId(user.getEmployeeId());
+		    feedbackData = feedbackRepository.findBySenderId(errpUser);
+		    Collections.reverse(feedbackData);
 		}
 		else {
-			FeedbackData = feedbackRepository.findByReceiverId(user.getEmployeeId());
+			
+			feedbackData = feedbackRepository.findByReceiverId(errpUser);
+			 Collections.reverse(feedbackData);
 		}
-		Collections.reverse(FeedbackData);
-		return ResponseEntity.ok(FeedbackData);
+
+		return ResponseEntity.ok(feedbackData);
 	}
 
 	@Override
-	public ResponseEntity<Feedback> modifyFeedbacks(Feedback feedback, long id) {
+	public ResponseEntity<Feedback> modifyFeedback(Feedback feedback, long id) {
 		Feedback updateFeedback = feedbackRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Feedback not exist with id: " + id));
 
@@ -73,6 +80,11 @@ public class FeedbackServiceImpl implements FeedbackService{
 	@Override
 	public void deleteByFeedbackId(long id) {
 		feedbackRepository.deleteById(id);
+	}
+
+	@Override
+	public Optional<Feedback> fetchFeedback(long id) {
+		return feedbackRepository.findById(id);
 	}
 
 }

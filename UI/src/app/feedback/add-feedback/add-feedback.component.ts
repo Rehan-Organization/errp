@@ -32,7 +32,21 @@ export class AddFeedbackComponent implements OnInit {
     employees: Employee[] = [];
     selectedValue: number = 5;
 
+    feedbackId?:number;
+    urlId?:any;
+    fetchedFeedback:Feedback[]=[];
     ngOnInit() {
+      this.urlId=this.route.snapshot.paramMap.get("id");
+      console.log("url id"+this.urlId);
+      if(this.urlId!=null)
+      {
+        this.feedbackService.fetchFeedback(this.urlId).subscribe(feedback=> this.feedback=feedback);
+      }
+      else{
+            this.feedback.title="";
+            this.feedback.description="";
+      }
+      // this.route.snapshot.paramMap('id')
         this.fetchReportees();
     }
 
@@ -59,6 +73,10 @@ export class AddFeedbackComponent implements OnInit {
     }
     fetchReportees() {
         this.feedbackService.getReportees().subscribe((reportee) => (this.employees = reportee));
+    }
+
+    updateFeedback(){
+      this.feedbackService.updateFeedback(this.feedback,this.urlId).subscribe();
     }
 
     cancelForm() {

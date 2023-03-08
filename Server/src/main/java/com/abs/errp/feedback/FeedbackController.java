@@ -1,7 +1,10 @@
 package com.abs.errp.feedback;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abs.errp.entity.Feedback;
 import com.abs.errp.user.ErrpUser;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/")
 public class FeedbackController {
@@ -36,7 +40,7 @@ public class FeedbackController {
 	}
 	
 	@GetMapping("/getFeedbacks/{isMyFeedback}")
-	public ResponseEntity<List<Feedback>> fetchAllFeedbacks(@PathVariable long isMyFeedback)
+	public ResponseEntity<List<Feedback>> fetchAllFeedbacks(@PathVariable boolean isMyFeedback)
 	{
 		return this.feedbackService.fetchMyFeedbacks(isMyFeedback);
 	}
@@ -44,12 +48,17 @@ public class FeedbackController {
 	@PutMapping("/saveFeedback/{id}")
 	public ResponseEntity<Feedback> updateFeedbacks(@RequestBody Feedback feedback, @PathVariable long id)
 	{
-		ResponseEntity<Feedback> updatedFeedback = this.feedbackService.modifyFeedbacks(feedback, id);
+		ResponseEntity<Feedback> updatedFeedback = this.feedbackService.modifyFeedback(feedback, id);
 		return updatedFeedback;
 	}
 	
 	@DeleteMapping("/removeFeedback/{id}")
 	   void deleteFeedback(@PathVariable("id") Long id) {
 	   this.feedbackService.deleteByFeedbackId(id);
+	}
+	
+	@GetMapping("/getFeedback/{id}")
+	Optional<Feedback> fetchFeedback(@PathVariable long id){
+		return this.feedbackService.fetchFeedback(id);
 	}
 }

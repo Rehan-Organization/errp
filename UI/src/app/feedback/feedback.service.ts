@@ -27,4 +27,10 @@ export class FeedbackService {
     fetchEmployee(id?: number) {
         return this.http.post<Employee>('http://localhost:8080/employee', id);
     }
+    fetchFeedback(id:number){
+      return this.http.get<Feedback>(URLS.FETCHFEEDBACK+'/'+id); 
+    }
+    updateFeedback(feedback:Feedback,id:number){
+        return this.http.put<Feedback>(URLS.UPDATEFEEDBACK+'/'+id,feedback);
+    }
 }
