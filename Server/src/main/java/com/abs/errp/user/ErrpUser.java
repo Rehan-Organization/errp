@@ -23,10 +23,11 @@ public class ErrpUser {
 	@Id
 	@Column(name = "EMPLOYEE_ID")
 	private Long employeeId;
-
+	
 	@Column(name = "USERNAME", nullable = false, unique = true)
 	private String username;
-
+	
+//	@JsonIgnore
 	@Column(name = "PASSWORD")
 	private String password;
 

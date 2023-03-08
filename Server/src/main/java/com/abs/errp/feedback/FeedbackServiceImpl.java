@@ -31,7 +31,6 @@ public class FeedbackServiceImpl implements FeedbackService{
 		return new ResponseEntity<Feedback>(feedbackRepository.save(feedback),HttpStatus.CREATED);
 	}
 
-
 	@Override
 	public ResponseEntity<List<ErrpUser>> fetchAllUsers() {
 		LoggedInUser user = this.userContext.getLoggedInUser();
@@ -42,18 +41,20 @@ public class FeedbackServiceImpl implements FeedbackService{
 	}
 
 	@Override
-	public ResponseEntity<List<Feedback>> fetchMyFeedbacks(long flag) {
+	public ResponseEntity<List<Feedback>> fetchMyFeedbacks(boolean isMyFeedback) {
 		LoggedInUser user = this.userContext.getLoggedInUser();
-		List<Feedback> FeedbackData;
-		if(flag==1)
+		ErrpUser errpUser = new ErrpUser();
+		errpUser.setEmployeeId(user.getEmployeeId());
+		List<Feedback> feedbackData = null;
+		if(isMyFeedback)
 		{
-		    FeedbackData = feedbackRepository.findBySenderId(user.getEmployeeId());
+		    feedbackData = feedbackRepository.findBySenderId(errpUser);
 		}
 		else {
-			FeedbackData = feedbackRepository.findByReceiverId(user.getEmployeeId());
+			
+			feedbackData = feedbackRepository.findByReceiverId(errpUser);
 		}
-		Collections.reverse(FeedbackData);
-		return ResponseEntity.ok(FeedbackData);
+		return ResponseEntity.ok(feedbackData);
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class FeedbackController {
 	}
 	
 	@GetMapping("/getFeedbacks/{isMyFeedback}")
-	public ResponseEntity<List<Feedback>> fetchAllFeedbacks(@PathVariable long isMyFeedback)
+	public ResponseEntity<List<Feedback>> fetchAllFeedbacks(@PathVariable boolean isMyFeedback)
 	{
 		return this.feedbackService.fetchMyFeedbacks(isMyFeedback);
 	}
