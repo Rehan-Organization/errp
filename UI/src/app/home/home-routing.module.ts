@@ -10,7 +10,7 @@ const routes: Routes = [
       
         {
           path: 'myAchievement',
-          loadChildren: () => import('../Achievement/achievement-list/achievement-list.module').then(m => m.MyAchievementModule)
+          loadChildren: () => import('../Achievement/achievement-list/achievement-list.module').then(m => m.AchievementListModule)
         },
         {
           path:'myAwards',

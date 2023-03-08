@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { InputCustomEvent } from '@ionic/angular';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 import { AlertController } from '@ionic/angular';
@@ -42,7 +41,7 @@ export class AchievementFormComponent implements OnInit {
     addAchievement() {
         const today = new Date();
         this.achievement.createdDate = today;
-        this.achievement.lastUpdatedDate = today;
+        this.achievement.updatedDate = today;
 
         this.achievement.employee_id = 101;
 
@@ -53,9 +52,9 @@ export class AchievementFormComponent implements OnInit {
 
         if (!this.achievement.title?.trim() && !this.achievement.description?.trim()) {
             this.showAlert('Field cannot be empty...');
-        } else if (this.achievement.title?.trim()) {
+        } else if (!this.achievement.title?.trim()) {
             this.showAlert('Field cannot be empty...');
-        } else if (this.achievement.description?.trim()) {
+        } else if (!this.achievement.description?.trim()) {
             this.showAlert('Field cannot be empty...');
         } else {
             this.alertController
@@ -70,6 +69,7 @@ export class AchievementFormComponent implements OnInit {
                                     (data) => {
                                         (this.achievement = data),
                                             this.router.navigate(['/home/myAchievement']);
+                                        console.log(data);
                                     },
                                     (err) => {
                                         (this.errorMessage = err.message),

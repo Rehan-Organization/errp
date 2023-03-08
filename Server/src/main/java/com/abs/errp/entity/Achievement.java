@@ -28,8 +28,8 @@ public class Achievement {
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
-	@Column(name="LAST_UPDATED_DATE")
-	private Date lastUpdatedDate;
+	@Column(name="UPDATED_DATE")
+	private Date updatedDate;
 	
 	@Column(name = "ACHIEVEMENT_STATUS")
 	private int achievementStatus;
@@ -144,8 +144,8 @@ public class Achievement {
 
 
 
-	public Date getLastUpdatedDate() {
-		return lastUpdatedDate;
+	public Date getUpdatedDate() {
+		return updatedDate;
 	}
 
 
@@ -154,8 +154,8 @@ public class Achievement {
 
 
 
-	public void setLastUpdatedDate(Date lastUpdatedDate) {
-		this.lastUpdatedDate = lastUpdatedDate;
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 

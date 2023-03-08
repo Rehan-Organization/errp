@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AddServerUrlInterceptor } from './providers/interceptors/add-server-url-interceptor.service';
 import { AuthInterceptor } from './providers/interceptors/auth-interceptor.service';
 import { ErrorResponseInterceptor } from './providers/interceptors/error-response-interceptor.service';
+import { FormsModule } from '@angular/forms';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: AddServerUrlInterceptor, multi: true },
@@ -19,7 +20,7 @@ export const httpInterceptorProviders = [
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,FormsModule],
     providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         httpInterceptorProviders

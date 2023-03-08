@@ -40,4 +40,12 @@ public class AchievementServiceImpl implements AchievementService {
 		return pagedResult.toList();
 	}
 
+	@Override
+	public void deleteAchievement(long id) {
+//		Achievement existingAchievement = achievementRepository.findByEmployeeId(id).orElseThrow(() ->
+//		new ResourceNotFoundException("Achievement","Id",id));
+		achievementRepository.deleteById(id);
+		
+	}
+
 }
