@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AddFeedbackComponent } from '../add-feedback/add-feedback.component';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   declarations: [ViewFeedbackComponent,AddFeedbackComponent],
@@ -13,10 +13,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CommonModule,
     IonicModule,
     FormsModule,
-    NgxPaginationModule,
+    MomentModule,
     RouterModule.forChild([
       {path:'', component:ViewFeedbackComponent},
-      {path:'add',component:AddFeedbackComponent}
+      {path:'add',component:AddFeedbackComponent},
+      { path: 'add/:id', component: AddFeedbackComponent }
     ])
   ]
 })

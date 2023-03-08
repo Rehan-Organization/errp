@@ -1,7 +1,10 @@
 package com.abs.errp.feedback;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,16 +52,19 @@ public class FeedbackServiceImpl implements FeedbackService{
 		if(isMyFeedback)
 		{
 		    feedbackData = feedbackRepository.findBySenderId(errpUser);
+		    Collections.reverse(feedbackData);
 		}
 		else {
 			
 			feedbackData = feedbackRepository.findByReceiverId(errpUser);
+			 Collections.reverse(feedbackData);
 		}
+
 		return ResponseEntity.ok(feedbackData);
 	}
 
 	@Override
-	public ResponseEntity<Feedback> modifyFeedbacks(Feedback feedback, long id) {
+	public ResponseEntity<Feedback> modifyFeedback(Feedback feedback, long id) {
 		Feedback updateFeedback = feedbackRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Feedback not exist with id: " + id));
 
@@ -74,6 +80,11 @@ public class FeedbackServiceImpl implements FeedbackService{
 	@Override
 	public void deleteByFeedbackId(long id) {
 		feedbackRepository.deleteById(id);
+	}
+
+	@Override
+	public Optional<Feedback> fetchFeedback(long id) {
+		return feedbackRepository.findById(id);
 	}
 
 }

@@ -19,6 +19,7 @@ export class ViewFeedbackComponent implements OnInit {
     choosenOption: string = 'My Feedbacks';
     isMyFeedbacks?: number;
     searchEmployee: string = '';
+
     ngOnInit() {
         this.fetchFeedbacks();
     }
@@ -26,12 +27,12 @@ export class ViewFeedbackComponent implements OnInit {
         if (this.choosenOption == 'My Feedbacks') {
             this.isMyFeedbacks = 0;
             this.feedbackService
-                .fetchAllFeedbacks(1)
+                .fetchAllFeedbacks(this.isMyFeedbacks)
                 .subscribe((feedback) => (this.feedbacks = feedback));
         } else {
             this.isMyFeedbacks = 1;
             this.feedbackService
-                .fetchAllFeedbacks(2)
+                .fetchAllFeedbacks(this.isMyFeedbacks)
                 .subscribe((feedback) => (this.feedbacks = feedback));
         }
     }
@@ -39,6 +40,7 @@ export class ViewFeedbackComponent implements OnInit {
         this.router.navigate(['home/viewFeedback/add']);
     }
     deleteFeedback(feedback: Feedback) {
+      alert(feedback.id);
         if (confirm('Are you sure you want to delete ? ')) {
             this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
                 if (feedback == null) alert('Failed to delete');
@@ -52,7 +54,7 @@ export class ViewFeedbackComponent implements OnInit {
         }
     }
     updateFeedback(feedback: Feedback) {
-        alert(feedback.id);
+        this.router.navigate(["home/viewFeedback/add/" + feedback.id]);
     }
 }
 

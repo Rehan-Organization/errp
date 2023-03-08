@@ -42,12 +42,11 @@
         <div *ngIf="searchEmployee === '' || feedback.employeeName?.toLowerCase()?.includes(searchEmployee)">
             <ion-card-header>
                 <ion-card-subtitle>
-                    {{ feedback.employeeName }}
                     <ion-grid>
                         <ion-row>
                             <ion-col *ngIf="isMyFeedbacks">{{ feedback.employeeName }}</ion-col>
                             <ion-col *ngIf="!isMyFeedbacks">{{ feedback.supervisorName }}</ion-col>
-                            <ion-col size="auto">{{ feedback.lastUpdatedDate }}</ion-col>
+                            <ion-col size="auto">{{ feedback.lastUpdatedDate | amDateFormat:'LL' }}</ion-col>
                         </ion-row>
                     </ion-grid>
                 </ion-card-subtitle>

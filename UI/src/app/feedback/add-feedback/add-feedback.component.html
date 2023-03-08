@@ -8,10 +8,11 @@
 <ion-content>
     <ion-card class="ion-margin-bottom ion-margin-top">
         <ion-card-header>
-            <ion-card-title>Add Feedback</ion-card-title>
+            <ion-card-title *ngIf='urlId==null'>Add Feedback</ion-card-title>
+            <ion-card-title *ngIf='urlId!=null'>Update Feedback</ion-card-title>
         </ion-card-header>
         <ion-list>
-            <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline">
+            <ion-item class="ion-margin-start ion-margin-end ion-margin-bottom" fill="outline" *ngIf='urlId==null'>
                 <ion-select [(ngModel)]="selectedValue" placeholder="Select employee">
                     <ion-select-option *ngFor="let employee of employees" [value]="employee.employeeId">
                         {{ employee.employeeName }}
@@ -31,11 +32,19 @@
             </ion-item>
         </ion-list>
         <ion-button class="ion-margin-bottom ion-margin-start ion-margin-end" (click)="cancelForm()">Cancel</ion-button>
-        <ion-button
+        <ion-button *ngIf='urlId==null'
             color="primary"
             class="ion-margin-bottom ion-margin-start ion-margin-end"
-            (click)="addFeedback(feedback)"
-            >Submit</ion-button
+            (click)="addFeedback(feedback)">
+            Submit
+            </ion-button
+        >
+        <ion-button *ngIf='urlId!=null'
+            color="primary"
+            class="ion-margin-bottom ion-margin-start ion-margin-end"
+            (click)="updateFeedback()">
+            Update
+            </ion-button
         >
     </ion-card>
 </ion-content>
