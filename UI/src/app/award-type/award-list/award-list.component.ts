@@ -17,16 +17,15 @@ export class AwardListComponent implements OnInit {
     ) {}
 
     awardTypeList: AwardType[] = [];
-    
+
     ngOnInit() {
-        this.getAllaward();
+        this.getAllAwards();
     }
 
-    getAllaward() {
+    getAllAwards() {
         this.awardTypeService.getAwardTypeList().subscribe((awardTypeList) => {
             this.awardTypeList = awardTypeList.reverse();
         });
-        
     }
 
     createAward() {
@@ -46,7 +45,14 @@ export class AwardListComponent implements OnInit {
                         text: 'Confirm',
                         handler: () => {
                             award.awardStatus = 0;
-                            this.awardTypeService.updateAwardType(award.awardId, award).subscribe();
+                            this.awardTypeService.updateAwardType(award.awardId, award).subscribe(
+                                (resp) => {
+                                   
+                                },
+                                (err) => {
+                                    console.log(err);
+                                }
+                            );
                         },
                     },
                 ],

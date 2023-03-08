@@ -70,17 +70,15 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 	public AwardType updateAwardType(Long awardId,AwardType awardType) {
 
 		LoggedInUser user = this.userContext.getLoggedInUser();
-		AwardType award = this.awardServiceRespository.getReferenceById(awardId);
-		
-		award.setAwardName(awardType.getAwardName());
-		award.setAwardPoints(awardType.getAwardPoints());
-		award.setAwardStatus(awardType.getAwardStatus());
-		award.setCreatedDate(awardType.getCreatedDate());
-		award.setLastUpdatedDate(awardType.getLastUpdatedDate());
-		award.setDescription(awardType.getDescription());
-		awardType.setUpdatedById(user.getEmployeeId());
-		
-		return awardServiceRespository.save(award);
+		if(awardServiceRespository.findById(awardId).isPresent()) {
+			
+			awardType.setUpdatedById(user.getEmployeeId());
+			return awardServiceRespository.save(awardType);
+		}
+		else {
+			
+			throw new AwardTypeNotFoundException("AwardType","Id",awardId);
+		}
 
 	}
 

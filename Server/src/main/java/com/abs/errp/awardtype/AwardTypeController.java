@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -17,6 +18,7 @@ import com.abs.errp.awardtype.Exception.AwardNameAlreadyExistsException;
 import com.abs.errp.entity.AwardType;
 
 @RestController
+@RequestMapping("/awardTypes")
 public class AwardTypeController {
 
 	
@@ -36,7 +38,7 @@ public class AwardTypeController {
 	
 
 	
-	@GetMapping("/allAwardList")
+	@GetMapping()
 	public List<AwardType> getAllAwardTypes()
 	{
 		return awardTypeServices.getAllAwardTypes();

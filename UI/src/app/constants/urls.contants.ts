@@ -4,10 +4,10 @@ export const URLS = {
     LOGIN: '/authenticate',
     LOGOUT: '/logout',
 
-    ALL_AWARD_LIST: '/allAwardList',
-    NEW_AWARD_TYPE: '/newAwardType',
-    UPDATE_AWARD_TYPE: '/updateAwardType/',
-    GET_AWARD_TYPE:'/getAwardType/',
-    USER_CONTEXT: '/userContext'
+    ALL_AWARD_LIST: '/awardTypes',
+    NEW_AWARD_TYPE: '/awardTypes/newAwardType',
+    UPDATE_AWARD_TYPE: '/awardTypes/updateAwardType/',
+    GET_AWARD_TYPE:'/awardTypes/getAwardType/',
+    USER_CONTEXT: '/awardTypes/userContext'
 
 }
