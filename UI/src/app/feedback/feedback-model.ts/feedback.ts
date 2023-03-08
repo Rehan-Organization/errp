@@ -1,11 +1,12 @@
+import { Employee } from "./employee";
+
 export interface Feedback{
    id?:number,
-   senderId?:number,
-   receiverId?:any,
-   supervisorName?:string,
-   employeeName?:string,
+   senderId:Employee,
+   receiverId:Employee,
    title?:String,
    description?:string,
    created_date?:Date,
    lastUpdatedDate?:Date
  }
+ 
