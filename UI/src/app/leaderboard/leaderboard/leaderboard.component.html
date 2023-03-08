@@ -9,7 +9,7 @@
 
 <ion-content>
     <ion-segment value="default">
-        <ion-segment-button value="default">
+        <ion-segment-button value="default" (click)="getListForMonth()">
             <ion-label>Monthly</ion-label>
         </ion-segment-button>
 
@@ -25,5 +25,25 @@
           <ion-label>Yearly</ion-label>
         </ion-segment-button>
     </ion-segment>
+
+    <ion-content>
+      <ion-card>
+        <ion-item *ngFor="let emp of leaderboard ;let i = index" >
+          <i slot="start" class="fad fa-trophy {{emp.class}}"></i>
+          <!-- <div slot="start">
+          <h5 [ngStyle]="this.i == 0 ? {'background-color':'red'}: this.i == 1 ? {'background-color': 'yellow'} : this.i == 2 ? {'background-color': 'green'}:{'background-color': 'white'}" >{{i+1}} </h5>
+          </div> -->
+          <ion-label>
+            <h2>{{emp.employeeName}}</h2>
+            <p>{{emp.supervisorName}}</p>
+          </ion-label>
+          <div slot="end">
+            <h5>{{emp.points}}</h5>
+          </div>
+        </ion-item>
+      </ion-card>
+    </ion-content>
 </ion-content>
+
+
 

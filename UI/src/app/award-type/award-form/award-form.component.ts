@@ -40,8 +40,8 @@ export class AwardFormComponent implements OnInit {
         const today = new Date();
         this.awardType.createdDate = today;
         this.awardType.lastUpdatedDate = today;
-        
-
+        console.log(today);
+ 
         if (!this.awardType.awardName?.trim()) {
             this.showAlert('Award name cannot be empty!');
         } else if (this.awardType.awardPoints == null) {
