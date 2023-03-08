@@ -5,20 +5,37 @@ import { Feedback } from '../feedback-model.ts/feedback';
 
 import { FeedbackService } from '../feedback.service';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { AlertController, ToastController } from '@ionic/angular';
+
 @Component({
     selector: 'app-add-feedback',
     templateUrl: './add-feedback.component.html',
     styleUrls: ['./add-feedback.component.scss'],
 })
 export class AddFeedbackComponent implements OnInit {
+    // feedbackForm = new FormGroup({
+    //     title: new FormControl('', Validators.required),
+    //     description: new FormControl('', [Validators.required, Validators.required]),
+    // });
+
+
+    constructor(
+        private alertController: AlertController,
+        private toast: ToastController,
+        private feedbackService: FeedbackService,
+        private route: ActivatedRoute
+    ) {}
+
     feedback: Feedback = {
-        receiverId: {},
-        senderId: {}
+        senderId: {},
+        receiverId: {}
     };
 
     employees: Employee[] = [];
-    selectedValue: number=0;
-    constructor(private feedbackService: FeedbackService, private route: ActivatedRoute) {}
+    selectedValue: number = 5;
+
     feedbackId?:number;
     urlId?:any;
     fetchedFeedback:Feedback[]=[];
@@ -38,13 +55,25 @@ export class AddFeedbackComponent implements OnInit {
     }
 
     addFeedback(feedback: Feedback) {
-        alert(this.employees.length);
-        // // feedback.receiverId={}
-        feedback.receiverId.employeeId = this.selectedValue;
-        console.log(feedback.receiverId);
-        this.feedbackService.saveFeedback(feedback).subscribe((feedbackResponse) => {
+        if (this.feedback.receiverId.employeeName?.trim()) {
+            this.showAlert('Employee name cannot be empty!');
+        } else if (!this.feedback.title?.trim()) {
+            this.showAlert('Title cannot be empty!');
+        } else if (!this.feedback.description?.trim()) {
+            this.showAlert('Description cannot be empty!');
+        }else{
+            alert(this.employees.length);
+            feedback.receiverId.employeeId = this.selectedValue;
+            this.feedbackService.saveFeedback(feedback).subscribe((feedbackResponse) => {
             console.log(feedbackResponse);
+
+            this.feedback.title = '';
+            this.feedback.description = '';
+
         });
+        }
+
+        
     }
     fetchReportees() {
         this.feedbackService.getReportees().subscribe((reportee) => (this.employees = reportee));
@@ -55,9 +84,15 @@ export class AddFeedbackComponent implements OnInit {
     }
 
     cancelForm() {
-        console.log(this.selectedValue);
-        // this.employee[employeeName] = '';
-        // this.feedback.title = '';
-        // this.feedback.description = '';
+        //this.employees[employeeName] = '';
+        this.feedback.title = '';
+        this.feedback.description = '';
     }
+
+    showAlert(message: string) { this.alertController
+         .create({header: 'Alert', 
+         message: message,
+         buttons: [ 
+            {text: 'Ok',},
+         ], }) .then((res) => { res.present(); });}
 }

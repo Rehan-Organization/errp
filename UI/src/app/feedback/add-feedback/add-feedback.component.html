@@ -21,10 +21,17 @@
                 </ion-select>
             </ion-item>
 
-            <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
-                <ion-label position="floating">Title</ion-label>
-                <ion-input placeholder="Enter title" [(ngModel)]="feedback.title"></ion-input>
-            </ion-item>
+                <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
+                    <ion-label position="floating">Title</ion-label>
+                    <ion-input
+                        placeholder="Enter title"
+                        [(ngModel)]="feedback.title"
+                        required       
+                        name="title"              
+                    >
+                </ion-input>
+                    
+                </ion-item>
 
             <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
                 <ion-label position="floating">Description</ion-label>
