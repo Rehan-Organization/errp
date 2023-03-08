@@ -11,8 +11,9 @@ export class AchievementService {
 
   constructor(private httpClient : HttpClient) { }
 
-  getAllAchievement(userId:number) : Observable<Achievement[]>{
-    return this.httpClient.get<Achievement[]>('/achievement/'+userId)
+  getAllAchievement() : Observable<Achievement[]>{
+    return this.httpClient.get<Achievement[]>('/achievement/emp')
+    //use constants here 
   }
 
   postAchievement(achievement : Achievement) : Observable<Achievement>{

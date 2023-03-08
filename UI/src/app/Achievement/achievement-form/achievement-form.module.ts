@@ -6,12 +6,17 @@
 // import { FormsModule } from '@angular/forms';
 
 
-// @NgModule({
-//   declarations: [],
-//   imports: [
-//     CommonModule,
-//     IonicModule,
-//     FormsModule
-//   ]
-// })
-// export class AchievementFormModule { }
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+  
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild([{
+      path: '',
+      component: AchievementFormComponent
+    }])
+  ]
+})
+export class AddAchievementModule { }

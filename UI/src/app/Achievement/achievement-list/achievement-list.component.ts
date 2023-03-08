@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Console } from 'console';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 
@@ -36,14 +37,21 @@ export class AchievementListComponent implements OnInit {
         this.router.navigate(['/home/myAchievement/addAchievement']);
     }
 
-    delete(achievement: Achievement) {
-        // this.achievementService.deleteAchievement(achievement.id).subscribe(
-        //   (resp)=>{
-        //     console.log(resp);
-        //   },(err)=>{
-        //     console.log(err);
-        //   }
-        // );
+  }
+
+  getAchievement()
+  {
+    this.achievementService.getAllAchievement().subscribe(data =>{
+      this.achievements = data;
+      console.log(data)
+    });
+    
+  }
+
+  addAchievement(){
+    this.router.navigate(["/home/myAchievement/addAchievement"])
+  }
+  
 
         this.alertController
             .create({

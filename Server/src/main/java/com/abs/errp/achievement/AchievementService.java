@@ -7,7 +7,7 @@ import com.abs.errp.entity.Achievement;
 
 public interface AchievementService {
 	
-	List<Achievement> getAllAchievements(long id);
+	List<Achievement> getAllAchievements();
 	Achievement saveAchievement(Achievement achievement);
 	List<Achievement> findPaginated(int pageNo,int pageSize);
 	void deleteAchievement(long id);

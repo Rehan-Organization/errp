@@ -10,29 +10,29 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="EMPLOYEE_AWARDS")
-public class EmployeeAwards {
+public class EmployeeAward {
 	
 	@Id
 	@Column(name="EMPLOYEE_AWARD_ID")
-	private long employeeAwardId;
+	private int employeeAwardId;
 	
 	@Column(name="AWARD_ID")
-	private long awardId;
+	private int awardId;
 	
 	@Column(name="AWARDEE_ID")
-	private long awardeeId;
+	private int awardeeId;
 	
-	@Column(name="AWARD_RAISER_ID")
-	private long awardRaiserId;
+	@Column(name="AWARD_RAISED_BY_ID")
+	private int awardRaisedById;
 	
 	@Column(name="ACHIEVEMENT_ID")
-	private long achievementId;
+	private int achievementId;
 	
 	@Column(name="REQUEST_ID")
-	private long requestId;
+	private int requestId;
 	
 	@Column(name="APPROVED_BY_ID")
-	private long approvedById;
+	private int approvedById;
 	
 	@Column(name="APPROVED_DATE")
 	private Date approvedDate;
@@ -43,7 +43,7 @@ public class EmployeeAwards {
 	@Column(name="SUPERVISOR_COMMENTS")
 	private String supervisorComments;
 
-	public EmployeeAwards() {
+	public EmployeeAward() {
 		super();
 	}
 	

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,38 +15,33 @@ import javax.persistence.Table;
 public class AwardType {
 	
 	@Id
-	@GeneratedValue(strategy =GenerationType.AUTO )
-	private long id;
-
-	@Column(name="NAME")
+	@Column(name="AWARD_ID")
+	private int awardId;
+	
+	@Column(name="AWARD_NAME")
 	private String awardName;
 	
-	@Column(name="DESCRIPTION")
-	private String description;
+	
+	@Column(name="AWARD_DESC")
+	private String awardDesc;
 	
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
-	@Column(name="LAST_UPDATED_DATE")
-	private Date lastUpdatedDate;
-	
-	@Column(name = "AWARD_STATUS")
+	@Column(name="UPDATED_DATE")
+	private Date updatedDate;
+
+	@Column(name="AWARD_STATUS")
 	private int awardStatus;
 	
 	@Column(name="AWARD_POINTS")
 	private int awardPoints;
 	
+	@Column(name="CREATED_BY")
+	private int createdBy;
 	
-	
-
-	public AwardType() {
-		super();
-	}
-	
-	
-
-	
-	
-	
+	@Column(name="UPDATED_BY")
+	private int updatedBy;
 	
 }
+
