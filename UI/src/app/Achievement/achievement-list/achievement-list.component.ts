@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Console } from 'console';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 
@@ -26,7 +27,11 @@ export class AchievementListComponent implements OnInit {
 
   getAchievement()
   {
-    this.achievementService.getAllAchievement(this.userId).subscribe(Achievement => this.achievements = Achievement);
+    this.achievementService.getAllAchievement().subscribe(data =>{
+      this.achievements = data;
+      console.log(data)
+    });
+    
   }
 
   addAchievement(){

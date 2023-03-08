@@ -4,192 +4,146 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name="ACHIEVEMENTS")
+@Table(name="ACHIEVEMENT")
 public class Achievement {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ACHIEVEMENT_ID")
-	private long id;
+	private int achievementId;
 	
-	@Column(name = "EMPLOYEE_ID")
-	private long employeeId;
+	
+	@Column(name="EMPLOYEE_ID")
+	private int employeeId;
 	
 	@Column(name ="TITLE")
 	private String title;
 	
-	@Column(name="DESCRIPTION")
-	private String description;
+	@Column(name="ACHIEVEMENT_DESC")
+	private String achievementDesc;
 	
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
-	@Column(name="LAST_UPDATED_DATE")
-	private Date lastUpdatedDate;
+	@Column(name="UPDATED_DATE")
+	private Date updatedDate;
+	
+	@Column(name="CREATED_BY")
+	private int createdBy;
+	
+	@Column(name="UPDATED_BY")
+	private int updatedBy;
 	
 	@Column(name = "ACHIEVEMENT_STATUS")
 	private int achievementStatus;
-	
-	public Achievement() {
-		super();
+
+	@Override
+	public String toString() {
+		return "Achievement [achievementId=" + achievementId + ", employeeId=" + employeeId + ", title=" + title
+				+ ", achievementDesc=" + achievementDesc + ", createdDate=" + createdDate + ", updatedDate="
+				+ updatedDate + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", achievementStatus="
+				+ achievementStatus + "]";
 	}
 
-
-
-
-
-
-
-	public long getId() {
-		return id;
+	public int getAchievementId() {
+		return achievementId;
 	}
 
-
-
-
-
-
-
-	public void setId(long id) {
-		this.id = id;
+	public void setAchievementId(int achievementId) {
+		this.achievementId = achievementId;
 	}
 
-
-
-
-
-
-
-	public long getEmployeeId() {
+	public int getEmployeeId() {
 		return employeeId;
 	}
 
-
-
-
-
-
-
-	public void setEmployeeId(long employeeId) {
+	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
-
-
-
-
-
-
 
 	public String getTitle() {
 		return title;
 	}
 
-
-
-
-
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-
-
-
-
-
-
-	public String getDescription() {
-		return description;
+	public String getAchievementDesc() {
+		return achievementDesc;
 	}
 
-
-
-
-
-
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setAchievementDesc(String achievementDesc) {
+		this.achievementDesc = achievementDesc;
 	}
-
-
-
-
-
-
 
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-
-
-
-
-
-
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
-
-
-
-
-
-
-	public Date getLastUpdatedDate() {
-		return lastUpdatedDate;
+	public Date getUpdatedDate() {
+		return updatedDate;
 	}
 
-
-
-
-
-
-
-	public void setLastUpdatedDate(Date lastUpdatedDate) {
-		this.lastUpdatedDate = lastUpdatedDate;
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
+	public int getCreatedBy() {
+		return createdBy;
+	}
 
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
+	}
 
+	public int getUpdatedBy() {
+		return updatedBy;
+	}
 
-
-
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
+	}
 
 	public int getAchievementStatus() {
 		return achievementStatus;
 	}
+	
 
-
-
-
-
-
+	public Achievement(int employeeId, String title, String achievementDesc, Date createdDate, Date updatedDate,
+			int createdBy, int updatedBy, int achievementStatus) {
+		super();
+		this.employeeId = employeeId;
+		this.title = title;
+		this.achievementDesc = achievementDesc;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+		this.achievementStatus = achievementStatus;
+	}
 
 	public void setAchievementStatus(int achievementStatus) {
 		this.achievementStatus = achievementStatus;
 	}
 
-
-
-
-
-
-
-
-
-
-	
-
+	public Achievement() {
+		super();
+	}
 	
 	
-
+	
+	
 }

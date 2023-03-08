@@ -42,20 +42,20 @@ export class AchievementFormComponent implements OnInit {
     addAchievement() {
         const today = new Date();
         this.achievement.createdDate = today;
-        this.achievement.lastUpdatedDate = today;
+        this.achievement.updatedDate = today;
 
-        this.achievement.employee_id = 101;
+        this.achievement.employeeId = 101;
 
         // this.achievementService.postAchievement(achievement).subscribe((achievementResponse) => {
         //     console.log(achievementResponse);
         // });
         //this.router.navigate(['/home/myAchievement']);
 
-        if (!this.achievement.title?.trim() && !this.achievement.description?.trim()) {
+        if (!this.achievement.title?.trim() && !this.achievement.achievementDesc?.trim()) {
             this.showAlert('Field cannot be empty...');
         } else if (this.achievement.title?.trim()) {
             this.showAlert('Field cannot be empty...');
-        } else if (this.achievement.description?.trim()) {
+        } else if (this.achievement.achievementDesc?.trim()) {
             this.showAlert('Field cannot be empty...');
         } else {
             this.alertController

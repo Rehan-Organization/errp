@@ -9,6 +9,6 @@ import com.abs.errp.entity.Achievement;
 
 public interface AchievementRepository extends PagingAndSortingRepository<Achievement, Long>  {
 	
-	List<Achievement> findByEmployeeId(long id);
+	List<Achievement> findByEmployeeId(int id);
 
 }

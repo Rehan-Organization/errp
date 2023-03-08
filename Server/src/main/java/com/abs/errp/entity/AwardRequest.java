@@ -13,34 +13,29 @@ public class AwardRequest {
 
 	@Id
 	@Column(name="REQUEST_ID")
-	private long id;
+	private int requestId;
 	
 	@Column(name="AWARD_ID")
-	private long awardId;
+	private int awardId;
 	
 	@Column(name="AWARDEE_ID")
-	private long awardeeId;
+	private int awardeeId;
 	
-	@Column(name="AWARD_RAISER_ID")
-	private long awardRaiserId;
+	@Column(name="AWARD_RAISED_BY_ID")
+	private int awardRaisedBy;
 	
 	@Column(name="SUBMITTED_TO_ID")
-	private long submittedToId;
+	private int submittedToId;
 	
-	@Column(name ="TITLE")
-	private String title;
-	
-	@Column(name="DESCRIPTION")
-	private String description;
 	
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
-	@Column(name="LAST_UPDATED_DATE")
-	private Date lastUpdatedDate;
+	@Column(name="UPDATED_DATE")
+	private Date updatedDate;
 	
-	@Column(name = "REQUEST_STATUS")
-	private int notificationStatus;
+	@Column(name = "AWARD_REQUEST_STATUS")
+	private int awardRequestStatus;
 	
 	@Column(name="REMARKS")
 	private String remarks;

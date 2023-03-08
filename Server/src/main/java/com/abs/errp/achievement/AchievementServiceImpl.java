@@ -20,9 +20,11 @@ public class AchievementServiceImpl implements AchievementService {
 	}
 
 	@Override
-	public List<Achievement> getAllAchievements(long id) {
+	public List<Achievement> getAllAchievements() {
 
-		return achievementRepository.findByEmployeeId(id);
+		List<Achievement> ls = (List<Achievement>) achievementRepository.findAll();
+		for(int i=0;i<ls.size();i++)System.out.println(ls.get(i).toString());
+		return ls;
 	}
 
 	@Override
@@ -36,6 +38,7 @@ public class AchievementServiceImpl implements AchievementService {
 
 		Pageable paging = PageRequest.of(pageNo, pageSize);
 		Page<Achievement> pagedResult = achievementRepository.findAll(paging);
+		achievementRepository.findById(null);
 
 		return pagedResult.toList();
 	}

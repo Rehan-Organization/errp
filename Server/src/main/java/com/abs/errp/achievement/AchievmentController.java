@@ -28,9 +28,9 @@ public class AchievmentController {
 	}
 
 	// get achievement API
-	@GetMapping("/{id}")
-	public List<Achievement> getAchievement(@PathVariable long id) {
-		return achievementService.getAllAchievements(id);
+	@GetMapping("/emp")
+	public List<Achievement> getAchievement() {
+		return achievementService.getAllAchievements();
 
 	}
 

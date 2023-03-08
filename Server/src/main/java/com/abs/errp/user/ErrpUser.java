@@ -37,6 +37,9 @@ public class ErrpUser {
 	private boolean enabled;
 	
 
+	@OneToMany
+	@JoinColumn(name="EMPLOYEE_ID")
+	private Set<Achievement>achievements;
 	
 
 	@ManyToOne
