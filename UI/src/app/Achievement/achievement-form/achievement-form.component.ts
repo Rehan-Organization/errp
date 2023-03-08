@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InputCustomEvent } from '@ionic/angular';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 import { AlertController } from '@ionic/angular';
+
 
 @Component({
     selector: 'app-achievement-form',
@@ -13,14 +14,28 @@ import { AlertController } from '@ionic/angular';
 export class AchievementFormComponent implements OnInit {
     achievement: Achievement = {};
     errorMessage: string = '';
+    AchievementService: any;
 
     constructor(
         private achievementService: AchievementService,
         private router: Router,
-        // private route: ActivatedRoute,
+        private activatedRoute:ActivatedRoute,
         private alertController: AlertController
     ) {}
-    ngOnInit() {}
+   
+    ngOnInit() {
+        const isIdPresent = this.activatedRoute.snapshot.paramMap.has('id');
+        if (isIdPresent) {
+            const id = this.activatedRoute.snapshot.paramMap.get('id');
+            this.AchievementService.getAchievement().subscribe((data: Achievement) => {
+                this.achievement = data;
+            });
+        }
+
+ 
+    }
+ 
+   
 
     customCounterFormatter(inputLength: number, maxLength: number) {
         return `${maxLength - inputLength}/${maxLength}`;
@@ -44,7 +59,7 @@ export class AchievementFormComponent implements OnInit {
         this.achievement.createdDate = today;
         this.achievement.lastUpdatedDate = today;
 
-        this.achievement.employee_id = 101;
+        this.achievement.employeeId = 101;
 
         // this.achievementService.postAchievement(achievement).subscribe((achievementResponse) => {
         //     console.log(achievementResponse);

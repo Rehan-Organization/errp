@@ -7,14 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin("*")
 @Entity
 @Table(name="ACHIEVEMENTS")
+
 public class Achievement {
-	
 	@Id
 	@Column(name="ACHIEVEMENT_ID")
-	private long id;
+	private long achievementId;
 	
 	@Column(name = "EMPLOYEE_ID")
 	private long employeeId;
@@ -38,80 +40,34 @@ public class Achievement {
 		super();
 	}
 
-
-
-
-
-
-
-	public long getId() {
-		return id;
+	public long getAchievementId() {
+		return achievementId;
 	}
 
-
-
-
-
-
-
-	public void setId(long id) {
-		this.id = id;
+	public void setAchievementId(long achievementId) {
+		this.achievementId = achievementId;
 	}
-
-
-
-
-
-
 
 	public long getEmployeeId() {
 		return employeeId;
 	}
 
-
-
-
-
-
-
 	public void setEmployeeId(long employeeId) {
 		this.employeeId = employeeId;
 	}
 
-
-
-
-
-
-
 	public String getTitle() {
 		return title;
 	}
-
-
-
-
-
-
 
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
 
-
-
-
-
-
 	public String getDescription() {
 		return description;
 	}
-
-
-
-
-
 
 
 	public void setDescription(String description) {
@@ -148,48 +104,15 @@ public class Achievement {
 		return lastUpdatedDate;
 	}
 
-
-
-
-
-
-
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
-
-
-
-
-
-
 
 	public int getAchievementStatus() {
 		return achievementStatus;
 	}
 
-
-
-
-
-
-
 	public void setAchievementStatus(int achievementStatus) {
 		this.achievementStatus = achievementStatus;
 	}
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-	
-
 }

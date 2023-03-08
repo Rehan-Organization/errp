@@ -21,6 +21,10 @@ import { AchievementFormComponent } from '../achievement-form/achievement-form.c
       path: 'addAchievement',
       component: AchievementFormComponent
     },
+    {
+      path: 'Achievement/:id',
+      component: AchievementFormComponent
+    }
   ])
   ]
 })
