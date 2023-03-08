@@ -1,10 +1,13 @@
-export class Achievement {
-    achievementId?: number;
-        title?: string;
-        description?: string;
-        createdDate?:Date;
-        achievementStatus?:number;
-        employeeId?:number;
-        lastUpdatedDate?:Date
+export interface Achievement {
 
+    
+        achievementId?: number;
+        employeeId?:number;
+        title?: string;
+        achievementDesc?: string;
+        createdDate?:Date;
+        updatedDate?:Date;
+        achievementStatus?:number;
+        createdBy?:number;
+        updatedBy?:number;
 }

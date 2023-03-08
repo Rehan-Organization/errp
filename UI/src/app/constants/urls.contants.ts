@@ -4,5 +4,6 @@ export const URLS = {
     LOGIN: '/authenticate',
     LOGOUT: '/logout',
     FETCHACHIEVEMENTS:'/achievement',
-    GETACHIEVEMENT : 'achievement/getAchievement/'
+    GETACHIEVEMENT : 'achievement/getAchievement/',
+    USER_CONTEXT: '/userContext'
 }

@@ -23,7 +23,7 @@ export class AchievementService {
   } 
 
   // edite achivement
-  getAchievement() {
-    return this.httpClient.get<Achievement[]>(URLS.GETACHIEVEMENT+"/"+1);
+  getAchievement(userId:number) : Observable<Achievement[]> {
+    return this.httpClient.get<Achievement[]>(URLS.GETACHIEVEMENT+"/"+userId);
   }
 }

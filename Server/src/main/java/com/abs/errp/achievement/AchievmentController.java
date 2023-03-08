@@ -24,11 +24,11 @@ public class AchievmentController {
 		super();
 		this.achievementService = achievementService;
 	}
-  // get achievement API
-	@GetMapping("/{id}")
-	public List<Achievement> getAchievement(@PathVariable long id) {
-		System.out.println(id);
-		return achievementService.getAllAchievements(id);
+
+	// get achievement API
+	@GetMapping("/emp")
+	public List<Achievement> getAchievement() {
+		return achievementService.getAllAchievements();
 
 	}
    // post achievement API
