@@ -7,11 +7,9 @@ import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AppAuthService {
-<<<<<<< HEAD
-    constructor(private http: HttpClient, private router: Router) {}
-=======
+
     constructor(private http: HttpClient, private router: Router, private userContext: LoggedInUserContext) { }
->>>>>>> main
+
 
     login(creds: { userName: string; password: string }) {
         return new Observable((observer) => {
@@ -37,22 +35,22 @@ export class AppAuthService {
 
     logout() {
         return new Observable((observer) => {
-<<<<<<< HEAD
-            this.http.post(URLS.LOGOUT, {}).subscribe(
-                () => {
-                    sessionStorage.clear();
-                    this.router.navigateByUrl('login', { replaceUrl: true });
-                    observer.next();
-                    observer.complete();
-                },
-                (error) => {
-                    console.error('Error during Logout', error);
-                    observer.next();
-                    observer.complete();
-                }
-            );
-        });
-=======
+
+        //     this.http.post(URLS.LOGOUT, {}).subscribe(
+        //         () => {
+        //             sessionStorage.clear();
+        //             this.router.navigateByUrl('login', { replaceUrl: true });
+        //             observer.next();
+        //             observer.complete();
+        //         },
+        //         (error) => {
+        //             console.error('Error during Logout', error);
+        //             observer.next();
+        //             observer.complete();
+        //         }
+        //     );
+        // });
+
             this.http.post(URLS.LOGOUT, {}).subscribe(() => {
                 sessionStorage.clear();
                 this.userContext.clearUserContext();
@@ -66,6 +64,6 @@ export class AppAuthService {
 
             });
         })
->>>>>>> main
+
     }
 }

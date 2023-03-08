@@ -65,13 +65,44 @@ public class AwardType {
 
 
 
-	public long getId() {
+
+
+	public long getCreatedById() {
+		return createdById;
+	}
+
+
+
+	public void setCreatedById(long createdById) {
+		this.createdById = createdById;
+	}
+
+
+
+	public long getUpdatedById() {
+		return updatedById;
+	}
+
+
+
+	public void setUpdatedById(long updatedById) {
+		this.updatedById = updatedById;
+	}
+
+
+
+
+	public long getAwardId() {
 		return awardId;
 	}
 
-	public void setId(long awardId) {
+
+
+	public void setAwardId(long awardId) {
 		this.awardId = awardId;
 	}
+
+
 
 	public String getAwardName() {
 		return awardName;

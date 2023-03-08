@@ -19,16 +19,14 @@ export const httpInterceptorProviders = [
 
 @NgModule({
     declarations: [AppComponent],
-<<<<<<< HEAD
-    imports: [BrowserModule, IonicModule.forRoot({mode: 'ios'}), AppRoutingModule, HttpClientModule],
-=======
+
     imports: [
         BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
         AppRoutingModule,
         HttpClientModule,
     ],
->>>>>>> main
+
     providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         httpInterceptorProviders,

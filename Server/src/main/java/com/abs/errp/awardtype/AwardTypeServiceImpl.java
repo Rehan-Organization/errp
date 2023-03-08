@@ -3,21 +3,25 @@ package com.abs.errp.awardtype;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.abs.errp.awardtype.Exception.AwardNameAlreadyExistsException;
 import com.abs.errp.awardtype.Exception.AwardTypeNotFoundException;
 
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
 
 import com.abs.errp.entity.AwardType;
+import com.abs.errp.security.LoggedInUser;
+import com.abs.errp.security.LoggedInUserContext;
 
 
 @Service
 public class AwardTypeServiceImpl implements AwardTypeService {
 	
 
+	@Autowired
+	LoggedInUserContext userContext;
+	
 	private  AwardTypeRepository awardServiceRespository;
 	
 	public AwardTypeServiceImpl(AwardTypeRepository awardServicesRespository) {
@@ -34,6 +38,8 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 
 	@Override
 	public AwardType saveAwardType(AwardType awardType) {
+		
+		LoggedInUser user = this.userContext.getLoggedInUser();
 
         String awardName = awardType.getAwardName();
 		Optional<AwardType> award = Optional.ofNullable(findAwardByName(awardName));
@@ -42,6 +48,9 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 				throw new AwardNameAlreadyExistsException("Award name alredy exsists");
 			}
 			else{		
+				
+				awardType.setCreatedById(user.getEmployeeId());
+				awardType.setUpdatedById(user.getEmployeeId());
 				return awardServiceRespository.save(awardType);
 			}
 		
@@ -60,6 +69,7 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 	@Override
 	public AwardType updateAwardType(Long awardId,AwardType awardType) {
 
+		LoggedInUser user = this.userContext.getLoggedInUser();
 		AwardType award = this.awardServiceRespository.getReferenceById(awardId);
 		
 		award.setAwardName(awardType.getAwardName());
@@ -68,6 +78,7 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 		award.setCreatedDate(awardType.getCreatedDate());
 		award.setLastUpdatedDate(awardType.getLastUpdatedDate());
 		award.setDescription(awardType.getDescription());
+		awardType.setUpdatedById(user.getEmployeeId());
 		
 		return awardServiceRespository.save(award);
 
