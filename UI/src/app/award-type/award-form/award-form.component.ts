@@ -145,8 +145,8 @@ export class AwardFormComponent implements OnInit {
     ngOnInit() {
         const isIdPresent = this.route.snapshot.paramMap.has('awardId');
         if (isIdPresent) {
-            const awardId = this.route.snapshot.paramMap.get('id');
-            this.awardTypeService.getAwardType(awardId).subscribe((data) => {
+            const award = this.route.snapshot.paramMap.get('awardId');
+            this.awardTypeService.getAwardType(award).subscribe((data) => {
                 this.awardType = data;
             });
         }
