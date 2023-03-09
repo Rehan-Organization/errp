@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abs.errp.entity.AwardType;
+import com.abs.errp.user.ErrpUser;
 
 @RestController
-@RequestMapping("/awardtypes")
+@RequestMapping("")
 public class AwardTypeController {
 
 	 private AwardTypeService awardTypeService;
@@ -20,11 +21,18 @@ public class AwardTypeController {
 		}
 	
 
-	@GetMapping()
+	@GetMapping("/awardtypes")
 	public List<AwardType> getAllAwardTypes()
 	
 	{
 		return awardTypeService.getAllAwardTypes();
+	}
+	
+	@GetMapping("/users")
+	public List<ErrpUser> getAllUsers(){
+		
+		return awardTypeService.getAllUsers();
+		
 	}
 
 

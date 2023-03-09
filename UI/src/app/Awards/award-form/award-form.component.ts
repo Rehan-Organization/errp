@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AwardService } from '../award.service';
+import { AwardType } from '../awardtype';
 import { Employee } from '../employee';
 
 @Component({
@@ -8,26 +10,38 @@ import { Employee } from '../employee';
 })
 export class AwardFormComponent implements OnInit {
 
-  constructor() { }
-  employees:Employee[] = [{
-    employeeId: 0,
-    username:"pushkar" ,
-    employeeName: "pushkar joshi",
-    supervisorId: 0
-  },{
-    employeeId: 1,
-    username:"pradip" ,
-    employeeName: "pradip bankar",
-    supervisorId: 0
-  },{
-    employeeId: 2,
-    username:"prem" ,
-    employeeName: "prem wagh",
-    supervisorId: 0
+  constructor(private awardService:AwardService) { }
 
-  }]
-  
+  employees:Employee[];
+  // employees:Employee[] = [{
+  //   employeeId: 0,
+  //   username:"pushkar" ,
+  //   employeeName: "pushkar joshi",
+  //   supervisorId: 0
+  // },{
+  //   employeeId: 1,
+  //   username:"pradip" ,
+  //   employeeName: "pradip bankar",
+  //   supervisorId: 0
+  // },{
+  //   employeeId: 2,
+  //   username:"prem" ,
+  //   employeeName: "prem wagh",
+  //   supervisorId: 0
 
-  ngOnInit() {}
+  // }]
+  awards:AwardType[];
+
+
+
+
+  ngOnInit() {
+    this.awardService.getAwardTypes().subscribe(data=>{
+      this.awards = data;
+    })
+    this.awardService.getAllUsers().subscribe(data=>{
+      this.employees = data;
+    })
+  }
 
 }

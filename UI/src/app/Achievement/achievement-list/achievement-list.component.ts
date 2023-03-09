@@ -58,7 +58,7 @@ export class AchievementListComponent implements OnInit {
       for(let i=0;i<data.length;i++)
       {
         this.achievements.push(data[i]);
-      }
+      } 
       if(isFirstLoad)
       {
         event.target.complete();

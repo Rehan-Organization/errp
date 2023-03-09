@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.abs.errp.entity.Achievement;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "ERRP_USER")
 public class ErrpUser {
@@ -42,11 +43,12 @@ public class ErrpUser {
 	private Set<Achievement>achievements;
 	
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "SUPERVISOR_ID")
 	private ErrpUser supervisor;
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "supervisor")
 	private Set<ErrpUser> reportees;
 	
