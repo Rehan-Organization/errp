@@ -51,7 +51,7 @@ public class AchievementServiceImpl implements AchievementService {
 	}
 
 	@Override
-	public void deleteAchievement(long id) {
+	public void deleteAchievement(int id) {
 //		Achievement existingAchievement = achievementRepository.findByEmployeeId(id).orElseThrow(() ->
 //		new ResourceNotFoundException("Achievement","Id",id));
 		achievementRepository.deleteById(id);

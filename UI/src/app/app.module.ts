@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { AddServerUrlInterceptor } from './providers/interceptors/add-server-url-interceptor.service';
 import { AuthInterceptor } from './providers/interceptors/auth-interceptor.service';
 import { ErrorResponseInterceptor } from './providers/interceptors/error-response-interceptor.service';
-import { FormsModule } from '@angular/forms';
+
 
 export const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: AddServerUrlInterceptor, multi: true },

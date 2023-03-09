@@ -10,7 +10,7 @@ public interface AchievementService {
 	List<Achievement> getAllAchievements();
 	Achievement saveAchievement(Achievement achievement);
 	List<Achievement> findPaginated(int pageNo,int pageSize);
-	void deleteAchievement(long id);
+	void deleteAchievement(int id);
 	// edit 
 	Achievement getAchievementById(int id);
 	//update the achievement after click the update button 

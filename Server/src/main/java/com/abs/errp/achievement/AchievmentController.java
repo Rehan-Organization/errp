@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abs.errp.entity.Achievement;
 
 
-@RequestMapping("/achievement/")
+@RequestMapping("/achievement")
 @RestController
 public class AchievmentController {
 
@@ -27,12 +27,13 @@ public class AchievmentController {
 	// get achievement API
 	@GetMapping("/emp")
 	public List<Achievement> getAchievement() {
+	
 		return achievementService.getAllAchievements();
 
 	}
    // post achievement API
-	@PostMapping
-	public ResponseEntity<Achievement> saveEmployee(@RequestBody Achievement achievement) {
+	@PostMapping("/add")
+	public ResponseEntity<Achievement> saveAchievement(@RequestBody Achievement achievement) {
 		return new ResponseEntity<Achievement>(achievementService.saveAchievement(achievement), HttpStatus.CREATED);
 
 	}
@@ -45,7 +46,7 @@ public class AchievmentController {
 	}
 	
 	@DeleteMapping("/removeAchievement/{id}")
-	public void deleteAchievement(@PathVariable("id") long id){
+	public void deleteAchievement(@PathVariable("id") int id){
 		achievementService.deleteAchievement(id);
 	}
 	@PostMapping ("/updateAchievement/{id}")

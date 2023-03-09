@@ -58,6 +58,7 @@ export class AchievementFormComponent implements OnInit {
     }
 
     addAchievement() {
+        console.log(this.achievement);
         const today = new Date();
         this.achievement.createdDate = today;
         this.achievement.updatedDate = today;

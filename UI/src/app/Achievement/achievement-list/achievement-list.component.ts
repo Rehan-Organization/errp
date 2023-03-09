@@ -13,18 +13,17 @@ import { AchievementService } from '../achievement.service';
     styleUrls: ['./achievement-list.component.scss'],
 })
 export class AchievementListComponent implements OnInit {
-    // achievement : Achievement[] = [];
-    userId = 0;
 
-  //achievement : Achievement[] = [];
-  userId = 1
   httpClient: any;
-  achievement: Achievement[];
+  achievements: Achievement[];
+  errorMessage = ""
 
   constructor(
     private router:Router, 
     private achievementService : AchievementService,
-    private activatedRoute:ActivatedRoute,) {}
+    private activatedRoute:ActivatedRoute,
+    private alertController:AlertController
+    ) {}
 
     ngOnInit() {
         this.getAchievement();
@@ -33,7 +32,7 @@ export class AchievementListComponent implements OnInit {
     getAchievement() {
         this.achievementService
             .getAllAchievement()
-            .subscribe((Achievement) => (this.achievements = Achievement));
+            .subscribe((Achievement) => (this.achievements=Achievement));
     }
 
     addAchievement() {
@@ -64,9 +63,9 @@ export class AchievementListComponent implements OnInit {
   //   this.achievementService.getAchievement(this.userId).subscribe(achievement => this.achievements = achievement);
   // }
 
-  handleUpdate(event:Event){
-    console.log(event);
-  }
+//   handleUpdate(event:Event){
+//     console.log(event);
+//   }
 
         this.alertController
             .create({
@@ -113,3 +112,4 @@ export class AchievementListComponent implements OnInit {
             });
     }
 }
+
