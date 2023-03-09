@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../feedback-model.ts/employee';
 import { Feedback } from '../feedback-model.ts/feedback';
 import { FeedbackService } from '../feedback.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { AlertController, ToastController } from '@ionic/angular';
+import { ToastService } from '../toast.service';
 @Component({
     selector: 'app-feedback-form',
     templateUrl: './feedback-form.component.html',
@@ -21,16 +22,25 @@ export class FeedbackFormComponent implements OnInit {
         private alertController: AlertController,
         private toast: ToastController,
         private feedbackService: FeedbackService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private toastService: ToastService,
+        private router:Router
     ) {}
 
-    feedback: Feedback = {
-        senderId: {},
-        receiverId: {},
-    };
-
+    newFeedback:Feedback={
+        senderId:{},
+        receiverId:{},
+        title:'',
+        description:'',
+    }
+    feedback:Feedback={
+        senderId:{},
+        receiverId:{},
+        title:'',
+        description:''
+    }
     employees: Employee[] = [];
-    selectedValue: number = 5;
+    selectedValue: any;
 
     feedbackId?: number;
     urlId?: any;
@@ -41,45 +51,108 @@ export class FeedbackFormComponent implements OnInit {
         if (this.urlId != null) {
             this.feedbackService
                 .fetchFeedback(this.urlId)
-                .subscribe((feedback) => (this.feedback = feedback));
+                .subscribe((feedback) => (this.newFeedback = feedback));
         } else {
-            this.feedback.title = '';
-            this.feedback.description = '';
+            this.newFeedback.title = '';
+            this.newFeedback.description = '';
         }
         // this.route.snapshot.paramMap('id')
         this.fetchReportees();
     }
 
-    addFeedback(feedback: Feedback) {
-        if (this.feedback.receiverId.employeeName?.trim()) {
+    async addFeedback(feedback: Feedback) {
+        if (this.newFeedback.receiverId.employeeName?.trim()) {
             this.showAlert('Employee name cannot be empty!');
-        } else if (!this.feedback.title?.trim()) {
+        } else if (!this.newFeedback.title?.trim()) {
             this.showAlert('Title cannot be empty!');
-        } else if (!this.feedback.description?.trim()) {
+        } else if (!this.newFeedback.description?.trim()) {
             this.showAlert('Description cannot be empty!');
         } else {
-            alert(this.employees.length);
-            feedback.receiverId.employeeId = this.selectedValue;
-            this.feedbackService.saveFeedback(feedback).subscribe((feedbackResponse) => {
-                console.log(feedbackResponse);
-
-                this.feedback.title = '';
-                this.feedback.description = '';
+            const alert = await this.alertController.create({
+                header: 'Are you sure you want to add feedback ?',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => {
+                    
+                        },
+                    },
+                    {
+                        text: 'Submit',
+                        role: 'confirm',
+                        handler: () => {
+                            feedback.receiverId.employeeId = this.selectedValue;
+                            this.feedbackService
+                                .saveFeedback(feedback)
+                                .subscribe((feedbackResponse) => {
+                                    if(feedbackResponse!=null){
+                                    this.newFeedback.title = '';
+                                    this.newFeedback.description = '';
+                                    this.selectedValue=null;
+                                    this.toastService.showSuccessToast("Feedback added successfully")
+                                    }
+                                    if(feedbackResponse==null){
+                                        this.toastService.showErrorToast("Oops, Something went wrong!!! Please try again");
+                                    }
+                                
+                                });
+                                
+                        },
+                    },
+                ],
             });
+            await alert.present();
         }
     }
+
     fetchReportees() {
         this.feedbackService.getReportees().subscribe((reportee) => (this.employees = reportee));
     }
 
-    updateFeedback() {
-        this.feedbackService.updateFeedback(this.feedback, this.urlId).subscribe();
+    async updateFeedback() {
+        const alert = await this.alertController.create({
+            header: 'Are you sure you want to update feedback ?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {
+                
+                    },
+                },
+                {
+                    text: 'Update',
+                    role: 'confirm',
+                    handler: () => {
+                        this.feedbackService.updateFeedback(this.newFeedback, this.urlId)
+                            .subscribe((feedbackResponse) => {
+                                if(feedbackResponse!=null){
+                                    this.router.navigate(['home/viewFeedback']);
+                                this.toastService.showSuccessToast("Feedback added successfully")
+                                }
+                                if(feedbackResponse==null){
+                                    this.toastService.showErrorToast("Oops, Something went wrong!!! Please try again");
+                                }
+                              
+                            
+                            });
+                            
+                    },
+                },
+            ],
+        });
+        await alert.present();
     }
 
     cancelForm() {
         //this.employees[employeeName] = '';
-        this.feedback.title = '';
-        this.feedback.description = '';
+        if(this.urlId!=null){
+            this.router.navigate(['home/viewFeedback']);
+        }
+        this.selectedValue = null;
+        this.newFeedback.title = '';
+        this.newFeedback.description = '';
     }
 
     showAlert(message: string) {

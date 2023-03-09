@@ -22,7 +22,7 @@ public class Feedback {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="FEEDBACK_ID")
-	private long id;
+	private int id;
 	
     @OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "SENDER_ID", referencedColumnName = "EMPLOYEE_ID")
@@ -46,7 +46,7 @@ public class Feedback {
 
 	
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -66,7 +66,7 @@ public class Feedback {
 
 	
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -5,6 +5,7 @@ import { Employee } from '../feedback-model.ts/employee';
 import { Feedback } from '../feedback-model.ts/feedback';
 import { FeedbackService } from '../feedback.service';
 import { Observable, Subscription, interval } from 'rxjs';
+import { ToastService } from '../toast.service';
 @Component({
     selector: 'app-feedback-list',
     templateUrl: './feedback-list.component.html',
@@ -15,7 +16,8 @@ export class FeedbackListComponent implements OnInit {
     constructor(
         private feedbackService: FeedbackService,
         private router: Router,
-        private alertController: AlertController
+        private alertController: AlertController,
+        private toastService: ToastService
     ) {}
     employees: Employee[] = [];
     feedbacks: Feedback[] = [];
@@ -95,6 +97,7 @@ export class FeedbackListComponent implements OnInit {
                     role: 'confirm',
                     handler: () => {
                         this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
+                            this.toastService.showSuccessToast("Feedback deleted successfully");
                             this.feedbacks = this.feedbacks.filter(
                                 (newFeedback) => newFeedback.id != feedback.id
                             );

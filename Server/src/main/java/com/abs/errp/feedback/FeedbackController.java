@@ -28,7 +28,6 @@ public class FeedbackController {
 	}
 
 	// Rest api for add feedback for reportees.
-
 	@PostMapping("/saveFeedback")
 	@PreAuthorize("hasRole('SUPERVISOR')")
 	public ResponseEntity<Feedback> saveFeedback(@RequestBody Feedback feedback) {
@@ -36,7 +35,6 @@ public class FeedbackController {
 	}
 
 	// Rest API for fetching the list of all reportees for particular supervisor
-
 	@GetMapping("/getReportees")
 	@PreAuthorize("hasRole('SUPERVISOR')")
 	public ResponseEntity<List<ErrpUser>> getAllUsers() {
@@ -44,25 +42,21 @@ public class FeedbackController {
 	}
 
 	// Rest API for fetching the feedback by using the feedback id
-
 	@GetMapping("/getFeedbacks/{isMyFeedback}/{pageNo}/{pageSize}")	
-//	@PreAuthorize ("hasRole('SUPERVISOR')")
+	@PreAuthorize ("hasRole('SUPERVISOR')")
 	public ResponseEntity<List<Feedback>> getAllFeedbacks(@PathVariable boolean isMyFeedback, @PathVariable int pageNo, @PathVariable int pageSize)
 	{
-		System.out.println("paginated called");
 		return ResponseEntity.ok(this.feedbackService.getMyFeedbacks(isMyFeedback, pageNo, pageSize));
 	}
 
 	// Rest API to save the feedback using the feedback id
-
-	@PutMapping("/saveFeedback/{id}")
+	@PutMapping("/updateFeedback/{id}")
 	@PreAuthorize("hasRole('SUPERVISOR')")
 	public ResponseEntity<Feedback> updateFeedbacks(@RequestBody Feedback feedback, @PathVariable int id) {
 		return ResponseEntity.ok(this.feedbackService.updateFeedback(feedback, id));
 	}
 
 	// Rest API to delete the feedback using the feedback id
-
 	@DeleteMapping("/removeFeedback/{id}")
 	@PreAuthorize("hasRole('SUPERVISOR')")
 	void removeFeedback(@PathVariable("id") int id) {
@@ -70,7 +64,6 @@ public class FeedbackController {
 	}
 
 	// Rest API to fetch the feedback using the feedback id
-
 	@GetMapping("/getFeedback/{id}")
 	@PreAuthorize("hasRole('SUPERVISOR')")
 	Optional<Feedback> getFeedback(@PathVariable int id) {

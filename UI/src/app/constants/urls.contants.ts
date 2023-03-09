@@ -9,6 +9,6 @@ export const URLS = {
     FETCHFEEDBACKS:'/feedback/getFeedbacks/',
     DELETEFEEDBACK:'/feedback/removeFeedback/',
     FETCHFEEDBACK:'/feedback/getFeedback/',
-    UPDATEFEEDBACK:'/feedback/saveFeedback/',
+    UPDATEFEEDBACK:'/feedback/updateFeedback/',
     USER_CONTEXT: '/userContext'
 }

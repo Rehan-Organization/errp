@@ -16,6 +16,6 @@ public interface FeedbackRepository extends PagingAndSortingRepository<Feedback,
 
 	List<Feedback> findAllByReceiverId(ErrpUser user, Pageable pageable);
 
-	void deleteById(long id);
+	void deleteById(int id);
 
 }
