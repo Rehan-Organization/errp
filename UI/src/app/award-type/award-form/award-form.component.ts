@@ -42,13 +42,7 @@ export class AwardFormComponent implements OnInit {
         this.awardType.lastUpdatedDate = today;
         console.log(today);
 
-        if (!this.awardType.awardName?.trim()) {
-            this.toasterService.showErrorToast('Award name cannot be empty!');
-        } else if (this.awardType.awardPoints == null) {
-            this.toasterService.showErrorToast('Award points cannot be empty!');
-        } else if (!this.awardType.description?.trim()) {
-            this.toasterService.showErrorToast('Award description cannot be empty!');
-        } else {
+        if(this.validate()){
             this.alertController
                 .create({
                     header: 'ARE YOU SURE?',
@@ -102,14 +96,7 @@ export class AwardFormComponent implements OnInit {
     updateAward() {
         const today = new Date();
         this.awardType.lastUpdatedDate = today;
-
-        if (!this.awardType.awardName?.trim()) {
-            this.toasterService.showErrorToast('Award name cannot be empty!');
-        } else if (this.awardType.awardPoints == null) {
-            this.toasterService.showErrorToast('Award points cannot be empty!');
-        } else if (!this.awardType.description?.trim()) {
-            this.toasterService.showErrorToast('Award description cannot be empty!');
-        } else {
+        if(this.validate()) {
             this.alertController
                 .create({
                     header: 'ARE YOU SURE',
@@ -144,6 +131,22 @@ export class AwardFormComponent implements OnInit {
                     res.present();
                 });
         }
+    }
+
+    validate() : boolean
+    {
+      if (!this.awardType.awardName?.trim()) {
+        this.toasterService.showErrorToast('Award name cannot be empty!');
+        return false;
+    } else if (this.awardType.awardPoints == null) {
+        this.toasterService.showErrorToast('Award points cannot be empty!');
+        return false;
+    } else if (!this.awardType.description?.trim()) {
+        this.toasterService.showErrorToast('Award description cannot be empty!');
+        return false;
+    } 
+      return true;
+    
     }
 
     ngOnInit() {

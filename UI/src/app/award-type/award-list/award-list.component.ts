@@ -30,7 +30,7 @@ export class AwardListComponent implements OnInit {
                 this.awardTypeList = awardTypeList.reverse();
             },
             (err) => {
-                console.log(err);
+               this.toasterService.showErrorToast('Unable to get awards list')
             }
         );
     }
@@ -54,10 +54,10 @@ export class AwardListComponent implements OnInit {
                             award.awardStatus = 0;
                             this.awardTypeService.updateAwardType(award.awardId, award).subscribe(
                                 (data) => {
-                                    this.toasterService.showSuccessToast('Award deactivated successfully')
+                                    this.toasterService.showSuccessToast('Award disabled successfully')
                                 },
                                 (err) => {
-                                   this.toasterService.showErrorToast('Failed to deactivate award')
+                                   this.toasterService.showErrorToast('Failed to disabled award')
                                 }
                             );
                         },
