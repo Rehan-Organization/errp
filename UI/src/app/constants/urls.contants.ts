@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment';
+ import { environment } from './../../environments/environment';
 export const URLS = {
     base: environment.baseUrl,
     LOGIN: '/authenticate',
@@ -9,5 +9,6 @@ export const URLS = {
     FETCHFEEDBACKS:'/api/v1/getFeedbacks',
     DELETEFEEDBACK:'/api/v1/removeFeedback',
     FETCHFEEDBACK:'/api/v1/getFeedback',
-    UPDATEFEEDBACK:'/api/v1/saveFeedback'
+    UPDATEFEEDBACK:'/api/v1/saveFeedback',
+    USER_CONTEXT: '/userContext'
 }

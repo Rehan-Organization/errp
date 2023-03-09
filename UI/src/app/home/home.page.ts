@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { LoggedInUserContext } from './../providers/logged-in-user-context.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppAuthService } from '../providers/app-auth.service';
+import { LoggedInUser } from '../providers/logged-in-user.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-home',
@@ -9,10 +11,12 @@ import { AppAuthService } from '../providers/app-auth.service';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+    loggedInUser: LoggedInUser | undefined;
     constructor(
         private http: HttpClient,
         private authService: AppAuthService,
-        private router: Router
+        private router: Router,
+        private userContext: LoggedInUserContext
     ) {
         this.http.get('/test').subscribe(
             () => {
@@ -22,6 +26,9 @@ export class HomePage {
                 console.error('TEST ERROR', error);
             }
         );
+    }
+    ngOnInit() {
+        this.loggedInUser = this.userContext.getLoggedInUser();
     }
 
     viewFeedBack() {

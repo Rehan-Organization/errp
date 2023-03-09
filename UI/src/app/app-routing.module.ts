@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AppAuthGuard } from './providers/app-auth-guard.service';
+import { UserContextResolver } from './providers/user-context-resolver.service';
 
 const routes: Routes = [
     {
