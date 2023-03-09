@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddFeedbackComponent } from '../feedback/add-feedback/add-feedback.component';
+import { FeedbackFormComponent } from '../feedback/feedback-form/feedback-form.component';
 import { HomePage } from './home.page';
 
 const routes: Routes = [
@@ -11,8 +11,8 @@ const routes: Routes = [
             {
                 path: 'viewFeedback',
                 loadChildren: () =>
-                    import('../feedback/view-feedback/view-feedback.module').then(
-                        (m) => m.ViewFeedbackModule
+                    import('../feedback/feedback-list/feedback-list.module').then(
+                        (m) => m.FeedbackListModule
                     ),
             },
         ],

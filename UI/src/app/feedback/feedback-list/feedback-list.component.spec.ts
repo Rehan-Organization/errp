@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ViewFeedbackComponent } from './view-feedback.component';
+import { FeedbackListComponent } from './feedback-list.component';
 
 describe('ViewFeedbackComponent', () => {
-    let component: ViewFeedbackComponent;
-    let fixture: ComponentFixture<ViewFeedbackComponent>;
+    let component: FeedbackListComponent;
+    let fixture: ComponentFixture<FeedbackListComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ViewFeedbackComponent],
+            declarations: [FeedbackListComponent],
             imports: [IonicModule.forRoot()],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ViewFeedbackComponent);
+        fixture = TestBed.createComponent(FeedbackListComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     }));

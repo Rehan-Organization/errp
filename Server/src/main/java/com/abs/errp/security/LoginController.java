@@ -34,7 +34,7 @@ public class LoginController {
 	@GetMapping("/userContext")
 	public ResponseEntity<LoggedInUser> test() {
 		LoggedInUser user = this.userContext.getLoggedInUser();
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<LoggedInUser>(user, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/authenticate", method = { RequestMethod.POST }, consumes = {
