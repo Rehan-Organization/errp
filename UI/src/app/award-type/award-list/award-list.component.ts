@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AwardType } from '../award-type-model/award-type';
 import { AwardTypeService } from '../award-type-providers/award-type.service';
 import { AlertController } from '@ionic/angular';
+import { ToastService } from 'src/app/errp-service/toast.service';
 
 @Component({
     selector: 'app-view-award',
@@ -13,7 +14,8 @@ export class AwardListComponent implements OnInit {
     constructor(
         private router: Router,
         private awardTypeService: AwardTypeService,
-        private alertController: AlertController
+        private alertController: AlertController,
+        private toasterService: ToastService
     ) {}
 
     awardTypeList: AwardType[] = [];
@@ -23,9 +25,14 @@ export class AwardListComponent implements OnInit {
     }
 
     getAllAwards() {
-        this.awardTypeService.getAwardTypeList().subscribe((awardTypeList) => {
-            this.awardTypeList = awardTypeList.reverse();
-        });
+        this.awardTypeService.getAwardTypeList().subscribe(
+            (awardTypeList) => {
+                this.awardTypeList = awardTypeList.reverse();
+            },
+            (err) => {
+                console.log(err);
+            }
+        );
     }
 
     createAward() {
@@ -46,11 +53,11 @@ export class AwardListComponent implements OnInit {
                         handler: () => {
                             award.awardStatus = 0;
                             this.awardTypeService.updateAwardType(award.awardId, award).subscribe(
-                                (resp) => {
-                                   
+                                (data) => {
+                                    this.toasterService.showSuccessToast('Award deactivated successfully')
                                 },
                                 (err) => {
-                                    console.log(err);
+                                   this.toasterService.showErrorToast('Failed to deactivate award')
                                 }
                             );
                         },

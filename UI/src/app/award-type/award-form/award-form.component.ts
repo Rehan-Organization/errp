@@ -3,6 +3,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { AwardType } from '../award-type-model/award-type';
 import { AwardTypeService } from '../award-type-providers/award-type.service';
 import { AlertController } from '@ionic/angular';
+import { ToastService } from 'src/app/errp-service/toast.service';
 
 @Component({
     selector: 'app-create-award',
@@ -13,22 +14,21 @@ export class AwardFormComponent implements OnInit {
     awardTypeList: AwardType[] = [];
     awardType: AwardType = {};
     errorMessage: string = '';
-    flag : boolean = false;
-    
+    typeCheck: boolean = false;
+
     constructor(
         private router: Router,
         private awardTypeService: AwardTypeService,
         private route: ActivatedRoute,
-        private alertController: AlertController
+        private alertController: AlertController,
+        private toasterService: ToastService
     ) {
-        if(this.router.url=="/home/awardTypes/create"){
-            this.flag=true;
-        }
-        else if(this.router.url=="/home/awardTypes/edit/award.id"){
-            this.flag=false;
+        if (this.router.url == '/home/awardTypes/create') {
+            this.typeCheck = true;
+        } else if (this.router.url == '/home/awardTypes/edit/award.id') {
+            this.typeCheck = false;
         }
     }
-
 
     numericOnly(event: { key: string }): boolean {
         let pattern = /^([0-9])$/;
@@ -41,18 +41,18 @@ export class AwardFormComponent implements OnInit {
         this.awardType.createdDate = today;
         this.awardType.lastUpdatedDate = today;
         console.log(today);
- 
+
         if (!this.awardType.awardName?.trim()) {
-            this.showAlert('Award name cannot be empty!');
+            this.toasterService.showErrorToast('Award name cannot be empty!');
         } else if (this.awardType.awardPoints == null) {
-            this.showAlert('Award points cannot be empty!');
+            this.toasterService.showErrorToast('Award points cannot be empty!');
         } else if (!this.awardType.description?.trim()) {
-            this.showAlert('Award description cannot be empty!');
+            this.toasterService.showErrorToast('Award description cannot be empty!');
         } else {
             this.alertController
                 .create({
-                    header: 'Are you sure?',
-                    message: 'create new award?',
+                    header: 'ARE YOU SURE?',
+                    message: 'CREATE NEW AWARD?',
                     buttons: [
                         {
                             text: 'Cancel',
@@ -63,6 +63,9 @@ export class AwardFormComponent implements OnInit {
                                 this.awardTypeService.saveAwardType(this.awardType).subscribe(
                                     (data) => {
                                         (this.awardType = data),
+                                            this.toasterService.showSuccessToast(
+                                                'New award created successfully'
+                                            ),
                                             this.router.navigate(['/home/awardTypes']);
                                     },
                                     (err) => {
@@ -99,20 +102,18 @@ export class AwardFormComponent implements OnInit {
     updateAward() {
         const today = new Date();
         this.awardType.lastUpdatedDate = today;
-       
-       
 
         if (!this.awardType.awardName?.trim()) {
-            this.showAlert('Award name cannot be empty!');
+            this.toasterService.showErrorToast('Award name cannot be empty!');
         } else if (this.awardType.awardPoints == null) {
-            this.showAlert('Award points cannot be empty!');
+            this.toasterService.showErrorToast('Award points cannot be empty!');
         } else if (!this.awardType.description?.trim()) {
-            this.showAlert('Award description cannot be empty!');
+            this.toasterService.showErrorToast('Award description cannot be empty!');
         } else {
             this.alertController
                 .create({
-                    header: 'Are you sure?',
-                    message: 'update award?',
+                    header: 'ARE YOU SURE',
+                    message: 'UPDATE AWARD?',
                     buttons: [
                         {
                             text: 'Cancel',
@@ -125,7 +126,10 @@ export class AwardFormComponent implements OnInit {
                                     .subscribe(
                                         (data) => {
                                             (this.awardType = data),
-                                                this.router.navigate(['/home/awardTypes']);
+                                                this.toasterService.showSuccessToast(
+                                                    'Award updated successfully'
+                                                );
+                                            this.router.navigate(['/home/awardTypes']);
                                         },
                                         (err) => {
                                             (this.errorMessage = err.message),
@@ -146,11 +150,14 @@ export class AwardFormComponent implements OnInit {
         const isIdPresent = this.route.snapshot.paramMap.has('awardId');
         if (isIdPresent) {
             const award = this.route.snapshot.paramMap.get('awardId');
-            this.awardTypeService.getAwardType(award).subscribe((data) => {
-                this.awardType = data;
-            });
+            this.awardTypeService.getAwardType(award).subscribe(
+                (data) => {
+                    this.awardType = data;
+                },
+                (err) => { 
+                  this.toasterService.showErrorToast('Unable to get data');
+                }
+            );
         }
     }
-
-   
 }

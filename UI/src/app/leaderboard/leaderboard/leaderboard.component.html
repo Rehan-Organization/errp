@@ -9,41 +9,92 @@
 
 <ion-content>
     <ion-segment value="default">
-        <ion-segment-button value="default" (click)="getListForMonth()">
+        <ion-segment-button value="default" (click)="forMonth()">
             <ion-label>Monthly</ion-label>
         </ion-segment-button>
 
-        <ion-segment-button value="quarterly">
+        <ion-segment-button value="quarterly" (click)="forQuarter()">
             <ion-label>Quarterly</ion-label>
         </ion-segment-button>
 
-        <ion-segment-button value="half-yearly">
-          <ion-label>Half-yearly</ion-label>
+        <ion-segment-button value="half-yearly" (click)="forHalfYear()">
+            <ion-label>Half-yearly</ion-label>
         </ion-segment-button>
 
-        <ion-segment-button value="yearly">
-          <ion-label>Yearly</ion-label>
+        <ion-segment-button value="yearly" (click)="forYear()">
+            <ion-label>Yearly</ion-label>
+        </ion-segment-button>
+
+        <ion-segment-button value="Custom Date" (click)="forCustomDate()">
+            <ion-label>Custom date</ion-label>
         </ion-segment-button>
     </ion-segment>
 
     <ion-content>
-      <ion-card>
-        <ion-item *ngFor="let emp of leaderboard ;let i = index" >
-          <i slot="start" class="fad fa-trophy" [ngStyle]="this.i == 0 ? {'color':'gold'}: this.i == 1 ? {'color': 'silver'} : this.i == 2 ? {'color': '#CD7F32'}:{'color': 'black'}"></i>
-          <!-- <div slot="start">
-          <h5 [ngStyle]="this.i == 0 ? {'color':'red'}: this.i == 1 ? {'background-color': 'yellow'} : this.i == 2 ? {'background-color': 'green'}:{'background-color': 'white'}" >{{i+1}} </h5>
-          </div> -->
-          <ion-label>
-            <h2>{{emp.employeeName}}</h2>
-            <p>{{emp.supervisorName}}</p>
-          </ion-label>
-          <div slot="end">
-            <h5>{{emp.points}}</h5>
-          </div>
+
+
+      <ion-card *ngIf="typeCheck">
+        <ion-item>
+            <ion-label>Pick start date</ion-label>
+            <ion-input
+                placeholder="Select date here"
+                value="{{ startDate | date : 'dd.MM.yyyy' }}"
+                id="startDate"
+                class="ion-text-end"
+            ></ion-input>
+            <ion-popover trigger="startDate" size="cover">
+                <ng-template>
+                    <ion-datetime [showDefaultButtons]="true" [(ngModel)]="startDate"></ion-datetime>
+                </ng-template>
+            </ion-popover>
         </ion-item>
-      </ion-card>
+
+        <ion-item>
+            <ion-label>Pick end date</ion-label>
+            <ion-input
+                placeholder="Select date here"
+                value="{{ endDate | date : 'dd.MM.yyyy' }}"
+                id="endDate"
+                class="ion-text-end"
+            ></ion-input>
+            <ion-popover trigger="endDate" size="cover">
+                <ng-template>
+                    <ion-datetime [showDefaultButtons]="true" [(ngModel)]="endDate"></ion-datetime>
+                </ng-template>
+            </ion-popover>
+        </ion-item>
+
+        <ion-button (click)="customDate()"> Apply Filter </ion-button>
+    </ion-card>
+
+
+
+        <ion-card>
+            <ion-item *ngFor="let emp of leaderboard; let i = index">
+                <i
+                    slot="start"
+                    class="fad fa-trophy"
+                    [ngStyle]="
+                        this.i == 0
+                            ? { color: 'gold' }
+                            : this.i == 1
+                            ? { color: 'silver' }
+                            : this.i == 2
+                            ? { color: '#CD7F32' }
+                            : { color: 'black' }
+                    "
+                ></i>
+                <div slot="start">
+                    <h5>{{ i + 1 }}</h5>
+                </div>
+                <ion-label>
+                    <h2>{{ emp.employeeName }}</h2>
+                    <p>{{ emp.supervisorName }}</p>
+                </ion-label>
+                <div slot="end">
+                    <h5>{{ emp.points }}</h5>
+                </div>
+            </ion-item>
+        </ion-card>
     </ion-content>
 </ion-content>
-
-
-

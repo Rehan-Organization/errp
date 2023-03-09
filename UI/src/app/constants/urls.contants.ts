@@ -8,6 +8,7 @@ export const URLS = {
     NEW_AWARD_TYPE: '/awardTypes/newAwardType',
     UPDATE_AWARD_TYPE: '/awardTypes/updateAwardType/',
     GET_AWARD_TYPE:'/awardTypes/getAwardType/',
-    USER_CONTEXT: '/awardTypes/userContext'
+    USER_CONTEXT: '/awardTypes/userContext',
+    GET_LEADERBOARD_LIST : '/leaderboard'
 
 }

@@ -4,8 +4,8 @@
             <ion-back-button></ion-back-button>
         </ion-buttons>
 
-        <ion-title *ngIf="flag">Create Award</ion-title>
-        <ion-title *ngIf="!flag">Update Award</ion-title>
+        <ion-title *ngIf="typeCheck">Create Award</ion-title>
+        <ion-title *ngIf="!typeCheck">Update Award</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -26,7 +26,7 @@
 
                     <br />
                     <ion-item>
-                        <ion-label position="stacked">points for Award</ion-label>
+                        <ion-label position="stacked">Points for Award</ion-label>
                         <ion-input
                             type="number"
                             placeholder="Points"
@@ -39,7 +39,7 @@
                     <br />
 
                     <ion-item>
-                        <ion-label position="stacked">Discription for Award</ion-label>
+                        <ion-label position="stacked">Description for Award</ion-label>
                         <ion-input
                             placeholder="Description"
                             [(ngModel)]="awardType.description"
@@ -50,8 +50,8 @@
                 </ion-list>
 
                 
-                    <ion-button (click)="createAward()" *ngIf="flag">Create</ion-button>
-                    <ion-button (click)="updateAward()" *ngIf="!flag">Update</ion-button>
+                    <ion-button (click)="createAward()" *ngIf="typeCheck">Create</ion-button>
+                    <ion-button (click)="updateAward()" *ngIf="!typeCheck">Update</ion-button>
 
               
 
