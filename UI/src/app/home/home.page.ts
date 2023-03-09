@@ -26,9 +26,11 @@ export class HomePage {
                 console.error('TEST ERROR', error);
             }
         );
-    }
+
+        }
     ngOnInit() {
         this.loggedInUser = this.userContext.getLoggedInUser();
+
     }
 
     viewFeedBack() {
