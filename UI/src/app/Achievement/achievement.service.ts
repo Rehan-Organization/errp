@@ -36,7 +36,8 @@ export class AchievementService {
     return this.httpClient.delete(URLS.DELETE + achievement_id)
   }
 
+  submitAchievement(achievement:Achievement):Observable<Achievement>{
+    return this.httpClient.post<Achievement>("/achievement/submit",achievement);
+  }
 
-
-  
 }

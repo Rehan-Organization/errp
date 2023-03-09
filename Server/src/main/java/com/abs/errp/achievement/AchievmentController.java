@@ -61,6 +61,11 @@ public class AchievmentController {
 	public void deleteAchievement(@PathVariable("id") int id){
 	achievementService.deleteAchievement(id);
 	}
+	
+	@PostMapping("/submit")
+	public void submitAchievement(@RequestBody Achievement achievement) {
+		 achievementService.submitAchievement(achievement);
+	}
 
 
 

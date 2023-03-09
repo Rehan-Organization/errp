@@ -47,6 +47,7 @@ export class AchievementListComponent implements OnInit {
 
     
   }
+  
 
   getAchievement(isFirstLoad:boolean,event:any)
   {
@@ -70,6 +71,36 @@ export class AchievementListComponent implements OnInit {
 
     
     
+  }
+  submitAchievement(achievement:Achievement){
+    this.alertController
+        .create({
+            header: 'Alert',
+            message: 'Are you sure you want to submit?',
+            buttons: [
+                {
+                    text: 'Confirm',
+                    handler: () => {
+                        this.achievementService.submitAchievement(achievement).subscribe(
+                            (resp) => {
+                               
+                                console.log(resp);
+                            },
+                            (err) => {
+                                (this.errorMessage = err.message),
+                                    this.showAlert(this.errorMessage);
+                            }
+                        );
+                    },
+                },
+                {
+                    text: 'Cancel',
+                },
+            ],
+        })
+        .then((res) => {
+            res.present();
+        });
   }
 
   addAchievement(){

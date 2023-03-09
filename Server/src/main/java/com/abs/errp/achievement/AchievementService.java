@@ -16,4 +16,5 @@ public interface AchievementService {
 	Achievement updateAchievement(int id, Achievement achievement);
 	
 	void deleteAchievement(int id);
+	void submitAchievement(Achievement achievement);
 }
