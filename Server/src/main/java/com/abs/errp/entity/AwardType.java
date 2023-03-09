@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="AwardType")
+@Table(name="award_type")
 public class AwardType {
 	
 	@Id
@@ -42,6 +42,91 @@ public class AwardType {
 	
 	@Column(name="UPDATED_BY")
 	private int updatedBy;
+
+	public int getAwardId() {
+		return awardId;
+	}
+
+	public void setAwardId(int awardId) {
+		this.awardId = awardId;
+	}
+
+	public String getAwardName() {
+		return awardName;
+	}
+
+	public void setAwardName(String awardName) {
+		this.awardName = awardName;
+	}
+
+	public String getAwardDesc() {
+		return awardDesc;
+	}
+
+	public void setAwardDesc(String awardDesc) {
+		this.awardDesc = awardDesc;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public int getAwardStatus() {
+		return awardStatus;
+	}
+
+	public void setAwardStatus(int awardStatus) {
+		this.awardStatus = awardStatus;
+	}
+
+	public int getAwardPoints() {
+		return awardPoints;
+	}
+
+	public void setAwardPoints(int awardPoints) {
+		this.awardPoints = awardPoints;
+	}
+
+	public int getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public int getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
+	}
 	
+//	@Override
+//	public String toString() {
+//		// TODO Auto-generated method stub
+//		return awardName;
+//	}
+//
+//	public String getAwardName() {
+//		return awardName;
+//	}
+//
+//	public void setAwardName(String awardName) {
+//		this.awardName = awardName;
+//	}
 }
 
