@@ -25,13 +25,7 @@ export class AchievementListComponent implements OnInit {
   achievements : Achievement[] = [];
 
   ngOnInit() {
-    const isIdPresent = this.activatedRoute.snapshot.paramMap.has('id');
-    if (isIdPresent) {
-        const id = this.activatedRoute.snapshot.paramMap.get('id');
-        this.achievementService.getAchievement(id).subscribe((data) => {
-            this.achievement = data;
-        });
-    }
+    
     
     
     this.getAchievement();
@@ -41,7 +35,7 @@ export class AchievementListComponent implements OnInit {
 
   getAchievement()
   {
-    this.achievementService.getAllAchievement(this.userId).subscribe(achievement => this.achievements = achievement);
+    this.achievementService.getAllAchievement().subscribe(achievement => this.achievements = achievement);
   }
 
   addAchievement(){
@@ -49,8 +43,13 @@ export class AchievementListComponent implements OnInit {
   }
 
   // editAchievement(){
+  //   this.router.navigate(["/home/myAchievement/editAchievement/"+this.achievements.achievementId])
   //   this.achievementService.getAchievement(this.userId).subscribe(achievement => this.achievements = achievement);
   // }
+
+  handleUpdate(event:Event){
+    console.log(event);
+  }
 
 }
   

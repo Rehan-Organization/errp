@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.abs.errp.entity.Achievement;
+import com.abs.errp.exception.ResourceNotFoundException;
 import com.abs.errp.security.LoggedInUser;
 import com.abs.errp.security.LoggedInUserContext;
 
@@ -50,17 +51,17 @@ public class AchievementServiceImpl implements AchievementService {
 	}
 
 	@Override
-	public Achievement getAchievementById(long id) {
+	public Achievement getAchievementById(int id) {
 		if(achievementRepository.findById(id).isPresent()) {
 			return achievementRepository.findById(id).get();
 		}
 		else {
-			return null; 
+			throw new ResourceNotFoundException("achievement","Id",id); 
 		}
 	}
 
 	@Override
-	public Achievement updateAchievement(Long id, Achievement achievement) {
+	public Achievement updateAchievement(int id, Achievement achievement) {
 		Optional<Achievement> achive = achievementRepository.findById(id);
 		if(achive.isPresent())
 		{

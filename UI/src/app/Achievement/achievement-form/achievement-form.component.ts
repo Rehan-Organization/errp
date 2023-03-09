@@ -22,16 +22,19 @@ export class AchievementFormComponent implements OnInit {
         private activatedRoute:ActivatedRoute,
         private alertController: AlertController
     ) {}
-   
-    ngOnInit() {
-        const isIdPresent = this.activatedRoute.snapshot.paramMap.has('id');
-        if (isIdPresent) {
-            const id = this.activatedRoute.snapshot.paramMap.get('id');
-            this.AchievementService.getAchievement().subscribe((data: Achievement) => {
-                this.achievement = data;
-            });
-        }
 
+    ngOnInit() {
+        
+        const isIdPresent = this.activatedRoute.snapshot.paramMap.has('id');
+        
+    if (isIdPresent) {
+        const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+        
+        this.achievementService.getAchievement(id).subscribe((data) => {
+            this.achievement = data;
+            console.log(data);
+        });
+    }
  
     }
  

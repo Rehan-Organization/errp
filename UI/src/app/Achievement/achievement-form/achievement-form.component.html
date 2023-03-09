@@ -19,6 +19,7 @@
                         minlength="20"
                         [clearInput]="true"
                         placeholder="Enter title for an Achievement"
+                        [(ngModel)]="achievement.title"
                     ></ion-input>
                 </ion-item>
 
@@ -32,6 +33,8 @@
                         [clearInput]="true"
                         placeholder="Enter Description"
                         inputmode="text"
+                        [(ngModel)]="achievement.achievementDesc
+                        "
                     ></ion-input>
                 </ion-item>
 
