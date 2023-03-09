@@ -14,7 +14,7 @@ import { AlertController } from '@ionic/angular';
 export class AchievementFormComponent implements OnInit {
     achievement: Achievement = {};
     errorMessage: string = '';
-    AchievementService: any;
+    
 
     constructor(
         private achievementService: AchievementService,
@@ -27,7 +27,7 @@ export class AchievementFormComponent implements OnInit {
         
         const isIdPresent = this.activatedRoute.snapshot.paramMap.has('id');
         
-    if (isIdPresent) {
+        if (isIdPresent) {
         const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
         
         this.achievementService.getAchievement(id).subscribe((data) => {
@@ -61,20 +61,18 @@ export class AchievementFormComponent implements OnInit {
         const today = new Date();
         this.achievement.createdDate = today;
         this.achievement.updatedDate = today;
-
-        this.achievement.employeeId = 101;
-
-        // this.achievementService.postAchievement(achievement).subscribe((achievementResponse) => {
+        
+        this.achievement.employeeId = 0;
+        
+        
+        // this.achievementService.postAchievement(this.achievement).subscribe((achievementResponse) => {
         //     console.log(achievementResponse);
         // });
-        //this.router.navigate(['/home/myAchievement']);
-
-        if (!this.achievement.title?.trim() && !this.achievement.achievementDesc?.trim()) {
-            this.showAlert('Field cannot be empty...');
-        } else if (this.achievement.title?.trim()) {
-            this.showAlert('Field cannot be empty...');
-        } else if (this.achievement.achievementDesc?.trim()) {
-            this.showAlert('Field cannot be empty...');
+        // this.router.navigate(['/home/myAchievement']);
+        this.achievement.title = this.achievement.title?.trim();
+        this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
+        if (this.achievement.title == "" || this.achievement.achievementDesc == "") {
+            this.showAlert("Fields can not be empty")
         } else {
             this.alertController
                 .create({
