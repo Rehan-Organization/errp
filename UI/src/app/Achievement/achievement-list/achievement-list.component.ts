@@ -11,7 +11,7 @@ import { AchievementService } from '../achievement.service';
     styleUrls: ['./achievement-list.component.scss'],
 })
 export class AchievementListComponent implements OnInit {
-    //achievement : Achievement[] = [];
+    // achievement : Achievement[] = [];
     userId = 0;
 
     constructor(
@@ -29,7 +29,7 @@ export class AchievementListComponent implements OnInit {
 
     getAchievement() {
         this.achievementService
-            .getAllAchievement(this.userId)
+            .getAllAchievement()
             .subscribe((Achievement) => (this.achievements = Achievement));
     }
 
@@ -37,21 +37,23 @@ export class AchievementListComponent implements OnInit {
         this.router.navigate(['/home/myAchievement/addAchievement']);
     }
 
-  }
+    // getAchievement()
+    // {
+    //   this.achievementService.getAllAchievement().subscribe(data =>{
+    //     this.achievements = data;
+    //     console.log(data)
+    //   });
 
-  getAchievement()
-  {
-    this.achievementService.getAllAchievement().subscribe(data =>{
-      this.achievements = data;
-      console.log(data)
-    });
-    
-  }
+    // }
 
-  addAchievement(){
-    this.router.navigate(["/home/myAchievement/addAchievement"])
-  }
-  
+    delete(achievement: Achievement) {
+        // this.achievementService.deleteAchievement(achievement.id).subscribe(
+        //   (resp)=>{
+        //     console.log(resp);
+        //   },(err)=>{
+        //     console.log(err);
+        //   }
+        // );
 
         this.alertController
             .create({
@@ -61,7 +63,7 @@ export class AchievementListComponent implements OnInit {
                     {
                         text: 'Confirm',
                         handler: () => {
-                            this.achievementService.deleteAchievement(achievement.id).subscribe(
+                            this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
                                 (resp) => {
                                     this.router.navigate(['/home/myAchievement']);
                                     console.log(resp);

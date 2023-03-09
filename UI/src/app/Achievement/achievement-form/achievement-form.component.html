@@ -27,7 +27,7 @@
                 <ion-item fill="outline" id="description" counter="true" [counterFormatter]="customCounterFormatter">
                     <ion-label position="floating">Description</ion-label>
                     <ion-input
-                        [(ngModel)]="achievement.description" name="description"
+                        [(ngModel)]="achievement.achievementDesc" name="description"
                         (keypress)="onKeyPress($event)"
                         maxlength="200"
                         minlength="50"

@@ -54,7 +54,7 @@ export class AchievementFormComponent implements OnInit {
             this.showAlert('Field cannot be empty...');
         } else if (!this.achievement.title?.trim()) {
             this.showAlert('Field cannot be empty...');
-        } else if (this.achievement.achievementDesc?.trim()) {
+        } else if (!this.achievement.achievementDesc?.trim()) {
             this.showAlert('Field cannot be empty...');
         } else {
             this.alertController
