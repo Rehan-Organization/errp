@@ -1,12 +1,11 @@
-import { Employee } from "./employee";
+import { Employee } from './employee';
 
-export interface Feedback{
-   id?:number,
-   senderId:Employee,
-   receiverId:Employee,
-   title?:String,
-   description?:string,
-   created_date?:Date,
-   lastUpdatedDate?:Date
- }
- 
+export interface Feedback {
+    id?: number;
+    senderId: Employee;
+    receiverId: Employee;
+    title?: String;
+    description?: string;
+    created_date?: Date;
+    lastUpdatedDate?: Date;
+}
