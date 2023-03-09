@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Console } from 'console';
+import { Console, error } from 'console';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
-
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-achievement-list',
@@ -13,24 +13,50 @@ import { AchievementService } from '../achievement.service';
 export class AchievementListComponent implements OnInit {
 
   //achievement : Achievement[] = [];
-  userId = 2
+
 
   constructor(private router:Router, private achievementService : AchievementService) {}
 
   achievements : Achievement[] = [];
+  pageNo:number = 0
+  pageSize:number = 4
+
 
   ngOnInit() {
 
-    this.getAchievement();
+    this.getAchievement(false,null);
 
   }
 
-  getAchievement()
+  onIonInfinite(ev:Event) {
+    
+    
+    this.getAchievement(true,ev)
+
+    
+  }
+
+  getAchievement(isFirstLoad:boolean,event:any)
   {
-    this.achievementService.getAllAchievement().subscribe(data =>{
-      this.achievements = data;
-      console.log(data)
-    });
+
+    
+
+    this.achievementService.getPaginatedAchievement(this.pageNo,this.pageSize).subscribe(data =>{
+      for(let i=0;i<data.length;i++)
+      {
+        this.achievements.push(data[i]);
+      }
+      if(isFirstLoad)
+      {
+        event.target.complete();
+      }
+    this.pageNo++;
+
+    },error=>{
+      console.error(error);
+    })
+
+    
     
   }
 

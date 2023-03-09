@@ -41,7 +41,7 @@ public class AchievmentController {
 
 	}
 	
-	@GetMapping("/{pageNo}/{pageSize}")
+	@GetMapping("/paginated/{pageNo}/{pageSize}")
 	public List<Achievement> getPaginatedCountries(@PathVariable int pageNo, 
 	        @PathVariable int pageSize) {
 

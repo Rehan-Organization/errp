@@ -15,6 +15,10 @@ export class AchievementService {
     //use constants here 
   }
 
+  getPaginatedAchievement(pageNo:number,pageSize:number):Observable<Achievement[]>{
+    return this.httpClient.get<Achievement[]>('/achievement/paginated/'+pageNo+"/"+pageSize);
+  }
+
   postAchievement(achievement : Achievement) : Observable<Achievement>{
     return this.httpClient.post<Achievement>('/achievement',achievement)
   } 
