@@ -1,4 +1,4 @@
-import { AddFeedbackComponent } from './add-feedback.component';
+import { FeedbackFormComponent } from './feedback-form.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
         IonicModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterModule.forChild([{ path: '', component: AddFeedbackComponent }]),
+        RouterModule.forChild([{ path: '', component: FeedbackFormComponent }]),
     ],
     exports: [BrowserModule],
 })

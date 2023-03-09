@@ -16,36 +16,34 @@ import com.abs.errp.user.ErrpUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="feedback")
+@Table(name = "feedback")
 public class Feedback {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="FEEDBACK_ID")
+	@Column(name = "FEEDBACK_ID")
 	private long id;
-	
-    @OneToOne(cascade = CascadeType.DETACH)
+
+	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "SENDER_ID", referencedColumnName = "EMPLOYEE_ID")
 	private ErrpUser senderId;
-	
-    @OneToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "RECEIVER_ID", referencedColumnName = "EMPLOYEE_ID")
+
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "RECEIVER_ID", referencedColumnName = "EMPLOYEE_ID")
 	private ErrpUser receiverId;
-	
-	@Column(name ="TITLE")
+
+	@Column(name = "TITLE")
 	private String title;
-	
-	@Column(name="FEEDBACK_DESC")
+
+	@Column(name = "FEEDBACK_DESC")
 	private String description;
-	
-	@Column(name="CREATED_DATE")
+
+	@Column(name = "CREATED_DATE")
 	private Date createdDate;
-	
-	@Column(name="UPDATED_DATE")
+
+	@Column(name = "UPDATED_DATE")
 	private Date lastUpdatedDate;
 
-	
-	
 	public long getId() {
 		return id;
 	}
@@ -58,18 +56,13 @@ public class Feedback {
 		return title;
 	}
 
-	
-
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	public ErrpUser getSenderId() {
 		return senderId;
@@ -87,12 +80,9 @@ public class Feedback {
 		this.title = title;
 	}
 
-
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-
-	
 
 	public String getDescription() {
 		return description;
@@ -115,6 +105,6 @@ public class Feedback {
 		return "Feedback [id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", title=" + title
 				+ ", description=" + description + ", createdDate=" + createdDate + ", lastUpdatedDate="
 				+ lastUpdatedDate + "]";
-	}	
+	}
 
 }

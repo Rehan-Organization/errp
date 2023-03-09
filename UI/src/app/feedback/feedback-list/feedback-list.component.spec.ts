@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ViewFeedbackComponent } from './view-feedback.component';
+import { ViewFeedbackComponent } from './feedback-list.component';
 
 describe('ViewFeedbackComponent', () => {
     let component: ViewFeedbackComponent;

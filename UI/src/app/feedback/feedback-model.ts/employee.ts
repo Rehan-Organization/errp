@@ -1,7 +1,6 @@
-export interface Employee{
-    employeeId?:number;
-    username?:string;
+export interface Employee {
+    employeeId?: number;
+    username?: string;
     employeeName?: string;
-    supervisorId?:number;
-  }
-  
+    supervisorId?: number;
+}

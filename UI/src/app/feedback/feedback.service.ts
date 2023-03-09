@@ -12,10 +12,10 @@ export class FeedbackService {
     constructor(private http: HttpClient) {}
 
     fetchAllFeedbacks(isMyFeedbacks: boolean): Observable<Feedback[]> {
-        return this.http.get<Feedback[]>(URLS.FETCHFEEDBACKS +"/" + isMyFeedbacks);
+        return this.http.get<Feedback[]>(URLS.FETCHFEEDBACKS + isMyFeedbacks);
     }
     removeFeedback(feedbackId: any): Observable<any> {
-        return this.http.delete(URLS.DELETEFEEDBACK +"/"+ feedbackId);
+        return this.http.delete(URLS.DELETEFEEDBACK + feedbackId);
     }
 
     saveFeedback(feedback: Feedback): Observable<Feedback> {
@@ -25,13 +25,12 @@ export class FeedbackService {
     getReportees(): Observable<Employee[]> {
         return this.http.get<Employee[]>(URLS.FETCHREPORTEES);
     }
-    fetchEmployee(id?: number) {
-        return this.http.post<Employee>('http://localhost:8080/employee', id);
+  
+    fetchFeedback(id: number) {
+        return this.http.get<Feedback>(URLS.FETCHFEEDBACK + id);
     }
-    fetchFeedback(id:number){
-      return this.http.get<Feedback>(URLS.FETCHFEEDBACK+'/'+id); 
-    }
-    updateFeedback(feedback:Feedback,id:number){
-        return this.http.put<Feedback>(URLS.UPDATEFEEDBACK+'/'+id,feedback);
+    
+    updateFeedback(feedback: Feedback, id: number) {
+        return this.http.put<Feedback>(URLS.UPDATEFEEDBACK + id, feedback);
     }
 }

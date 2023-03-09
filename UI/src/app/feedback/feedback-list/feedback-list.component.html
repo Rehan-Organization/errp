@@ -13,7 +13,7 @@
                         <ion-label>Feedbacks Given By Me</ion-label>
                     </ion-segment-button>
                 </ion-segment>
-                <ion-searchbar [(ngModel)]="searchEmployee"></ion-searchbar>
+                <ion-searchbar *ngIf="isMyFeedbacks" [(ngModel)]="searchEmployee"></ion-searchbar>
             </ion-col>
 
             <ion-col size="auto">
@@ -25,11 +25,11 @@
         <div *ngIf="searchEmployee === '' || feedback.receiverId.employeeName?.toLowerCase()?.includes(searchEmployee)">
             <ion-card-header>
                 <ion-card-subtitle>
-                      <ion-grid>
+                    <ion-grid>
                         <ion-row>
                             <ion-col *ngIf="isMyFeedbacks">{{ feedback.receiverId.employeeName }}</ion-col>
                             <ion-col *ngIf="!isMyFeedbacks">{{ feedback.senderId.employeeName }}</ion-col>
-                            <ion-col size="auto">{{ feedback.lastUpdatedDate | amDateFormat : 'LL'}}</ion-col>
+                            <ion-col size="auto">{{ feedback.lastUpdatedDate | amDateFormat : 'LL' }}</ion-col>
                         </ion-row>
                     </ion-grid>
                 </ion-card-subtitle>
