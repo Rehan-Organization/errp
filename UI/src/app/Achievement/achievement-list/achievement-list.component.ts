@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { AlertController } from '@ionic/angular';
-import { Console } from 'console';
+
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 
@@ -14,14 +16,15 @@ export class AchievementListComponent implements OnInit {
     // achievement : Achievement[] = [];
     userId = 0;
 
-    constructor(
-        private router: Router,
-        private achievementService: AchievementService,
-        private alertController: AlertController
-    ) {}
+  //achievement : Achievement[] = [];
+  userId = 1
+  httpClient: any;
+  achievement: Achievement[];
 
-    achievements: Achievement[] = [];
-    errorMessage: string = '';
+  constructor(
+    private router:Router, 
+    private achievementService : AchievementService,
+    private activatedRoute:ActivatedRoute,) {}
 
     ngOnInit() {
         this.getAchievement();
@@ -54,6 +57,16 @@ export class AchievementListComponent implements OnInit {
         //     console.log(err);
         //   }
         // );
+
+
+  // editAchievement(){
+  //   this.router.navigate(["/home/myAchievement/editAchievement/"+this.achievements.achievementId])
+  //   this.achievementService.getAchievement(this.userId).subscribe(achievement => this.achievements = achievement);
+  // }
+
+  handleUpdate(event:Event){
+    console.log(event);
+  }
 
         this.alertController
             .create({

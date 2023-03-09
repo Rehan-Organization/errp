@@ -20,7 +20,8 @@
                         maxlength="50"
                         minlength="20"
                         [clearInput]="true"
-                        placeholder="Enter Title for an Achievement"
+                        placeholder="Enter title for an Achievement"
+                        [(ngModel)]="achievement.title"
                     ></ion-input>
                 </ion-item>
 
@@ -34,6 +35,8 @@
                         [clearInput]="true"
                         placeholder="Enter Description for an Achievement"
                         inputmode="text"
+                        [(ngModel)]="achievement.achievementDesc
+                        "
                     ></ion-input>
                 </ion-item>
                 <ion-button color="primary" (click)="addAchievement()">Save</ion-button>

@@ -23,6 +23,10 @@ import { FormsModule } from '@angular/forms';
       path: 'addAchievement',
       component: AchievementFormComponent
     },
+    {
+      path: 'addAchievement/:id',
+      component: AchievementFormComponent
+    }
   ])
   ]
 })

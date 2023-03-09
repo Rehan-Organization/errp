@@ -1,8 +1,5 @@
 package com.abs.errp.achievement;
-
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,11 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.abs.errp.entity.Achievement;
 
-@CrossOrigin("*")
-@RequestMapping("/achievement")
+
+@RequestMapping("/achievement/")
 @RestController
 public class AchievmentController {
 
@@ -34,8 +30,7 @@ public class AchievmentController {
 		return achievementService.getAllAchievements();
 
 	}
-
-	// post achievement API
+   // post achievement API
 	@PostMapping
 	public ResponseEntity<Achievement> saveEmployee(@RequestBody Achievement achievement) {
 		return new ResponseEntity<Achievement>(achievementService.saveAchievement(achievement), HttpStatus.CREATED);
@@ -53,4 +48,21 @@ public class AchievmentController {
 	public void deleteAchievement(@PathVariable("id") long id){
 		achievementService.deleteAchievement(id);
 	}
+	@PostMapping ("/updateAchievement/{id}")
+	public ResponseEntity<Achievement> updateAchievement(@PathVariable int id,@RequestBody Achievement achievement){
+	return new ResponseEntity<Achievement>(achievementService.updateAchievement(id,achievement),HttpStatus.CREATED);
+	 
+	}
+	 
+	@GetMapping("/getAchievement/{id}")
+	public ResponseEntity<Achievement> getAchievementById(@PathVariable("id") int id){
+	
+		
+		return new ResponseEntity<Achievement>(achievementService.getAchievementById(id), HttpStatus.OK);
+	
+	 
+	}
+
+
+	
 }

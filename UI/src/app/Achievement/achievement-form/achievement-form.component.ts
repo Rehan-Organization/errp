@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { InputCustomEvent } from '@ionic/angular';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 import { AlertController } from '@ionic/angular';
+
 
 @Component({
     selector: 'app-achievement-form',
@@ -12,14 +14,31 @@ import { AlertController } from '@ionic/angular';
 export class AchievementFormComponent implements OnInit {
     achievement: Achievement = {};
     errorMessage: string = '';
+    AchievementService: any;
 
     constructor(
         private achievementService: AchievementService,
         private router: Router,
-        // private route: ActivatedRoute,
+        private activatedRoute:ActivatedRoute,
         private alertController: AlertController
     ) {}
-    ngOnInit() {}
+
+    ngOnInit() {
+        
+        const isIdPresent = this.activatedRoute.snapshot.paramMap.has('id');
+        
+    if (isIdPresent) {
+        const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+        
+        this.achievementService.getAchievement(id).subscribe((data) => {
+            this.achievement = data;
+            console.log(data);
+        });
+    }
+ 
+    }
+ 
+   
 
     customCounterFormatter(inputLength: number, maxLength: number) {
         return `${maxLength - inputLength}/${maxLength}`;

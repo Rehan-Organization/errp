@@ -7,15 +7,28 @@
 </ion-header>
 
 <ion-content>
-    <ion-card *ngFor="let achievement of achievements">
-        <ion-card-header>
-            <ion-card-title>{{ achievement.title }}</ion-card-title>
-            <ion-card-subtitle></ion-card-subtitle>
-        </ion-card-header>
+  <ion-card *ngFor="let achievement of achievements">
+    <ion-card-header>
+      <ion-card-title>{{achievement.title}}</ion-card-title>
+     
+      <ion-card-title class="ion-text-right"  >
+        <ion-card-title *ngIf= "achievement.achievementStatus ==1" > Saved </ion-card-title>
+        <ion-card-title *ngIf= "achievement.achievementStatus ==0" > Pending </ion-card-title>
+        <ion-card-title *ngIf= "achievement.achievementStatus ==2" > approved </ion-card-title>
+
+      </ion-card-title>
+      
+      <ion-card-subtitle></ion-card-subtitle>
+    </ion-card-header>
 
     <ion-card-content>
       {{achievement.achievementDesc}}
     </ion-card-content>
+    
+  
+    <ion-button fill="clear" *ngIf= "achievement.achievementStatus ==1 || achievement.achievementStatus == 0" routerLink="addAchievement/{{achievement.achievementId}}" >Update</ion-button>
+    <ion-button  fill="clear" *ngIf= "achievement.achievementStatus ==1">Submit</ion-button>
+    <ion-button fill="clear" *ngIf= "!(achievement.achievementStatus == 1)">delete</ion-button>
 
         <ion-button fill="clear" (click)="delete(achievement)" >Delete</ion-button>
         <ion-button fill="clear">Update</ion-button>
