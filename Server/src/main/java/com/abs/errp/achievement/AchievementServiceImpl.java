@@ -1,6 +1,7 @@
 package com.abs.errp.achievement;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.abs.errp.entity.Achievement;
+import com.abs.errp.exception.ResourceNotFoundException;
 import com.abs.errp.security.LoggedInUser;
 import com.abs.errp.security.LoggedInUserContext;
 
@@ -57,4 +59,30 @@ public class AchievementServiceImpl implements AchievementService {
 
 	}
 
+	@Override
+	public Achievement getAchievementById(int id) {
+		if(achievementRepository.findById(id).isPresent()) {
+			return achievementRepository.findById(id).get();
+		}
+		else {
+			throw new ResourceNotFoundException("achievement","Id",id); 
+		}
+	}
+
+	@Override
+	public Achievement updateAchievement(int id, Achievement achievement) {
+		Optional<Achievement> achive = achievementRepository.findById(id);
+		if(achive.isPresent())
+		{
+			return achive.get();
+			
+		}
+		else {
+			throw new ResourceNotFoundException("achievement","Id",id); 
+		}
+		
+	}
+
+	
+  
 }

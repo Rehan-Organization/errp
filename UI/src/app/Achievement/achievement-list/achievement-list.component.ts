@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Console, error } from 'console';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
-import { InfiniteScrollCustomEvent } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-achievement-list',
@@ -14,8 +13,12 @@ export class AchievementListComponent implements OnInit {
 
   //achievement : Achievement[] = [];
 
+  
 
-  constructor(private router:Router, private achievementService : AchievementService) {}
+  constructor(
+    private router:Router, 
+    private achievementService : AchievementService,
+    ) {}
 
   achievements : Achievement[] = [];
   pageNo:number = 0
@@ -63,7 +66,15 @@ export class AchievementListComponent implements OnInit {
   addAchievement(){
     this.router.navigate(["/home/myAchievement/addAchievement"])
   }
-  
+
+  // editAchievement(){
+  //   this.router.navigate(["/home/myAchievement/editAchievement/"+this.achievements.achievementId])
+  //   this.achievementService.getAchievement(this.userId).subscribe(achievement => this.achievements = achievement);
+  // }
+
+  handleUpdate(event:Event){
+    console.log(event);
+  }
 
 }
   
