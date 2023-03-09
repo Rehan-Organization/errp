@@ -29,9 +29,9 @@ public class AchievementServiceImpl implements AchievementService {
 	@Override
 	public List<Achievement> getAllAchievements() {
 		LoggedInUser user = this.userContext.getLoggedInUser();
-		List<Achievement> ls = (List<Achievement>) achievementRepository.findByEmployeeId(user.getEmployeeId());
-		for(int i=0;i<ls.size();i++)System.out.println(ls.get(i).toString());
-		return ls;
+//		List<Achievement> ls = (List<Achievement>) achievementRepository.findByEmployeeId(user.getEmployeeId());
+//		for(int i=0;i<ls.size();i++)System.out.println(ls.get(i).toString());
+		return null;
 	}
 
 	@Override
@@ -40,14 +40,23 @@ public class AchievementServiceImpl implements AchievementService {
 		return achievementRepository.save(achievement);
 	}
 
+	public List<Achievement> findPaginated1(int pageNo, int pageSize) {
+
+		
+		Pageable paging = PageRequest.of(pageNo, pageSize);
+		Page<Achievement> pagedResult = achievementRepository.findAll(paging);
+		
+
+		return pagedResult.toList();
+	}
+	
 	@Override
 	public List<Achievement> findPaginated(int pageNo, int pageSize) {
 
+		LoggedInUser user = this.userContext.getLoggedInUser();
 		Pageable paging = PageRequest.of(pageNo, pageSize);
-		Page<Achievement> pagedResult = achievementRepository.findAll(paging);
-		achievementRepository.findById(null);
+		return  achievementRepository.findAllByEmployeeId(user.getEmployeeId(),paging);
 
-		return pagedResult.toList();
 	}
 
 	@Override
@@ -80,6 +89,15 @@ public class AchievementServiceImpl implements AchievementService {
 		}
 		
 	}
+	
+	@Override
+	public void deleteAchievement(int id) {
+	// Achievement existingAchievement = achievementRepository.findByEmployeeId(id).orElseThrow(() ->
+	// new ResourceNotFoundException("Achievement","Id",id));
+	achievementRepository.deleteById(id);
+	 
+	}
+
 
 	
   

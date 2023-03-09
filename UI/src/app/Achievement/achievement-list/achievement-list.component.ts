@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-import { AlertController } from '@ionic/angular';
-
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 
@@ -39,23 +36,97 @@ export class AchievementListComponent implements OnInit {
         this.router.navigate(['/home/myAchievement/addAchievement']);
     }
 
-    // getAchievement()
-    // {
-    //   this.achievementService.getAllAchievement().subscribe(data =>{
-    //     this.achievements = data;
-    //     console.log(data)
-    //   });
+  refreshList(){
+    this.pageNo = 0;
+    this.getAchievement(false,null);
 
-    // }
+  }
 
-    delete(achievement: Achievement) {
-        // this.achievementService.deleteAchievement(achievement.id).subscribe(
-        //   (resp)=>{
-        //     console.log(resp);
-        //   },(err)=>{
-        //     console.log(err);
-        //   }
-        // );
+  onIonInfinite(ev:Event) {
+    
+    
+    this.getAchievement(true,ev)
+
+    
+  }
+
+  getAchievement(isFirstLoad:boolean,event:any)
+  {
+
+    
+
+    this.achievementService.getPaginatedAchievement(this.pageNo,this.pageSize).subscribe(data =>{
+      for(let i=0;i<data.length;i++)
+      {
+        this.achievements.push(data[i]);
+      }
+      if(isFirstLoad)
+      {
+        event.target.complete();
+      }
+    this.pageNo++;
+
+    },error=>{
+      console.error(error);
+    })
+
+    
+    
+  }
+
+  addAchievement(){
+    this.router.navigate(["/home/myAchievement/addAchievement"])
+  }
+
+  deleteAchievement(achievement: Achievement) {
+    this.alertController
+        .create({
+            header: 'Confirm Alert',
+            message: 'Are you sure you want to delete?',
+            buttons: [
+                {
+                    text: 'Confirm',
+                    handler: () => {
+                        this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
+                            (resp) => {
+                                this.router.navigate(['/home/myAchievement']);
+                                console.log(resp);
+                            },
+                            (err) => {
+                                (this.errorMessage = err.message),
+                                    this.showAlert(this.errorMessage);
+                            }
+                        );
+                    },
+                },
+                {
+                    text: 'Cancel',
+                },
+            ],
+        })
+        .then((res) => {
+            res.present();
+        });
+}
+showAlert(message: string) {
+    this.alertController
+        .create({
+            header: 'Alert',
+            message: message,
+            buttons: [
+                {
+                    text: 'Ok',
+                },
+            ],
+        })
+        .then((res) => {
+            res.present();
+        });
+}
+}
+
+
+
 
 
   // editAchievement(){
@@ -67,49 +138,49 @@ export class AchievementListComponent implements OnInit {
 //     console.log(event);
 //   }
 
-        this.alertController
-            .create({
-                header: 'Confirm Alert',
-                message: 'Are you sure you want to delete?',
-                buttons: [
-                    {
-                        text: 'Confirm',
-                        handler: () => {
-                            this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
-                                (resp) => {
-                                    this.router.navigate(['/home/myAchievement']);
-                                    console.log(resp);
-                                },
-                                (err) => {
-                                    (this.errorMessage = err.message),
-                                        this.showAlert(this.errorMessage);
-                                }
-                            );
-                        },
-                    },
-                    {
-                        text: 'Cancel',
-                    },
-                ],
-            })
-            .then((res) => {
-                res.present();
-            });
-    }
-    showAlert(message: string) {
-        this.alertController
-            .create({
-                header: 'Alert',
-                message: message,
-                buttons: [
-                    {
-                        text: 'Ok',
-                    },
-                ],
-            })
-            .then((res) => {
-                res.present();
-            });
-    }
-}
+//         this.alertController
+//             .create({
+//                 header: 'Confirm Alert',
+//                 message: 'Are you sure you want to delete?',
+//                 buttons: [
+//                     {
+//                         text: 'Confirm',
+//                         handler: () => {
+//                             this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
+//                                 (resp) => {
+//                                     this.router.navigate(['/home/myAchievement']);
+//                                     console.log(resp);
+//                                 },
+//                                 (err) => {
+//                                     (this.errorMessage = err.message),
+//                                         this.showAlert(this.errorMessage);
+//                                 }
+//                             );
+//                         },
+//                     },
+//                     {
+//                         text: 'Cancel',
+//                     },
+//                 ],
+//             })
+//             .then((res) => {
+//                 res.present();
+//             });
+//     }
+//     showAlert(message: string) {
+//         this.alertController
+//             .create({
+//                 header: 'Alert',
+//                 message: message,
+//                 buttons: [
+//                     {
+//                         text: 'Ok',
+//                     },
+//                 ],
+//             })
+//             .then((res) => {
+//                 res.present();
+//             });
+//     }
+// }
 
