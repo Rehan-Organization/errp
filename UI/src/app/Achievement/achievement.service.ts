@@ -18,12 +18,25 @@ export class AchievementService {
     return this.httpClient.get<Achievement[]>("/achievement/emp");
   }
 
+  getPaginatedAchievement(pageNo:number,pageSize:number):Observable<Achievement[]>{
+    return this.httpClient.get<Achievement[]>('/achievement/paginated/'+pageNo+"/"+pageSize);
+  }
+
   postAchievement(achievement : Achievement) : Observable<Achievement>{
-    return this.httpClient.post<Achievement>('/achievement',achievement)
+    return this.httpClient.post<Achievement>('/achievement/add',achievement)
   } 
 
   // edite achivement
   getAchievement(userId:number) : Observable<Achievement> {
     return this.httpClient.get<Achievement>(URLS.GETACHIEVEMENT+"/"+userId);
   }
+
+  deleteAchievement(achievement_id : any) : Observable<Achievement>{
+    console.log(achievement_id)
+    return this.httpClient.delete(URLS.DELETE + achievement_id)
+  }
+
+
+
+  
 }

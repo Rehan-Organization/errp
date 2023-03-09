@@ -2,6 +2,7 @@ package com.abs.errp.achievement;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abs.errp.entity.Achievement;
 
 
-@RequestMapping("/achievement/")
+@RequestMapping("/achievement")
 @RestController
 public class AchievmentController {
 
@@ -29,13 +30,13 @@ public class AchievmentController {
 
 	}
    // post achievement API
-	@PostMapping
+	@PostMapping("/add")
 	public ResponseEntity<Achievement> saveEmployee(@RequestBody Achievement achievement) {
 		return new ResponseEntity<Achievement>(achievementService.saveAchievement(achievement), HttpStatus.CREATED);
 
 	}
 	
-	@GetMapping("/{pageNo}/{pageSize}")
+	@GetMapping("/paginated/{pageNo}/{pageSize}")
 	public List<Achievement> getPaginatedCountries(@PathVariable int pageNo, 
 	        @PathVariable int pageSize) {
 
@@ -56,6 +57,11 @@ public class AchievmentController {
 	
 	 
 	}
+	@DeleteMapping("/removeAchievement/{id}")
+	public void deleteAchievement(@PathVariable("id") int id){
+	achievementService.deleteAchievement(id);
+	}
+
 
 
 	
