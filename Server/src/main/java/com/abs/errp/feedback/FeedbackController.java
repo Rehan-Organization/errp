@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.abs.errp.entity.Feedback;
 import com.abs.errp.user.ErrpUser;
@@ -42,9 +43,9 @@ public class FeedbackController {
 	}
 
 	// Rest API for fetching the feedback by using the feedback id
-	@GetMapping("/getFeedbacks/{isMyFeedback}/{pageNo}/{pageSize}")	
+	@GetMapping("/getFeedbacks")	
 	@PreAuthorize ("hasRole('SUPERVISOR')")
-	public ResponseEntity<List<Feedback>> getAllFeedbacks(@PathVariable boolean isMyFeedback, @PathVariable int pageNo, @PathVariable int pageSize)
+	public ResponseEntity<List<Feedback>> getAllFeedbacks(@RequestParam boolean isMyFeedback, @RequestParam int pageNo, @RequestParam int pageSize)
 	{
 		return ResponseEntity.ok(this.feedbackService.getMyFeedbacks(isMyFeedback, pageNo, pageSize));
 	}

@@ -6,7 +6,7 @@ export const URLS = {
     FEEDBACK: '/api/v1',
     SAVEFEEDBACK :'/feedback/saveFeedback',
     FETCHREPORTEES:'/feedback/getReportees',
-    FETCHFEEDBACKS:'/feedback/getFeedbacks/',
+    FETCHFEEDBACKS:'/feedback/getFeedbacks?isMyFeedback=',
     DELETEFEEDBACK:'/feedback/removeFeedback/',
     FETCHFEEDBACK:'/feedback/getFeedback/',
     UPDATEFEEDBACK:'/feedback/updateFeedback/',
