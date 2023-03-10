@@ -14,10 +14,6 @@ import { AchievementService } from '../achievement.service';
 })
 export class AchievementListComponent implements OnInit {
 
-  //achievement : Achievement[] = [];
-
-
-
   constructor(
     private router: Router,
     private achievementService: AchievementService,
@@ -38,24 +34,13 @@ export class AchievementListComponent implements OnInit {
 
   }
 
-  refreshList() {
-    this.pageNo = 0;
-    this.getAchievement(false, null);
-
-  }
-
   onIonInfinite(ev: Event) {
-
 
     this.getAchievement(true, ev)
 
-
   }
 
-
   getAchievement(isFirstLoad: boolean, event: any) {
-
-
 
     this.achievementService.getPaginatedAchievement(this.pageNo, this.pageSize).subscribe(data => {
       for (let i = 0; i < data.length; i++) {
@@ -69,8 +54,6 @@ export class AchievementListComponent implements OnInit {
     }, error => {
       console.error(error);
     })
-
-
 
   }
   submitAchievement(achievement: Achievement) {
@@ -114,7 +97,7 @@ export class AchievementListComponent implements OnInit {
   }
 
   addAchievement() {
-    this.router.navigate(["/home/myAchievement/addAchievement"])
+    this.router.navigate(["/home/Achievement/addAchievement"])
   }
   deleteAchievement(achievement: Achievement) {
     this.alertController

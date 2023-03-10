@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.abs.errp.entity.Achievement;
+import com.abs.errp.exception.NotAuthorizedException;
 import com.abs.errp.exception.ResourceNotFoundException;
 import com.abs.errp.security.LoggedInUser;
 import com.abs.errp.security.LoggedInUserContext;
@@ -19,40 +20,45 @@ import com.abs.errp.security.LoggedInUserContext;
 public class AchievementServiceImpl implements AchievementService {
 
 	private AchievementRepository achievementRepository;
+
 	@Autowired
 	LoggedInUserContext userContext;
+
+	public boolean isAuthorized(Achievement achievement) {
+		LoggedInUser user = this.userContext.getLoggedInUser();
+		return achievement.getEmployeeId() == user.getEmployeeId();
+	}
+
+	public boolean validateRequest(int id) {
+		Optional<Achievement> optionalAchievement = achievementRepository.findById(id);
+
+		return optionalAchievement.isPresent() && isAuthorized(optionalAchievement.get());
+	}
 
 	public AchievementServiceImpl(AchievementRepository achievementRepository) {
 		super();
 		this.achievementRepository = achievementRepository;
-	}
 
-	@Override
-	public List<Achievement> getAllAchievements() {
-		LoggedInUser user = this.userContext.getLoggedInUser();
-		// List<Achievement> ls = (List<Achievement>)
-		// achievementRepository.findByEmployeeId(user.getEmployeeId());
-		// for(int i=0;i<ls.size();i++)System.out.println(ls.get(i).toString());
-		return null;
 	}
 
 	@Override
 	public Achievement saveAchievement(Achievement achievement) {
+		
+		
+		if(isAuthorized(achievement))
+		{
+			
+			return achievementRepository.save(achievement);
+		}
+		else {
+			throw new NotAuthorizedException(String.format("Achievement with id %d cannot be saved!",achievement.getAchievementId()));
+		}
 
-		return achievementRepository.save(achievement);
-	}
-
-	public List<Achievement> findPaginated1(int pageNo, int pageSize) {
-
-		Pageable paging = PageRequest.of(pageNo, pageSize);
-		Page<Achievement> pagedResult = achievementRepository.findAll(paging);
-
-		return pagedResult.toList();
 	}
 
 	@Override
 	public List<Achievement> findPaginated(int pageNo, int pageSize) {
-		
+
 		Sort sort = Sort.by("updatedDate").descending();
 
 		LoggedInUser user = this.userContext.getLoggedInUser();
@@ -63,47 +69,50 @@ public class AchievementServiceImpl implements AchievementService {
 
 	@Override
 	public Achievement getAchievementById(int id) {
-		if (achievementRepository.findById(id).isPresent()) {
+		if (validateRequest(id)) {
 			return achievementRepository.findById(id).get();
 		} else {
-			throw new ResourceNotFoundException("achievement", "Id", id);
+			throw new ResourceNotFoundException(String.format("Achievement with id %d Not Found", id));
 		}
-		
-		
+
 	}
 
 	@Override
 	public Achievement updateAchievement(int id, Achievement achievement) {
-		System.out.println("Upadate called\n\n\n\n");
-		
-		Achievement oldAchievement;
-		Optional<Achievement> optionalAchievement = achievementRepository.findById(id);
-		if (optionalAchievement.isPresent()) {
-			oldAchievement = optionalAchievement.get();
 
+		if (validateRequest(id)) {
+			return this.saveAchievement(achievement);
 		} else {
-			throw new ResourceNotFoundException("achievement", "Id", id);
+			throw new ResourceNotFoundException(String.format("Achievement with id %d Not Found", id));
 		}
-		
-		System.out.println(oldAchievement.toString());
-		return this.saveAchievement(achievement);
-		
-		
-		
 
 	}
 
 	@Override
 	public void deleteAchievement(int id) {
 
-		achievementRepository.deleteById(id);
+		if (validateRequest(id)) {
+
+			achievementRepository.deleteById(id);
+		} else {
+
+			throw new ResourceNotFoundException(String.format("Achievement with id %d Not Found", id));
+		}
 
 	}
 
 	@Override
 	public void submitAchievement(Achievement achievement) {
 
-		this.saveAchievement(achievement);
+		if (isAuthorized(achievement)) {
+
+			this.saveAchievement(achievement);
+		} else {
+
+			throw new NotAuthorizedException(
+					String.format("Achievement with id %d can not be submitted", achievement.getAchievementId()));
+
+		}
 	}
 
 }

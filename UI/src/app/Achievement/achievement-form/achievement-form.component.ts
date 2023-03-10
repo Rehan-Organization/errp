@@ -55,7 +55,8 @@ export class AchievementFormComponent implements OnInit {
             (event.keyCode >= 65 && event.keyCode <= 90) ||
             (event.keyCode >= 97 && event.keyCode <= 122) ||
             event.keyCode == 32 ||
-            event.keyCode == 46
+            event.keyCode == 46 ||
+            (event.keyCode >= 48 && event.keyCode <= 57)
         ) {
             return true;
         } else {
@@ -81,6 +82,7 @@ export class AchievementFormComponent implements OnInit {
         this.achievement.updatedBy = this.loggedInUser?.employeeId;
         this.achievement.createdDate = today;
         this.achievement.updatedDate = today;
+        this.achievement.employeeId = this.loggedInUser?.employeeId;
         this.achievement.achievementStatus = 1;
 
         this.achievement.title = this.achievement.title?.trim();
@@ -106,7 +108,7 @@ export class AchievementFormComponent implements OnInit {
                                     (data) => {
                                         (this.achievement = data),
 
-                                            this.router.navigate(['/home/myAchievement']);
+                                            this.router.navigate(['/home/Achievement']);
                                     },
                                     (err) => {
                                         (this.errorMessage = err.message),
@@ -149,7 +151,7 @@ export class AchievementFormComponent implements OnInit {
                                 this.achievementService.updateAchievement(this.achievement).subscribe(
                                     (data) => {
                                         (this.achievement = data),
-                                            this.router.navigate(['/home/myAchievement']);
+                                            this.router.navigate(['/home/Achievement']);
                                     },
                                     (err) => {
                                         (this.errorMessage = err.message),
@@ -187,12 +189,15 @@ export class AchievementFormComponent implements OnInit {
                     message: 'Are you sure,you want to save this achievement?',
                     buttons: [
                         {
+                            text: 'Cancel',
+                        },
+                        {
                             text: 'Save',
                             handler: () => {
                                 this.achievementService.saveAchievement(this.achievement).subscribe(
                                     (data) => {
                                         (this.achievement = data),
-                                            this.router.navigate(['/home/myAchievement']);
+                                            this.router.navigate(['/home/Achievement']);
                                     },
                                     (err) => {
                                         (this.errorMessage = err.message),
@@ -201,9 +206,7 @@ export class AchievementFormComponent implements OnInit {
                                 );
                             },
                         },
-                        {
-                            text: 'Cancel',
-                        },
+
                     ],
                 })
                 .then((res) => {

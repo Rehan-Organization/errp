@@ -24,11 +24,11 @@ public class AchievmentController {
 	}
 
 	// get achievement API
-	@GetMapping("/emp")
-	public List<Achievement> getAchievement() {
-		return achievementService.getAllAchievements();
-
-	}
+//	@GetMapping("/emp")
+//	public List<Achievement> getAchievement() {
+//		return achievementService.getAllAchievements();
+//
+//	}
 
 	// post achievement API
 	@PostMapping("/add")
@@ -44,7 +44,7 @@ public class AchievmentController {
 		return achievementService.findPaginated(pageNo, pageSize);
 	}
 
-	@PostMapping("/updateAchievement/{id}")
+	@PostMapping("/update/{id}")
 	public ResponseEntity<Achievement> updateAchievement(@PathVariable int id, @RequestBody Achievement achievement) {
 		System.out.println("update id = "+id);
 		return new ResponseEntity<Achievement>(achievementService.updateAchievement(id, achievement),
@@ -52,14 +52,14 @@ public class AchievmentController {
 
 	}
 
-	@GetMapping("/getAchievement/{id}")
+	@GetMapping("/get/{id}")
 	public ResponseEntity<Achievement> getAchievementById(@PathVariable("id") int id) {
 
 		return new ResponseEntity<Achievement>(achievementService.getAchievementById(id), HttpStatus.OK);
 
 	}
 
-	@DeleteMapping("/removeAchievement/{id}")
+	@DeleteMapping("/delete/{id}")
 	public void deleteAchievement(@PathVariable("id") int id) {
 		achievementService.deleteAchievement(id);
 	}

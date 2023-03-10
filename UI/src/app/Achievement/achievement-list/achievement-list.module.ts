@@ -33,4 +33,4 @@ import { MomentModule } from 'ngx-moment';
     ])
   ]
 })
-export class MyAchievementModule { }
+export class AchievementListModule { }

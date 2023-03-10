@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
 })
 export class AwardListComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
   choosenOption = "My Awards"
-  ngOnInit() {}
+  ngOnInit() { }
 
-  raiseAward(){
-    this.router.navigate(['/home/myAwards/raiseAward'])
+  raiseAward() {
+    this.router.navigate(['/home/Awards/raiseAward'])
   }
 
 }
