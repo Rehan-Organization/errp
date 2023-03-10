@@ -39,6 +39,7 @@ export class FeedbackListComponent implements OnInit {
         this.isMyFeedbacksPageNo = 0;
         this.isFeedbacksGivenByMePageNo = 0;
         this.fetchFeedbacks(false, null);
+        this.fetchReportees();
     }
 
     // refreshList() {
@@ -48,7 +49,8 @@ export class FeedbackListComponent implements OnInit {
     fetchReportees() {
         this.feedbackService.getReportees().subscribe((reportee) => {
             this.employees = reportee;
-            if (this.employees.length > 0) this.isSupervisor = true;
+            if (this.employees.length > 0) 
+               this.isSupervisor = true;
         });
     }
 
