@@ -10,7 +10,7 @@ public interface FeedbackService {
 
 	List<Feedback> getMyFeedbacks(boolean isMyFeedback, int pageNo, int pageSize);
 
-	List<ErrpUser> getAllUsers();
+	List<ErrpUser> getAllReportees();
 
 	void removeByFeedbackId(int id);
 

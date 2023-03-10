@@ -41,7 +41,7 @@ public class FeedbackController {
 	@GetMapping("/getReportees")
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<List<ErrpUser>> getAllUsers() {
-		return ResponseEntity.ok(this.feedbackService.getAllUsers());
+		return ResponseEntity.ok(this.feedbackService.getAllReportees());
 	}
 
 	// Rest API for fetching the feedback by using the feedback id
