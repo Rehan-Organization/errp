@@ -15,9 +15,6 @@ import { AchievementService } from '../achievement.service';
 export class AchievementListComponent implements OnInit {
 
   //achievement : Achievement[] = [];
-
-
-
   constructor(
     private router: Router,
     private achievementService: AchievementService,
@@ -91,8 +88,8 @@ export class AchievementListComponent implements OnInit {
               else {
                 this.achievementService.submitAchievement(achievement).subscribe(
                   (resp) => {
-
-                    console.log(resp);
+                      console.log(resp);
+                      this.toastService.showSuccessToast("Achievement submitted successfully");
                   },
                   (err) => {
                     (this.errorMessage = err.message),
@@ -130,10 +127,10 @@ export class AchievementListComponent implements OnInit {
                 (resp) => {
                   this.router.navigate(['/home/myAchievement']);
                   console.log(resp);
+                  this.toastService.showSuccessToast("Achievement deleted successfully");
                 },
                 (err) => {
-                  (this.errorMessage = err.message),
-                    this.showAlert(this.errorMessage);
+                  this.toastService.showErrorToast(this.errorMessage);
                 }
               );
             },
@@ -145,36 +142,9 @@ export class AchievementListComponent implements OnInit {
         res.present();
       });
   }
-  showAlert(message: string) {
-    this.alertController
-      .create({
-        header: 'Alert',
-        message: message,
-        buttons: [
-          {
-            text: 'Ok',
-          },
-        ],
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-
-
-
-
-  // editAchievement(){
-  //   this.router.navigate(["/home/myAchievement/editAchievement/"+this.achievements.achievementId])
-  //   this.achievementService.getAchievement(this.userId).subscribe(achievement => this.achievements = achievement);
-  // }
 
   handleUpdate(event: Event) {
     console.log(event);
   }
 
 }
-
-
-

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { URLS } from '../constants/urls.contants';
 import { Achievement } from './achievement';
-import { URLS } from '../constants/urls.contants'
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,10 @@ export class AchievementService {
     return this.httpClient.post<Achievement>('/achievement/updateAchievement/' + achievement.achievementId, achievement);
   }
 
+  // deleteAchievement(achievement_id : any) : Observable<Achievement>{
+  //   console.log(achievement_id)
+  //   return this.httpClient.delete(URLS.DELETE + achievement_id)
+  // }
   // edite achivement
   getAchievement(userId: number): Observable<Achievement> {
     return this.httpClient.get<Achievement>(URLS.GETACHIEVEMENT + "/" + userId);

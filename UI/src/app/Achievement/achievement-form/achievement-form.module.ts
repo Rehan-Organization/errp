@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
   declarations: [],
   imports: [
     CommonModule,
-
     FormsModule,
     IonicModule,
 
