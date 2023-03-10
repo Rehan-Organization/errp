@@ -25,7 +25,7 @@ public class AchievmentController {
 
 	@GetMapping("/emp")
 	public List<Achievement> getAchievement() {
-	
+
 		return achievementService.getAllAchievements();
 
 	}

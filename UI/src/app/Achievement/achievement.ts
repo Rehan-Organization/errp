@@ -1,6 +1,4 @@
 export interface Achievement {
-
-    
         achievementId?: number;
         employeeId?:number;
         title?: string;

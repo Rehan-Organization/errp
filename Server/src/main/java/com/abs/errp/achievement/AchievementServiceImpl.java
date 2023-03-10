@@ -59,8 +59,7 @@ public class AchievementServiceImpl implements AchievementService {
 		} else {
 			throw new ResourceNotFoundException("achievement", "Id", id);
 		}
-		
-		
+
 	}
 
 	public Achievement getAchievementById(int id) {
@@ -83,12 +82,10 @@ public class AchievementServiceImpl implements AchievementService {
 			throw new ResourceNotFoundException("achievement", "Id", id);
 		}
 
-		System.out.println(oldAchievement.toString());
+		
 		return this.saveAchievement(achievement);
 
 	}
-
-	
 
 	@Override
 	public void submitAchievement(Achievement achievement) {
