@@ -12,7 +12,7 @@ export class FeedbackService {
     constructor(private http: HttpClient) {}
 
     fetchAllFeedbacks(isMyFeedbacks: boolean,pageNo: number,pageSize: number): Observable<Feedback[]> {
-        return this.http.get<Feedback[]>(URLS.FETCHFEEDBACKS + isMyFeedbacks +'/' +pageNo + '/' + pageSize);
+        return this.http.get<Feedback[]>(URLS.FETCHFEEDBACKS + isMyFeedbacks +'&pageNo=' +pageNo + '&pageSize=' + pageSize);
     }
     removeFeedback(feedbackId: any): Observable<any> {
         return this.http.delete(URLS.DELETEFEEDBACK + feedbackId);
