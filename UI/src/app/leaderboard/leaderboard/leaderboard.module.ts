@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { LeaderboardComponent } from './leaderboard.component';
 
 
+
 @NgModule({
   declarations: [LeaderboardComponent],
   imports: [

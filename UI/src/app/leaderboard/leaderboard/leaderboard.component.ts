@@ -3,6 +3,7 @@ import { EMPTY } from 'rxjs';
 import { ToastService } from 'src/app/errp-service/toast.service';
 import { Leaderboard } from '../leaderboard-model/leaderboard';
 import { LeaderboardService } from '../leaderboard-providers/leaderboard.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-leaderboard',
@@ -16,112 +17,38 @@ export class LeaderboardComponent implements OnInit {
     ) {}
 
     typeCheck: Boolean = false;
-    // isFirstLoad : Boolean = false;
     startDate: Date;
     endDate: Date;
     customStartDate: Date;
     customEndDate: Date;
     date = new Date();
     pageNumber : number = 0;
-    pageSize : number = 2;
+    pageSize : number = 10;
 
     leaderboardList: Leaderboard[] = [];
 
-    // leaderboard: Leaderboard[] = [
-    //     {
-    //         employeeName: 'Adarsh',
-    //         supervisorName: 'Rehan',
-    //         points: 50,
-    //     },
-    //     {
-    //         employeeName: 'Pushkar',
-    //         supervisorName: 'Rehan',
-    //         points: 60,
-    //     },
-    //     {
-    //         employeeName: 'Shankar',
-    //         supervisorName: 'Rehan',
-    //         points: 70,
-    //     },
-    //     {
-    //         employeeName: 'Vishal',
-    //         supervisorName: 'Rehan',
-    //         points: 80,
-    //     },
-    //     {
-    //         employeeName: 'Shrikant',
-    //         supervisorName: 'Rehan',
-    //         points: 90,
-    //     },
-    //     {
-    //       employeeName: 'Adarsh',
-    //       supervisorName: 'Rehan',
-    //       points: 50,
-    //   },
-    //   {
-    //       employeeName: 'Pushkar',
-    //       supervisorName: 'Rehan',
-    //       points: 60,
-    //   },
-    //   {
-    //       employeeName: 'Shankar',
-    //       supervisorName: 'Rehan',
-    //       points: 70,
-    //   },
-    //   {
-    //       employeeName: 'Vishal',
-    //       supervisorName: 'Rehan',
-    //       points: 80,
-    //   },
-    //   {
-    //       employeeName: 'Shrikant',
-    //       supervisorName: 'Rehan',
-    //       points: 90,
-    //   },
-    //   {
-    //     employeeName: 'Adarsh',
-    //     supervisorName: 'Rehan',
-    //     points: 50,
-    // },
-    // {
-    //     employeeName: 'Pushkar',
-    //     supervisorName: 'Rehan',
-    //     points: 60,
-    // },
-    // {
-    //     employeeName: 'Shankar',
-    //     supervisorName: 'Rehan',
-    //     points: 70,
-    // },
-    // {
-    //     employeeName: 'Vishal',
-    //     supervisorName: 'Rehan',
-    //     points: 80,
-    // },
-    // {
-    //     employeeName: 'Shrikant',
-    //     supervisorName: 'Rehan',
-    //     points: 90,
-    // },
-    // ];
-
     forMonth() {
+        this.leaderboardList = [];
         this.typeCheck = false;
         this.pageNumber = 0;
         const startDate = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
         const endDate = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
         const today = new Date();
         if (today < endDate) {
+          console.log(startDate)
             this.startDate = startDate;
             this.endDate = today;
+            this.getLeaderboardList(false,null);
         } else {
             this.startDate = startDate;
             this.endDate = endDate;
+            this.getLeaderboardList(false,null);
         }
       
     }
 
     forQuarter() {
+        this.leaderboardList = [];
         this.typeCheck = false;
         this.pageNumber = 0;
         const quarter = Math.floor(this.date.getMonth() / 3);
@@ -131,14 +58,17 @@ export class LeaderboardComponent implements OnInit {
         if (today < endDate) {
           this.startDate = startDate;
           this.endDate = today;
+          this.getLeaderboardList(false,null);
         } else {
           this.startDate = startDate;
           this.endDate = endDate;
+          this.getLeaderboardList(false,null);
         }
      
     }
 
     forHalfYear() {
+        this.leaderboardList = [];
         this.typeCheck = false;
         this.pageNumber = 0;
         const startDate = new Date(new Date().getFullYear(), 0, 1);
@@ -148,14 +78,17 @@ export class LeaderboardComponent implements OnInit {
         if (today < midDate) {
           this.startDate = startDate;
           this.endDate = today;
+          this.getLeaderboardList(false,null);
         } else {
           this.startDate = startDate;
           this.endDate = midDate;
+          this.getLeaderboardList(false,null);
         }
       
     }
 
     forYear() {
+       this.leaderboardList = [];
         this.typeCheck = false;
         this.pageNumber = 0;
         const startDate = new Date(new Date().getFullYear(), 0, 1);
@@ -164,32 +97,35 @@ export class LeaderboardComponent implements OnInit {
         if (today < endDate) {
           this.startDate = startDate;
           this.endDate = today;
+          this.getLeaderboardList(false,null);
         } else {
           this.startDate = startDate;
           this.endDate = endDate;
+          this.getLeaderboardList(false,null);
         }
   
     }
     
     forCustomDate() {
+        this.leaderboardList = [];
         this.pageNumber = 0;
         this.typeCheck = true;
     }
+  
 
-    customDate() {
-       
+    customDate() {     
         if (this.customStartDate == null && this.customEndDate == null) {
             this.toasterService.showErrorToast('Dates cant be empty');
         } else if (this.customStartDate > this.customEndDate) {
             this.toasterService.showErrorToast('Start date cant be greater than end date');
-        } else {
+        } else
+        {
           this.startDate = this.customStartDate;
-          this.endDate = this.customEndDate;
-        }
+         
 
-        console.log(this.startDate)
-        console.log(this.endDate)
-     
+          this.endDate = this.customEndDate;
+          this.getLeaderboardList(false,null);
+        }
     }
 
     onIonInfinite(ev:Event) { 
@@ -200,9 +136,14 @@ export class LeaderboardComponent implements OnInit {
 
     getLeaderboardList(isFirstLoad:boolean,event:any) {
         this.leaderboardService.getLeaderboardList(this.pageNumber,this.pageSize ,this.startDate, this.endDate).subscribe(
-            (leaderboardList) => {
-                this.leaderboardList = leaderboardList;
-                console.log(leaderboardList)
+            (data) => {
+              for (let i = 0; i < data.length; i++) {
+                this.leaderboardList.push(data[i]);
+              }
+              if (isFirstLoad) {
+                event.target.complete();
+              }
+              this.pageNumber++;
             },
             (err) => {
                 this.toasterService.showErrorToast('Failed to load data')
@@ -212,7 +153,8 @@ export class LeaderboardComponent implements OnInit {
 
     ngOnInit() {
         this.forMonth();
-        this.getLeaderboardList(false,null);
+       
+        
     }
 }
 
