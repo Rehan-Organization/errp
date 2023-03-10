@@ -11,7 +11,6 @@
                     <ion-card-title>Card Title</ion-card-title>
                     <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
                 </ion-card-header>
-
                 <ion-item fill="outline" id="title" counter="true" [counterFormatter]="customCounterFormatter">
                     <ion-label position="floating">Title</ion-label>
                     <ion-input
@@ -20,9 +19,9 @@
                         [clearInput]="true"
                         placeholder="Enter title for an Achievement"
                         [(ngModel)]="achievement.title"
+                        [(ngModel)]="achievement.updatedDate"
                     ></ion-input>
                 </ion-item>
-
                 <ion-item fill="outline" id="description" counter="true" [counterFormatter]="customCounterFormatter">
                     <ion-label position="floating">Description</ion-label>
                     <ion-input
@@ -37,7 +36,6 @@
                         "
                     ></ion-input>
                 </ion-item>
-
                 <ion-button color="primary">Save</ion-button>
                 <ion-button color="primary" (click)="addAchievement()">Submit</ion-button>
             </ion-card-content>

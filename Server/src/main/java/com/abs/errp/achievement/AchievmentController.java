@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.abs.errp.entity.Achievement;
-
-
 @RequestMapping("/achievement")
 @RestController
 public class AchievmentController {
@@ -31,7 +29,7 @@ public class AchievmentController {
 	}
    // post achievement API
 	@PostMapping("/add")
-	public ResponseEntity<Achievement> saveEmployee(@RequestBody Achievement achievement) {
+	public ResponseEntity<Achievement> saveAchievement(@RequestBody Achievement achievement) {
 		return new ResponseEntity<Achievement>(achievementService.saveAchievement(achievement), HttpStatus.CREATED);
 
 	}
@@ -62,7 +60,4 @@ public class AchievmentController {
 	achievementService.deleteAchievement(id);
 	}
 
-
-
-	
 }

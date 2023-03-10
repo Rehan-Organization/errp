@@ -11,48 +11,27 @@ import { AchievementService } from '../achievement.service';
   styleUrls: ['./achievement-list.component.scss'],
 })
 export class AchievementListComponent implements OnInit {
-
-  //achievement : Achievement[] = [];
-
-  
-
   constructor(
     private router:Router, 
     private achievementService : AchievementService,
     private alertController:AlertController
     ) {}
-
   achievements : Achievement[] = [];
   pageNo:number = 0
   pageSize:number = 4
   errorMessage = ""
-
-
   ngOnInit() {
-
     this.getAchievement(false,null);
-
   }
-
   refreshList(){
     this.pageNo = 0;
     this.getAchievement(false,null);
-
   }
-
   onIonInfinite(ev:Event) {
-    
-    
     this.getAchievement(true,ev)
-
-    
   }
-
   getAchievement(isFirstLoad:boolean,event:any)
   {
-
-    
-
     this.achievementService.getPaginatedAchievement(this.pageNo,this.pageSize).subscribe(data =>{
       for(let i=0;i<data.length;i++)
       {
@@ -67,11 +46,7 @@ export class AchievementListComponent implements OnInit {
     },error=>{
       console.error(error);
     })
-
-    
-    
   }
-
   addAchievement(){
     this.router.navigate(["/home/myAchievement/addAchievement"])
   }
@@ -120,16 +95,6 @@ showAlert(message: string) {
             res.present();
         });
 }
-
-
-
-
-
-  // editAchievement(){
-  //   this.router.navigate(["/home/myAchievement/editAchievement/"+this.achievements.achievementId])
-  //   this.achievementService.getAchievement(this.userId).subscribe(achievement => this.achievements = achievement);
-  // }
-
   handleUpdate(event:Event){
     console.log(event);
   }

@@ -7,4 +7,7 @@ export const URLS = {
     GETACHIEVEMENT : '/achievement/getAchievement',
     USER_CONTEXT: '/userContext',
     DELETE : '/achievement/removeAchievement/',
+    PAGINATEDACHIEVEMENT : '/achievement/paginated/',
+    POSTACHIEVEMENT :'/achievement/add',
+    GETALLACHIEVEMENT:'/achievement/emp'
 }

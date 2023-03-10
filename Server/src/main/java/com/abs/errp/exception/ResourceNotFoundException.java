@@ -2,9 +2,6 @@ package com.abs.errp.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
    
-	 
-
-	    private static final long serialVersionUID = 1L;
 	    private String achievement;
 	    private String fieldname;
 	    private Object value;

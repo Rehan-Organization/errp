@@ -4,8 +4,6 @@ import { InputCustomEvent } from '@ionic/angular';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 import { AlertController } from '@ionic/angular';
-
-
 @Component({
     selector: 'app-achievement-form',
     templateUrl: './achievement-form.component.html',
@@ -14,9 +12,7 @@ import { AlertController } from '@ionic/angular';
 export class AchievementFormComponent implements OnInit {
     achievement: Achievement = {};
     errorMessage: string = '';
-    
-
-    constructor(
+       constructor(
         private achievementService: AchievementService,
         private router: Router,
         private activatedRoute:ActivatedRoute,
@@ -24,10 +20,8 @@ export class AchievementFormComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        
         const isIdPresent = this.activatedRoute.snapshot.paramMap.has('id');
-        
-        if (isIdPresent) {
+         if (isIdPresent) {
         const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
         
         this.achievementService.getAchievement(id).subscribe((data) => {
@@ -35,11 +29,7 @@ export class AchievementFormComponent implements OnInit {
             console.log(data);
         });
     }
- 
-    }
- 
-   
-
+        }
     customCounterFormatter(inputLength: number, maxLength: number) {
         return `${maxLength - inputLength}/${maxLength}`;
     }
@@ -56,19 +46,12 @@ export class AchievementFormComponent implements OnInit {
             return false;
         }
     }
-
-    addAchievement() {
+      addAchievement() {
         const today = new Date();
         this.achievement.createdDate = today;
         this.achievement.updatedDate = today;
         
         this.achievement.employeeId = 0;
-        
-        
-        // this.achievementService.postAchievement(this.achievement).subscribe((achievementResponse) => {
-        //     console.log(achievementResponse);
-        // });
-        // this.router.navigate(['/home/myAchievement']);
         this.achievement.title = this.achievement.title?.trim();
         this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
         if (this.achievement.title == "" || this.achievement.achievementDesc == "") {

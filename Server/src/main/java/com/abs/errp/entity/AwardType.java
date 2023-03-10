@@ -1,13 +1,9 @@
 package com.abs.errp.entity;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -115,18 +111,5 @@ public class AwardType {
 		this.updatedBy = updatedBy;
 	}
 	
-//	@Override
-//	public String toString() {
-//		// TODO Auto-generated method stub
-//		return awardName;
-//	}
-//
-//	public String getAwardName() {
-//		return awardName;
-//	}
-//
-//	public void setAwardName(String awardName) {
-//		this.awardName = awardName;
-//	}
 }
 

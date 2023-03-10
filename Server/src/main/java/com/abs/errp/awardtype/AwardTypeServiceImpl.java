@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.abs.errp.security.LoggedInUserContext;
 @Service 
-public class AwardTypeServiceImplementation implements AwardTypeService{
+public class AwardTypeServiceImpl implements AwardTypeService{
    
 	@Autowired
 	LoggedInUserContext userContext;
 	
 	private  AwardTypeRepository awardServiceRespository;
-	public AwardTypeServiceImplementation(AwardTypeRepository  awardServiceRespository) {
+	public AwardTypeServiceImpl(AwardTypeRepository  awardServiceRespository) {
 		super();
 		this.awardServiceRespository = awardServiceRespository;
 	}
@@ -21,8 +21,6 @@ public class AwardTypeServiceImplementation implements AwardTypeService{
 	@Override
 	public List<AwardType> getAllAwardTypes() {
 		return awardServiceRespository.findAll();
-	         
-		//return awardServiceRespository.findAll();
 	}
 
 	

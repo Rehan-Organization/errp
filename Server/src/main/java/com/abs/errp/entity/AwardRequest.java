@@ -1,14 +1,10 @@
 package com.abs.errp.entity;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-
 @Entity
 @Table(name="AWARD_REQUEST")
 public class AwardRequest {

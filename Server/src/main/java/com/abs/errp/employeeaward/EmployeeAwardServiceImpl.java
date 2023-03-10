@@ -1,7 +1,6 @@
 package com.abs.errp.employeeaward;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import com.abs.errp.entity.AwardRequest;
 import com.abs.errp.entity.EmployeeAward;
 @Service 
 public class EmployeeAwardServiceImpl implements  EmployeeAwardService {
