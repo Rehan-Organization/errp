@@ -1,16 +1,12 @@
 package com.abs.errp.feedback;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.abs.errp.entity.Feedback;
 import com.abs.errp.security.LoggedInUser;
@@ -25,7 +21,11 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	private FeedbackRepository feedbackRepository;
 	private ErrpUserRepository errpUserRepository;
-	private boolean isSupervisor=false;
+
+	/**
+	 * if isSupervisor is true then user is supervisor
+	 */
+	private boolean isSupervisor = false;
 
 	public FeedbackServiceImpl(FeedbackRepository feedbackRepository, ErrpUserRepository errpUserRepository) {
 		super();
@@ -33,27 +33,6 @@ public class FeedbackServiceImpl implements FeedbackService {
 		this.errpUserRepository = errpUserRepository;
 	}
 
-	@Override
-	public Feedback saveFeedback(Feedback feedback) {
-		ErrpUser e = setErrpUser();
-		feedback.setSenderId(e);
-		if(isSupervisor)
-		return feedbackRepository.save(feedback);
-		else
-			return null;
-	}
-
-	@Override
-	public List<ErrpUser> getAllReportees() {
-		ErrpUser e = setErrpUser();
-		if(errpUserRepository.findBySupervisor(e).size()>0) {
-			isSupervisor=true;
-		    return this.errpUserRepository.findBySupervisor(e);
-		}
-		else
-			return null;
-		
-	}
 
 	private ErrpUser setErrpUser() {
 		LoggedInUser user = this.userContext.getLoggedInUser();
@@ -63,44 +42,103 @@ public class FeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<Feedback> getMyFeedbacks(boolean isMyFeedback, int pageNo, int pageSize) {
-		Sort sort=Sort.by("updatedDate").descending();
-		ErrpUser errpUser = setErrpUser();
-		Pageable pages = PageRequest.of(pageNo, pageSize,sort);
-		Page<Feedback> feedbackData;		
-		if(isMyFeedback)
-		{
-			return feedbackRepository.findAllByReceiverId(errpUser,pages);
-		}
-		else {
-		    return feedbackRepository.findAllBySenderId(errpUser,pages);
+	public Feedback saveFeedback(Feedback feedback) {
+		ErrpUser e = setErrpUser();
+		feedback.setSenderId(e);
+		if (isSupervisor)
+			return feedbackRepository.save(feedback);
+		else
+			return null;
+	}
+
+	/**
+	 * If user have reportees then user is supervisor
+	 */
+	@Override
+	public List<ErrpUser> getAllReportees() {
+		ErrpUser e = setErrpUser();
+		if (errpUserRepository.findBySupervisor(e).size() > 0) {
+			isSupervisor = true;
+			return this.errpUserRepository.findBySupervisor(e);
+		} else {
+			throw new ResourceNotFoundException("No reportees asssigned");
 		}
 	}
 
+	/**
+	 * If isMyFeedback is true then returns feedback received by user If
+	 * isMyFeedback is false then returns feedback sent by supervisor to associated
+	 * reportees
+	 */
+	@Override
+	public List<Feedback> getMyFeedbacks(boolean isMyFeedback, int pageNo, int pageSize) {
+		Sort sort = Sort.by("updatedDate").descending();
+		Pageable pages = PageRequest.of(pageNo, pageSize, sort);
+
+		ErrpUser errpUser = setErrpUser();
+
+		if (isMyFeedback) {
+			return feedbackRepository.findAllByReceiverId(errpUser, pages);
+		} else {
+			if (isSupervisor)
+				return feedbackRepository.findAllBySenderId(errpUser, pages);
+			else
+				throw new UnAuthorizedAccessException("User is not Authorized");
+		}
+	}
+
+	/**
+	 * If respective employee is still reportee of current user then update record
+	 * otherwise raise UnAuthorizedAccessException
+	 */
 	@Override
 	public Feedback updateFeedback(Feedback feedback, int id) {
-		Feedback updateFeedback = feedbackRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Feedback not exist with id: " + id));
 
-		updateFeedback.setTitle(feedback.getTitle());
-		updateFeedback.setDescription(feedback.getDescription());
-		updateFeedback.setUpdatedDate(new Date());
-		
-		if(isSupervisor)
-		return feedbackRepository.save(updateFeedback);
-		return null;
+		LoggedInUser user = this.userContext.getLoggedInUser();
+		List<Feedback> feedbacks = this.feedbackRepository.findAllById(feedback.getId());
+
+		if (feedbacks.get(0).getReceiverId().getSupervisor().getEmployeeId() == user.getEmployeeId()) {
+			Feedback updateFeedback = feedbackRepository.findById(id)
+					.orElseThrow(() -> new ResourceNotFoundException("Feedback not exist with id: " + id));
+
+			updateFeedback.setTitle(feedback.getTitle());
+			updateFeedback.setDescription(feedback.getDescription());
+			updateFeedback.setUpdatedDate(new Date());
+
+			return feedbackRepository.save(updateFeedback);
+
+		} else {
+			throw new UnAuthorizedAccessException("User is not Authorized");
+		}
 	}
 
+	/**
+	 * If respective employee is still reportee of current user then delete record
+	 * otherwise raise UnAuthorizedAccessException
+	 */
 	@Override
 	public void removeByFeedbackId(int id) {
-		if(isSupervisor)
-		this.feedbackRepository.deleteById(id);
-		
+		if (feedbackRepository.findById(id).isPresent()) {
+			LoggedInUser user = this.userContext.getLoggedInUser();
+			List<Feedback> feedback = this.feedbackRepository.findAllById(id);
+
+			if (feedback.get(0).getReceiverId().getSupervisor().getEmployeeId() == user.getEmployeeId())
+				this.feedbackRepository.deleteById(id);
+			else
+				throw new UnAuthorizedAccessException("User is not Authorized");
+
+		} else {
+			throw new ResourceNotFoundException("Feedback not exist with id: " + id);
+		}
 	}
 
 	@Override
 	public Optional<Feedback> getFeedback(int id) {
-		return feedbackRepository.findById(id);
+		if (feedbackRepository.findById(id).isPresent()) {
+			return feedbackRepository.findById(id);
+		} else {
+			throw new ResourceNotFoundException("Feedback not exist with id: " + id);
+		}
 	}
 
 }

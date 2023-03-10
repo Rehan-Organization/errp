@@ -9,15 +9,15 @@
                     <ion-segment-button value="My Feedbacks">
                         <ion-label>My Feedbacks</ion-label>
                     </ion-segment-button>
-                    <ion-segment-button *ngIf="isSupervisor" value="Feedbacks Given By Me" >
+                    <ion-segment-button *ngIf="isSupervisor" value="Feedbacks Given By Me">
                         <ion-label>Feedbacks Given By Me</ion-label>
                     </ion-segment-button>
                 </ion-segment>
-                <ion-searchbar *ngIf="!isMyFeedbacks" [(ngModel)]="searchEmployee" ></ion-searchbar>
+                <ion-searchbar *ngIf="!isMyFeedbacks" [(ngModel)]="searchEmployee"></ion-searchbar>
             </ion-col>
 
             <ion-col size="auto">
-                <ion-button color="medium"  (click)="addFeedback()">Add Feedback</ion-button>
+                <ion-button color="medium" (click)="addFeedback()">Add Feedback</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -27,9 +27,13 @@
                 <ion-card-subtitle>
                     <ion-grid>
                         <ion-row>
-                            <ion-col *ngIf="choosenOption=='My Feedbacks'">{{ feedback.senderId.employeeName }}</ion-col>
-                            <ion-col *ngIf="isSupervisor && choosenOption=='Feedbacks Given By Me'">{{ feedback.receiverId.employeeName }}</ion-col>
-                         
+                            <ion-col *ngIf="choosenOption == 'My Feedbacks'">
+                                {{ feedback.senderId.employeeName }}
+                            </ion-col>
+                            <ion-col *ngIf="isSupervisor && choosenOption == 'Feedbacks Given By Me'">
+                                {{ feedback.receiverId.employeeName }}
+                            </ion-col>
+
                             <ion-col size="auto">{{ feedback.updatedDate | amDateFormat : 'LL' }}</ion-col>
                         </ion-row>
                     </ion-grid>
@@ -54,7 +58,7 @@
             </ion-grid>
         </div>
     </ion-card>
-    <ion-infinite-scroll  (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 </ion-content>
