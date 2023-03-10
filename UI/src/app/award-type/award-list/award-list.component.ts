@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AwardType } from '../award-type-model/award-type';
 import { AwardTypeService } from '../award-type-providers/award-type.service';
 import { AlertController } from '@ionic/angular';
+import { ToastService } from 'src/app/errp-service/toast.service';
 
 @Component({
     selector: 'app-view-award',
@@ -13,20 +14,25 @@ export class AwardListComponent implements OnInit {
     constructor(
         private router: Router,
         private awardTypeService: AwardTypeService,
-        private alertController: AlertController
+        private alertController: AlertController,
+        private toasterService: ToastService
     ) {}
 
     awardTypeList: AwardType[] = [];
-    
+
     ngOnInit() {
-        this.getAllaward();
+        this.getAllAwards();
     }
 
-    getAllaward() {
-        this.awardTypeService.getAwardTypeList().subscribe((awardTypeList) => {
-            this.awardTypeList = awardTypeList.reverse();
-        });
-        
+    getAllAwards() {
+        this.awardTypeService.getAwardTypeList().subscribe(
+            (awardTypeList) => {
+                this.awardTypeList = awardTypeList.reverse();
+            },
+            (err) => {
+               this.toasterService.showErrorToast('Unable to get awards list')
+            }
+        );
     }
 
     createAward() {
@@ -46,7 +52,14 @@ export class AwardListComponent implements OnInit {
                         text: 'Confirm',
                         handler: () => {
                             award.awardStatus = 0;
-                            this.awardTypeService.updateAwardType(award.awardId, award).subscribe();
+                            this.awardTypeService.updateAwardType(award.awardId, award).subscribe(
+                                (data) => {
+                                    this.toasterService.showSuccessToast('Award disabled successfully')
+                                },
+                                (err) => {
+                                   this.toasterService.showErrorToast('Failed to disabled award')
+                                }
+                            );
                         },
                     },
                 ],

@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
         component:AwardFormComponent
       },
       {
-        path:'edit/:awardId',
+        path:':awardId',
         component:AwardFormComponent
       }
     
