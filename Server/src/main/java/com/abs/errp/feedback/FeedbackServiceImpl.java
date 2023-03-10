@@ -44,7 +44,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<ErrpUser> getAllUsers() {
+	public List<ErrpUser> getAllReportees() {
 		ErrpUser e = setErrpUser();
 		if(errpUserRepository.findBySupervisor(e).size()>0) {
 			isSupervisor=true;

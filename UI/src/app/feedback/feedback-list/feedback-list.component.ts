@@ -1,3 +1,4 @@
+
 import { AlertController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -14,8 +15,7 @@ import { LoggedInUserContext } from 'src/app/providers/logged-in-user-context.se
 })
 export class FeedbackListComponent implements OnInit {
     private updateSubscription?: Subscription;
-    errors: any;
-    
+
     constructor(
         private feedbackService: FeedbackService,
         private router: Router,
@@ -27,6 +27,8 @@ export class FeedbackListComponent implements OnInit {
     userRole: any;
     employees: Employee[] = [];
     feedbacks: Feedback[] = [];
+    myFeedback: Feedback[] = [];
+    givenFeedback: Feedback[] = [];
     options: string[] = ['My Feedbacks', 'Feedbacks Given By Me'];
     choosenOption: string = 'My Feedbacks';
     isMyFeedbacks?: boolean;
@@ -60,6 +62,10 @@ export class FeedbackListComponent implements OnInit {
 
     fetchFeedbacks(isFirstLoad: boolean, event: any) {
         if (this.choosenOption == 'My Feedbacks') {
+            this.feedbacks = []
+            for (let i = 0; i < this.myFeedback.length; i++) {
+                this.feedbacks.push(this.myFeedback[i]);
+            }
             this.isMyFeedbacks = true;
             this.feedbackService
                 .fetchAllFeedbacks(this.isMyFeedbacks, this.isMyFeedbacksPageNo, this.pageSize)
@@ -67,6 +73,7 @@ export class FeedbackListComponent implements OnInit {
                     (feedback) => {
                         for (let i = 0; i < feedback.length; i++) {
                             this.feedbacks.push(feedback[i]);
+                            this.myFeedback.push(this.feedbacks[i]);
                         }
                         if (isFirstLoad) {
                             event.target.complete();
@@ -79,6 +86,10 @@ export class FeedbackListComponent implements OnInit {
                 );
         } else {
             this.isMyFeedbacks = false;
+            this.feedbacks = []
+            for (let i = 0; i < this.givenFeedback.length; i++) {
+                this.feedbacks.push(this.givenFeedback[i]);
+            }
             this.feedbackService
                 .fetchAllFeedbacks(
                     this.isMyFeedbacks,
@@ -89,6 +100,7 @@ export class FeedbackListComponent implements OnInit {
                     (feedback) => {
                         for (let i = 0; i < feedback.length; i++) {
                             this.feedbacks.push(feedback[i]);
+                            this.givenFeedback.push(this.feedbacks[i]);
                         }
                         if (isFirstLoad) {
                             event.target.complete();
@@ -119,15 +131,13 @@ export class FeedbackListComponent implements OnInit {
                     role: 'confirm',
                     handler: () => {
                         this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
-                            this.toastService.showSuccessToast("Feedback deleted successfully");
-                            this.feedbacks = this.feedbacks.filter(
-                                (newFeedback) => newFeedback.id != feedback.id,
-                                this.ngOnInit()
-                            );
-                        },(error) => {
-                            this.errors = error;
-                            this.toastService.showErrorToast(error);
-                          },);
+                            this.feedbacks.forEach(function (value) {
+                               
+                              }); 
+                            this.toastService.showSuccessToast('Feedback deleted successfully');
+                            this.fetchFeedbacks(false, null);
+                            
+                        });
                     },
                 },
             ],
