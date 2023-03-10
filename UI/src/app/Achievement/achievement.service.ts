@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { URLS } from '../constants/urls.contants';
 import { Achievement } from './achievement';
 
@@ -10,7 +10,6 @@ import { Achievement } from './achievement';
 export class AchievementService {
 
   constructor(private httpClient: HttpClient) { }
-
 
   getPaginatedAchievement(pageNo: number, pageSize: number): Observable<Achievement[]> {
     return this.httpClient.get<Achievement[]>(URLS.GET_PAGINATED + '/' + pageNo + "/" + pageSize);

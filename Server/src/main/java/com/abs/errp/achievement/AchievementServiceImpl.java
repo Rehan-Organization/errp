@@ -23,10 +23,15 @@ public class AchievementServiceImpl implements AchievementService {
 	@Autowired
 	LoggedInUserContext userContext;
 
+	// Check if user is authorized for the action
+	// achievement's employeeId should be same as logged in user's id
+
 	public boolean isAuthorized(Achievement achievement) {
 		LoggedInUser user = this.userContext.getLoggedInUser();
 		return achievement.getEmployeeId() == user.getEmployeeId();
 	}
+
+	// Check if achievement exists and user is authorized for the action
 
 	public boolean validateRequest(int id) {
 		Optional<Achievement> optionalAchievement = achievementRepository.findById(id);

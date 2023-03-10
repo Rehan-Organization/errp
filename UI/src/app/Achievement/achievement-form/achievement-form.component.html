@@ -38,9 +38,15 @@
                     ></ion-input>
                 </ion-item>
 
-                <ion-button color="primary" (click)="handleSave()" *ngIf="!isIdPresent">Save</ion-button>
-                <ion-button color="primary" (click)="handleUpdate()" *ngIf="isIdPresent">Update</ion-button>
-                <ion-button color="primary" (click)="handleSubmit()">Submit</ion-button>
+                <ion-button color="primary" fill="solid" (click)="handleSave()" *ngIf="!isIdPresent"
+                    >Save <ion-icon slot="end" name="add-circle"></ion-icon
+                ></ion-button>
+                <ion-button color="primary" fill="solid" (click)="handleUpdate()" *ngIf="isIdPresent"
+                    >Update<ion-icon slot="end" name="create"></ion-icon
+                ></ion-button>
+                <ion-button color="primary" fill="solid" (click)="handleSubmit()"
+                    >Submit<ion-icon slot="end" name="send-sharp"></ion-icon
+                ></ion-button>
             </ion-card-content>
         </ion-card>
     </ion-content>

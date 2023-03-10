@@ -29,6 +29,7 @@ export class AchievementListComponent implements OnInit {
 
     this.pageNo = 0;
     this.getAchievement(false, null);
+    
 
   }
 
