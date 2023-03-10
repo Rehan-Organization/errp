@@ -41,7 +41,7 @@ export class FeedbackFormComponent implements OnInit {
     }
     employees: Employee[] = [];
     selectedValue: any;
-
+    checkRole:number;
     feedbackId?: number;
     urlId?: any;
     fetchedFeedback: Feedback[] = [];
@@ -58,6 +58,7 @@ export class FeedbackFormComponent implements OnInit {
         }
         // this.route.snapshot.paramMap('id')
         this.fetchReportees();
+       
     }
 
     async addFeedback(feedback: Feedback) {
@@ -107,7 +108,9 @@ export class FeedbackFormComponent implements OnInit {
     }
 
     fetchReportees() {
-        this.feedbackService.getReportees().subscribe((reportee) => (this.employees = reportee));
+        this.feedbackService.getReportees().subscribe((reportee) => {this.employees = reportee;
+            this.checkRole=this.employees.length;
+            console.log(this.checkRole);});
     }
 
     async updateFeedback() {

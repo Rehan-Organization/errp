@@ -1,5 +1,6 @@
 package com.abs.errp.feedback;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,32 +20,33 @@ import com.abs.errp.entity.Feedback;
 import com.abs.errp.user.ErrpUser;
 
 @RestController
-@RequestMapping("/feedback/")
+@RequestMapping("/feedback")
 public class FeedbackController {
 	private FeedbackService feedbackService;
-
 	public FeedbackController(FeedbackService feedbackService) {
 		super();
-		this.feedbackService = feedbackService;
+		this.feedbackService = feedbackService;		
 	}
 
 	// Rest api for add feedback for reportees.
 	@PostMapping("/saveFeedback")
-	@PreAuthorize("hasRole('SUPERVISOR')")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<Feedback> saveFeedback(@RequestBody Feedback feedback) {
+		feedback.setCreatedDate(new Date());
+		feedback.setUpdatedDate(new Date());
 		return new ResponseEntity<Feedback>(feedbackService.saveFeedback(feedback),HttpStatus.CREATED);
 	}
 
 	// Rest API for fetching the list of all reportees for particular supervisor
 	@GetMapping("/getReportees")
-	@PreAuthorize("hasRole('SUPERVISOR')")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<List<ErrpUser>> getAllUsers() {
 		return ResponseEntity.ok(this.feedbackService.getAllUsers());
 	}
 
 	// Rest API for fetching the feedback by using the feedback id
 	@GetMapping("/getFeedbacks")	
-	@PreAuthorize ("hasRole('SUPERVISOR')")
+//	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<List<Feedback>> getAllFeedbacks(@RequestParam boolean isMyFeedback, @RequestParam int pageNo, @RequestParam int pageSize)
 	{
 		return ResponseEntity.ok(this.feedbackService.getMyFeedbacks(isMyFeedback, pageNo, pageSize));
@@ -52,21 +54,21 @@ public class FeedbackController {
 
 	// Rest API to save the feedback using the feedback id
 	@PutMapping("/updateFeedback/{id}")
-	@PreAuthorize("hasRole('SUPERVISOR')")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<Feedback> updateFeedbacks(@RequestBody Feedback feedback, @PathVariable int id) {
 		return ResponseEntity.ok(this.feedbackService.updateFeedback(feedback, id));
 	}
 
 	// Rest API to delete the feedback using the feedback id
 	@DeleteMapping("/removeFeedback/{id}")
-	@PreAuthorize("hasRole('SUPERVISOR')")
+	@PreAuthorize("hasRole('USER')")
 	void removeFeedback(@PathVariable("id") int id) {
 		this.feedbackService.removeByFeedbackId(id);
 	}
 
 	// Rest API to fetch the feedback using the feedback id
 	@GetMapping("/getFeedback/{id}")
-	@PreAuthorize("hasRole('SUPERVISOR')")
+	@PreAuthorize("hasRole('USER')")
 	Optional<Feedback> getFeedback(@PathVariable int id) {
 		return this.feedbackService.getFeedback(id);
 	}

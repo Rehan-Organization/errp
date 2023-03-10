@@ -32,13 +32,13 @@ export class FeedbackListComponent implements OnInit {
     choosenOption: string = 'My Feedbacks';
     isMyFeedbacks?: boolean;
     searchEmployee: string = '';
-    pageNo1: number = 0;
-    pageNo2: number = 0;
+    isMyFeedbacksPageNo: number = 0;
+    isFeedbacksGivenByMePageNo:number=0;
     pageSize: number = 4;
     ngOnInit() {
         this.userRole=this.userContext.getLoggedInUser()?.authorities[0].authority;
-        console.log(this.userRole);
-        this.pageNo1 = 0;
+        this.isMyFeedbacksPageNo = 0;
+        this.isFeedbacksGivenByMePageNo=0;
         this.fetchFeedbacks(false, null);
     }
 
@@ -53,9 +53,9 @@ export class FeedbackListComponent implements OnInit {
 
     fetchFeedbacks(isFirstLoad: boolean, event: any) {
         if (this.choosenOption == 'My Feedbacks') {
-            this.isMyFeedbacks = false;
+            this.isMyFeedbacks = true;
             this.feedbackService
-                .fetchAllFeedbacks(this.isMyFeedbacks, this.pageNo1, this.pageSize)
+                .fetchAllFeedbacks(this.isMyFeedbacks, this.isMyFeedbacksPageNo, this.pageSize)
                 .subscribe(
                     (feedback) => {
                         for (let i = 0; i < feedback.length; i++) {
@@ -64,16 +64,16 @@ export class FeedbackListComponent implements OnInit {
                         if (isFirstLoad) {
                             event.target.complete();
                         }
-                        this.pageNo1++;
+                        this.isMyFeedbacksPageNo++;
                     },
                     (error) => {
                         console.error(error);
                     }
                 );
         } else {
-            this.isMyFeedbacks = true;
+            this.isMyFeedbacks = false;
             this.feedbackService
-            .fetchAllFeedbacks(this.isMyFeedbacks, this.pageNo2, this.pageSize)
+            .fetchAllFeedbacks(this.isMyFeedbacks, this.isFeedbacksGivenByMePageNo, this.pageSize)
             .subscribe(
                 (feedback) => {
                     for (let i = 0; i < feedback.length; i++) {
@@ -82,7 +82,7 @@ export class FeedbackListComponent implements OnInit {
                     if (isFirstLoad) {
                         event.target.complete();
                     }
-                    this.pageNo2++;
+                    this.isFeedbacksGivenByMePageNo++;
                 },
                 (error) => {
                     console.error(error);

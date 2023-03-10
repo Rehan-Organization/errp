@@ -13,7 +13,7 @@
         </ion-card-header>
         <ion-card-content>
             <ion-list>
-                <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline" *ngIf="urlId == null">
+                <ion-item  fill="outline" *ngIf="urlId == null">
                     <ion-select [(ngModel)]="selectedValue" placeholder="Select employee">
                         <ion-select-option *ngFor="let employee of employees" [value]="employee.employeeId">
                             {{ employee.employeeName }}
@@ -21,13 +21,13 @@
                     </ion-select>
                 </ion-item>
 
-                <ion-item class="ion-margin-bottom ion-margin-start ion-margin-end" fill="outline">
+                <ion-item  fill="outline">
                     <ion-label position="floating">Title</ion-label>
                     <ion-input placeholder="Enter title" [(ngModel)]="newFeedback.title" required name="title">
                     </ion-input>
                 </ion-item>
 
-                <ion-item fill="outline" class="ion-margin-bottom ion-margin-start ion-margin-end">
+                <ion-item fill="outline" >
                     <ion-label position="floating">Description</ion-label>
                     <ion-textarea auto-grow="true" placeholder="Enter description" [(ngModel)]="newFeedback.description"></ion-textarea>
                 </ion-item>

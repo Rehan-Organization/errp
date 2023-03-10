@@ -42,7 +42,7 @@ public class Feedback {
 	private Date createdDate;
 	
 	@Column(name="UPDATED_DATE")
-	private Date lastUpdatedDate;
+	private Date updatedDate;
 
 	
 	
@@ -94,6 +94,14 @@ public class Feedback {
 
 	
 
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -102,19 +110,12 @@ public class Feedback {
 		this.description = description;
 	}
 
-	public Date getLastUpdatedDate() {
-		return lastUpdatedDate;
-	}
-
-	public void setLastUpdatedDate(Date lastUpdatedDate) {
-		this.lastUpdatedDate = lastUpdatedDate;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "Feedback [id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", title=" + title
 				+ ", description=" + description + ", createdDate=" + createdDate + ", lastUpdatedDate="
-				+ lastUpdatedDate + "]";
+				+ updatedDate + "]";
 	}	
 
 }

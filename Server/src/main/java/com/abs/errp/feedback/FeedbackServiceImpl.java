@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	private FeedbackRepository feedbackRepository;
 	private ErrpUserRepository errpUserRepository;
+	private boolean isSupervisor=false;
 
 	public FeedbackServiceImpl(FeedbackRepository feedbackRepository, ErrpUserRepository errpUserRepository) {
 		super();
@@ -35,13 +37,22 @@ public class FeedbackServiceImpl implements FeedbackService {
 	public Feedback saveFeedback(Feedback feedback) {
 		ErrpUser e = setErrpUser();
 		feedback.setSenderId(e);
+		if(isSupervisor)
 		return feedbackRepository.save(feedback);
+		else
+			return null;
 	}
 
 	@Override
 	public List<ErrpUser> getAllUsers() {
 		ErrpUser e = setErrpUser();
-		return errpUserRepository.findBySupervisor(e);
+		if(errpUserRepository.findBySupervisor(e).size()>0) {
+			isSupervisor=true;
+		    return this.errpUserRepository.findBySupervisor(e);
+		}
+		else
+			return null;
+		
 	}
 
 	private ErrpUser setErrpUser() {
@@ -53,18 +64,16 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public List<Feedback> getMyFeedbacks(boolean isMyFeedback, int pageNo, int pageSize) {
+		Sort sort=Sort.by("updatedDate").descending();
 		ErrpUser errpUser = setErrpUser();
-		Pageable pages = PageRequest.of(pageNo, pageSize);
+		Pageable pages = PageRequest.of(pageNo, pageSize,sort);
 		Page<Feedback> feedbackData;		
 		if(isMyFeedback)
 		{
-			
-		    return feedbackRepository.findAllBySenderId(errpUser,pages);
+			return feedbackRepository.findAllByReceiverId(errpUser,pages);
 		}
 		else {
-			
-			return feedbackRepository.findAllByReceiverId(errpUser,pages);
-			
+		    return feedbackRepository.findAllBySenderId(errpUser,pages);
 		}
 	}
 
@@ -75,13 +84,18 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 		updateFeedback.setTitle(feedback.getTitle());
 		updateFeedback.setDescription(feedback.getDescription());
-		updateFeedback.setLastUpdatedDate(new Date());
+		updateFeedback.setUpdatedDate(new Date());
+		
+		if(isSupervisor)
 		return feedbackRepository.save(updateFeedback);
+		return null;
 	}
 
 	@Override
 	public void removeByFeedbackId(int id) {
+		if(isSupervisor)
 		this.feedbackRepository.deleteById(id);
+		
 	}
 
 	@Override

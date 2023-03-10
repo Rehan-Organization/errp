@@ -9,15 +9,15 @@
                     <ion-segment-button value="My Feedbacks">
                         <ion-label>My Feedbacks</ion-label>
                     </ion-segment-button>
-                    <ion-segment-button value="Feedbacks Given By Me" *ngIf="userRole=='ROLE_SUPERVISOR'">
+                    <ion-segment-button value="Feedbacks Given By Me" >
                         <ion-label>Feedbacks Given By Me</ion-label>
                     </ion-segment-button>
                 </ion-segment>
-                <ion-searchbar *ngIf="isMyFeedbacks && userRole=='ROLE_SUPERVISOR'" [(ngModel)]="searchEmployee" ></ion-searchbar>
+                <ion-searchbar *ngIf="!isMyFeedbacks" [(ngModel)]="searchEmployee" ></ion-searchbar>
             </ion-col>
 
             <ion-col size="auto">
-                <ion-button color="medium" *ngIf="userRole=='ROLE_SUPERVISOR'" (click)="addFeedback()">Add Feedback</ion-button>
+                <ion-button color="medium"  (click)="addFeedback()">Add Feedback</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -27,9 +27,10 @@
                 <ion-card-subtitle>
                     <ion-grid>
                         <ion-row>
-                            <ion-col *ngIf="isMyFeedbacks">{{ feedback.receiverId.employeeName }}</ion-col>
-                            <ion-col *ngIf="!isMyFeedbacks">{{ feedback.senderId.employeeName }}</ion-col>
-                            <ion-col size="auto">{{ feedback.lastUpdatedDate | amDateFormat : 'LL' }}</ion-col>
+                            <ion-col *ngIf="choosenOption=='My Feedbacks'">{{ feedback.senderId.employeeName }}</ion-col>
+                            <ion-col *ngIf="choosenOption=='Feedbacks Given By Me'">{{ feedback.receiverId.employeeName }}</ion-col>
+                         
+                            <ion-col size="auto">{{ feedback.updatedDate | amDateFormat : 'LL' }}</ion-col>
                         </ion-row>
                     </ion-grid>
                 </ion-card-subtitle>
@@ -41,12 +42,12 @@
             <ion-grid>
                 <ion-row>
                     <ion-col></ion-col>
-                    <ion-col size="auto" *ngIf="isMyFeedbacks"
+                    <ion-col size="auto" *ngIf="!isMyFeedbacks"
                         ><ion-button fill="clears" color="danger" (click)="deleteFeedback(feedback)"
                             >Delete</ion-button
                         ></ion-col
                     >
-                    <ion-col size="auto" *ngIf="isMyFeedbacks"
+                    <ion-col size="auto" *ngIf="!isMyFeedbacks"
                         ><ion-button (click)="updateFeedback(feedback)">Update</ion-button></ion-col
                     >
                 </ion-row>

@@ -7,5 +7,5 @@ export interface Feedback {
     title?: String;
     description?: string;
     created_date?: Date;
-    lastUpdatedDate?: Date;
+    updatedDate?: Date;
 }
