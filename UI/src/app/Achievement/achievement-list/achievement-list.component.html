@@ -8,60 +8,55 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let achievement of achievements">
-      <ion-card-header>
-          <ion-card-title>{{ achievement.title }}</ion-card-title>
-
-          <ion-card-title *ngIf="achievement.achievementStatus == 0" class="ion-text-right"> Saved </ion-card-title>
-          <ion-card-title *ngIf="achievement.achievementStatus == 1" class="ion-text-right"> Pending </ion-card-title>
-          <ion-card-title *ngIf="achievement.achievementStatus == 2" class="ion-text-right">
-              approved
-          </ion-card-title>
-
+    <ion-card *ngFor="let achievement of achievements">
+        <ion-card-header>
           <ion-card-subtitle class="ion-text-right">
-              <!-- {{ achievement.updatedDate | amDateFormat : 'LL' }} -->
-          </ion-card-subtitle>
-      </ion-card-header>
+            {{ achievement.updatedDate | amDateFormat : 'LL' }}
+            </ion-card-subtitle>
+            <ion-card-title>{{ achievement.title }}</ion-card-title>
+            <ion-card-title *ngIf="achievement.achievementStatus == 0" class="ion-text-right"> Saved </ion-card-title>
+            <ion-card-title *ngIf="achievement.achievementStatus == 1" class="ion-text-right"> Pending </ion-card-title>
+            <ion-card-title *ngIf="achievement.achievementStatus == 2" class="ion-text-right">
+                approved
+            </ion-card-title>
+        </ion-card-header>
 
       <ion-card-content>
           {{ achievement.achievementDesc }}
       </ion-card-content>
 
-      <ion-grid>
-          <ion-row>
-              <ion-col></ion-col>
-              <ion-col size="auto"
-                  ><ion-button
-                      fill="clear"
-                      *ngIf="achievement.achievementStatus == 0"
-                      routerLink="addAchievement/{{ achievement.achievementId }}"
-                      >Update</ion-button
-                  ></ion-col
-              >
-              <ion-col size="auto"
-                  ><ion-button
-                      fill="clear"
-                      *ngIf="achievement.achievementStatus == 0"
-                      (click)="submitAchievement(achievement)"
-                      >Submit</ion-button
-                  ></ion-col
-              >
-              <ion-col size="auto"
-                  ><ion-button
-                      fill="clear"
-                      *ngIf="achievement.achievementStatus == 1 || achievement.achievementStatus == 0"
-                      (click)="deleteAchievement(achievement)"
-                      >delete</ion-button
-                  ></ion-col
-              >
-          </ion-row>
-      </ion-grid>
-  </ion-card>
-  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
-      <ion-fab-button (click)="addAchievement()">
-          <ion-icon name="add"> </ion-icon>
-      </ion-fab-button>
-  </ion-fab>
+        <ion-grid>
+            <ion-row>
+                <ion-col></ion-col>
+                <ion-col size="auto"
+                    ><ion-button
+                        fill="clear"
+                        *ngIf="achievement.achievementStatus == 0"
+                        routerLink="addAchievement/{{ achievement.achievementId }}"
+                        ><span title="update"><i class="fas fa-edit"></i></span></ion-button
+                ></ion-col>
+                <ion-col size="auto"
+                    ><ion-button
+                        fill="clear"
+                        *ngIf="achievement.achievementStatus == 1 || achievement.achievementStatus == 0"
+                        (click)="deleteAchievement(achievement)"
+                        ><span title="delete"><ion-icon name="trash"></ion-icon></span></ion-button
+                ></ion-col>
+                <ion-col size="auto"
+                    ><ion-button
+                        fill="clear"
+                        *ngIf="achievement.achievementStatus == 0"
+                        (click)="submitAchievement(achievement)"
+                        ><span title="submit"><ion-icon name="send-sharp"></ion-icon></span></ion-button
+                ></ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-card>
+    <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+        <ion-fab-button (click)="addAchievement()">
+            <ion-icon name="add"> </ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>

@@ -8,9 +8,6 @@ import { Achievement } from './achievement';
   providedIn: 'root'
 })
 export class AchievementService {
-  // getAchievement() {
-  //     throw new Error('Method not implemented.');
-  // }
 
   constructor(private httpClient: HttpClient) { }
 

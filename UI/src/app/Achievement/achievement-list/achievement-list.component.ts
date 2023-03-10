@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { ToastService } from 'src/app/errp-service/toast.service';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 
@@ -20,7 +21,8 @@ export class AchievementListComponent implements OnInit {
   constructor(
     private router: Router,
     private achievementService: AchievementService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastService: ToastService
   ) { }
 
   achievements: Achievement[] = [];
@@ -84,16 +86,23 @@ export class AchievementListComponent implements OnInit {
             text: 'Submit',
             handler: () => {
               achievement.achievementStatus = 1;
-              this.achievementService.submitAchievement(achievement).subscribe(
-                (resp) => {
+              if (achievement.title == "" || achievement.achievementDesc == "" || !achievement.achievementDesc || !achievement.title) {
 
-                  console.log(resp);
-                },
-                (err) => {
-                  (this.errorMessage = err.message),
-                    this.showAlert(this.errorMessage);
-                }
-              );
+                this.toastService.showErrorToast("Fields can not be empty");
+              }
+              else {
+                this.achievementService.submitAchievement(achievement).subscribe(
+                  (resp) => {
+
+                    console.log(resp);
+                  },
+                  (err) => {
+                    (this.errorMessage = err.message),
+                      this.toastService.showErrorToast(this.errorMessage)
+                  }
+                );
+              }
+
             },
           },
 
