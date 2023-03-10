@@ -85,19 +85,22 @@ export class AchievementFormComponent implements OnInit {
 
         this.achievement.title = this.achievement.title?.trim();
         this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
-        if (this.achievement.title == "" || this.achievement.achievementDesc == "") {
+        if (this.achievement.title == "" || this.achievement.achievementDesc == "" || !this.achievement.title || !this.achievement.achievementDesc) {
             this.showAlert("Fields can not be empty")
         } else {
             this.alertController
                 .create({
-                    header: 'Confirm Alert',
-                    message: 'Are you sure you want to submit',
+                    header: 'Alert',
+                    message: 'Are you sure, you want to submit this achievement?',
                     buttons: [
                         {
-                            text: 'Confirm',
+                            text: 'Cancel',
+                        },
+                        {
+                            text: 'Submit',
                             handler: () => {
 
-                                
+
 
                                 this.achievementService.submitAchievement(this.achievement).subscribe(
                                     (data) => {
@@ -112,9 +115,7 @@ export class AchievementFormComponent implements OnInit {
                                 );
                             },
                         },
-                        {
-                            text: 'Cancel',
-                        },
+
                     ],
                 })
                 .then((res) => {
@@ -131,14 +132,17 @@ export class AchievementFormComponent implements OnInit {
 
         this.achievement.title = this.achievement.title?.trim();
         this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
-        if (this.achievement.title == "" || this.achievement.achievementDesc == "") {
+        if (this.achievement.title == "" || this.achievement.achievementDesc == "" || !this.achievement.title || !this.achievement.achievementDesc) {
             this.showAlert("Fields can not be empty")
         } else {
             this.alertController
                 .create({
-                    header: 'Confirm Alert',
-                    message: 'Are you sure you want to update',
+                    header: 'Alert',
+                    message: 'Are you sure, you want to update this achievement?',
                     buttons: [
+                        {
+                            text: 'Cancel',
+                        },
                         {
                             text: 'Update',
                             handler: () => {
@@ -154,9 +158,7 @@ export class AchievementFormComponent implements OnInit {
                                 );
                             },
                         },
-                        {
-                            text: 'Cancel',
-                        },
+
                     ],
                 })
                 .then((res) => {
