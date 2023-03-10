@@ -5,6 +5,7 @@ import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 
 
+
 @Component({
   selector: 'app-achievement-list',
   templateUrl: './achievement-list.component.html',
@@ -30,6 +31,7 @@ export class AchievementListComponent implements OnInit {
 
   ngOnInit() {
 
+    this.pageNo = 0;
     this.getAchievement(false, null);
 
   }
@@ -73,11 +75,15 @@ export class AchievementListComponent implements OnInit {
     this.alertController
       .create({
         header: 'Alert',
-        message: 'Are you sure you want to submit?',
+        message: 'Are you sure, you want to submit this achievement?',
         buttons: [
           {
-            text: 'Confirm',
+            text: 'Cancel',
+          },
+          {
+            text: 'Submit',
             handler: () => {
+              achievement.achievementStatus = 1;
               this.achievementService.submitAchievement(achievement).subscribe(
                 (resp) => {
 
@@ -90,9 +96,7 @@ export class AchievementListComponent implements OnInit {
               );
             },
           },
-          {
-            text: 'Cancel',
-          },
+
         ],
       })
       .then((res) => {
@@ -106,11 +110,14 @@ export class AchievementListComponent implements OnInit {
   deleteAchievement(achievement: Achievement) {
     this.alertController
       .create({
-        header: 'Confirm Alert',
-        message: 'Are you sure you want to delete?',
+        header: 'Alert',
+        message: 'Are you sure, you want to delete this achievement?',
         buttons: [
           {
-            text: 'Confirm',
+            text: 'Cancel',
+          },
+          {
+            text: 'Delete',
             handler: () => {
               this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
                 (resp) => {
@@ -124,9 +131,7 @@ export class AchievementListComponent implements OnInit {
               );
             },
           },
-          {
-            text: 'Cancel',
-          },
+
         ],
       })
       .then((res) => {

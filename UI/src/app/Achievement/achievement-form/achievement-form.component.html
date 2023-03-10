@@ -1,6 +1,10 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-title>Add Achievement</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title *nfIf="!isIdPresent">Add Achievement</ion-title>
+        <ion-title *ngIf="isIdPresent">Update Achievement</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
@@ -8,18 +12,19 @@
         <ion-card>
             <ion-card-content>
                 <ion-card-header>
-                    <ion-card-title>Card Title</ion-card-title>
-                    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+                    <ion-card-title></ion-card-title>
+                    <ion-card-subtitle></ion-card-subtitle>
                 </ion-card-header>
 
                 <ion-item fill="outline" id="title" counter="true" [counterFormatter]="customCounterFormatter">
                     <ion-label position="floating">Title</ion-label>
                     <ion-input
-                        maxlength="50"
-                        minlength="20"
+                        maxlength="200"
+                        minlength="10"
                         [clearInput]="true"
                         placeholder="Enter title for an Achievement"
                         [(ngModel)]="achievement.title"
+                        (keypress)="onKeyPress($event)"
                     ></ion-input>
                 </ion-item>
 
@@ -27,19 +32,18 @@
                     <ion-label position="floating">Description</ion-label>
                     <ion-input
                         class=" "
-                        (keypress)="onKeyPress($event)"
-                        maxlength="200"
+                        maxlength="1000"
                         minlength="50"
                         [clearInput]="true"
                         placeholder="Enter Description"
                         inputmode="text"
-                        [(ngModel)]="achievement.achievementDesc
-                        "
+                        [(ngModel)]="achievement.achievementDesc"
                     ></ion-input>
                 </ion-item>
 
-                <ion-button color="primary">Save</ion-button>
-                <ion-button color="primary" (click)="addAchievement()">Submit</ion-button>
+                <ion-button color="primary" (click)="handleSave()" *ngIf="!isIdPresent">Save</ion-button>
+                <ion-button color="primary" (click)="handleUpdate()" *ngIf="isIdPresent">Update</ion-button>
+                <ion-button color="primary" (click)="handleSubmit()">Submit</ion-button>
             </ion-card-content>
         </ion-card>
     </ion-content>

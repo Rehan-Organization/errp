@@ -46,6 +46,7 @@ public class AchievmentController {
 
 	@PostMapping("/updateAchievement/{id}")
 	public ResponseEntity<Achievement> updateAchievement(@PathVariable int id, @RequestBody Achievement achievement) {
+		System.out.println("update id = "+id);
 		return new ResponseEntity<Achievement>(achievementService.updateAchievement(id, achievement),
 				HttpStatus.CREATED);
 
@@ -67,5 +68,8 @@ public class AchievmentController {
 	public void submitAchievement(@RequestBody Achievement achievement) {
 		achievementService.submitAchievement(achievement);
 	}
+	
+	
+	
 
 }

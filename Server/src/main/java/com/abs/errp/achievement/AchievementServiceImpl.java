@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.abs.errp.entity.Achievement;
@@ -51,9 +52,11 @@ public class AchievementServiceImpl implements AchievementService {
 
 	@Override
 	public List<Achievement> findPaginated(int pageNo, int pageSize) {
+		
+		Sort sort = Sort.by("updatedDate").descending();
 
 		LoggedInUser user = this.userContext.getLoggedInUser();
-		Pageable paging = PageRequest.of(pageNo, pageSize);
+		Pageable paging = PageRequest.of(pageNo, pageSize, sort);
 		return achievementRepository.findAllByEmployeeId(user.getEmployeeId(), paging);
 
 	}
@@ -65,17 +68,28 @@ public class AchievementServiceImpl implements AchievementService {
 		} else {
 			throw new ResourceNotFoundException("achievement", "Id", id);
 		}
+		
+		
 	}
 
 	@Override
 	public Achievement updateAchievement(int id, Achievement achievement) {
-		Optional<Achievement> achive = achievementRepository.findById(id);
-		if (achive.isPresent()) {
-			return achive.get();
+		System.out.println("Upadate called\n\n\n\n");
+		
+		Achievement oldAchievement;
+		Optional<Achievement> optionalAchievement = achievementRepository.findById(id);
+		if (optionalAchievement.isPresent()) {
+			oldAchievement = optionalAchievement.get();
 
 		} else {
 			throw new ResourceNotFoundException("achievement", "Id", id);
 		}
+		
+		System.out.println(oldAchievement.toString());
+		return this.saveAchievement(achievement);
+		
+		
+		
 
 	}
 
@@ -89,7 +103,7 @@ public class AchievementServiceImpl implements AchievementService {
 	@Override
 	public void submitAchievement(Achievement achievement) {
 
-		System.out.println("submit called");
+		this.saveAchievement(achievement);
 	}
 
 }

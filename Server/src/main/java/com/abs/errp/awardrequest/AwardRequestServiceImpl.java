@@ -13,15 +13,20 @@ import com.abs.errp.security.LoggedInUserContext;
 public class AwardRequestServiceImpl implements AwardRequestService  {
 	
 	
-	private  AwardRequestRepository awardServiceRespository;
+	private  AwardRequestRepository awardServiceRepository;
 	public AwardRequestServiceImpl(AwardRequestRepository  awardServiceRespository) {
 		super();
-		this.awardServiceRespository = awardServiceRespository;
+		this.awardServiceRepository = awardServiceRespository;
 	}
 	@Override
 	public List<AwardRequest> getAllAwardRequest() {
 		
-		return awardServiceRespository.findAll();
+		return awardServiceRepository.findAll();
+	}
+	@Override
+	public AwardRequest saveAwardRequest(AwardRequest awardRequest) {
+		
+		return awardServiceRepository.save(awardRequest);
 	}
 	
 

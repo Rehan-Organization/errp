@@ -9,4 +9,6 @@ import com.abs.errp.entity.AwardRequest;
 public interface AwardRequestService {
 	
 	List<AwardRequest> getAllAwardRequest();
+
+	AwardRequest saveAwardRequest(AwardRequest awardRequest);
 }
