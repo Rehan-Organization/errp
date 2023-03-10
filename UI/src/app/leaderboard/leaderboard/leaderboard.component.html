@@ -35,9 +35,8 @@
             <ion-item>
                 <ion-label>Select start date</ion-label>
                 <ion-input
-                   
                     placeholder="Select date here"
-                    value="{{ customStartDate }}"
+                    value="{{ customStartDate | date : 'dd.MM.yyyy' }}"
                     id="customStartDate"
                     class="ion-text-end"
                 ></ion-input>
@@ -51,9 +50,8 @@
             <ion-item>
                 <ion-label>Select end date</ion-label>
                 <ion-input
-                  
                     placeholder="Select date here"
-                    value="{{ customEndDate }}"
+                    value="{{ customEndDate | date : 'dd.MM.yyyy' }}"
                     id="customEndDate"
                     class="ion-text-end"
                 ></ion-input>

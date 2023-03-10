@@ -120,6 +120,7 @@ export class LeaderboardComponent implements OnInit {
             this.toasterService.showErrorToast('Start date cant be greater than end date');
         } else
         {
+          console.log(this.customStartDate)
           this.startDate = this.customStartDate;
          
 

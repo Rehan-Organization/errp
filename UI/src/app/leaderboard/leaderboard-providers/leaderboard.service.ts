@@ -14,7 +14,8 @@ export class LeaderboardService {
 
        getLeaderboardList(pageNumber : number, pageSize : number , startDate : Date, endDate : Date): Observable<Leaderboard[]>
        {
-               return this.http.get<Leaderboard[]>(URLS.GET_LEADERBOARD_LIST + "/" + pageNumber + "/" + pageSize + "/" + startDate + "/" + endDate);
+              
+               return this.http.get<Leaderboard[]>(URLS.GET_LEADERBOARD_LIST + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&startDate=" + startDate + "&endDate=" + endDate);
        }
 
 
