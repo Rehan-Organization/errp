@@ -6,8 +6,7 @@ export interface AwardType {
     awardPoints?: number;
     awardStatus?: number;
     createdDate?: Date;
-    lastUpdatedDate?: Date;
+    updatedDate?: Date;
     createdById?: number;
-    updatedById?: number
-
+    updatedById?: number;
 }
