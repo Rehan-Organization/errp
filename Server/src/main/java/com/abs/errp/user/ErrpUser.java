@@ -1,8 +1,10 @@
 package com.abs.errp.user;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,12 +15,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.abs.errp.entity.Achievement;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "ERRP_USER")
 public class ErrpUser {
 
 	@Id
 	@Column(name = "EMPLOYEE_ID")
-	private Long employeeId;
+	private int employeeId;
 
 	@Column(name = "USERNAME", nullable = false, unique = true)
 	private String username;
@@ -31,11 +36,19 @@ public class ErrpUser {
 
 	@Column(name = "ENABLED")
 	private boolean enabled;
+	
 
+	@OneToMany
+	@JoinColumn(name="EMPLOYEE_ID")
+	private Set<Achievement>achievements;
+	
+
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "SUPERVISOR_ID")
 	private ErrpUser supervisor;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "supervisor")
 	private Set<ErrpUser> reportees;
 	
@@ -51,11 +64,11 @@ public class ErrpUser {
 
 	}
 
-	public Long getEmployeeId() {
+	public int getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(Long employeeId) {
+	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
 

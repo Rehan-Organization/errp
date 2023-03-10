@@ -1,12 +1,13 @@
 export interface Achievement {
 
     
-        achievement_id: number;
-        title: string;
-        description: string;
-        created_date:Date;
-        achievement_status:number;
-        comments:string;
-        last_modified:Date
-
+        achievementId?: number;
+        employeeId?:number;
+        title?: string;
+        achievementDesc?: string;
+        createdDate?:Date;
+        updatedDate?:Date;
+        achievementStatus?:number;
+        createdBy?:number;
+        updatedBy?:number;
 }

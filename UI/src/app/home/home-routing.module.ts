@@ -7,10 +7,7 @@ const routes: Routes = [
     path: '',
     component: HomePage,
     children:[ 
-        // {
-        //   path: 'addAchievement',
-        //   loadChildren: () => import('./../Achievement/add-achievement/add-achievement.module').then(m => m.AddAchievementModule)
-        // },
+      
         {
           path: 'myAchievement',
           loadChildren: () => import('../Achievement/achievement-list/achievement-list.module').then(m => m.MyAchievementModule)

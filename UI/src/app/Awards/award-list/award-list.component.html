@@ -1,52 +1,63 @@
-<ion-header>
+<ion-header class="abs-menu-header">
     <ion-toolbar color="primary"> </ion-toolbar>
 </ion-header>
 <ion-content>
     <ion-grid>
         <ion-row>
-            <ion-col size="2">My Awards</ion-col>
-            <ion-col size="2">Raised Awards</ion-col>
+            <ion-col>
+                <ion-segment value="default" [(ngModel)]="choosenOption">
+                    <ion-segment-button value="My Awards">
+                        <ion-label>My Awards</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="Raised Awards">
+                        <ion-label>Raised Awards</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-col>
+
+            <ion-col size="auto">
+                <ion-button color="medium">Add Feedback</ion-button>
+            </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <div>
-            <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
-            </ion-card-content>
-        </div>
-    </ion-card>
-    <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <div>
-            <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
-            </ion-card-content>
-        </div>
-    </ion-card>
-    <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <div>
-            <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
-            </ion-card-content>
-        </div>
-    </ion-card>
-
-    <ion-button (click)="raiseAward()">Raise an award</ion-button>
+    <!-- <ion-card *ngFor="let feedback of feedbacks; let i = index">
+      <div *ngIf="searchEmployee === '' || feedback.receiverId.employeeName?.toLowerCase()?.includes(searchEmployee)">
+          <ion-card-header>
+              <ion-card-subtitle>
+                  <ion-grid>
+                      <ion-row>
+                          <ion-col *ngIf="isMyFeedbacks">{{ feedback.receiverId.employeeName }}</ion-col>
+                          <ion-col *ngIf="!isMyFeedbacks">{{ feedback.senderId.employeeName }}</ion-col>
+                          <ion-col size="auto">{{ feedback.lastUpdatedDate | amDateFormat : 'LL' }}</ion-col>
+                      </ion-row>
+                  </ion-grid>
+              </ion-card-subtitle>
+              <ion-card-title>
+                  {{ feedback.title }}
+              </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>{{ feedback.description }}</ion-card-content>
+          <ion-grid>
+              <ion-row>
+                  <ion-col></ion-col>
+                  <ion-col size="auto" *ngIf="isMyFeedbacks"
+                      ><ion-button fill="clears" color="danger" (click)="deleteFeedback(feedback)"
+                          >Delete</ion-button
+                      ></ion-col
+                  >
+                  <ion-col size="auto" *ngIf="isMyFeedbacks"
+                      ><ion-button (click)="updateFeedback(feedback)">Update</ion-button></ion-col
+                  >
+              </ion-row>
+          </ion-grid>
+      </div>
+  </ion-card> -->
+    <!-- <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+    <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+        <ion-fab-button (click)="raiseAward()">
+            <ion-icon name="add"> </ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
