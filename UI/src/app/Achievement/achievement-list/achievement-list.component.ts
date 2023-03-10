@@ -13,9 +13,9 @@ export class MyAchievementComponent implements OnInit {
 
   //achievement : Achievement[] = [];
 
-  constructor(private router:Router, private achievementService : AchievementService) {}
+  constructor(private router: Router, private achievementService: AchievementService) { }
 
-  Achievement : Achievement[] = [];
+  Achievement: Achievement[] = [];
 
   ngOnInit() {
 
@@ -23,17 +23,16 @@ export class MyAchievementComponent implements OnInit {
 
   }
 
-  getAwards()
-  {
+  getAwards() {
     this.achievementService.getAllAchievement().subscribe(Achievement => this.Achievement = Achievement);
   }
 
-  addAchievement(){
+  addAchievement() {
     this.router.navigate(["/home/myAchievement/addAchievement"])
   }
-  
+
 
 }
-  
+
 
 
