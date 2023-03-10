@@ -14,7 +14,8 @@ import { LoggedInUserContext } from 'src/app/providers/logged-in-user-context.se
 })
 export class FeedbackListComponent implements OnInit {
     private updateSubscription?: Subscription;
-
+    errors: any;
+    
     constructor(
         private feedbackService: FeedbackService,
         private router: Router,
@@ -118,9 +119,15 @@ export class FeedbackListComponent implements OnInit {
                     role: 'confirm',
                     handler: () => {
                         this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
-                            this.toastService.showSuccessToast('Feedback deleted successfully');
-                            this.fetchFeedbacks(false, null);
-                        });
+                            this.toastService.showSuccessToast("Feedback deleted successfully");
+                            this.feedbacks = this.feedbacks.filter(
+                                (newFeedback) => newFeedback.id != feedback.id,
+                                this.ngOnInit()
+                            );
+                        },(error) => {
+                            this.errors = error;
+                            this.toastService.showErrorToast(error);
+                          },);
                     },
                 },
             ],
