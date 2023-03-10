@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+
     <ion-segment value="default">
         <ion-segment-button value="default" (click)="forMonth()">
             <ion-label>Monthly</ion-label>
@@ -31,46 +32,43 @@
     </ion-segment>
 
     <ion-content>
+        <ion-card *ngIf="typeCheck">
+            <ion-item>
+                <ion-label>Select start date</ion-label>
+                <ion-input
+                    placeholder="Select date here"
+                    value="{{ customStartDate | date : 'dd.MM.yyyy' }}"
+                    id="customStartDate"
+                    class="ion-text-end"
+                ></ion-input>
+                <ion-popover trigger="customStartDate" size="cover">
+                    <ng-template>
+                        <ion-datetime [showDefaultButtons]="true" [(ngModel)]="customStartDate"></ion-datetime>
+                    </ng-template>
+                </ion-popover>
+            </ion-item>
 
+            <ion-item>
+                <ion-label>Select end date</ion-label>
+                <ion-input
+                    placeholder="Select date here"
+                    value="{{ customEndDate | date : 'dd.MM.yyyy' }}"
+                    id="customEndDate"
+                    class="ion-text-end"
+                ></ion-input>
+                <ion-popover trigger="customEndDate" size="cover">
+                    <ng-template>
+                        <ion-datetime [showDefaultButtons]="true" [(ngModel)]="customEndDate"></ion-datetime>
+                    </ng-template>
+                </ion-popover>
+            </ion-item>
+            <ion-button (click)="customDate()"> Apply Filter </ion-button>
+        </ion-card>
 
-      <ion-card *ngIf="typeCheck">
-        <ion-item>
-            <ion-label>Pick start date</ion-label>
-            <ion-input
-                placeholder="Select date here"
-                value="{{ startDate | date : 'dd.MM.yyyy' }}"
-                id="startDate"
-                class="ion-text-end"
-            ></ion-input>
-            <ion-popover trigger="startDate" size="cover">
-                <ng-template>
-                    <ion-datetime [showDefaultButtons]="true" [(ngModel)]="startDate"></ion-datetime>
-                </ng-template>
-            </ion-popover>
-        </ion-item>
-
-        <ion-item>
-            <ion-label>Pick end date</ion-label>
-            <ion-input
-                placeholder="Select date here"
-                value="{{ endDate | date : 'dd.MM.yyyy' }}"
-                id="endDate"
-                class="ion-text-end"
-            ></ion-input>
-            <ion-popover trigger="endDate" size="cover">
-                <ng-template>
-                    <ion-datetime [showDefaultButtons]="true" [(ngModel)]="endDate"></ion-datetime>
-                </ng-template>
-            </ion-popover>
-        </ion-item>
-
-        <ion-button (click)="customDate()"> Apply Filter </ion-button>
-    </ion-card>
-
-
-
+      <ion-content>
         <ion-card>
-            <ion-item *ngFor="let emp of leaderboard; let i = index">
+          <ion-list>
+            <ion-item *ngFor="let emp of leaderboardList; let i = index">
                 <i
                     slot="start"
                     class="fad fa-trophy"
@@ -95,6 +93,13 @@
                     <h5>{{ emp.points }}</h5>
                 </div>
             </ion-item>
+          </ion-list>
         </ion-card>
+        <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </ion-content>
+
+</ion-content>
+
 </ion-content>

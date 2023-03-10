@@ -42,8 +42,8 @@ export class AwardListComponent implements OnInit {
     updateAward(award: AwardType) {
         this.alertController
             .create({
-                header: 'Are you sure?',
-                message: 'deactivate this award?',
+                header: 'ARE YOU SURE?',
+                message: 'DISABLE THIS AWARD?',
                 buttons: [
                     {
                         text: 'Cancel',

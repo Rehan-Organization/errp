@@ -21,7 +21,7 @@ public class LeaderboardController {
 		
 	
 
-	@GetMapping("{pageNumber}/{pageSize}/{startDate}/{endDate}")
+	@GetMapping("/{pageNumber}/{pageSize}/{startDate}/{endDate}")
 	public List<Leaderboard> getTopPermormingList(@PathVariable int pageNumber, @PathVariable int pageSize, @PathVariable Date startDate, @PathVariable Date endDate ){
 		return leaderboardService.getTopPerformingEmployeeList(pageNumber,pageSize,startDate,endDate);
 	}

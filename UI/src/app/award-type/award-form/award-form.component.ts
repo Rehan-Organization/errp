@@ -39,10 +39,10 @@ export class AwardFormComponent implements OnInit {
     createAward() {
         const today = new Date();
         this.awardType.createdDate = today;
-        this.awardType.lastUpdatedDate = today;
+        this.awardType.updatedDate = today;
         console.log(today);
 
-        if(this.validate()){
+        if (this.validate()) {
             this.alertController
                 .create({
                     header: 'ARE YOU SURE?',
@@ -95,8 +95,8 @@ export class AwardFormComponent implements OnInit {
 
     updateAward() {
         const today = new Date();
-        this.awardType.lastUpdatedDate = today;
-        if(this.validate()) {
+        this.awardType.updatedDate = today;
+        if (this.validate()) {
             this.alertController
                 .create({
                     header: 'ARE YOU SURE',
@@ -133,20 +133,18 @@ export class AwardFormComponent implements OnInit {
         }
     }
 
-    validate() : boolean
-    {
-      if (!this.awardType.awardName?.trim()) {
-        this.toasterService.showErrorToast('Award name cannot be empty!');
-        return false;
-    } else if (this.awardType.awardPoints == null) {
-        this.toasterService.showErrorToast('Award points cannot be empty!');
-        return false;
-    } else if (!this.awardType.description?.trim()) {
-        this.toasterService.showErrorToast('Award description cannot be empty!');
-        return false;
-    } 
-      return true;
-    
+    validate(): boolean {
+        if (!this.awardType.awardName?.trim()) {
+            this.toasterService.showErrorToast('Award name cannot be empty!');
+            return false;
+        } else if (this.awardType.awardPoints == null) {
+            this.toasterService.showErrorToast('Award points cannot be empty!');
+            return false;
+        } else if (!this.awardType.description?.trim()) {
+            this.toasterService.showErrorToast('Award description cannot be empty!');
+            return false;
+        }
+        return true;
     }
 
     ngOnInit() {
@@ -157,8 +155,8 @@ export class AwardFormComponent implements OnInit {
                 (data) => {
                     this.awardType = data;
                 },
-                (err) => { 
-                  this.toasterService.showErrorToast('Unable to get data');
+                (err) => {
+                    this.toasterService.showErrorToast('Unable to get data');
                 }
             );
         }

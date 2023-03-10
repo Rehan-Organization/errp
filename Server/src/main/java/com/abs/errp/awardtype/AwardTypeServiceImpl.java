@@ -49,8 +49,8 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 			}
 			else{		
 				
-				awardType.setCreatedById(user.getEmployeeId());
-				awardType.setUpdatedById(user.getEmployeeId());
+				awardType.setCreatedBy(user.getEmployeeId());
+				awardType.setUpdatedBy(user.getEmployeeId());
 				return awardServiceRespository.save(awardType);
 			}
 		
@@ -72,7 +72,7 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 		LoggedInUser user = this.userContext.getLoggedInUser();
 		if(awardServiceRespository.findById(awardId).isPresent()) {
 			
-			awardType.setUpdatedById(user.getEmployeeId());
+			awardType.setUpdatedBy(user.getEmployeeId());
 			return awardServiceRespository.save(awardType);
 		}
 		else {

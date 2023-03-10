@@ -12,9 +12,9 @@ export class LeaderboardService {
   constructor(private http: HttpClient) { }
 
 
-       getLeaderboardList(startDate : Date, endDate : Date): Observable<Leaderboard[]>
+       getLeaderboardList(pageNumber : number, pageSize : number , startDate : Date, endDate : Date): Observable<Leaderboard[]>
        {
-               return this.http.get<Leaderboard[]>(URLS.GET_LEADERBOARD_LIST);
+               return this.http.get<Leaderboard[]>(URLS.GET_LEADERBOARD_LIST + "/" + pageNumber + pageSize + "/" + startDate + "/" + endDate);
        }
 
 
