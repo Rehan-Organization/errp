@@ -14,6 +14,7 @@ import { LoggedInUserContext } from 'src/app/providers/logged-in-user-context.se
 })
 export class FeedbackListComponent implements OnInit {
     private updateSubscription?: Subscription;
+    errors: any;
     
     constructor(
         private feedbackService: FeedbackService,
@@ -112,7 +113,10 @@ export class FeedbackListComponent implements OnInit {
                             this.feedbacks = this.feedbacks.filter(
                                 (newFeedback) => newFeedback.id != feedback.id
                             );
-                        });
+                        },(error) => {
+                            this.errors = error;
+                            this.toastService.showErrorToast(error);
+                          },);
                     },
                 },
             ],
