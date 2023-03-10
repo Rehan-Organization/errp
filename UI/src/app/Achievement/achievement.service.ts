@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { URLS } from '../constants/urls.contants';
 import { Achievement } from './achievement';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -13,37 +12,43 @@ export class AchievementService {
   //     throw new Error('Method not implemented.');
   // }
 
-  constructor(private httpClient : HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-   getAllAchievement() : Observable<Achievement[]>{
-   
-    
+  getAllAchievement(): Observable<Achievement[]> {
     return this.httpClient.get<Achievement[]>("/achievement/emp");
   }
 
-  getPaginatedAchievement(pageNo:number,pageSize:number):Observable<Achievement[]>{
-    return this.httpClient.get<Achievement[]>('/achievement/paginated/'+pageNo+"/"+pageSize);
+  getPaginatedAchievement(pageNo: number, pageSize: number): Observable<Achievement[]> {
+    return this.httpClient.get<Achievement[]>('/achievement/paginated/' + pageNo + "/" + pageSize);
   }
 
-  postAchievement(achievement : Achievement) : Observable<Achievement>{
-    return this.httpClient.post<Achievement>('/achievement/add',achievement)
-  } 
+  saveAchievement(achievement: Achievement): Observable<Achievement> {
+    return this.httpClient.post<Achievement>('/achievement/add', achievement)
+  }
+
+
+  updateAchievement(achievement: Achievement): Observable<Achievement> {
+    return this.httpClient.post<Achievement>('/achievement/updateAchievement/' + achievement.achievementId, achievement);
+  }
 
   // deleteAchievement(achievement_id : any) : Observable<Achievement>{
   //   console.log(achievement_id)
   //   return this.httpClient.delete(URLS.DELETE + achievement_id)
   // }
   // edite achivement
-  getAchievement(userId:number) : Observable<Achievement> {
-    return this.httpClient.get<Achievement>(URLS.GETACHIEVEMENT+"/"+userId);
+  getAchievement(userId: number): Observable<Achievement> {
+    return this.httpClient.get<Achievement>(URLS.GETACHIEVEMENT + "/" + userId);
   }
 
-  deleteAchievement(achievement_id : any) : Observable<Achievement>{
+  deleteAchievement(achievement_id: any): Observable<Achievement> {
     console.log(achievement_id)
     return this.httpClient.delete(URLS.DELETE + achievement_id)
   }
 
+  submitAchievement(achievement: Achievement): Observable<Achievement> {
+    console.log("submit", achievement);
+    return this.httpClient.post<Achievement>("/achievement/submit", achievement);
+  }
 
 
-  
 }

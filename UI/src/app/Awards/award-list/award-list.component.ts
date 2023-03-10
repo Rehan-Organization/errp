@@ -10,6 +10,7 @@ export class AwardListComponent implements OnInit {
 
   constructor(private router:Router) { }
 
+  choosenOption = "My Awards"
   ngOnInit() {}
 
   raiseAward(){

@@ -43,13 +43,83 @@ public class EmployeeAward {
 	@Column(name="SUPERVISOR_COMMENTS")
 	private String supervisorComments;
 
-	public EmployeeAward() {
-		super();
+	public int getEmployeeAwardId() {
+		return employeeAwardId;
 	}
-	
-	
 
+	public void setEmployeeAwardId(int employeeAwardId) {
+		this.employeeAwardId = employeeAwardId;
+	}
 
-	
+	public int getAwardId() {
+		return awardId;
+	}
 
+	public void setAwardId(int awardId) {
+		this.awardId = awardId;
+	}
+
+	public int getAwardeeId() {
+		return awardeeId;
+	}
+
+	public void setAwardeeId(int awardeeId) {
+		this.awardeeId = awardeeId;
+	}
+
+	public int getAwardRaisedById() {
+		return awardRaisedById;
+	}
+
+	public void setAwardRaisedById(int awardRaisedById) {
+		this.awardRaisedById = awardRaisedById;
+	}
+
+	public int getAchievementId() {
+		return achievementId;
+	}
+
+	public void setAchievementId(int achievementId) {
+		this.achievementId = achievementId;
+	}
+
+	public int getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(int requestId) {
+		this.requestId = requestId;
+	}
+
+	public int getApprovedById() {
+		return approvedById;
+	}
+
+	public void setApprovedById(int approvedById) {
+		this.approvedById = approvedById;
+	}
+
+	public Date getApprovedDate() {
+		return approvedDate;
+	}
+
+	public void setApprovedDate(Date approvedDate) {
+		this.approvedDate = approvedDate;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getSupervisorComments() {
+		return supervisorComments;
+	}
+
+	public void setSupervisorComments(String supervisorComments) {
+		this.supervisorComments = supervisorComments;
+	}
 }

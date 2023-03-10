@@ -1,4 +1,5 @@
 package com.abs.errp.achievement;
+
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.abs.errp.entity.Achievement;
-
 
 @RequestMapping("/achievement")
 @RestController
@@ -30,44 +30,47 @@ public class AchievmentController {
 		return achievementService.getAllAchievements();
 
 	}
-   // post achievement API
+
+	// post achievement API
 	@PostMapping("/add")
 	public ResponseEntity<Achievement> saveEmployee(@RequestBody Achievement achievement) {
 		return new ResponseEntity<Achievement>(achievementService.saveAchievement(achievement), HttpStatus.CREATED);
 
 	}
-	
-	@GetMapping("/paginated/{pageNo}/{pageSize}")
-	public List<Achievement> getPaginatedCountries(@PathVariable int pageNo, 
-	        @PathVariable int pageSize) {
 
-	    return achievementService.findPaginated(pageNo, pageSize);
+	@GetMapping("/paginated/{pageNo}/{pageSize}")
+	public List<Achievement> getPaginatedCountries(@PathVariable int pageNo,
+			@PathVariable int pageSize) {
+
+		return achievementService.findPaginated(pageNo, pageSize);
 	}
-	
+
+	@PostMapping("/updateAchievement/{id}")
+	public ResponseEntity<Achievement> updateAchievement(@PathVariable int id, @RequestBody Achievement achievement) {
+		System.out.println("update id = "+id);
+		return new ResponseEntity<Achievement>(achievementService.updateAchievement(id, achievement),
+				HttpStatus.CREATED);
+
+	}
+
+	@GetMapping("/getAchievement/{id}")
+	public ResponseEntity<Achievement> getAchievementById(@PathVariable("id") int id) {
+
+		return new ResponseEntity<Achievement>(achievementService.getAchievementById(id), HttpStatus.OK);
+
+	}
+
 	@DeleteMapping("/removeAchievement/{id}")
-	public void deleteAchievement(@PathVariable("id") int id){
+	public void deleteAchievement(@PathVariable("id") int id) {
 		achievementService.deleteAchievement(id);
 	}
-	@PostMapping ("/updateAchievement/{id}")
-	public ResponseEntity<Achievement> updateAchievement(@PathVariable int id,@RequestBody Achievement achievement){
-	return new ResponseEntity<Achievement>(achievementService.updateAchievement(id,achievement),HttpStatus.CREATED);
-	 
-	}
-	 
-	@GetMapping("/getAchievement/{id}")
-	public ResponseEntity<Achievement> getAchievementById(@PathVariable("id") int id){
-	
-		
-		return new ResponseEntity<Achievement>(achievementService.getAchievementById(id), HttpStatus.OK);
-	
-	 
-	}
-	@DeleteMapping("/removeAchievement/{id}")
-	public void deleteAchievement(@PathVariable("id") int id){
-	achievementService.deleteAchievement(id);
-	}
 
-
-
+	@PostMapping("/submit")
+	public void submitAchievement(@RequestBody Achievement achievement) {
+		achievementService.submitAchievement(achievement);
+	}
 	
+	
+	
+
 }

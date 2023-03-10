@@ -4,6 +4,8 @@ import { AlertController } from '@ionic/angular';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 
+
+
 @Component({
     selector: 'app-achievement-list',
     templateUrl: './achievement-list.component.html',
@@ -32,98 +34,131 @@ export class AchievementListComponent implements OnInit {
             .subscribe((Achievement) => (this.achievements=Achievement));
     }
 
-    addAchievement() {
-        this.router.navigate(['/home/myAchievement/addAchievement']);
-    }
+  ngOnInit() {
 
-  refreshList(){
     this.pageNo = 0;
-    this.getAchievement(false,null);
+    this.getAchievement(false, null);
 
   }
 
-  onIonInfinite(ev:Event) {
-    
-    
-    this.getAchievement(true,ev)
+  refreshList() {
+    this.pageNo = 0;
+    this.getAchievement(false, null);
 
-    
   }
 
-  getAchievement(isFirstLoad:boolean,event:any)
-  {
+  onIonInfinite(ev: Event) {
 
-    
 
-    this.achievementService.getPaginatedAchievement(this.pageNo,this.pageSize).subscribe(data =>{
-      for(let i=0;i<data.length;i++)
-      {
+    this.getAchievement(true, ev)
+
+
+  }
+
+
+  getAchievement(isFirstLoad: boolean, event: any) {
+
+
+
+    this.achievementService.getPaginatedAchievement(this.pageNo, this.pageSize).subscribe(data => {
+      for (let i = 0; i < data.length; i++) {
         this.achievements.push(data[i]);
       }
-      if(isFirstLoad)
-      {
+      if (isFirstLoad) {
         event.target.complete();
       }
-    this.pageNo++;
+      this.pageNo++;
 
-    },error=>{
+    }, error => {
       console.error(error);
     })
 
-    
-    
+
+
+  }
+  submitAchievement(achievement: Achievement) {
+    this.alertController
+      .create({
+        header: 'Alert',
+        message: 'Are you sure, you want to submit this achievement?',
+        buttons: [
+          {
+            text: 'Cancel',
+          },
+          {
+            text: 'Submit',
+            handler: () => {
+              achievement.achievementStatus = 1;
+              this.achievementService.submitAchievement(achievement).subscribe(
+                (resp) => {
+
+                  console.log(resp);
+                },
+                (err) => {
+                  (this.errorMessage = err.message),
+                    this.showAlert(this.errorMessage);
+                }
+              );
+            },
+          },
+
+        ],
+      })
+      .then((res) => {
+        res.present();
+      });
   }
 
-  addAchievement(){
+  addAchievement() {
     this.router.navigate(["/home/myAchievement/addAchievement"])
   }
 
   deleteAchievement(achievement: Achievement) {
     this.alertController
-        .create({
-            header: 'Confirm Alert',
-            message: 'Are you sure you want to delete?',
-            buttons: [
-                {
-                    text: 'Confirm',
-                    handler: () => {
-                        this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
-                            (resp) => {
-                                this.router.navigate(['/home/myAchievement']);
-                                console.log(resp);
-                            },
-                            (err) => {
-                                (this.errorMessage = err.message),
-                                    this.showAlert(this.errorMessage);
-                            }
-                        );
-                    },
+      .create({
+        header: 'Alert',
+        message: 'Are you sure, you want to delete this achievement?',
+        buttons: [
+          {
+            text: 'Cancel',
+          },
+          {
+            text: 'Delete',
+            handler: () => {
+              this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
+                (resp) => {
+                  this.router.navigate(['/home/myAchievement']);
+                  console.log(resp);
                 },
-                {
-                    text: 'Cancel',
-                },
-            ],
-        })
-        .then((res) => {
-            res.present();
-        });
-}
-showAlert(message: string) {
+                (err) => {
+                  (this.errorMessage = err.message),
+                    this.showAlert(this.errorMessage);
+                }
+              );
+            },
+          },
+
+        ],
+      })
+      .then((res) => {
+        res.present();
+      });
+  }
+  showAlert(message: string) {
     this.alertController
-        .create({
-            header: 'Alert',
-            message: message,
-            buttons: [
-                {
-                    text: 'Ok',
-                },
-            ],
-        })
-        .then((res) => {
-            res.present();
-        });
-}
-}
+      .create({
+        header: 'Alert',
+        message: message,
+        buttons: [
+          {
+            text: 'Ok',
+          },
+        ],
+      })
+      .then((res) => {
+        res.present();
+      });
+  }
 
 
 
@@ -134,9 +169,12 @@ showAlert(message: string) {
   //   this.achievementService.getAchievement(this.userId).subscribe(achievement => this.achievements = achievement);
   // }
 
-//   handleUpdate(event:Event){
-//     console.log(event);
-//   }
+  handleUpdate(event: Event) {
+    console.log(event);
+  }
+
+}
+
 
 //         this.alertController
 //             .create({

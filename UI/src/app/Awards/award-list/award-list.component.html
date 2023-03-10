@@ -1,27 +1,22 @@
 <ion-header class="abs-menu-header">
-  <ion-toolbar color="primary"> </ion-toolbar>
+    <ion-toolbar color="primary"> </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-grid>
-      <ion-row>
-          <ion-col>
-              <ion-segment value="default">
-                  <ion-segment-button value="My Feedbacks">
-                      <ion-label>My Awards</ion-label>
-                  </ion-segment-button>
-                  <ion-segment-button value="Feedbacks Given By Me">
-                      <ion-label>Raised Awards</ion-label>
-                  </ion-segment-button>
-              </ion-segment>
-              
-          </ion-col>
-
-          <ion-col size="auto">
-              <ion-button color="medium">Add Feedback</ion-button>
-          </ion-col>
-      </ion-row>
-  </ion-grid>
-  <!-- <ion-card *ngFor="let feedback of feedbacks; let i = index">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-segment value="default" [(ngModel)]="choosenOption">
+                    <ion-segment-button value="My Awards">
+                        <ion-label>My Awards</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="Raised Awards">
+                        <ion-label>Raised Awards</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- <ion-card *ngFor="let feedback of feedbacks; let i = index">
       <div *ngIf="searchEmployee === '' || feedback.receiverId.employeeName?.toLowerCase()?.includes(searchEmployee)">
           <ion-card-header>
               <ion-card-subtitle>
@@ -53,8 +48,12 @@
           </ion-grid>
       </div>
   </ion-card> -->
-  <!-- <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <!-- <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll> -->
+    <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+        <ion-fab-button (click)="raiseAward()">
+            <ion-icon name="add"> </ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
-

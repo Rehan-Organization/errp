@@ -6,28 +6,31 @@ import { AchievementListComponent } from './achievement-list.component';
 import { AchievementFormComponent } from '../achievement-form/achievement-form.component';
 import { FormsModule } from '@angular/forms';
 
-
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   declarations: [AchievementListComponent, AchievementFormComponent],
   imports: [
     CommonModule,
     IonicModule,
+
+    MomentModule,
+
     FormsModule,
     RouterModule.forChild([
-    {
-      path: '',
-      component: AchievementListComponent
-    },
-    {
-      path: 'addAchievement',
-      component: AchievementFormComponent
-    },
-    {
-      path: 'addAchievement/:id',
-      component: AchievementFormComponent
-    }
-  ])
+      {
+        path: '',
+        component: AchievementListComponent
+      },
+      {
+        path: 'addAchievement',
+        component: AchievementFormComponent
+      },
+      {
+        path: 'addAchievement/:id',
+        component: AchievementFormComponent
+      }
+    ])
   ]
 })
 export class AchievementListModule { }
