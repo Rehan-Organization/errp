@@ -1,4 +1,5 @@
 package com.abs.errp.awardrequest;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,26 +14,25 @@ import com.abs.errp.entity.AwardRequest;
 @RestController
 @RequestMapping("/awardrequest")
 public class AwardRequestController {
-   
+
 	@Autowired
 	private AwardRequestService awardRequestService;
-	 
-	 public AwardRequestController(AwardRequestService awardRequestService) {
-			super();
-			this.awardRequestService = awardRequestService;
-		}
+
+	public AwardRequestController(AwardRequestService awardRequestService) {
+		super();
+		this.awardRequestService = awardRequestService;
+	}
 
 	@GetMapping()
 	public List<AwardRequest> getAllAwardRequest()
-	
-	{	
-		
+
+	{
+
 		return awardRequestService.getAllAwardRequest();
 	}
-	
+
 	@PostMapping()
-	public AwardRequest saveAwardRequest(@RequestBody AwardRequest awardRequest)
-	{
+	public AwardRequest saveAwardRequest(@RequestBody AwardRequest awardRequest) {
 		return awardRequestService.saveAwardRequest(awardRequest);
 	}
 

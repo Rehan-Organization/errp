@@ -1,10 +1,7 @@
 package com.abs.errp.user;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,29 +33,23 @@ public class ErrpUser {
 
 	@Column(name = "ENABLED")
 	private boolean enabled;
-	
 
 	@OneToMany
-	@JoinColumn(name="EMPLOYEE_ID")
-	private Set<Achievement>achievements;
-	
+	@JoinColumn(name = "EMPLOYEE_ID")
+	private Set<Achievement> achievements;
 
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "SUPERVISOR_ID")
 	private ErrpUser supervisor;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "supervisor")
 	private Set<ErrpUser> reportees;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "USER_ROLE",
-            joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
-    )
-    private Set<Role> roles = new HashSet<>();
+	@JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+	private Set<Role> roles = new HashSet<>();
 
 	public ErrpUser() {
 

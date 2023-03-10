@@ -13,27 +13,25 @@ import com.abs.errp.user.ErrpUser;
 @RequestMapping("")
 public class AwardTypeController {
 
-	 private AwardTypeService awardTypeService;
-	 
-	 public AwardTypeController(AwardTypeService awardTypeService) {
-			super();
-			 this.awardTypeService = awardTypeService;
-		}
-	
+	private AwardTypeService awardTypeService;
+
+	public AwardTypeController(AwardTypeService awardTypeService) {
+		super();
+		this.awardTypeService = awardTypeService;
+	}
 
 	@GetMapping("/awardtypes")
 	public List<AwardType> getAllAwardTypes()
-	
+
 	{
 		return awardTypeService.getAllAwardTypes();
 	}
-	
-	@GetMapping("/users")
-	public List<ErrpUser> getAllUsers(){
-		
-		return awardTypeService.getAllUsers();
-		
-	}
 
+	@GetMapping("/users")
+	public List<ErrpUser> getAllUsers() {
+
+		return awardTypeService.getAllUsers();
+
+	}
 
 }

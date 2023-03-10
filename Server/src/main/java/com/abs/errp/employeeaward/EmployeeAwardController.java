@@ -13,17 +13,17 @@ import com.abs.errp.entity.EmployeeAward;
 public class EmployeeAwardController {
 	@Autowired
 	private EmployeeAwardService employeeawardService;
-	 
-	 public EmployeeAwardController(EmployeeAwardService employeeawardService) {
-			super();
-			this.employeeawardService = employeeawardService;
-		}
+
+	public EmployeeAwardController(EmployeeAwardService employeeawardService) {
+		super();
+		this.employeeawardService = employeeawardService;
+	}
 
 	@GetMapping()
 	public List<EmployeeAward> getAllEmployeeAward()
-	
-	{	
-		
+
+	{
+
 		return employeeawardService.getAllEmployeeAward();
 	}
 }
