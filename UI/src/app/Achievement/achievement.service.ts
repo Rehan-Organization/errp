@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { URLS } from '../constants/urls.contants';
 import { Achievement } from './achievement';
-import { URLS } from '../constants/urls.contants'
 
 @Injectable({
   providedIn: 'root'

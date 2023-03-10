@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { InputCustomEvent } from '@ionic/angular';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 import { AlertController } from '@ionic/angular';
 import { LoggedInUserContext } from 'src/app/providers/logged-in-user-context.service';
 import { LoggedInUser } from 'src/app/providers/logged-in-user.model';
+import { ToastService } from 'src/app/errp-service/toast.service';
 
 
 @Component({
@@ -24,7 +24,8 @@ export class AchievementFormComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private alertController: AlertController,
-        private userContext: LoggedInUserContext
+        private userContext: LoggedInUserContext,
+        private toastService: ToastService
     ) { }
 
     ngOnInit() {
@@ -88,7 +89,7 @@ export class AchievementFormComponent implements OnInit {
         this.achievement.title = this.achievement.title?.trim();
         this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
         if (this.achievement.title == "" || this.achievement.achievementDesc == "" || !this.achievement.title || !this.achievement.achievementDesc) {
-            this.showAlert("Fields can not be empty")
+            this.toastService.showErrorToast("Fields can not be empty");
         } else {
             this.alertController
                 .create({
@@ -101,23 +102,19 @@ export class AchievementFormComponent implements OnInit {
                         {
                             text: 'Submit',
                             handler: () => {
-
-
-
                                 this.achievementService.submitAchievement(this.achievement).subscribe(
                                     (data) => {
+                                        this.toastService.showSuccessToast("Achievement submitted successfully");
                                         (this.achievement = data),
 
                                             this.router.navigate(['/home/Achievement']);
                                     },
                                     (err) => {
-                                        (this.errorMessage = err.message),
-                                            this.showAlert(this.errorMessage);
+                                        this.toastService.showErrorToast(this.errorMessage);
                                     }
                                 );
                             },
                         },
-
                     ],
                 })
                 .then((res) => {
@@ -135,7 +132,7 @@ export class AchievementFormComponent implements OnInit {
         this.achievement.title = this.achievement.title?.trim();
         this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
         if (this.achievement.title == "" || this.achievement.achievementDesc == "" || !this.achievement.title || !this.achievement.achievementDesc) {
-            this.showAlert("Fields can not be empty")
+            this.toastService.showErrorToast("Fields can not be empty");
         } else {
             this.alertController
                 .create({
@@ -152,15 +149,14 @@ export class AchievementFormComponent implements OnInit {
                                     (data) => {
                                         (this.achievement = data),
                                             this.router.navigate(['/home/Achievement']);
+                                        this.toastService.showSuccessToast("Achievement updated successfully");
                                     },
                                     (err) => {
-                                        (this.errorMessage = err.message),
-                                            this.showAlert(this.errorMessage);
+                                        this.toastService.showErrorToast(this.errorMessage);
                                     }
                                 );
                             },
                         },
-
                     ],
                 })
                 .then((res) => {
@@ -181,7 +177,7 @@ export class AchievementFormComponent implements OnInit {
         this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
 
         if (this.achievement.title == "" || this.achievement.achievementDesc == "" || !this.achievement.title || !this.achievement.achievementDesc) {
-            this.showAlert("Fields can not be empty")
+            this.toastService.showErrorToast("Fields can not be empty");
         } else {
             this.alertController
                 .create({
@@ -198,10 +194,12 @@ export class AchievementFormComponent implements OnInit {
                                     (data) => {
                                         (this.achievement = data),
                                             this.router.navigate(['/home/Achievement']);
+                                        console.log(data);
+                                        this.toastService.showSuccessToast("Achievement saved successfully");
+
                                     },
                                     (err) => {
-                                        (this.errorMessage = err.message),
-                                            this.showAlert(this.errorMessage);
+                                        this.toastService.showErrorToast(this.errorMessage);
                                     }
                                 );
                             },
@@ -214,19 +212,19 @@ export class AchievementFormComponent implements OnInit {
                 });
         }
     }
-    showAlert(message: string) {
-        this.alertController
-            .create({
-                header: 'Alert',
-                message: message,
-                buttons: [
-                    {
-                        text: 'Ok',
-                    },
-                ],
-            })
-            .then((res) => {
-                res.present();
-            });
-    }
+    // showAlert(message: string) {
+    //     this.alertController
+    //         .create({
+    //             header: 'Alert',
+    //             message: message,
+    //             buttons: [
+    //                 {
+    //                     text: 'Ok',
+    //                 },
+    //             ],
+    //         })
+    //         .then((res) => {
+    //             res.present();
+    //         });
+    // }
 }

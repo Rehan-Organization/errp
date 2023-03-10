@@ -18,7 +18,6 @@ import com.abs.errp.security.LoggedInUserContext;
 
 @Service
 public class AchievementServiceImpl implements AchievementService {
-
 	private AchievementRepository achievementRepository;
 
 	@Autowired
@@ -43,24 +42,20 @@ public class AchievementServiceImpl implements AchievementService {
 
 	@Override
 	public Achievement saveAchievement(Achievement achievement) {
-		
-		
-		if(isAuthorized(achievement))
-		{
-			
+
+		if (isAuthorized(achievement)) {
+
 			return achievementRepository.save(achievement);
-		}
-		else {
-			throw new NotAuthorizedException(String.format("Achievement with id %d cannot be saved!",achievement.getAchievementId()));
+		} else {
+			throw new NotAuthorizedException(
+					String.format("Achievement with id %d cannot be saved!", achievement.getAchievementId()));
 		}
 
 	}
 
 	@Override
 	public List<Achievement> findPaginated(int pageNo, int pageSize) {
-
 		Sort sort = Sort.by("updatedDate").descending();
-
 		LoggedInUser user = this.userContext.getLoggedInUser();
 		Pageable paging = PageRequest.of(pageNo, pageSize, sort);
 		return achievementRepository.findAllByEmployeeId(user.getEmployeeId(), paging);

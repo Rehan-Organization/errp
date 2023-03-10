@@ -14,7 +14,6 @@
                     <ion-card-title></ion-card-title>
                     <ion-card-subtitle></ion-card-subtitle>
                 </ion-card-header>
-
                 <ion-item fill="outline" id="title" counter="true" [counterFormatter]="customCounterFormatter">
                     <ion-label position="floating">Title</ion-label>
                     <ion-input
@@ -26,7 +25,6 @@
                         (keypress)="onKeyPress($event)"
                     ></ion-input>
                 </ion-item>
-
                 <ion-item fill="outline" id="description" counter="true" [counterFormatter]="customCounterFormatter">
                     <ion-label position="floating">Description</ion-label>
                     <ion-input
@@ -34,7 +32,7 @@
                         maxlength="1000"
                         minlength="50"
                         [clearInput]="true"
-                        placeholder="Enter Description"
+                        placeholder="Enter Description for an Achievement"
                         inputmode="text"
                         [(ngModel)]="achievement.achievementDesc"
                     ></ion-input>

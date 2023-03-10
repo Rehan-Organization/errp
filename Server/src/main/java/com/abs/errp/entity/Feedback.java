@@ -9,32 +9,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="Feedback")
+@Table(name = "Feedback")
 public class Feedback {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="FEEDBACK_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "FEEDBACK_ID")
 	private int feedbackId;
-	
-	@Column(name="SENDER_ID")
+
+	@Column(name = "SENDER_ID")
 	private int senderId;
-	
-	@Column(name="RECEIVER_ID")
+
+	@Column(name = "RECEIVER_ID")
 	private int receiverId;
-	
-	@Column(name="TITLE")
+
+	@Column(name = "TITLE")
 	private String title;
-	
-	@Column(name="FEEDBACK_DESC")
+
+	@Column(name = "FEEDBACK_DESC")
 	private String feedbackDesc;
-	
-	@Column(name="CREATED_DATE")
+
+	@Column(name = "CREATED_DATE")
 	private Date createdDate;
-	
-	@Column(name="UPDATED_DATE")
+
+	@Column(name = "UPDATED_DATE")
 	private Date updatedDate;
 
 	public Feedback() {
@@ -108,7 +107,5 @@ public class Feedback {
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
-	
-	
-	
+
 }
