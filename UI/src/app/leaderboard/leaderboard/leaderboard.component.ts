@@ -23,87 +23,87 @@ export class LeaderboardComponent implements OnInit {
     customEndDate: Date;
     date = new Date();
     pageNumber : number = 0;
-    pageSize : number = 10;
+    pageSize : number = 2;
 
     leaderboardList: Leaderboard[] = [];
 
-    leaderboard: Leaderboard[] = [
-        {
-            employeeName: 'Adarsh',
-            supervisorName: 'Rehan',
-            points: 50,
-        },
-        {
-            employeeName: 'Pushkar',
-            supervisorName: 'Rehan',
-            points: 60,
-        },
-        {
-            employeeName: 'Shankar',
-            supervisorName: 'Rehan',
-            points: 70,
-        },
-        {
-            employeeName: 'Vishal',
-            supervisorName: 'Rehan',
-            points: 80,
-        },
-        {
-            employeeName: 'Shrikant',
-            supervisorName: 'Rehan',
-            points: 90,
-        },
-        {
-          employeeName: 'Adarsh',
-          supervisorName: 'Rehan',
-          points: 50,
-      },
-      {
-          employeeName: 'Pushkar',
-          supervisorName: 'Rehan',
-          points: 60,
-      },
-      {
-          employeeName: 'Shankar',
-          supervisorName: 'Rehan',
-          points: 70,
-      },
-      {
-          employeeName: 'Vishal',
-          supervisorName: 'Rehan',
-          points: 80,
-      },
-      {
-          employeeName: 'Shrikant',
-          supervisorName: 'Rehan',
-          points: 90,
-      },
-      {
-        employeeName: 'Adarsh',
-        supervisorName: 'Rehan',
-        points: 50,
-    },
-    {
-        employeeName: 'Pushkar',
-        supervisorName: 'Rehan',
-        points: 60,
-    },
-    {
-        employeeName: 'Shankar',
-        supervisorName: 'Rehan',
-        points: 70,
-    },
-    {
-        employeeName: 'Vishal',
-        supervisorName: 'Rehan',
-        points: 80,
-    },
-    {
-        employeeName: 'Shrikant',
-        supervisorName: 'Rehan',
-        points: 90,
-    },
-    ];
+    // leaderboard: Leaderboard[] = [
+    //     {
+    //         employeeName: 'Adarsh',
+    //         supervisorName: 'Rehan',
+    //         points: 50,
+    //     },
+    //     {
+    //         employeeName: 'Pushkar',
+    //         supervisorName: 'Rehan',
+    //         points: 60,
+    //     },
+    //     {
+    //         employeeName: 'Shankar',
+    //         supervisorName: 'Rehan',
+    //         points: 70,
+    //     },
+    //     {
+    //         employeeName: 'Vishal',
+    //         supervisorName: 'Rehan',
+    //         points: 80,
+    //     },
+    //     {
+    //         employeeName: 'Shrikant',
+    //         supervisorName: 'Rehan',
+    //         points: 90,
+    //     },
+    //     {
+    //       employeeName: 'Adarsh',
+    //       supervisorName: 'Rehan',
+    //       points: 50,
+    //   },
+    //   {
+    //       employeeName: 'Pushkar',
+    //       supervisorName: 'Rehan',
+    //       points: 60,
+    //   },
+    //   {
+    //       employeeName: 'Shankar',
+    //       supervisorName: 'Rehan',
+    //       points: 70,
+    //   },
+    //   {
+    //       employeeName: 'Vishal',
+    //       supervisorName: 'Rehan',
+    //       points: 80,
+    //   },
+    //   {
+    //       employeeName: 'Shrikant',
+    //       supervisorName: 'Rehan',
+    //       points: 90,
+    //   },
+    //   {
+    //     employeeName: 'Adarsh',
+    //     supervisorName: 'Rehan',
+    //     points: 50,
+    // },
+    // {
+    //     employeeName: 'Pushkar',
+    //     supervisorName: 'Rehan',
+    //     points: 60,
+    // },
+    // {
+    //     employeeName: 'Shankar',
+    //     supervisorName: 'Rehan',
+    //     points: 70,
+    // },
+    // {
+    //     employeeName: 'Vishal',
+    //     supervisorName: 'Rehan',
+    //     points: 80,
+    // },
+    // {
+    //     employeeName: 'Shrikant',
+    //     supervisorName: 'Rehan',
+    //     points: 90,
+    // },
+    // ];
 
     forMonth() {
         this.typeCheck = false;
@@ -199,20 +199,20 @@ export class LeaderboardComponent implements OnInit {
 
 
     getLeaderboardList(isFirstLoad:boolean,event:any) {
-
-        // console.log(startDate, endDate);
-        // this.leaderboardService.getLeaderboardList(this.pageNumber,this.pageSize ,this.startDate, this.endDate).subscribe(
-        //     (leaderboardList) => {
-        //         this.leaderboardList = leaderboardList;
-        //     },
-        //     (err) => {
-        //         this.toasterService.showErrorToast('Failed to load data')
-        //     }
-        // );
+        this.leaderboardService.getLeaderboardList(this.pageNumber,this.pageSize ,this.startDate, this.endDate).subscribe(
+            (leaderboardList) => {
+                this.leaderboardList = leaderboardList;
+                console.log(leaderboardList)
+            },
+            (err) => {
+                this.toasterService.showErrorToast('Failed to load data')
+            }
+        );
     }
 
     ngOnInit() {
         this.forMonth();
+        this.getLeaderboardList(false,null);
     }
 }
 
