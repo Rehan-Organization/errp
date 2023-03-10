@@ -1,9 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
-import { EMPTY } from 'rxjs';
+import * as moment from 'moment';
 import { ToastService } from 'src/app/errp-service/toast.service';
 import { Leaderboard } from '../leaderboard-model/leaderboard';
 import { LeaderboardService } from '../leaderboard-providers/leaderboard.service';
-import * as moment from 'moment';
+
 
 @Component({
     selector: 'app-leaderboard',
@@ -13,7 +14,8 @@ import * as moment from 'moment';
 export class LeaderboardComponent implements OnInit {
     constructor(
         private leaderboardService: LeaderboardService,
-        private toasterService: ToastService
+        private toasterService: ToastService,
+     
     ) {}
 
     typeCheck: Boolean = false;
@@ -31,78 +33,39 @@ export class LeaderboardComponent implements OnInit {
         this.leaderboardList = [];
         this.typeCheck = false;
         this.pageNumber = 0;
-        const startDate = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
-        const endDate = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
-        const today = new Date();
-        if (today < endDate) {
-          console.log(startDate)
-            this.startDate = startDate;
-            this.endDate = today;
-            this.getLeaderboardList(false,null);
-        } else {
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.getLeaderboardList(false,null);
-        }
-      
-    }
+        this.startDate = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
+        this.endDate = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
+        this.getLeaderboardList(false,null);
+      }
 
     forQuarter() {
         this.leaderboardList = [];
         this.typeCheck = false;
         this.pageNumber = 0;
         const quarter = Math.floor(this.date.getMonth() / 3);
-        const startDate = new Date(this.date.getFullYear(), quarter * 3, 1);
-        const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 3, 0);
-        const today = new Date();
-        if (today < endDate) {
-          this.startDate = startDate;
-          this.endDate = today;
-          this.getLeaderboardList(false,null);
-        } else {
-          this.startDate = startDate;
-          this.endDate = endDate;
-          this.getLeaderboardList(false,null);
+        this.startDate = new Date(this.date.getFullYear(), quarter * 3, 1);
+        this.endDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() + 3, 0);
+        this.getLeaderboardList(false,null);
         }
-     
-    }
 
     forHalfYear() {
         this.leaderboardList = [];
         this.typeCheck = false;
         this.pageNumber = 0;
-        const startDate = new Date(new Date().getFullYear(), 0, 1);
-        const endDate = new Date(new Date().getFullYear(), 11, 31);
-        const midDate = new Date((startDate.getTime() + endDate.getTime()) / 2);
-        const today = new Date();
-        if (today < midDate) {
-          this.startDate = startDate;
-          this.endDate = today;
-          this.getLeaderboardList(false,null);
-        } else {
-          this.startDate = startDate;
-          this.endDate = midDate;
-          this.getLeaderboardList(false,null);
+        this.startDate = new Date(new Date().getFullYear(), 0, 1);
+        const midDate = new Date(new Date().getFullYear(), 11, 31);
+        this.endDate = new Date((this.startDate.getTime() + midDate.getTime()) / 2);
+        this.getLeaderboardList(false,null);
         }
-      
-    }
 
     forYear() {
        this.leaderboardList = [];
         this.typeCheck = false;
         this.pageNumber = 0;
-        const startDate = new Date(new Date().getFullYear(), 0, 1);
-        const endDate = new Date(new Date().getFullYear(), 11, 31);
-        const today = new Date();
-        if (today < endDate) {
-          this.startDate = startDate;
-          this.endDate = today;
-          this.getLeaderboardList(false,null);
-        } else {
-          this.startDate = startDate;
-          this.endDate = endDate;
-          this.getLeaderboardList(false,null);
-        }
+        this.startDate = new Date(new Date().getFullYear(), 0, 1);
+        this.endDate = new Date(new Date().getFullYear(), 11, 31);
+        this.getLeaderboardList(false,null);
+        
   
     }
     
@@ -114,6 +77,7 @@ export class LeaderboardComponent implements OnInit {
   
 
     customDate() {     
+        this.leaderboardList = [];
         if (this.customStartDate == null && this.customEndDate == null) {
             this.toasterService.showErrorToast('Dates cant be empty');
         } else if (this.customStartDate > this.customEndDate) {
@@ -122,8 +86,6 @@ export class LeaderboardComponent implements OnInit {
         {
           console.log(this.customStartDate)
           this.startDate = this.customStartDate;
-         
-
           this.endDate = this.customEndDate;
           this.getLeaderboardList(false,null);
         }
@@ -136,7 +98,9 @@ export class LeaderboardComponent implements OnInit {
 
 
     getLeaderboardList(isFirstLoad:boolean,event:any) {
-        this.leaderboardService.getLeaderboardList(this.pageNumber,this.pageSize ,this.startDate, this.endDate).subscribe(
+      
+
+        this.leaderboardService.getLeaderboardList(this.pageNumber,this.pageSize ,moment(this.startDate).format('yyyy-MM-DD'),moment(this.endDate).format('yyyy-MM-DD')).subscribe(
             (data) => {
               for (let i = 0; i < data.length; i++) {
                 this.leaderboardList.push(data[i]);
