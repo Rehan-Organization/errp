@@ -21,12 +21,10 @@ export class FeedbackListComponent implements OnInit {
         private router: Router,
         private alertController: AlertController,
         private toastService: ToastService,
-        private userContext:LoggedInUserContext
-    ) {
-    
-        
-    }
-    userRole:any;
+        private userContext: LoggedInUserContext
+    ) {}
+    isSupervisor: boolean = false;
+    userRole: any;
     employees: Employee[] = [];
     feedbacks: Feedback[] = [];
     options: string[] = ['My Feedbacks', 'Feedbacks Given By Me'];
@@ -34,12 +32,12 @@ export class FeedbackListComponent implements OnInit {
     isMyFeedbacks?: boolean;
     searchEmployee: string = '';
     isMyFeedbacksPageNo: number = 0;
-    isFeedbacksGivenByMePageNo:number=0;
+    isFeedbacksGivenByMePageNo: number = 0;
     pageSize: number = 4;
     ngOnInit() {
-        this.userRole=this.userContext.getLoggedInUser()?.authorities[0].authority;
+        this.userRole = this.userContext.getLoggedInUser()?.authorities[0].authority;
         this.isMyFeedbacksPageNo = 0;
-        this.isFeedbacksGivenByMePageNo=0;
+        this.isFeedbacksGivenByMePageNo = 0;
         this.fetchFeedbacks(false, null);
     }
 
@@ -47,6 +45,12 @@ export class FeedbackListComponent implements OnInit {
     //     this.pageNo = 0;
     //     this.fetchFeedbacks(false, null);
     // }
+    fetchReportees() {
+        this.feedbackService.getReportees().subscribe((reportee) => {
+            this.employees = reportee;
+            if (this.employees.length > 0) this.isSupervisor = true;
+        });
+    }
 
     onIonInfinite(ev: Event) {
         this.fetchFeedbacks(true, ev);
@@ -74,21 +78,25 @@ export class FeedbackListComponent implements OnInit {
         } else {
             this.isMyFeedbacks = false;
             this.feedbackService
-            .fetchAllFeedbacks(this.isMyFeedbacks, this.isFeedbacksGivenByMePageNo, this.pageSize)
-            .subscribe(
-                (feedback) => {
-                    for (let i = 0; i < feedback.length; i++) {
-                        this.feedbacks.push(feedback[i]);
+                .fetchAllFeedbacks(
+                    this.isMyFeedbacks,
+                    this.isFeedbacksGivenByMePageNo,
+                    this.pageSize
+                )
+                .subscribe(
+                    (feedback) => {
+                        for (let i = 0; i < feedback.length; i++) {
+                            this.feedbacks.push(feedback[i]);
+                        }
+                        if (isFirstLoad) {
+                            event.target.complete();
+                        }
+                        this.isFeedbacksGivenByMePageNo++;
+                    },
+                    (error) => {
+                        console.error(error);
                     }
-                    if (isFirstLoad) {
-                        event.target.complete();
-                    }
-                    this.isFeedbacksGivenByMePageNo++;
-                },
-                (error) => {
-                    console.error(error);
-                }
-            );
+                );
         }
     }
     addFeedback() {
@@ -111,7 +119,8 @@ export class FeedbackListComponent implements OnInit {
                         this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
                             this.toastService.showSuccessToast("Feedback deleted successfully");
                             this.feedbacks = this.feedbacks.filter(
-                                (newFeedback) => newFeedback.id != feedback.id
+                                (newFeedback) => newFeedback.id != feedback.id,
+                                this.ngOnInit()
                             );
                         },(error) => {
                             this.errors = error;
@@ -126,5 +135,4 @@ export class FeedbackListComponent implements OnInit {
     updateFeedback(feedback: Feedback) {
         this.router.navigate(['home/viewFeedback/add/' + feedback.id]);
     }
-
 }
