@@ -24,7 +24,7 @@ import { MomentModule } from 'ngx-moment';
         component: AchievementFormComponent
       },
       {
-        path: 'addAchievement/:id',
+        path: 'editAchievement/:id',
         component: AchievementFormComponent
       }
     ])

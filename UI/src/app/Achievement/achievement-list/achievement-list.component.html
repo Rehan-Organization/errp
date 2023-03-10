@@ -15,11 +15,8 @@
             <ion-card-title>{{ achievement.title }}</ion-card-title>
             <ion-card-title *ngIf="achievement.achievementStatus == 0" class="ion-text-right"> Saved </ion-card-title>
             <ion-card-title *ngIf="achievement.achievementStatus == 1" class="ion-text-right"> Pending </ion-card-title>
-            <ion-card-title *ngIf="achievement.achievementStatus == 2" class="ion-text-right">
-                approved
-            </ion-card-title>
+            <ion-card-title *ngIf="achievement.achievementStatus == 2" class="ion-text-right">approved</ion-card-title>
         </ion-card-header>
-
         <ion-card-content>
             {{ achievement.achievementDesc }}
         </ion-card-content>

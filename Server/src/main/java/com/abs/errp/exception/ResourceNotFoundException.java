@@ -22,5 +22,4 @@ public class ResourceNotFoundException extends RuntimeException {
 		return serialVersionUID;
 	}
 
-
 }
