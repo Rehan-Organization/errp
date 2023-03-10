@@ -9,7 +9,7 @@
                     <ion-segment-button value="My Feedbacks">
                         <ion-label>My Feedbacks</ion-label>
                     </ion-segment-button>
-                    <ion-segment-button value="Feedbacks Given By Me" >
+                    <ion-segment-button *ngIf="isSupervisor" value="Feedbacks Given By Me" >
                         <ion-label>Feedbacks Given By Me</ion-label>
                     </ion-segment-button>
                 </ion-segment>
