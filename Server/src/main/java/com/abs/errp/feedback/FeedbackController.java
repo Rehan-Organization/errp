@@ -3,7 +3,6 @@ package com.abs.errp.feedback;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -46,7 +45,7 @@ public class FeedbackController {
 
 	// Rest API for fetching the feedback by using the feedback id
 	@GetMapping("/getFeedbacks")	
-//	@PreAuthorize("hasRole('USER')")
+   //	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<List<Feedback>> getAllFeedbacks(@RequestParam boolean isMyFeedback, @RequestParam int pageNo, @RequestParam int pageSize)
 	{
 		return ResponseEntity.ok(this.feedbackService.getMyFeedbacks(isMyFeedback, pageNo, pageSize));
