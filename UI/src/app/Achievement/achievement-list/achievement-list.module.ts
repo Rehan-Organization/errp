@@ -5,15 +5,14 @@ import { RouterModule } from '@angular/router';
 import { AchievementListComponent } from './achievement-list.component';
 import { AchievementFormComponent } from '../achievement-form/achievement-form.component';
 import { FormsModule } from '@angular/forms';
-
-//import { MomentModule } from 'ngx-moment';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   declarations: [AchievementListComponent, AchievementFormComponent],
   imports: [
     CommonModule,
     IonicModule,
-    //MomentModule,
+    MomentModule,
     FormsModule,
     RouterModule.forChild([
       {

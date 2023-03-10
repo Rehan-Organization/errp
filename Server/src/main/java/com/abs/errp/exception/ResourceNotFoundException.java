@@ -22,23 +22,5 @@ public class ResourceNotFoundException extends RuntimeException {
 		return serialVersionUID;
 	}
 
-	public ResourceNotFoundException(String achievement, String fieldname, Object value) {
-		super(String.format("%s is not found %s : '%s'", achievement, fieldname, value));
-		this.achievement = achievement;
-		this.fieldname = fieldname;
-		this.value = value;
-	}
-
-	public String getResource() {
-		return achievement;
-	}
-
-	public String getFieldname() {
-		return fieldname;
-	}
-
-	public Object getValue() {
-		return value;
-	}
 
 }

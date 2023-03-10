@@ -11,9 +11,6 @@ export class AchievementService {
 
   constructor(private httpClient: HttpClient) { }
 
-  // getAllAchievement(): Observable<Achievement[]> {
-  //   return this.httpClient.get<Achievement[]>("/achievement/emp");
-  // }
 
   getPaginatedAchievement(pageNo: number, pageSize: number): Observable<Achievement[]> {
     return this.httpClient.get<Achievement[]>(URLS.GET_PAGINATED + '/' + pageNo + "/" + pageSize);

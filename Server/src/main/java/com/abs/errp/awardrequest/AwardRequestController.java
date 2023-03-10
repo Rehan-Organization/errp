@@ -20,6 +20,7 @@ public class AwardRequestController {
 
 	public AwardRequestController(AwardRequestService awardRequestService) {
 		super();
+		System.out.println("2");
 		this.awardRequestService = awardRequestService;
 	}
 
@@ -27,7 +28,7 @@ public class AwardRequestController {
 	public List<AwardRequest> getAllAwardRequest()
 
 	{
-
+		System.out.println("AwardRequest");
 		return awardRequestService.getAllAwardRequest();
 	}
 
