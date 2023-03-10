@@ -12,10 +12,8 @@ public interface AchievementService {
 
 	List<Achievement> findPaginated(int pageNo, int pageSize);
 
-	// edit
 	Achievement getAchievementById(int id);
 
-	// update the achievement after click the update button
 	Achievement updateAchievement(int id, Achievement achievement);
 
 	void deleteAchievement(int id);

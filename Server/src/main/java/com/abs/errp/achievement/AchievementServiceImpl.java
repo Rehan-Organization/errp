@@ -17,7 +17,6 @@ import com.abs.errp.security.LoggedInUserContext;
 
 @Service
 public class AchievementServiceImpl implements AchievementService {
-
 	private AchievementRepository achievementRepository;
 	@Autowired
 	LoggedInUserContext userContext;
@@ -29,21 +28,15 @@ public class AchievementServiceImpl implements AchievementService {
 
 	@Override
 	public List<Achievement> getAllAchievements() {
-		LoggedInUser user = this.userContext.getLoggedInUser();
-		// List<Achievement> ls = (List<Achievement>)
-		// achievementRepository.findByEmployeeId(user.getEmployeeId());
-		// for(int i=0;i<ls.size();i++)System.out.println(ls.get(i).toString());
 		return null;
 	}
 
 	@Override
 	public Achievement saveAchievement(Achievement achievement) {
-
 		return achievementRepository.save(achievement);
 	}
 
 	public List<Achievement> findPaginated1(int pageNo, int pageSize) {
-
 		Pageable paging = PageRequest.of(pageNo, pageSize);
 		Page<Achievement> pagedResult = achievementRepository.findAll(paging);
 
@@ -52,9 +45,7 @@ public class AchievementServiceImpl implements AchievementService {
 
 	@Override
 	public List<Achievement> findPaginated(int pageNo, int pageSize) {
-		
 		Sort sort = Sort.by("updatedDate").descending();
-
 		LoggedInUser user = this.userContext.getLoggedInUser();
 		Pageable paging = PageRequest.of(pageNo, pageSize, sort);
 		return achievementRepository.findAllByEmployeeId(user.getEmployeeId(), paging);
@@ -78,14 +69,11 @@ public class AchievementServiceImpl implements AchievementService {
 		} else {
 			throw new ResourceNotFoundException("achievement", "Id", id);
 		}
-		
-		
+
 	}
 
 	@Override
 	public Achievement updateAchievement(int id, Achievement achievement) {
-		System.out.println("Upadate called\n\n\n\n");
-		
 		Achievement oldAchievement;
 		Optional<Achievement> optionalAchievement = achievementRepository.findById(id);
 		if (optionalAchievement.isPresent()) {
@@ -94,12 +82,9 @@ public class AchievementServiceImpl implements AchievementService {
 		} else {
 			throw new ResourceNotFoundException("achievement", "Id", id);
 		}
-		
+
 		System.out.println(oldAchievement.toString());
 		return this.saveAchievement(achievement);
-		
-		
-		
 
 	}
 
@@ -107,7 +92,6 @@ public class AchievementServiceImpl implements AchievementService {
 
 	@Override
 	public void submitAchievement(Achievement achievement) {
-
 		this.saveAchievement(achievement);
 	}
 

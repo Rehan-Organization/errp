@@ -26,8 +26,6 @@ export class AchievementListComponent implements OnInit {
   pageNo: number = 0
   pageSize: number = 4
   errorMessage = ""
-
-
   ngOnInit() {
 
     this.pageNo = 0;

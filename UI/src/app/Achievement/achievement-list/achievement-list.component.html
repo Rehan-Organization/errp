@@ -6,13 +6,12 @@
       <ion-title>My Achievements</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
     <ion-card *ngFor="let achievement of achievements">
         <ion-card-header>
           <ion-card-subtitle class="ion-text-right">
             {{ achievement.updatedDate | amDateFormat : 'LL' }}
-            </ion-card-subtitle>
+        </ion-card-subtitle>
             <ion-card-title>{{ achievement.title }}</ion-card-title>
             <ion-card-title *ngIf="achievement.achievementStatus == 0" class="ion-text-right"> Saved </ion-card-title>
             <ion-card-title *ngIf="achievement.achievementStatus == 1" class="ion-text-right"> Pending </ion-card-title>

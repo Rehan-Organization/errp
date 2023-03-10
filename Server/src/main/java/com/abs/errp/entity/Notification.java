@@ -10,30 +10,30 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Notification")
+@Table(name = "Notification")
 public class Notification {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="NOTIFICATION_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "NOTIFICATION_ID")
 	private int notificationId;
-	
-	@Column(name="RECEIVER_ID")
+
+	@Column(name = "RECEIVER_ID")
 	private int receiverId;
-	
-	@Column(name="TITLE")
+
+	@Column(name = "TITLE")
 	private String title;
-	
-	@Column(name="NOTIFICATION_DESC")
+
+	@Column(name = "NOTIFICATION_DESC")
 	private String notificationDesc;
-	
-	@Column(name="CREATED_DATE")
+
+	@Column(name = "CREATED_DATE")
 	private Date createdDate;
-	
-	@Column(name="NOTIFICATION_STATUS")
+
+	@Column(name = "NOTIFICATION_STATUS")
 	private int notificationStatus;
-	
-	@Column(name="EVENT_TYPE")
+
+	@Column(name = "EVENT_TYPE")
 	private int eventType;
 
 	public Notification() {
@@ -107,7 +107,5 @@ public class Notification {
 	public void setEventType(int eventType) {
 		this.eventType = eventType;
 	}
-	
-	
-	
+
 }

@@ -1,48 +1,42 @@
 package com.abs.errp.entity;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-@CrossOrigin("*")
 @Entity
-@Table(name="ACHIEVEMENT")
+@Table(name = "ACHIEVEMENT")
 public class Achievement {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ACHIEVEMENT_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ACHIEVEMENT_ID")
 	private int achievementId;
-	
-	
-	@Column(name="EMPLOYEE_ID")
+
+	@Column(name = "EMPLOYEE_ID")
 	private int employeeId;
-	
-	@Column(name ="TITLE")
+
+	@Column(name = "TITLE")
 	private String title;
-	
-	@Column(name="ACHIEVEMENT_DESC")
+
+	@Column(name = "ACHIEVEMENT_DESC")
 	private String achievementDesc;
-	
-	@Column(name="CREATED_DATE")
+
+	@Column(name = "CREATED_DATE")
 	private Date createdDate;
-	
-	@Column(name="UPDATED_DATE")
+
+	@Column(name = "UPDATED_DATE")
 	private Date updatedDate;
-	
-	@Column(name="CREATED_BY")
+
+	@Column(name = "CREATED_BY")
 	private int createdBy;
-	
-	@Column(name="UPDATED_BY")
+
+	@Column(name = "UPDATED_BY")
 	private int updatedBy;
-	
+
 	@Column(name = "ACHIEVEMENT_STATUS")
 	private int achievementStatus;
 
@@ -121,7 +115,6 @@ public class Achievement {
 	public int getAchievementStatus() {
 		return achievementStatus;
 	}
-	
 
 	public Achievement(int employeeId, String title, String achievementDesc, Date createdDate, Date updatedDate,
 			int createdBy, int updatedBy, int achievementStatus) {
@@ -143,8 +136,5 @@ public class Achievement {
 	public Achievement() {
 		super();
 	}
-	
-	
-	
-	
+
 }

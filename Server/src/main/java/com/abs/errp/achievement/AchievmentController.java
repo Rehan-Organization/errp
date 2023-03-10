@@ -23,7 +23,6 @@ public class AchievmentController {
 		this.achievementService = achievementService;
 	}
 
-	// get achievement API
 	@GetMapping("/emp")
 	public List<Achievement> getAchievement() {
 	
@@ -31,23 +30,19 @@ public class AchievmentController {
 
 	}
 
-	// post achievement API
 	@PostMapping("/add")
-	public ResponseEntity<Achievement> saveEmployee(@RequestBody Achievement achievement) {
+	public ResponseEntity<Achievement> saveAchievement(@RequestBody Achievement achievement) {
 		return new ResponseEntity<Achievement>(achievementService.saveAchievement(achievement), HttpStatus.CREATED);
 
 	}
 
 	@GetMapping("/paginated/{pageNo}/{pageSize}")
-	public List<Achievement> getPaginatedCountries(@PathVariable int pageNo,
-			@PathVariable int pageSize) {
-
+	public List<Achievement> getPaginatedCountries(@PathVariable int pageNo, @PathVariable int pageSize) {
 		return achievementService.findPaginated(pageNo, pageSize);
 	}
 
 	@PostMapping("/updateAchievement/{id}")
 	public ResponseEntity<Achievement> updateAchievement(@PathVariable int id, @RequestBody Achievement achievement) {
-		System.out.println("update id = "+id);
 		return new ResponseEntity<Achievement>(achievementService.updateAchievement(id, achievement),
 				HttpStatus.CREATED);
 
@@ -55,7 +50,6 @@ public class AchievmentController {
 
 	@GetMapping("/getAchievement/{id}")
 	public ResponseEntity<Achievement> getAchievementById(@PathVariable("id") int id) {
-
 		return new ResponseEntity<Achievement>(achievementService.getAchievementById(id), HttpStatus.OK);
 
 	}
@@ -69,8 +63,5 @@ public class AchievmentController {
 	public void submitAchievement(@RequestBody Achievement achievement) {
 		achievementService.submitAchievement(achievement);
 	}
-	
-	
-	
 
 }
