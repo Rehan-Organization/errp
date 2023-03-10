@@ -3,52 +3,42 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../feedback-model.ts/employee';
 import { Feedback } from '../feedback-model.ts/feedback';
 import { FeedbackService } from '../feedback.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormControl } from '@angular/forms';
-import { AlertController, ToastController } from '@ionic/angular';
-import { ToastService } from '../toast.service';
+import { AlertController } from '@ionic/angular';
+import { ToastService } from 'src/app/errp-service/toast.service';
 @Component({
     selector: 'app-feedback-form',
     templateUrl: './feedback-form.component.html',
     styleUrls: ['./feedback-form.component.scss'],
 })
 export class FeedbackFormComponent implements OnInit {
-    errors: any;
-    // feedbackForm = new FormGroup({
-    //     title: new FormControl('', Validators.required),
-    //     description: new FormControl('', [Validators.required, Validators.required]),
-    // });
-
     constructor(
         private alertController: AlertController,
-        private toast: ToastController,
         private feedbackService: FeedbackService,
         private route: ActivatedRoute,
         private toastService: ToastService,
         private router: Router
-    ) { }
+    ) {}
 
     newFeedback: Feedback = {
         senderId: {},
         receiverId: {},
         title: '',
         description: '',
-    }
+    };
     feedback: Feedback = {
         senderId: {},
         receiverId: {},
         title: '',
-        description: ''
-    }
+        description: '',
+    };
     employees: Employee[] = [];
-    selectedValue: any;
+    selectedValue: any=null;
     checkRole: number;
     feedbackId?: number;
     urlId?: any;
     fetchedFeedback: Feedback[] = [];
     ngOnInit() {
         this.urlId = this.route.snapshot.paramMap.get('id');
-        console.log('url id' + this.urlId);
         if (this.urlId != null) {
             this.feedbackService
                 .fetchFeedback(this.urlId)
@@ -57,13 +47,12 @@ export class FeedbackFormComponent implements OnInit {
             this.newFeedback.title = '';
             this.newFeedback.description = '';
         }
-        // this.route.snapshot.paramMap('id')
+        
         this.fetchReportees();
-
     }
 
     async addFeedback(feedback: Feedback) {
-        if (this.newFeedback.receiverId.employeeName?.trim()) {
+        if (this.selectedValue==null) {
             this.showAlert('Employee name cannot be empty!');
         } else if (!this.newFeedback.title?.trim()) {
             this.showAlert('Title cannot be empty!');
@@ -76,9 +65,7 @@ export class FeedbackFormComponent implements OnInit {
                     {
                         text: 'Cancel',
                         role: 'cancel',
-                        handler: () => {
-
-                        },
+                        handler: () => {},
                     },
                     {
                         text: 'Submit',
@@ -92,19 +79,16 @@ export class FeedbackFormComponent implements OnInit {
                                         this.newFeedback.title = '';
                                         this.newFeedback.description = '';
                                         this.selectedValue = null;
-                                        this.toastService.showSuccessToast("Feedback added successfully")
+                                        this.toastService.showSuccessToast(
+                                            'Feedback added successfully'
+                                        );
                                     }
                                     if (feedbackResponse == null) {
-                                        this.toastService.showErrorToast("Oops, Something went wrong!!! Please try again");
+                                        this.toastService.showErrorToast(
+                                            'Oops, Something went wrong!!! Please try again'
+                                        );
                                     }
-
-                                },
-                                    error => {
-                                        this.errors = error;
-                                        this.toastService.showErrorToast(error);
-                                    },
-                                );
-
+                                });
                         },
                     },
                 ],
@@ -128,30 +112,27 @@ export class FeedbackFormComponent implements OnInit {
                 {
                     text: 'Cancel',
                     role: 'cancel',
-                    handler: () => {
-
-                    },
+                    handler: () => {},
                 },
                 {
                     text: 'Update',
                     role: 'confirm',
                     handler: () => {
-                        this.feedbackService.updateFeedback(this.newFeedback, this.urlId)
+                        this.feedbackService
+                            .updateFeedback(this.newFeedback, this.urlId)
                             .subscribe((feedbackResponse) => {
                                 if (feedbackResponse != null) {
                                     this.router.navigate(['home/viewFeedback']);
-                                    this.toastService.showSuccessToast("Feedback added successfully")
+                                    this.toastService.showSuccessToast(
+                                        'Feedback added successfully'
+                                    );
                                 }
                                 if (feedbackResponse == null) {
-                                    this.toastService.showErrorToast("Oops, Something went wrong!!! Please try again");
+                                    this.toastService.showErrorToast(
+                                        'Oops, Something went wrong!!! Please try again'
+                                    );
                                 }
-
-
-                            }, error => {
-                                this.errors = error;
-                                this.toastService.showErrorToast(error);
                             });
-
                     },
                 },
             ],
@@ -160,7 +141,6 @@ export class FeedbackFormComponent implements OnInit {
     }
 
     cancelForm() {
-        //this.employees[employeeName] = '';
         if (this.urlId != null) {
             this.router.navigate(['home/viewFeedback']);
         }

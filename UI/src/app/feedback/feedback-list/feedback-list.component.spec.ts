@@ -22,4 +22,3 @@ describe('ViewFeedbackComponent', () => {
         expect(component).toBeTruthy();
     });
 });
-

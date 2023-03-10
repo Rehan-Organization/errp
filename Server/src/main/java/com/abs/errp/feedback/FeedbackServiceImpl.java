@@ -49,6 +49,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	public Feedback saveFeedback(Feedback feedback) {
 		ErrpUser e = setErrpUser();
 		feedback.setSenderId(e);
+		System.out.println(feedback.getReceiverId());
 		if (isSupervisor)
 			return feedbackRepository.save(feedback);
 		else
@@ -58,7 +59,6 @@ public class FeedbackServiceImpl implements FeedbackService {
 	/**
 	 * If user have reportees then user is supervisor
 	 */
-
 	@Override
 	public List<ErrpUser> getAllReportees() {
 		ErrpUser e = setErrpUser();
@@ -75,7 +75,6 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 * isMyFeedback is false then returns feedback sent by supervisor to associated
 	 * reportees
 	 */
-
 	@Override
 	public List<Feedback> getMyFeedbacks(boolean isMyFeedback, int pageNo, int pageSize) {
 		Sort sort = Sort.by("updatedDate").descending();
@@ -93,13 +92,16 @@ public class FeedbackServiceImpl implements FeedbackService {
 		}
 	}
 
+	/**
+	 * If respective employee is still reportee of current user then update record
+	 * otherwise raise UnAuthorizedAccessException
+	 */
 	@Override
 	public Feedback updateFeedback(Feedback feedback, int id) {
 
 		LoggedInUser user = this.userContext.getLoggedInUser();
 		List<Feedback> feedbacks = this.feedbackRepository.findAllById(feedback.getId());
 
-		// Checks if respective employee is still reportee of current user or not
 		if (feedbacks.get(0).getReceiverId().getSupervisor().getEmployeeId() == user.getEmployeeId()) {
 			Feedback updateFeedback = feedbackRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("Feedback not exist with id: " + id));
@@ -115,13 +117,16 @@ public class FeedbackServiceImpl implements FeedbackService {
 		}
 	}
 
+	/**
+	 * If respective employee is still reportee of current user then delete record
+	 * otherwise raise UnAuthorizedAccessException
+	 */
 	@Override
 	public void removeByFeedbackId(int id) {
 		if (feedbackRepository.findById(id).isPresent()) {
 			LoggedInUser user = this.userContext.getLoggedInUser();
 			List<Feedback> feedback = this.feedbackRepository.findAllById(id);
 
-			// Checks if respective employee is still reportee of current user or not
 			if (feedback.get(0).getReceiverId().getSupervisor().getEmployeeId() == user.getEmployeeId())
 				this.feedbackRepository.deleteById(id);
 			else
