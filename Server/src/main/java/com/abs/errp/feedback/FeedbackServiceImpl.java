@@ -81,7 +81,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public void removeByFeedbackId(int id) {
-		feedbackRepository.deleteById(id);
+		this.feedbackRepository.deleteById(id);
 	}
 
 	@Override
