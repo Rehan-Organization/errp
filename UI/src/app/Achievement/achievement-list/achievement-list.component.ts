@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
@@ -7,32 +7,27 @@ import { AchievementService } from '../achievement.service';
 
 
 @Component({
-    selector: 'app-achievement-list',
-    templateUrl: './achievement-list.component.html',
-    styleUrls: ['./achievement-list.component.scss'],
+  selector: 'app-achievement-list',
+  templateUrl: './achievement-list.component.html',
+  styleUrls: ['./achievement-list.component.scss'],
 })
 export class AchievementListComponent implements OnInit {
 
-  httpClient: any;
-  achievements: Achievement[];
-  errorMessage = ""
+  //achievement : Achievement[] = [];
+
+
 
   constructor(
-    private router:Router, 
-    private achievementService : AchievementService,
-    private activatedRoute:ActivatedRoute,
-    private alertController:AlertController
-    ) {}
+    private router: Router,
+    private achievementService: AchievementService,
+    private alertController: AlertController
+  ) { }
 
-    ngOnInit() {
-        this.getAchievement();
-    }
+  achievements: Achievement[] = [];
+  pageNo: number = 0
+  pageSize: number = 4
+  errorMessage = ""
 
-    getAchievement() {
-        this.achievementService
-            .getAllAchievement()
-            .subscribe((Achievement) => (this.achievements=Achievement));
-    }
 
   ngOnInit() {
 
@@ -112,7 +107,6 @@ export class AchievementListComponent implements OnInit {
   addAchievement() {
     this.router.navigate(["/home/myAchievement/addAchievement"])
   }
-
   deleteAchievement(achievement: Achievement) {
     this.alertController
       .create({
@@ -174,51 +168,3 @@ export class AchievementListComponent implements OnInit {
   }
 
 }
-
-
-//         this.alertController
-//             .create({
-//                 header: 'Confirm Alert',
-//                 message: 'Are you sure you want to delete?',
-//                 buttons: [
-//                     {
-//                         text: 'Confirm',
-//                         handler: () => {
-//                             this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
-//                                 (resp) => {
-//                                     this.router.navigate(['/home/myAchievement']);
-//                                     console.log(resp);
-//                                 },
-//                                 (err) => {
-//                                     (this.errorMessage = err.message),
-//                                         this.showAlert(this.errorMessage);
-//                                 }
-//                             );
-//                         },
-//                     },
-//                     {
-//                         text: 'Cancel',
-//                     },
-//                 ],
-//             })
-//             .then((res) => {
-//                 res.present();
-//             });
-//     }
-//     showAlert(message: string) {
-//         this.alertController
-//             .create({
-//                 header: 'Alert',
-//                 message: message,
-//                 buttons: [
-//                     {
-//                         text: 'Ok',
-//                     },
-//                 ],
-//             })
-//             .then((res) => {
-//                 res.present();
-//             });
-//     }
-// }
-

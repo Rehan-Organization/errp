@@ -94,7 +94,10 @@ export class AchievementFormComponent implements OnInit {
                     message: 'Are you sure you want to submit',
                     buttons: [
                         {
-                            text: 'Confirm',
+                            text: 'Cancel',
+                        },
+                        {
+                            text: 'Submit',
                             handler: () => {
 
                                 
@@ -112,9 +115,7 @@ export class AchievementFormComponent implements OnInit {
                                 );
                             },
                         },
-                        {
-                            text: 'Cancel',
-                        },
+                        
                     ],
                 })
                 .then((res) => {
@@ -140,6 +141,9 @@ export class AchievementFormComponent implements OnInit {
                     message: 'Are you sure you want to update',
                     buttons: [
                         {
+                            text: 'Cancel',
+                        },
+                        {
                             text: 'Update',
                             handler: () => {
                                 this.achievementService.updateAchievement(this.achievement).subscribe(
@@ -154,9 +158,7 @@ export class AchievementFormComponent implements OnInit {
                                 );
                             },
                         },
-                        {
-                            text: 'Cancel',
-                        },
+                        
                     ],
                 })
                 .then((res) => {
