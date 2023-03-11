@@ -121,4 +121,39 @@ public class EmployeeAward {
 	public void setSupervisorComments(String supervisorComments) {
 		this.supervisorComments = supervisorComments;
 	}
+
+	public EmployeeAward(int employeeAwardId, int awardId, int awardeeId, int awardRaisedById, int achievementId,
+			int requestId, int approvedById, Date approvedDate, String remarks, String supervisorComments) {
+		super();
+		this.employeeAwardId = employeeAwardId;
+		this.awardId = awardId;
+		this.awardeeId = awardeeId;
+		this.awardRaisedById = awardRaisedById;
+		this.achievementId = achievementId;
+		this.requestId = requestId;
+		this.approvedById = approvedById;
+		this.approvedDate = approvedDate;
+		this.remarks = remarks;
+		this.supervisorComments = supervisorComments;
+	}
+
+	public EmployeeAward(int awardId, int awardeeId, int awardRaisedById, int achievementId, int requestId,
+			int approvedById, Date approvedDate, String remarks, String supervisorComments) {
+		super();
+		this.awardId = awardId;
+		this.awardeeId = awardeeId;
+		this.awardRaisedById = awardRaisedById;
+		this.achievementId = achievementId;
+		this.requestId = requestId;
+		this.approvedById = approvedById;
+		this.approvedDate = approvedDate;
+		this.remarks = remarks;
+		this.supervisorComments = supervisorComments;
+	}
+
+	public EmployeeAward() {
+		super();
+	}
+	
+	
 }

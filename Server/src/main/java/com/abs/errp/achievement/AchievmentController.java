@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,38 +24,34 @@ public class AchievmentController {
 		this.achievementService = achievementService;
 	}
 
-	@GetMapping("/emp")
-	public List<Achievement> getAchievement() {
-
-		return achievementService.getAllAchievements();
-
-	}
-
-	@PostMapping("/add")
+	@PostMapping()
 	public ResponseEntity<Achievement> saveAchievement(@RequestBody Achievement achievement) {
 		return new ResponseEntity<Achievement>(achievementService.saveAchievement(achievement), HttpStatus.CREATED);
 
 	}
 
 	@GetMapping("/paginated/{pageNo}/{pageSize}")
-	public List<Achievement> getPaginatedCountries(@PathVariable int pageNo, @PathVariable int pageSize) {
+	public List<Achievement> getPaginatedCountries(@PathVariable int pageNo,
+			@PathVariable int pageSize) {
+
 		return achievementService.findPaginated(pageNo, pageSize);
 	}
 
-	@PostMapping("/updateAchievement/{id}")
-	public ResponseEntity<Achievement> updateAchievement(@PathVariable int id, @RequestBody Achievement achievement) {
-		return new ResponseEntity<Achievement>(achievementService.updateAchievement(id, achievement),
-				HttpStatus.CREATED);
+	@PutMapping()
+	public ResponseEntity<Achievement> updateAchievement(@RequestBody Achievement achievement) {
+		return new ResponseEntity<Achievement>(achievementService.updateAchievement(achievement),
+				HttpStatus.OK);
 
 	}
 
-	@GetMapping("/getAchievement/{id}")
+	@GetMapping("{id}")
 	public ResponseEntity<Achievement> getAchievementById(@PathVariable("id") int id) {
+
 		return new ResponseEntity<Achievement>(achievementService.getAchievementById(id), HttpStatus.OK);
 
 	}
 
-	@DeleteMapping("/removeAchievement/{id}")
+	@DeleteMapping("{id}")
 	public void deleteAchievement(@PathVariable("id") int id) {
 		achievementService.deleteAchievement(id);
 	}

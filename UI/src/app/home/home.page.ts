@@ -13,20 +13,20 @@ export class HomePage {
 
     loggedInUser: LoggedInUser | undefined;
 
-    constructor(private authService: AppAuthService, private userContext: LoggedInUserContext, private router:Router) {}
+    constructor(private authService: AppAuthService, private userContext: LoggedInUserContext, private router: Router) { }
 
     ngOnInit() {
         this.loggedInUser = this.userContext.getLoggedInUser();
     }
 
-    myAchievement(){
-        this.router.navigate(["/home/myAchievement"])
+    myAchievement() {
+        this.router.navigate(["/home/Achievement"])
     }
-    myAwards(){
-        this.router.navigate(["/home/myAwards"])
+    myAwards() {
+        this.router.navigate(["/home/Awards"])
     }
 
     logout() {
-        this.authService.logout().subscribe(() => {});
+        this.authService.logout().subscribe(() => { });
     }
 }

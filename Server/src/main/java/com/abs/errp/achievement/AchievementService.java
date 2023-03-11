@@ -6,15 +6,13 @@ import com.abs.errp.entity.Achievement;
 
 public interface AchievementService {
 
-	List<Achievement> getAllAchievements();
-
 	Achievement saveAchievement(Achievement achievement);
 
 	List<Achievement> findPaginated(int pageNo, int pageSize);
 
 	Achievement getAchievementById(int id);
 
-	Achievement updateAchievement(int id, Achievement achievement);
+	Achievement updateAchievement(Achievement achievement);
 
 	void deleteAchievement(int id);
 

@@ -1,11 +1,18 @@
 package com.abs.errp.exception;
 
-public class ResourceNotFoundException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+public class NotAuthorizedException extends RuntimeException {
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+
 	private String message;
 
-	public ResourceNotFoundException(String message) {
+	public NotAuthorizedException(String message) {
 		super();
 		this.message = message;
 	}
@@ -21,5 +28,7 @@ public class ResourceNotFoundException extends RuntimeException {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	
 
 }

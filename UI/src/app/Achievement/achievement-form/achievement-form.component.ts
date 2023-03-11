@@ -45,6 +45,14 @@ export class AchievementFormComponent implements OnInit {
 
     }
 
+    validateInput(): boolean {
+
+        this.achievement.title = this.achievement.title?.trim();
+        this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
+        return (this.achievement.title == "" || this.achievement.achievementDesc == "" || !this.achievement.title || !this.achievement.achievementDesc)
+
+    }
+
 
 
     customCounterFormatter(inputLength: number, maxLength: number) {
@@ -56,7 +64,8 @@ export class AchievementFormComponent implements OnInit {
             (event.keyCode >= 65 && event.keyCode <= 90) ||
             (event.keyCode >= 97 && event.keyCode <= 122) ||
             event.keyCode == 32 ||
-            event.keyCode == 46
+            event.keyCode == 46 ||
+            (event.keyCode >= 48 && event.keyCode <= 57)
         ) {
             return true;
         } else {
@@ -77,16 +86,7 @@ export class AchievementFormComponent implements OnInit {
     }
 
     submitAchievement() {
-        const today = new Date();
-        this.achievement.createdBy = this.loggedInUser?.employeeId;
-        this.achievement.updatedBy = this.loggedInUser?.employeeId;
-        this.achievement.createdDate = today;
-        this.achievement.updatedDate = today;
-        this.achievement.achievementStatus = 1;
-
-        this.achievement.title = this.achievement.title?.trim();
-        this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
-        if (this.achievement.title == "" || this.achievement.achievementDesc == "" || !this.achievement.title || !this.achievement.achievementDesc) {
+        if (this.validateInput()) {
             this.toastService.showErrorToast("Fields can not be empty");
         } else {
             this.alertController
@@ -102,9 +102,11 @@ export class AchievementFormComponent implements OnInit {
                             handler: () => {
                                 this.achievementService.submitAchievement(this.achievement).subscribe(
                                     (data) => {
+                                        
                                         this.toastService.showSuccessToast("Achievement submitted successfully");
                                         (this.achievement = data),
-                                            this.router.navigate(['/home/myAchievement']);
+
+                                            this.router.navigate(['/home/Achievement']);
                                     },
                                     (err) => {
                                         this.toastService.showErrorToast(this.errorMessage);
@@ -121,14 +123,7 @@ export class AchievementFormComponent implements OnInit {
 
     }
     updateAchievement() {
-
-        const today = new Date();
-        this.achievement.updatedDate = today;
-        this.achievement.updatedBy = this.loggedInUser?.employeeId;
-
-        this.achievement.title = this.achievement.title?.trim();
-        this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
-        if (this.achievement.title == "" || this.achievement.achievementDesc == "" || !this.achievement.title || !this.achievement.achievementDesc) {
+        if (this.validateInput()) {
             this.toastService.showErrorToast("Fields can not be empty");
         } else {
             this.alertController
@@ -145,8 +140,8 @@ export class AchievementFormComponent implements OnInit {
                                 this.achievementService.updateAchievement(this.achievement).subscribe(
                                     (data) => {
                                         (this.achievement = data),
-                                            this.router.navigate(['/home/myAchievement']);
-                                            this.toastService.showSuccessToast("Achievement updated successfully");
+                                            this.router.navigate(['/home/Achievement']);
+                                        this.toastService.showSuccessToast("Achievement updated successfully");
                                     },
                                     (err) => {
                                         this.toastService.showErrorToast(this.errorMessage);
@@ -163,18 +158,13 @@ export class AchievementFormComponent implements OnInit {
     }
 
     saveAchievement() {
-        const today = new Date();
-        this.achievement.createdDate = today;
-        this.achievement.updatedDate = today;
-        this.achievement.createdBy = this.loggedInUser?.employeeId;
-        this.achievement.updatedBy = this.loggedInUser?.employeeId;
-        this.achievement.employeeId = this.loggedInUser?.employeeId;
-        this.achievement.achievementStatus = 0;
-        this.achievement.title = this.achievement.title?.trim();
-        this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
 
-        if (this.achievement.title == "" || this.achievement.achievementDesc == "" || !this.achievement.title || !this.achievement.achievementDesc) {
+        this.achievement.employeeId = this.loggedInUser?.employeeId;
+
+        if (this.validateInput()) {
+
             this.toastService.showErrorToast("Fields can not be empty");
+
         } else {
             this.alertController
                 .create({
@@ -182,12 +172,15 @@ export class AchievementFormComponent implements OnInit {
                     message: 'Are you sure,you want to save this achievement?',
                     buttons: [
                         {
+                            text: 'Cancel',
+                        },
+                        {
                             text: 'Save',
                             handler: () => {
                                 this.achievementService.saveAchievement(this.achievement).subscribe(
                                     (data) => {
                                         (this.achievement = data),
-                                            this.router.navigate(['/home/myAchievement']);
+                                            this.router.navigate(['/home/Achievement']);
                                         console.log(data);
                                         this.toastService.showSuccessToast("Achievement saved successfully");
 
@@ -198,9 +191,7 @@ export class AchievementFormComponent implements OnInit {
                                 );
                             },
                         },
-                        {
-                            text: 'Cancel',
-                        },
+
                     ],
                 })
                 .then((res) => {

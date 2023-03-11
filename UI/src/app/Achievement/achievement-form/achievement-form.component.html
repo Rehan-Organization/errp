@@ -3,18 +3,13 @@
         <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
         </ion-buttons>
-        <ion-title *nfIf="!isIdPresent">Add Achievement</ion-title>
-        <ion-title *ngIf="isIdPresent">Update Achievement</ion-title>
+        <ion-title>{{ isIdPresent ? 'Update Achievement' : 'Add Achievement' }}</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
     <ion-content>
         <ion-card>
             <ion-card-content>
-                <ion-card-header>
-                    <ion-card-title></ion-card-title>
-                    <ion-card-subtitle></ion-card-subtitle>
-                </ion-card-header>
                 <ion-item fill="outline" id="title" counter="true" [counterFormatter]="customCounterFormatter">
                     <ion-label position="floating">Title</ion-label>
                     <ion-input

@@ -14,7 +14,6 @@ import { AchievementService } from '../achievement.service';
 })
 export class AchievementListComponent implements OnInit {
 
-  //achievement : Achievement[] = [];
   constructor(
     private router: Router,
     private achievementService: AchievementService,
@@ -31,41 +30,38 @@ export class AchievementListComponent implements OnInit {
     this.pageNo = 0;
     this.getAchievement(false, null);
 
-  }
 
-  refreshList() {
-    this.pageNo = 0;
-    this.getAchievement(false, null);
+  }
+  validateInput(achievement: Achievement): boolean {
+
+    achievement.title = achievement.title?.trim();
+    achievement.achievementDesc = achievement.achievementDesc?.trim();
+    return (achievement.title == "" || achievement.achievementDesc == "" || !achievement.title || !achievement.achievementDesc)
 
   }
 
   onIonInfinite(ev: Event) {
 
-
     this.getAchievement(true, ev)
 
-
   }
-
 
   getAchievement(isFirstLoad: boolean, event: any) {
 
     this.achievementService.getPaginatedAchievement(this.pageNo, this.pageSize).subscribe(data => {
-      for (let i = 0; i < data.length; i++) {
-        this.achievements.push(data[i]);
-      }
+      this.achievements = this.achievements.concat(...data);
       if (isFirstLoad) {
         event.target.complete();
       }
       this.pageNo++;
 
     }, error => {
-      console.error(error);
+      this.toastService.showErrorToast(error);
     })
 
-
-
   }
+
+
   submitAchievement(achievement: Achievement) {
     this.alertController
       .create({
@@ -78,16 +74,17 @@ export class AchievementListComponent implements OnInit {
           {
             text: 'Submit',
             handler: () => {
-              achievement.achievementStatus = 1;
-              if (achievement.title == "" || achievement.achievementDesc == "" || !achievement.achievementDesc || !achievement.title) {
+
+              if (this.validateInput(achievement)) {
 
                 this.toastService.showErrorToast("Fields can not be empty");
               }
               else {
+
                 this.achievementService.submitAchievement(achievement).subscribe(
+
                   (resp) => {
-                      console.log(resp);
-                      this.toastService.showSuccessToast("Achievement submitted successfully");
+                    this.toastService.showSuccessToast("Achievement submitted successfully");
                   },
                   (err) => {
                     (this.errorMessage = err.message),
@@ -105,10 +102,12 @@ export class AchievementListComponent implements OnInit {
         res.present();
       });
   }
+  
 
   addAchievement() {
-    this.router.navigate(["/home/myAchievement/addAchievement"])
+    this.router.navigate(["/home/Achievement/addAchievement"])
   }
+
   deleteAchievement(achievement: Achievement) {
     this.alertController
       .create({
@@ -123,8 +122,8 @@ export class AchievementListComponent implements OnInit {
             handler: () => {
               this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
                 (resp) => {
-                  this.router.navigate(['/home/myAchievement']);
-                  console.log(resp);
+
+                  this.router.navigate(['/home/Achievement']);
                   this.toastService.showSuccessToast("Achievement deleted successfully");
                 },
                 (err) => {
@@ -139,10 +138,6 @@ export class AchievementListComponent implements OnInit {
       .then((res) => {
         res.present();
       });
-  }
-
-  handleUpdate(event: Event) {
-    console.log(event);
   }
 
 }
