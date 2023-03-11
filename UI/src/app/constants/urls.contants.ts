@@ -15,5 +15,4 @@ export const URLS = {
     UPDATE_AWARD_TYPE: '/awardTypes/',
     GET_AWARD_TYPE: '/awardTypes/',
     GET_LEADERBOARD_LIST: '/leaderboard'
-
 }
