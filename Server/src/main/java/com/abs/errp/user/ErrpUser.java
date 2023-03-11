@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.abs.errp.entity.Achievement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,8 +49,13 @@ public class ErrpUser {
 	private Set<ErrpUser> reportees;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-	private Set<Role> roles = new HashSet<>();
+    @JoinTable(
+            name = "USER_ROLE",
+            joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
+    )
+    private Set<Role> roles = new HashSet<>();
+	
 
 	public ErrpUser() {
 

@@ -5,7 +5,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -114,7 +116,9 @@ public class Achievement {
 
 	public int getAchievementStatus() {
 		return achievementStatus;
-	}
+	}<<<<<<<HEAD=======
+
+	>>>>>>>main
 
 	public Achievement(int employeeId, String title, String achievementDesc, Date createdDate, Date updatedDate,
 			int createdBy, int updatedBy, int achievementStatus) {
@@ -135,6 +139,8 @@ public class Achievement {
 
 	public Achievement() {
 		super();
-	}
+	}<<<<<<<HEAD=======
+
+	>>>>>>>main
 
 }

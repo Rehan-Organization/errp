@@ -11,14 +11,15 @@ import javax.persistence.Table;
 public class AwardType {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "AWARD_ID")
-	private int awardId;
+	private long awardId;
 
 	@Column(name = "AWARD_NAME")
 	private String awardName;
 
 	@Column(name = "AWARD_DESC")
-	private String awardDesc;
+	private String description;
 
 	@Column(name = "CREATED_DATE")
 	private Date createdDate;
@@ -27,22 +28,40 @@ public class AwardType {
 	private Date updatedDate;
 
 	@Column(name = "AWARD_STATUS")
-	private int awardStatus;
+	private int awardStatus = 1;
 
 	@Column(name = "AWARD_POINTS")
 	private int awardPoints;
 
 	@Column(name = "CREATED_BY")
-	private int createdBy;
+	private long createdBy;
 
 	@Column(name = "UPDATED_BY")
-	private int updatedBy;
+	private long updatedBy;
 
-	public int getAwardId() {
+	public AwardType() {
+		super();
+	}
+
+	public AwardType(long awardId, String awardName, String description, Date createdDate, Date updatedDate,
+			int awardStatus, int awardPoints, long createdBy, long updatedBy) {
+		super();
+		this.awardId = awardId;
+		this.awardName = awardName;
+		this.description = description;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+		this.awardStatus = awardStatus;
+		this.awardPoints = awardPoints;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+	}
+
+	public long getAwardId() {
 		return awardId;
 	}
 
-	public void setAwardId(int awardId) {
+	public void setAwardId(long awardId) {
 		this.awardId = awardId;
 	}
 
@@ -54,12 +73,12 @@ public class AwardType {
 		this.awardName = awardName;
 	}
 
-	public String getAwardDesc() {
-		return awardDesc;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setAwardDesc(String awardDesc) {
-		this.awardDesc = awardDesc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getCreatedDate() {
@@ -94,19 +113,19 @@ public class AwardType {
 		this.awardPoints = awardPoints;
 	}
 
-	public int getCreatedBy() {
+	public long getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(int createdBy) {
+	public void setCreatedBy(long createdBy) {
 		this.createdBy = createdBy;
 	}
 
-	public int getUpdatedBy() {
+	public long getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(int updatedBy) {
+	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

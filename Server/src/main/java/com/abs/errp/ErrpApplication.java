@@ -12,6 +12,7 @@ public class ErrpApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ErrpApplication.class, args);
+		
 	}
 
 }
