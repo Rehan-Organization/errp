@@ -6,6 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { LoggedInUserContext } from 'src/app/providers/logged-in-user-context.service';
 import { LoggedInUser } from 'src/app/providers/logged-in-user.model';
 import { ToastService } from 'src/app/errp-service/toast.service';
+import { BaseForm } from 'src/app/base-form/base-form.component';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { ToastService } from 'src/app/errp-service/toast.service';
     templateUrl: './achievement-form.component.html',
     styleUrls: ['./achievement-form.component.scss'],
 })
-export class AchievementFormComponent implements OnInit {
+export class AchievementFormComponent extends BaseForm implements OnInit {
     achievement: Achievement = {};
     errorMessage: string = '';
     isIdPresent: boolean = false;
@@ -26,7 +27,9 @@ export class AchievementFormComponent implements OnInit {
         private alertController: AlertController,
         private userContext: LoggedInUserContext,
         private toastService: ToastService
-    ) { }
+    ) {
+        super();
+    }
 
     ngOnInit() {
 
@@ -44,6 +47,8 @@ export class AchievementFormComponent implements OnInit {
         this.loggedInUser = this.userContext.getLoggedInUser();
 
     }
+
+
 
     validateInput(): boolean {
 
@@ -102,11 +107,9 @@ export class AchievementFormComponent implements OnInit {
                             handler: () => {
                                 this.achievementService.submitAchievement(this.achievement).subscribe(
                                     (data) => {
-                                        
                                         this.toastService.showSuccessToast("Achievement submitted successfully");
-                                        (this.achievement = data),
-
-                                            this.router.navigate(['/home/Achievement']);
+                                        (this.achievement = data)
+                                        this.closeForm();
                                     },
                                     (err) => {
                                         this.toastService.showErrorToast(this.errorMessage);
@@ -140,7 +143,7 @@ export class AchievementFormComponent implements OnInit {
                                 this.achievementService.updateAchievement(this.achievement).subscribe(
                                     (data) => {
                                         (this.achievement = data),
-                                            this.router.navigate(['/home/Achievement']);
+                                            this.closeForm();
                                         this.toastService.showSuccessToast("Achievement updated successfully");
                                     },
                                     (err) => {
@@ -180,8 +183,7 @@ export class AchievementFormComponent implements OnInit {
                                 this.achievementService.saveAchievement(this.achievement).subscribe(
                                     (data) => {
                                         (this.achievement = data),
-                                            this.router.navigate(['/home/Achievement']);
-                                        console.log(data);
+                                            this.closeForm();
                                         this.toastService.showSuccessToast("Achievement saved successfully");
 
                                     },

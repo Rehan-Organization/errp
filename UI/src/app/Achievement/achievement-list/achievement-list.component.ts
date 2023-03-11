@@ -5,8 +5,6 @@ import { ToastService } from 'src/app/errp-service/toast.service';
 import { Achievement } from '../achievement';
 import { AchievementService } from '../achievement.service';
 
-
-
 @Component({
   selector: 'app-achievement-list',
   templateUrl: './achievement-list.component.html',
@@ -28,10 +26,22 @@ export class AchievementListComponent implements OnInit {
   ngOnInit() {
 
     this.pageNo = 0;
+    this.achievements = [];
     this.getAchievement(false, null);
 
 
   }
+  refreshList() {
+    this.pageNo = 0;
+    this.achievementService.getPaginatedAchievement(this.pageNo, this.pageSize).subscribe((data) => {
+      this.achievements = data;
+    })
+  }
+
+  ionViewWillEnter() {
+    this.refreshList();
+  }
+
   validateInput(achievement: Achievement): boolean {
 
     achievement.title = achievement.title?.trim();
@@ -85,6 +95,7 @@ export class AchievementListComponent implements OnInit {
 
                   (resp) => {
                     this.toastService.showSuccessToast("Achievement submitted successfully");
+                    this.refreshList();
                   },
                   (err) => {
                     (this.errorMessage = err.message),
@@ -102,7 +113,7 @@ export class AchievementListComponent implements OnInit {
         res.present();
       });
   }
-  
+
 
   addAchievement() {
     this.router.navigate(["/home/Achievement/addAchievement"])
@@ -122,9 +133,8 @@ export class AchievementListComponent implements OnInit {
             handler: () => {
               this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
                 (resp) => {
-
-                  this.router.navigate(['/home/Achievement']);
                   this.toastService.showSuccessToast("Achievement deleted successfully");
+                  this.refreshList();
                 },
                 (err) => {
                   this.toastService.showErrorToast(this.errorMessage);
