@@ -17,6 +17,13 @@ export const URLS = {
     UPDATE_AWARD_TYPE: '/awardTypes/',
     GET_AWARD_TYPE:'/awardTypes/',
     // USER_CONTEXT: '/awardTypes/userContext',
-    GET_LEADERBOARD_LIST : '/leaderboard'
+    GET_LEADERBOARD_LIST : '/leaderboard',
+    GET: '/achievement',
+    UPDATE: '/achievement',
+    DELETE: '/achievement',
+    SUBMIT: '/achievement/submit',
+    SAVE: '/achievement',
+    GET_PAGINATED: '/achievement/paginated'
+    
 
 }

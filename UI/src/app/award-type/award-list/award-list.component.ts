@@ -40,7 +40,9 @@ export class AwardListComponent implements OnInit {
         this.router.navigate(['/home/awardTypes/create']);
     }
 
-    updateAward(award: AwardType) {
+    updateAward(award: AwardType, event: Event) {
+        event.preventDefault();
+        event.cancelBubble = true;
         this.alertController
             .create({
                 header: 'Are you sure?',
