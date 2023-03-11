@@ -11,6 +11,7 @@ import { ToastService } from 'src/app/errp-service/toast.service';
     styleUrls: ['./feedback-form.component.scss'],
 })
 export class FeedbackFormComponent implements OnInit {
+    errors: any;
     constructor(
         private alertController: AlertController,
         private feedbackService: FeedbackService,
@@ -88,7 +89,14 @@ export class FeedbackFormComponent implements OnInit {
                                             'Oops, Something went wrong!!! Please try again'
                                         );
                                     }
-                                });
+
+                                },
+                                    error => {
+                                        this.errors = error;
+                                        this.toastService.showErrorToast("Oops, Something went wrong!!! Please try again");
+                                    },
+                                );
+
                         },
                     },
                 ],
@@ -132,6 +140,10 @@ export class FeedbackFormComponent implements OnInit {
                                         'Oops, Something went wrong!!! Please try again'
                                     );
                                 }
+
+                            }, error => {
+                                this.errors = error;
+                                this.toastService.showErrorToast("Oops, Something went wrong!!! Please try again");
                             });
                     },
                 },
