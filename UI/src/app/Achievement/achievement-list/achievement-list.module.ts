@@ -7,6 +7,7 @@ import { AchievementFormComponent } from '../achievement-form/achievement-form.c
 import { FormsModule } from '@angular/forms';
 import { MomentModule } from 'ngx-moment';
 
+
 @NgModule({
   declarations: [AchievementListComponent, AchievementFormComponent],
   imports: [
@@ -14,7 +15,7 @@ import { MomentModule } from 'ngx-moment';
     IonicModule,
     MomentModule,
     FormsModule,
-    RouterModule.forChild([
+  RouterModule.forChild([
       {
         path: '',
         component: AchievementListComponent

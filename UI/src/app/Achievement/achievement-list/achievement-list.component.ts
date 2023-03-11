@@ -50,8 +50,6 @@ export class AchievementListComponent implements OnInit {
 
   getAchievement(isFirstLoad: boolean, event: any) {
 
-
-
     this.achievementService.getPaginatedAchievement(this.pageNo, this.pageSize).subscribe(data => {
       for (let i = 0; i < data.length; i++) {
         this.achievements.push(data[i]);
