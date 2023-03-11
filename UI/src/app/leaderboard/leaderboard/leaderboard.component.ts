@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { ToastService } from 'src/app/errp-service/toast.service';
 import { Leaderboard } from '../leaderboard-model/leaderboard';
@@ -61,13 +62,12 @@ export class LeaderboardComponent implements OnInit {
     }
 
     customDate() {
-        this.leaderboardList = [];
+        this.forCustomDate()
         if (this.customStartDate == null && this.customEndDate == null) {
             this.toasterService.showErrorToast('Dates cant be empty');
         } else if (this.customStartDate > this.customEndDate) {
             this.toasterService.showErrorToast('Start date cant be greater than end date');
         } else {
-            console.log(this.customStartDate);
             this.startDate = this.customStartDate;
             this.endDate = this.customEndDate;
             this.getLeaderboardList(false, null);
@@ -75,7 +75,6 @@ export class LeaderboardComponent implements OnInit {
     }
 
     onIonInfinite(ev: Event) {
-        console.log(this.startDate, this.endDate);
         this.getLeaderboardList(true, ev);
     }
 
