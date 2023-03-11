@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { BaseForm } from 'src/app/base-form/base-form.component';
+import { ToastService } from 'src/app/errp-service/toast.service';
 import { AwardType } from '../award-type-model/award-type';
 import { AwardTypeService } from '../award-type-providers/award-type.service';
-import { AlertController } from '@ionic/angular';
-import { ToastService } from 'src/app/errp-service/toast.service';
 
 @Component({
     selector: 'app-create-award',
     templateUrl: './award-form.component.html',
     styleUrls: ['./award-form.component.scss'],
 })
-export class AwardFormComponent implements OnInit {
+export class AwardFormComponent extends BaseForm implements OnInit {
     awardTypeList: AwardType[] = [];
     awardType: AwardType = {};
     errorMessage: string = '';
@@ -23,11 +24,7 @@ export class AwardFormComponent implements OnInit {
         private alertController: AlertController,
         private toasterService: ToastService
     ) {
-        // if (this.router.url == '/home/awardTypes/create') {
-        //     this.typeCheck = true;
-        // } else if (this.router.url == '/home/awardTypes/edit/award.id') {
-        //     this.typeCheck = false;
-        // }
+        super();
     }
 
     numericOnly(event: { key: string }): boolean {
@@ -60,7 +57,7 @@ export class AwardFormComponent implements OnInit {
                                             this.toasterService.showSuccessToast(
                                                 'New award created successfully'
                                             ),
-                                            this.router.navigate(['/home/awardTypes']);
+                                            this.closeForm();
                                     },
                                     (err) => {
                                         (this.errorMessage = err.message),
