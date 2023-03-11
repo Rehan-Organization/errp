@@ -9,8 +9,6 @@ public interface FeedbackService {
 
 	Feedback saveFeedback(Feedback feedback);
 
-	List<ErrpUser> getAllReportees();
-
 	List<Feedback> getMyFeedbacks(boolean isMyFeedback, int pageNo, int pageSize);
 
 	Feedback updateFeedback(Feedback feedback, int id);

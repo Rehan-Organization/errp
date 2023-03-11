@@ -12,6 +12,7 @@ import com.abs.errp.entity.Feedback;
 import com.abs.errp.security.LoggedInUser;
 import com.abs.errp.security.LoggedInUserContext;
 import com.abs.errp.user.ErrpUser;
+import com.abs.errp.user.UserRepository;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
@@ -20,55 +21,44 @@ public class FeedbackServiceImpl implements FeedbackService {
 	LoggedInUserContext userContext;
 
 	private FeedbackRepository feedbackRepository;
-	private ErrpUserRepository errpUserRepository;
+	private UserRepository errpUserRepository;
 
-	/**
-	 * if isSupervisor is true then user is supervisor
-	 */
-	private boolean isSupervisor = false;
-
-	public FeedbackServiceImpl(FeedbackRepository feedbackRepository, ErrpUserRepository errpUserRepository) {
+	public FeedbackServiceImpl(FeedbackRepository feedbackRepository, UserRepository errpUserRepository) {
 		super();
 		this.feedbackRepository = feedbackRepository;
 		this.errpUserRepository = errpUserRepository;
 	}
 
-	/**
-	 * Get data of logged in user
-	 * 
-	 * @return
-	 */
+
 	private ErrpUser setErrpUser() {
 		LoggedInUser user = this.userContext.getLoggedInUser();
 		ErrpUser e = new ErrpUser();
 		e.setEmployeeId(user.getEmployeeId());
 		return e;
 	}
+	
+	private LoggedInUser getUser() {
+		return this.userContext.getLoggedInUser();
+		
+	}
 
 	@Override
 	public Feedback saveFeedback(Feedback feedback) {
 		ErrpUser e = setErrpUser();
 		feedback.setSenderId(e);
-		System.out.println(feedback.getReceiverId());
-		if (isSupervisor)
+		int receiverId=feedback.getReceiverId().getEmployeeId();
+		Optional<ErrpUser> receiver= errpUserRepository.findById(receiverId);
+		if (receiver.get().getSupervisor().getEmployeeId()==getUser().getEmployeeId())
 			return feedbackRepository.save(feedback);
 		else
-			return null;
+			throw new UnAuthorizedAccessException("User is not Authorized");
+	
 	}
 
 	/**
 	 * If user have reportees then user is supervisor
 	 */
-	@Override
-	public List<ErrpUser> getAllReportees() {
-		ErrpUser e = setErrpUser();
-		if (errpUserRepository.findBySupervisor(e).size() > 0) {
-			isSupervisor = true;
-			return this.errpUserRepository.findBySupervisor(e);
-		} else {
-			throw new ResourceNotFoundException("No reportees asssigned");
-		}
-	}
+	
 
 	/**
 	 * If isMyFeedback is true then returns feedback received by user If
@@ -84,11 +74,10 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 		if (isMyFeedback) {
 			return feedbackRepository.findAllByReceiverId(errpUser, pages);
-		} else {
-			if (isSupervisor)
+		} else {			
 				return feedbackRepository.findAllBySenderId(errpUser, pages);
-			else
-				throw new UnAuthorizedAccessException("User is not Authorized");
+//			else
+//				throw new UnAuthorizedAccessException("User is not Authorized");
 		}
 	}
 
@@ -98,20 +87,16 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 */
 	@Override
 	public Feedback updateFeedback(Feedback feedback, int id) {
-
-		LoggedInUser user = this.userContext.getLoggedInUser();
-		List<Feedback> feedbacks = this.feedbackRepository.findAllById(feedback.getId());
-
-		if (feedbacks.get(0).getReceiverId().getSupervisor().getEmployeeId() == user.getEmployeeId()) {
-			Feedback updateFeedback = feedbackRepository.findById(id)
-					.orElseThrow(() -> new ResourceNotFoundException("Feedback not exist with id: " + id));
-
+		Feedback updateFeedback = feedbackRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Feedback not exist with id: " + id));
+		
+		int receiverId=feedback.getReceiverId().getEmployeeId();
+		Optional<ErrpUser> receiver= errpUserRepository.findById(receiverId);
+		if (receiver.get().getSupervisor().getEmployeeId()==getUser().getEmployeeId()) {
 			updateFeedback.setTitle(feedback.getTitle());
 			updateFeedback.setDescription(feedback.getDescription());
 			updateFeedback.setUpdatedDate(new Date());
-
 			return feedbackRepository.save(updateFeedback);
-
 		} else {
 			throw new UnAuthorizedAccessException("User is not Authorized");
 		}
@@ -123,11 +108,11 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 */
 	@Override
 	public void removeByFeedbackId(int id) {
-		if (feedbackRepository.findById(id).isPresent()) {
-			LoggedInUser user = this.userContext.getLoggedInUser();
-			List<Feedback> feedback = this.feedbackRepository.findAllById(id);
-
-			if (feedback.get(0).getReceiverId().getSupervisor().getEmployeeId() == user.getEmployeeId())
+		if (feedbackRepository.findById(id).isPresent()) {		
+			Optional<Feedback> feedback=this.feedbackRepository.findById(id);
+			int receiverId=feedback.get().getReceiverId().getEmployeeId();
+			Optional<ErrpUser> receiver= errpUserRepository.findById(receiverId);
+			if(receiver.get().getSupervisor().getEmployeeId()==getUser().getEmployeeId())
 				this.feedbackRepository.deleteById(id);
 			else
 				throw new UnAuthorizedAccessException("User is not Authorized");
@@ -139,6 +124,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public Optional<Feedback> getFeedback(int id) {
+		
 		if (feedbackRepository.findById(id).isPresent()) {
 			return feedbackRepository.findById(id);
 		} else {

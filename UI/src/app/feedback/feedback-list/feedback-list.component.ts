@@ -1,11 +1,10 @@
+
 import { AlertController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from '../feedback-model.ts/employee';
 import { Feedback } from '../feedback-model.ts/feedback';
 import { FeedbackService } from '../feedback.service';
-import { Observable, Subscription, interval } from 'rxjs';
-import { LoggedInUserContext } from 'src/app/providers/logged-in-user-context.service';
 import { ToastService } from 'src/app/errp-service/toast.service';
 @Component({
     selector: 'app-feedback-list',
@@ -13,6 +12,8 @@ import { ToastService } from 'src/app/errp-service/toast.service';
     styleUrls: ['./feedback-list.component.scss'],
 })
 export class FeedbackListComponent implements OnInit {
+  
+
     constructor(
         private feedbackService: FeedbackService,
         private router: Router,
@@ -50,7 +51,6 @@ export class FeedbackListComponent implements OnInit {
             (reportee) => {
                 this.reportees = reportee;
                 if (this.reportees.length > 0) this.isAuthorizedUser = true;
-                console.log(this.isAuthorizedUser);
             },
             (error) => {
                 this.toastService.showErrorToast('Oops, Something went wrong!!!');
@@ -91,7 +91,7 @@ export class FeedbackListComponent implements OnInit {
                 );
         } else {
             this.isMyFeedbacks = false;
-            this.feedbacks = [];
+            this.feedbacks = []
             for (let i = 0; i < this.givenFeedback.length; i++) {
                 this.feedbacks.push(this.givenFeedback[i]);
             }
@@ -152,4 +152,5 @@ export class FeedbackListComponent implements OnInit {
         });
         await alert.present();
     }
+   
 }
