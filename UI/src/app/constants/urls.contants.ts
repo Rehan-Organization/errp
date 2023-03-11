@@ -9,5 +9,11 @@ export const URLS = {
     DELETE: '/achievement',
     SUBMIT: '/achievement/submit',
     SAVE: '/achievement',
-    GET_PAGINATED: '/achievement/paginated'
+    GET_PAGINATED: '/achievement/paginated',
+    ALL_AWARD_LIST: '/awardTypes/',
+    NEW_AWARD_TYPE: '/awardTypes/',
+    UPDATE_AWARD_TYPE: '/awardTypes/',
+    GET_AWARD_TYPE: '/awardTypes/',
+    GET_LEADERBOARD_LIST: '/leaderboard'
+
 }

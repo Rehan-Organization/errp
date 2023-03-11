@@ -2,10 +2,16 @@ package com.abs.errp.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.abs.errp.user.ErrpUser;
 
 @Entity
 @Table(name = "EMPLOYEE_AWARD")
@@ -13,25 +19,31 @@ public class EmployeeAward {
 
 	@Id
 	@Column(name = "EMPLOYEE_AWARD_ID")
-	private int employeeAwardId;
+	private long employeeAwardId;
 
-	@Column(name = "AWARD_ID")
-	private int awardId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "AWARD_ID", referencedColumnName = "AWARD_ID")
+	private AwardType awardId;
 
-	@Column(name = "AWARDEE_ID")
-	private int awardeeId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "AWARDEE_ID", referencedColumnName = "EMPLOYEE_ID")
+	private ErrpUser awardeeId;
 
-	@Column(name = "AWARD_RAISED_BY_ID")
-	private int awardRaisedById;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "AWARD_RAISED_BY_ID", referencedColumnName = "EMPLOYEE_ID")
+	private ErrpUser awardRaiserId;
 
-	@Column(name = "ACHIEVEMENT_ID")
-	private int achievementId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ACHIEVEMENT_ID", referencedColumnName = "ACHIEVEMENT_ID")
+	private Achievement achievementId;
 
-	@Column(name = "REQUEST_ID")
-	private int requestId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "REQUEST_ID", referencedColumnName = "REQUEST_ID")
+	private AwardRequest requestId;
 
-	@Column(name = "APPROVED_BY_ID")
-	private int approvedById;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "APPROVED_BY_ID", referencedColumnName = "EMPLOYEE_ID")
+	private ErrpUser approvedById;
 
 	@Column(name = "APPROVED_DATE")
 	private Date approvedDate;
@@ -42,59 +54,79 @@ public class EmployeeAward {
 	@Column(name = "SUPERVISOR_COMMENTS")
 	private String supervisorComments;
 
-	public int getEmployeeAwardId() {
+	public EmployeeAward() {
+		super();
+	}
+
+	public EmployeeAward(long employeeAwardId, AwardType awardId, ErrpUser awardeeId, ErrpUser awardRaiserId,
+			Achievement achievementId, AwardRequest requestId, ErrpUser approvedById, Date approvedDate, String remarks,
+			String supervisorComments) {
+		super();
+		this.employeeAwardId = employeeAwardId;
+		this.awardId = awardId;
+		this.awardeeId = awardeeId;
+		this.awardRaiserId = awardRaiserId;
+		this.achievementId = achievementId;
+		this.requestId = requestId;
+		this.approvedById = approvedById;
+		this.approvedDate = approvedDate;
+		this.remarks = remarks;
+		this.supervisorComments = supervisorComments;
+	}
+
+	public long getEmployeeAwardId() {
 		return employeeAwardId;
 	}
 
-	public void setEmployeeAwardId(int employeeAwardId) {
+	public void setEmployeeAwardId(long employeeAwardId) {
 		this.employeeAwardId = employeeAwardId;
 	}
 
-	public int getAwardId() {
+	public AwardType getAwardId() {
 		return awardId;
 	}
 
-	public void setAwardId(int awardId) {
+	public void setAwardId(AwardType awardId) {
 		this.awardId = awardId;
 	}
 
-	public int getAwardeeId() {
+	public ErrpUser getAwardeeId() {
 		return awardeeId;
 	}
 
-	public void setAwardeeId(int awardeeId) {
+	public void setAwardeeId(ErrpUser awardeeId) {
 		this.awardeeId = awardeeId;
 	}
 
-	public int getAwardRaisedById() {
-		return awardRaisedById;
+	public ErrpUser getAwardRaiserId() {
+		return awardRaiserId;
 	}
 
-	public void setAwardRaisedById(int awardRaisedById) {
-		this.awardRaisedById = awardRaisedById;
+	public void setAwardRaiserId(ErrpUser awardRaiserId) {
+		this.awardRaiserId = awardRaiserId;
 	}
 
-	public int getAchievementId() {
+	public Achievement getAchievementId() {
 		return achievementId;
 	}
 
-	public void setAchievementId(int achievementId) {
+	public void setAchievementId(Achievement achievementId) {
 		this.achievementId = achievementId;
 	}
 
-	public int getRequestId() {
+	public AwardRequest getRequestId() {
 		return requestId;
 	}
 
-	public void setRequestId(int requestId) {
+	public void setRequestId(AwardRequest requestId) {
 		this.requestId = requestId;
 	}
 
-	public int getApprovedById() {
+	public ErrpUser getApprovedById() {
 		return approvedById;
 	}
 
-	public void setApprovedById(int approvedById) {
+	public void setApprovedById(ErrpUser approvedById) {
 		this.approvedById = approvedById;
 	}
 
@@ -122,38 +154,4 @@ public class EmployeeAward {
 		this.supervisorComments = supervisorComments;
 	}
 
-	public EmployeeAward(int employeeAwardId, int awardId, int awardeeId, int awardRaisedById, int achievementId,
-			int requestId, int approvedById, Date approvedDate, String remarks, String supervisorComments) {
-		super();
-		this.employeeAwardId = employeeAwardId;
-		this.awardId = awardId;
-		this.awardeeId = awardeeId;
-		this.awardRaisedById = awardRaisedById;
-		this.achievementId = achievementId;
-		this.requestId = requestId;
-		this.approvedById = approvedById;
-		this.approvedDate = approvedDate;
-		this.remarks = remarks;
-		this.supervisorComments = supervisorComments;
-	}
-
-	public EmployeeAward(int awardId, int awardeeId, int awardRaisedById, int achievementId, int requestId,
-			int approvedById, Date approvedDate, String remarks, String supervisorComments) {
-		super();
-		this.awardId = awardId;
-		this.awardeeId = awardeeId;
-		this.awardRaisedById = awardRaisedById;
-		this.achievementId = achievementId;
-		this.requestId = requestId;
-		this.approvedById = approvedById;
-		this.approvedDate = approvedDate;
-		this.remarks = remarks;
-		this.supervisorComments = supervisorComments;
-	}
-
-	public EmployeeAward() {
-		super();
-	}
-	
-	
 }

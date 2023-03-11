@@ -26,7 +26,7 @@
                     <ion-icon name="trophy-outline" slot="start"></ion-icon>
                     My Awards
                 </ion-item>
-                <ion-item lines="inset"  button color="secondary">
+                <ion-item lines="inset" button color="secondary">
                     <ion-icon name="chatbox-outline" slot="start"></ion-icon>
                     My Feedbacks
                 </ion-item>
@@ -38,11 +38,22 @@
                     <ion-icon name="log-out-outline" slot="start"></ion-icon>
                     Logout
                 </ion-item>
-
+            </ion-list>
+            <ion-list class="menu-list">
+                <ion-list-header color="secondary">
+                    <ion-label>Admin</ion-label>
+                </ion-list-header>
+                <ion-item (click)="viewAwards()" lines="inset" button color="secondary">
+                    <ion-icon name="trophy-outline" slot="start"></ion-icon>
+                    Award Types
+                </ion-item>
+                <ion-item (click)="leaderBoard()" lines="inset" button color="secondary">
+                    <ion-icon name="podium-outline" slot="start"></ion-icon>
+                    Leaderboard
+                </ion-item>
             </ion-list>
         </ion-content>
     </ion-menu>
 
     <ion-router-outlet id="home-content"></ion-router-outlet>
 </ion-split-pane>
-

@@ -6,11 +6,12 @@ import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { URLS } from '../../constants/urls.contants';
+import { ToastService } from 'src/app/errp-service/toast.service';
 
 @Injectable()
 export class ErrorResponseInterceptor implements HttpInterceptor {
 
-    constructor(private authSvc: AppAuthService, private toaster: ToastController) { }
+    constructor(private authSvc: AppAuthService, private toaster: ToastService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         return next.handle(req)
@@ -21,20 +22,14 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
                         if (!url.includes(URLS.LOGIN)) {
                             err.error = 'Oops, Looks like your session timed out! Please login and try again.';
 
-                            this.toaster.create({
-                                message: err.error,
-                                color: 'danger'
-                            }).then(t => t.present());      
+                            this.toaster.showErrorToast(err.error);    
                             
                             this.authSvc.logout().subscribe();
                         }
                     } else if (err.status === 404 || err.status === 500) {
                         err.error = 'Oops, Something went wrong!!! Please contact system administrator'
 
-                        this.toaster.create({
-                            message: err.error,
-                            color: 'danger'
-                        }).then(t => t.present());
+                        this.toaster.showErrorToast(err.error);
                     }
                     return throwError(() => err);
                 })

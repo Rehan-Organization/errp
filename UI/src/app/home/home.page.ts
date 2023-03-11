@@ -11,12 +11,14 @@ import { LoggedInUser } from '../providers/logged-in-user.model';
 })
 export class HomePage {
 
+
     loggedInUser: LoggedInUser | undefined;
 
     constructor(private authService: AppAuthService, private userContext: LoggedInUserContext, private router: Router) { }
 
     ngOnInit() {
         this.loggedInUser = this.userContext.getLoggedInUser();
+
     }
 
     myAchievement() {
@@ -28,5 +30,13 @@ export class HomePage {
 
     logout() {
         this.authService.logout().subscribe(() => { });
+
+    }
+    viewAwards() {
+        this.router.navigate(['/home/awardTypes']);
+    }
+    leaderBoard() {
+        this.router.navigate(['/home/leaderboard']);
+
     }
 }
