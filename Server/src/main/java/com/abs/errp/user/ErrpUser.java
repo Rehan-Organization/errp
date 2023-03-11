@@ -11,18 +11,23 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "ERRP_USER")
+@Table(name="ERRP_USER")
 public class ErrpUser {
 
 	@Id
 	@Column(name = "EMPLOYEE_ID")
-	private Long employeeId;
-
+	private int employeeId;
+	
+	@JsonIgnore
 	@Column(name = "USERNAME", nullable = false, unique = true)
 	private String username;
-
+	
+	@JsonIgnore
 	@Column(name = "PASSWORD")
 	private String password;
 
@@ -31,11 +36,11 @@ public class ErrpUser {
 
 	@Column(name = "ENABLED")
 	private boolean enabled;
-
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "SUPERVISOR_ID")
 	private ErrpUser supervisor;
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "supervisor")
 	private Set<ErrpUser> reportees;
@@ -53,11 +58,11 @@ public class ErrpUser {
 
 	}
 
-	public Long getEmployeeId() {
+	public int getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(Long employeeId) {
+	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
 

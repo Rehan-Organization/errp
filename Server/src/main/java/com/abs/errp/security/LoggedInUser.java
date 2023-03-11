@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.User;
 public class LoggedInUser extends User {
 	static final long serialVersionUID = 1L;
 
-	private Long employeeId;
+	private int employeeId;
 	private String employeeName;
 	
-	public LoggedInUser(String username, String password, Long employeeId, String employeeName, Collection<? extends GrantedAuthority> authorities) {
+	public LoggedInUser(String username, String password, int employeeId, String employeeName, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		this.employeeName=employeeName;
 		this.employeeId = employeeId;
@@ -25,11 +25,11 @@ public class LoggedInUser extends User {
 		this.employeeName = employeeName;
 	}
 
-	public Long getEmployeeId() {
+	public int getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(Long employeeId) {
+	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
 }

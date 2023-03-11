@@ -26,7 +26,7 @@
                     <ion-icon name="trophy-outline" slot="start"></ion-icon>
                     My Awards
                 </ion-item>
-                <ion-item lines="inset" button color="secondary">
+                <ion-item (click)="viewFeedBack()" lines="inset" button color="secondary">
                     <ion-icon name="chatbox-outline" slot="start"></ion-icon>
                     My Feedbacks
                 </ion-item>
@@ -57,4 +57,3 @@
 
     <ion-router-outlet id="home-content"></ion-router-outlet>
 </ion-split-pane>
-
