@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Raise Award</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+    <ion-content>
+        <ion-card>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item fill="outline">
+                        <ion-select placeholder="Raise award for employee">
+                            <ion-select-option *ngFor="let employee of employees" [value]="employee.employeeId">
+                                {{ employee.employeeName }}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item fill="outline">
+                        <ion-select placeholder="Select an Award">
+                            <ion-select-option *ngFor="let award of awards" [value]="award.awardId">
+                                {{ award.awardName }}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+
+                    <ion-item fill="outline">
+                        <ion-label position="floating">Remarks</ion-label>
+                        <ion-textarea placeholder="Enter description"></ion-textarea>
+                    </ion-item>
+                </ion-list>
+
+                <ion-button color="primary">Submit</ion-button>
+            </ion-card-content>
+        </ion-card>
+    </ion-content>
+</ion-content>

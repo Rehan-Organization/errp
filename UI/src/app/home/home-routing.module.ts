@@ -7,13 +7,22 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
-    children:[
+    children: [
+
       {
-        path:'awardTypes',
+        path: 'Achievement',
+        loadChildren: () => import('../Achievement/achievement-list/achievement-list.module').then(m => m.AchievementListModule)
+      },
+      {
+        path: 'Awards',
+        loadChildren: () => import('../Awards/award-list/award-list.module').then(m => m.AwardListModule)
+      },
+      {
+        path: 'awardTypes',
         loadChildren: () => import('../award-type/award-list/award-list.module').then(m => m.AwardListModule)
       },
       {
-        path:'leaderboard',
+        path: 'leaderboard',
         loadChildren: () => import('../leaderboard/leaderboard/leaderboard.module').then(m => m.LeaderboardModule)
       },
       {
@@ -32,4 +41,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class HomePageRoutingModule {}
+export class HomePageRoutingModule { }

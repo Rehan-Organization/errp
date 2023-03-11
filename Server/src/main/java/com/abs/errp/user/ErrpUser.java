@@ -15,6 +15,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.abs.errp.entity.Achievement;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "ERRP_USER")
 @Table(name="ERRP_USER")
 public class ErrpUser {
@@ -36,7 +39,11 @@ public class ErrpUser {
 
 	@Column(name = "ENABLED")
 	private boolean enabled;
-	
+
+	@OneToMany
+	@JoinColumn(name = "EMPLOYEE_ID")
+	private Set<Achievement> achievements;
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "SUPERVISOR_ID")
@@ -44,7 +51,7 @@ public class ErrpUser {
 	@JsonIgnore
 	@OneToMany(mappedBy = "supervisor")
 	private Set<ErrpUser> reportees;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USER_ROLE",

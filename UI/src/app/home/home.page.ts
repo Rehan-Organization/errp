@@ -33,12 +33,19 @@ export class HomePage {
 
     }
 
+    myAchievement() {
+        this.router.navigate(["/home/Achievement"])
+    }
+    myAwards() {
+        this.router.navigate(["/home/Awards"])
+
+    }
     viewFeedBack() {
         this.router.navigate(['home/viewFeedback']);
     }
 
     logout() {
-        this.authService.logout().subscribe(() => {});
+        this.authService.logout().subscribe(() => { });
 
     }
     viewAwards() {
