@@ -47,9 +47,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 		feedback.setSender(e);
 		int receiverId = feedback.getReceiver().getEmployeeId();
 		Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
-		if (receiver.get().getSupervisor() == null)
-			throw new NullPointerException("NullPointerException");
-		else if (receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
+	
+		if (receiver.get().getSupervisor() != null && receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
 			return feedbackRepository.save(feedback);
 		else
 			throw new UnAuthorizedAccessException("User is not Authorized");
@@ -107,9 +106,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 			int receiverId = feedback.get().getReceiver().getEmployeeId();
 			Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
 
-			if (receiver.get().getSupervisor() == null)
-				throw new NullPointerException("NullPointerException");
-			else if (receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
+			if (receiver.get().getSupervisor() != null && receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
 				this.feedbackRepository.deleteById(id);
 			else
 				throw new UnAuthorizedAccessException("User is not Authorized");
