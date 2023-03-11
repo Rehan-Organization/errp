@@ -1,3 +1,4 @@
+import { ToastService } from 'src/app/errp-service/toast.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
@@ -12,7 +13,7 @@ export class AuthComponent {
     constructor(
         private authService: AppAuthService,
         private router: Router,
-        private toaster: ToastController
+        private toaster: ToastService
     ) {}
 
     login(form: any) {
@@ -23,14 +24,7 @@ export class AuthComponent {
             },
             (error) => {
                 console.error(error.error);
-                this.toaster
-                    .create({
-                        message: error.error,
-                        color: 'danger',
-                    })
-                    .then((toast) => {
-                        toast.present();
-                    });
+                this.toaster.showErrorToast(error.error);
             }
         );
     }
