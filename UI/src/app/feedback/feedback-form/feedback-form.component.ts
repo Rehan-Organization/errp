@@ -32,29 +32,33 @@ export class FeedbackFormComponent implements OnInit {
         title: '',
         description: '',
     };
-    employees: Employee[] = [];
-    selectedValue: any=null;
-    checkRole: number;
+    reportees: Employee[] = [];
+    selectedFeedbackId: any = null;
     feedbackId?: number;
-    urlId?: any;
+    updateFeedbackId?: any;
     fetchedFeedback: Feedback[] = [];
     ngOnInit() {
-        this.urlId = this.route.snapshot.paramMap.get('id');
-        if (this.urlId != null) {
-            this.feedbackService
-                .fetchFeedback(this.urlId)
-                .subscribe((feedback) => (this.newFeedback = feedback));
+        this.updateFeedbackId = this.route.snapshot.paramMap.get('id');
+        if (this.updateFeedbackId != null) {
+            this.feedbackService.fetchFeedback(this.updateFeedbackId).subscribe(
+                (feedback) => (this.newFeedback = feedback),
+                (error) => {
+                    this.toastService.showErrorToast(
+                        'Oops, Something went wrong!!! Please try again'
+                    );
+                }
+            );
         } else {
             this.newFeedback.title = '';
             this.newFeedback.description = '';
         }
-        
+
         this.fetchReportees();
     }
 
     async addFeedback(feedback: Feedback) {
-        if (this.selectedValue==null) {
-            this.showAlert('Employee name cannot be empty!');
+        if (this.selectedFeedbackId == null) {
+            this.showAlert('Reportee name cannot be empty!');
         } else if (!this.newFeedback.title?.trim()) {
             this.showAlert('Title cannot be empty!');
         } else if (!this.newFeedback.description?.trim()) {
@@ -72,14 +76,13 @@ export class FeedbackFormComponent implements OnInit {
                         text: 'Submit',
                         role: 'confirm',
                         handler: () => {
-                            feedback.receiverId.employeeId = this.selectedValue;
-                            this.feedbackService
-                                .saveFeedback(feedback)
-                                .subscribe((feedbackResponse) => {
+                            feedback.receiverId.employeeId = this.selectedFeedbackId;
+                            this.feedbackService.saveFeedback(feedback).subscribe(
+                                (feedbackResponse) => {
                                     if (feedbackResponse != null) {
                                         this.newFeedback.title = '';
                                         this.newFeedback.description = '';
-                                        this.selectedValue = null;
+                                        this.selectedFeedbackId = null;
                                         this.toastService.showSuccessToast(
                                             'Feedback added successfully'
                                         );
@@ -89,14 +92,13 @@ export class FeedbackFormComponent implements OnInit {
                                             'Oops, Something went wrong!!! Please try again'
                                         );
                                     }
-
                                 },
-                                    error => {
-                                        this.errors = error;
-                                        this.toastService.showErrorToast("Oops, Something went wrong!!! Please try again");
-                                    },
-                                );
-
+                                (error) => {
+                                    this.toastService.showErrorToast(
+                                        'Oops, Something went wrong!!! Please try again'
+                                    );
+                                }
+                            );
                         },
                     },
                 ],
@@ -106,57 +108,69 @@ export class FeedbackFormComponent implements OnInit {
     }
 
     fetchReportees() {
-        this.feedbackService.getReportees().subscribe((reportee) => {
-            this.employees = reportee;
-            this.checkRole = this.employees.length;
-            console.log(this.checkRole);
-        });
+        this.feedbackService.getReportees().subscribe(
+            (reportee) => {
+                this.reportees = reportee;
+            },
+            (error) => {
+                this.toastService.showErrorToast('Oops, Something went wrong!!! Please try again');
+            }
+        );
     }
 
     async updateFeedback() {
-        const alert = await this.alertController.create({
-            header: 'Are you sure you want to update feedback ?',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    role: 'cancel',
-                    handler: () => {},
-                },
-                {
-                    text: 'Update',
-                    role: 'confirm',
-                    handler: () => {
-                        this.feedbackService
-                            .updateFeedback(this.newFeedback, this.urlId)
-                            .subscribe((feedbackResponse) => {
-                                if (feedbackResponse != null) {
-                                    this.router.navigate(['home/viewFeedback']);
-                                    this.toastService.showSuccessToast(
-                                        'Feedback added successfully'
-                                    );
-                                }
-                                if (feedbackResponse == null) {
-                                    this.toastService.showErrorToast(
-                                        'Oops, Something went wrong!!! Please try again'
-                                    );
-                                }
-
-                            }, error => {
-                                this.errors = error;
-                                this.toastService.showErrorToast("Oops, Something went wrong!!! Please try again");
-                            });
+        if (!this.newFeedback.title?.trim()) {
+            this.showAlert('Title cannot be empty!');
+        } else if (!this.newFeedback.description?.trim()) {
+            this.showAlert('Description cannot be empty!');
+        } else {
+            const alert = await this.alertController.create({
+                header: 'Are you sure you want to update feedback ?',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => {},
                     },
-                },
-            ],
-        });
-        await alert.present();
+                    {
+                        text: 'Update',
+                        role: 'confirm',
+                        handler: () => {
+                            this.feedbackService
+                                .updateFeedback(this.newFeedback, this.updateFeedbackId)
+                                .subscribe(
+                                    (feedbackResponse) => {
+                                        if (feedbackResponse != null) {
+                                            this.router.navigate(['home/viewFeedback']);
+                                            this.toastService.showSuccessToast(
+                                                'Feedback added successfully'
+                                            );
+                                        }
+                                        if (feedbackResponse == null) {
+                                            this.toastService.showErrorToast(
+                                                'Oops, Something went wrong!!! Please try again'
+                                            );
+                                        }
+                                    },
+                                    (error) => {
+                                        this.toastService.showErrorToast(
+                                            'Oops, Something went wrong!!! Please try again'
+                                        );
+                                    }
+                                );
+                        },
+                    },
+                ],
+            });
+            await alert.present();
+        }
     }
 
     cancelForm() {
-        if (this.urlId != null) {
+        if (this.updateFeedbackId != null) {
             this.router.navigate(['home/viewFeedback']);
         }
-        this.selectedValue = null;
+        this.selectedFeedbackId = null;
         this.newFeedback.title = '';
         this.newFeedback.description = '';
     }
