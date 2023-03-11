@@ -17,7 +17,7 @@
             </ion-col>
 
             <ion-col size="auto">
-                <ion-button *ngIf="isAuthorizedUser" color="medium" (click)="addFeedback()">Add Feedback</ion-button>
+                <ion-button *ngIf="isAuthorizedUser" color="medium" (click)="addFeedback()"><i class="fa fa-plus" aria-hidden="true"></i>Add Feedback</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -48,11 +48,11 @@
                     <ion-col></ion-col>
                     <ion-col size="auto" *ngIf="!isMyFeedbacks"
                         ><ion-button fill="clears" color="danger" (click)="deleteFeedback(feedback)"
-                            >Delete</ion-button
+                            ><i class="fa fa-trash" aria-hidden="true"></i>Delete</ion-button
                         ></ion-col
                     >
                     <ion-col size="auto" *ngIf="!isMyFeedbacks"
-                        ><ion-button (click)="updateFeedback(feedback)">Update</ion-button></ion-col
+                        ><ion-button (click)="updateFeedback(feedback)"><i class="fa fa-pencil" aria-hidden="true"></i>Update</ion-button></ion-col
                     >
                 </ion-row>
             </ion-grid>

@@ -41,13 +41,20 @@
                 color="primary"
                 class="ion-float-right"
                 (click)="addFeedback(newFeedback)"
-            >
+                ><i class="fa fa-paper-plane" aria-hidden="true"></i>
                 Submit
             </ion-button>
-            <ion-button *ngIf="updateFeedbackId != null" color="primary" class="ion-float-right" (click)="updateFeedback()">
-                Update
+            <ion-button
+                *ngIf="updateFeedbackId != null"
+                color="primary"
+                class="ion-float-right"
+                (click)="updateFeedback()"
+            >
+                <i class="fa fa-pencil" aria-hidden="true"></i> Update
             </ion-button>
-            <ion-button fill="clear" class="ion-float-right" (click)="cancelForm()">Cancel</ion-button>
+            <ion-button fill="clear" class="ion-float-right" (click)="cancelForm()"
+                ><i class="fa fa-times" aria-hidden="true"></i>Cancel</ion-button
+            >
         </ion-card-content>
     </ion-card>
 </ion-content>
