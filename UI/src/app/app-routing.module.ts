@@ -6,7 +6,7 @@ import { UserContextResolver } from './providers/user-context-resolver.service';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
     canActivate: [AppAuthGuard],
     resolve: [UserContextResolver]
   },
@@ -16,6 +16,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  {
+    path: 'award-list',
+    loadChildren: () => import('./Awards/award-list/award-list.module').then(m => m.AwardListModule)
+  },
+
 ];
 
 @NgModule({

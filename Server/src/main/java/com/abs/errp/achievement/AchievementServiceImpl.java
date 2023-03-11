@@ -1,5 +1,6 @@
 package com.abs.errp.achievement;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,13 @@ public class AchievementServiceImpl implements AchievementService {
 
 	@Autowired
 	LoggedInUserContext userContext;
+	
+	
+	//returns logged in user	
+	public LoggedInUser getUser() {
+		
+		return this.userContext.getLoggedInUser();
+	}
 
 	// Check if user is authorized for the action
 	// achievement's employeeId should be same as logged in user's id
@@ -49,6 +57,12 @@ public class AchievementServiceImpl implements AchievementService {
 	public Achievement saveAchievement(Achievement achievement) {
 
 		if (isAuthorized(achievement)) {
+			 	
+			achievement.setCreatedDate(new Date());
+			achievement.setUpdatedDate(new Date());
+			achievement.setCreatedBy(this.getUser().getEmployeeId());
+			achievement.setUpdatedBy(this.getUser().getEmployeeId());
+			achievement.setAchievementStatus(0);
 
 			return achievementRepository.save(achievement);
 		} else {
@@ -60,10 +74,10 @@ public class AchievementServiceImpl implements AchievementService {
 
 	@Override
 	public List<Achievement> findPaginated(int pageNo, int pageSize) {
+		
 		Sort sort = Sort.by("updatedDate").descending();
-		LoggedInUser user = this.userContext.getLoggedInUser();
 		Pageable paging = PageRequest.of(pageNo, pageSize, sort);
-		return achievementRepository.findAllByEmployeeId(user.getEmployeeId(), paging);
+		return achievementRepository.findAllByEmployeeId(this.getUser().getEmployeeId(), paging);
 
 	}
 
@@ -78,12 +92,18 @@ public class AchievementServiceImpl implements AchievementService {
 	}
 
 	@Override
-	public Achievement updateAchievement(int id, Achievement achievement) {
+	public Achievement updateAchievement(Achievement achievement) {
 
-		if (validateRequest(id)) {
+		if (validateRequest(achievement.getAchievementId())) {
+
+			achievement.setUpdatedBy(this.getUser().getEmployeeId());
+			achievement.setUpdatedDate(new Date());
+
 			return this.saveAchievement(achievement);
+
 		} else {
-			throw new ResourceNotFoundException(String.format("Achievement with id %d Not Found", id));
+			throw new ResourceNotFoundException(
+					String.format("Achievement with id %d Not Found", achievement.getAchievementId()));
 		}
 
 	}
@@ -106,7 +126,16 @@ public class AchievementServiceImpl implements AchievementService {
 
 		if (isAuthorized(achievement)) {
 
-			this.saveAchievement(achievement);
+			achievement.setCreatedBy(this.getUser().getEmployeeId());
+			achievement.setUpdatedBy(this.getUser().getEmployeeId());
+			achievement.setCreatedDate(new Date());
+			achievement.setUpdatedDate(new Date());
+			achievement.setAchievementStatus(1);
+			
+			achievementRepository.save(achievement);
+			
+			
+
 		} else {
 
 			throw new NotAuthorizedException(

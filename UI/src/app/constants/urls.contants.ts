@@ -4,10 +4,10 @@ export const URLS = {
     USER_CONTEXT: '/userContext',
     LOGIN: '/authenticate',
     LOGOUT: '/logout',
-    GET: '/achievement/get',
-    UPDATE: '/achievement/update',
-    DELETE: '/achievement/delete',
+    GET: '/achievement',
+    UPDATE: '/achievement',
+    DELETE: '/achievement',
     SUBMIT: '/achievement/submit',
-    SAVE: '/achievement/add',
+    SAVE: '/achievement',
     GET_PAGINATED: '/achievement/paginated'
 }

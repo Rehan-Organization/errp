@@ -11,28 +11,19 @@ import com.abs.errp.user.ErrpUser;
 @Service
 public class AwardTypeServiceImpl implements AwardTypeService {
 
-	@Autowired
-	LoggedInUserContext userContext;
+	
 
 	@Autowired
 	private AwardTypeRepository awardServiceRespository;
 
-	@Autowired
-	private ErrpUserRepository userRepository;
+	
 
 	public AwardTypeServiceImpl(AwardTypeRepository awardServiceRespository) {
 		super();
 		this.awardServiceRespository = awardServiceRespository;
 	}
 
-	@Override
-	public List<AwardType> getAllAwardTypes() {
-		return awardServiceRespository.findAll();
-	}
-
-	@Override
-	public List<ErrpUser> getAllUsers() {
-		return userRepository.findAll();
-	}
+	
+	
 
 }

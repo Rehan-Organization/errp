@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { URLS } from '../constants/urls.contants';
+import { LoggedInUserContext } from '../providers/logged-in-user-context.service';
 import { Achievement } from './achievement';
 
 @Injectable({
@@ -9,19 +10,26 @@ import { Achievement } from './achievement';
 })
 export class AchievementService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private userContext: LoggedInUserContext) { }
+
+
 
   getPaginatedAchievement(pageNo: number, pageSize: number): Observable<Achievement[]> {
     return this.httpClient.get<Achievement[]>(URLS.GET_PAGINATED + '/' + pageNo + "/" + pageSize);
   }
 
   saveAchievement(achievement: Achievement): Observable<Achievement> {
+    
+    achievement.employeeId = this.userContext.getLoggedInUser()?.employeeId;
     return this.httpClient.post<Achievement>(URLS.SAVE, achievement)
   }
 
 
   updateAchievement(achievement: Achievement): Observable<Achievement> {
-    return this.httpClient.post<Achievement>(URLS.UPDATE + '/' + achievement.achievementId, achievement);
+
+    achievement.employeeId = this.userContext.getLoggedInUser()?.employeeId;
+    return this.httpClient.put<Achievement>(URLS.UPDATE, achievement);
   }
 
   getAchievement(userId: number): Observable<Achievement> {
@@ -29,12 +37,12 @@ export class AchievementService {
   }
 
   deleteAchievement(achievement_id: any): Observable<Achievement> {
-    console.log(achievement_id)
     return this.httpClient.delete(URLS.DELETE + '/' + achievement_id)
   }
 
   submitAchievement(achievement: Achievement): Observable<Achievement> {
-    console.log("submit", achievement);
+
+    achievement.employeeId = this.userContext.getLoggedInUser()?.employeeId;
     return this.httpClient.post<Achievement>(URLS.SUBMIT, achievement);
   }
 

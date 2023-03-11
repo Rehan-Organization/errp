@@ -6,6 +6,6 @@ import com.abs.errp.entity.AwardType;
 
 public interface AwardTypeRepository extends JpaRepository<AwardType, Long> {
 
-	AwardType findByAwardName(String awardName);
+
 
 }

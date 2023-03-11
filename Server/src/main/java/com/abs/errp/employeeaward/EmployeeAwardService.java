@@ -5,5 +5,5 @@ import com.abs.errp.entity.EmployeeAward;
 
 public interface EmployeeAwardService {
 
-	List<EmployeeAward> getAllEmployeeAward();
+
 }

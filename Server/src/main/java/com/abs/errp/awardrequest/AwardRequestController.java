@@ -18,23 +18,6 @@ public class AwardRequestController {
 	@Autowired
 	private AwardRequestService awardRequestService;
 
-	public AwardRequestController(AwardRequestService awardRequestService) {
-		super();
-		System.out.println("2");
-		this.awardRequestService = awardRequestService;
-	}
-
-	@GetMapping()
-	public List<AwardRequest> getAllAwardRequest()
-
-	{
-		System.out.println("AwardRequest");
-		return awardRequestService.getAllAwardRequest();
-	}
-
-	@PostMapping()
-	public AwardRequest saveAwardRequest(@RequestBody AwardRequest awardRequest) {
-		return awardRequestService.saveAwardRequest(awardRequest);
-	}
+	
 
 }

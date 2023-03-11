@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author rnawab
  *
  */
-@ResponseStatus(value = HttpStatus.NOT_FOUND)
 @ControllerAdvice
-public class ErrpExceptionHandler extends RuntimeException {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class ErrpExceptionHandler {
 	
-	
-
+	@ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public void handleAuthenticationException(AuthenticationException ex)
+    {
+        //Since we want the Spring framework to handle this exception
+        //we are throwing back the AuthenticationException at Spring
+        throw ex;
+    }
 }

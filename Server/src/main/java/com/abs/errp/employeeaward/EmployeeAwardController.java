@@ -19,11 +19,4 @@ public class EmployeeAwardController {
 		this.employeeawardService = employeeawardService;
 	}
 
-	@GetMapping()
-	public List<EmployeeAward> getAllEmployeeAward()
-
-	{
-
-		return employeeawardService.getAllEmployeeAward();
-	}
 }

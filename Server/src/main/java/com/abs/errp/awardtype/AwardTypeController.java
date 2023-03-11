@@ -20,18 +20,5 @@ public class AwardTypeController {
 		this.awardTypeService = awardTypeService;
 	}
 
-	@GetMapping("/awardtypes")
-	public List<AwardType> getAllAwardTypes()
-
-	{
-		return awardTypeService.getAllAwardTypes();
-	}
-
-	@GetMapping("/users")
-	public List<ErrpUser> getAllUsers() {
-
-		return awardTypeService.getAllUsers();
-
-	}
 
 }

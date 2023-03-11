@@ -12,7 +12,7 @@ public interface AchievementService {
 
 	Achievement getAchievementById(int id);
 
-	Achievement updateAchievement(int id, Achievement achievement);
+	Achievement updateAchievement(Achievement achievement);
 
 	void deleteAchievement(int id);
 
