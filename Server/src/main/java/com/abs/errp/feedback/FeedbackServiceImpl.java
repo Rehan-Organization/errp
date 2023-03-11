@@ -29,36 +29,31 @@ public class FeedbackServiceImpl implements FeedbackService {
 		this.errpUserRepository = errpUserRepository;
 	}
 
-
 	private ErrpUser setErrpUser() {
 		LoggedInUser user = this.userContext.getLoggedInUser();
 		ErrpUser e = new ErrpUser();
 		e.setEmployeeId(user.getEmployeeId());
 		return e;
 	}
-	
+
 	private LoggedInUser getUser() {
 		return this.userContext.getLoggedInUser();
-		
+
 	}
 
 	@Override
 	public Feedback saveFeedback(Feedback feedback) {
 		ErrpUser e = setErrpUser();
 		feedback.setSender(e);
-		int receiverId=feedback.getReceiver().getEmployeeId();
-		Optional<ErrpUser> receiver= errpUserRepository.findById(receiverId);
-		if (receiver.get().getSupervisor().getEmployeeId()==getUser().getEmployeeId())
+		int receiverId = feedback.getReceiver().getEmployeeId();
+		Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
+		if (receiver.get().getSupervisor() == null)
+			throw new NullPointerException("NullPointerException");
+		else if (receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
 			return feedbackRepository.save(feedback);
 		else
 			throw new UnAuthorizedAccessException("User is not Authorized");
-	
 	}
-
-	/**
-	 * If user have reportees then user is supervisor
-	 */
-	
 
 	/**
 	 * If isMyFeedback is true then returns feedback received by user If
@@ -74,10 +69,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 		if (isMyFeedback) {
 			return feedbackRepository.findAllByReceiver(errpUser, pages);
-		} else {			
-				return feedbackRepository.findAllBySender(errpUser, pages);
-//			else
-//				throw new UnAuthorizedAccessException("User is not Authorized");
+			
+		} else {
+			return feedbackRepository.findAllBySender(errpUser, pages);
 		}
 	}
 
@@ -89,10 +83,10 @@ public class FeedbackServiceImpl implements FeedbackService {
 	public Feedback updateFeedback(Feedback feedback, int id) {
 		Feedback updateFeedback = feedbackRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Feedback not exist with id: " + id));
-		
-		int receiverId=feedback.getReceiver().getEmployeeId();
-		Optional<ErrpUser> receiver= errpUserRepository.findById(receiverId);
-		if (receiver.get().getSupervisor().getEmployeeId()==getUser().getEmployeeId()) {
+
+		int receiverId = feedback.getReceiver().getEmployeeId();
+		Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
+		if (receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId()) {
 			updateFeedback.setTitle(feedback.getTitle());
 			updateFeedback.setDescription(feedback.getDescription());
 			updateFeedback.setUpdatedDate(new Date());
@@ -108,15 +102,17 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 */
 	@Override
 	public void removeByFeedbackId(int id) {
-		if (feedbackRepository.findById(id).isPresent()) {		
-			Optional<Feedback> feedback=this.feedbackRepository.findById(id);
-			int receiverId=feedback.get().getReceiver().getEmployeeId();
-			Optional<ErrpUser> receiver= errpUserRepository.findById(receiverId);
-			if(receiver.get().getSupervisor().getEmployeeId()==getUser().getEmployeeId())
+		if (feedbackRepository.findById(id).isPresent()) {
+			Optional<Feedback> feedback = this.feedbackRepository.findById(id);
+			int receiverId = feedback.get().getReceiver().getEmployeeId();
+			Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
+
+			if (receiver.get().getSupervisor() == null)
+				throw new NullPointerException("NullPointerException");
+			else if (receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
 				this.feedbackRepository.deleteById(id);
 			else
 				throw new UnAuthorizedAccessException("User is not Authorized");
-
 		} else {
 			throw new ResourceNotFoundException("Feedback not exist with id: " + id);
 		}
@@ -124,7 +120,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public Optional<Feedback> getFeedback(int id) {
-		
+
 		if (feedbackRepository.findById(id).isPresent()) {
 			return feedbackRepository.findById(id);
 		} else {

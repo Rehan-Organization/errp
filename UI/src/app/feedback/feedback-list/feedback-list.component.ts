@@ -141,9 +141,8 @@ export class FeedbackListComponent implements OnInit {
                                 this.feedbacks = this.feedbacks.filter(
                                     (newFeedback) => newFeedback.id != feedback.id
                                 );
-                            },
-                            (error) => {
-                                this.toastService.showErrorToast(error);
+                            },(error) => {
+                                this.toastService.showErrorToast("Oops, Something went wrong!!! while deleting feedback");
                             }
                         );
                     },
