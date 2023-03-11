@@ -4,11 +4,11 @@ export const URLS = {
     LOGIN: '/authenticate',
     LOGOUT: '/logout',
     FEEDBACK: '/api/v1',
-    SAVEFEEDBACK :'/feedback/saveFeedback',
+    SAVEFEEDBACK :'/feedback',
     FETCHREPORTEES:'/feedback/getReportees',
-    FETCHFEEDBACKS:'/feedback/getFeedbacks/?isMyFeedback=',
-    DELETEFEEDBACK:'/feedback/removeFeedback/',
-    FETCHFEEDBACK:'/feedback/getFeedback/',
-    UPDATEFEEDBACK:'/feedback/updateFeedback/',
+    FETCHFEEDBACKS:'/feedback/?isMyFeedback=',
+    DELETEFEEDBACK:'/feedback/',
+    FETCHFEEDBACK:'/feedback/',
+    UPDATEFEEDBACK:'/feedback/',
     USER_CONTEXT: '/userContext'
 }

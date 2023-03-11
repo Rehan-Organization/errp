@@ -46,7 +46,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	public Feedback saveFeedback(Feedback feedback) {
 		ErrpUser e = setErrpUser();
 		feedback.setSenderId(e);
-		long receiverId=feedback.getReceiverId().getEmployeeId();
+		int receiverId=feedback.getReceiverId().getEmployeeId();
 		Optional<ErrpUser> receiver= errpUserRepository.findById(receiverId);
 		if (receiver.get().getSupervisor().getEmployeeId()==getUser().getEmployeeId())
 			return feedbackRepository.save(feedback);

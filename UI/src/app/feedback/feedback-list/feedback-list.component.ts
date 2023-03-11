@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { Employee } from '../feedback-model.ts/employee';
 import { Feedback } from '../feedback-model.ts/feedback';
 import { FeedbackService } from '../feedback.service';
-import { Observable, Subscription, interval } from 'rxjs';
-import { LoggedInUserContext } from 'src/app/providers/logged-in-user-context.service';
 import { ToastService } from 'src/app/errp-service/toast.service';
 @Component({
     selector: 'app-feedback-list',
@@ -53,7 +51,6 @@ export class FeedbackListComponent implements OnInit {
             (reportee) => {
                 this.reportees = reportee;
                 if (this.reportees.length > 0) this.isAuthorizedUser = true;
-                console.log(this.isAuthorizedUser);
             },
             (error) => {
                 this.toastService.showErrorToast('Oops, Something went wrong!!!');
