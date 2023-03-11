@@ -22,7 +22,7 @@ public class ErrpUser {
 
 	@Id
 	@Column(name = "EMPLOYEE_ID")
-	private Long employeeId;
+	private int employeeId;
 	
 	@JsonIgnore
 	@Column(name = "USERNAME", nullable = false, unique = true)
@@ -59,11 +59,11 @@ public class ErrpUser {
 
 	}
 
-	public Long getEmployeeId() {
+	public int getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(Long employeeId) {
+	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
 

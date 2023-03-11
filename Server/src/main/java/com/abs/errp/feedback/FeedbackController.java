@@ -17,19 +17,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.abs.errp.entity.Feedback;
 import com.abs.errp.user.ErrpUser;
+import com.abs.errp.user.UserService;
 
 @RestController
 @RequestMapping("/feedback")
 public class FeedbackController {
 	private FeedbackService feedbackService;
+	private UserService userService;
 
-	public FeedbackController(FeedbackService feedbackService) {
+	
+
+	public FeedbackController(FeedbackService feedbackService, UserService userService) {
 		super();
 		this.feedbackService = feedbackService;
+		this.userService = userService;
 	}
 
-	@PostMapping("/saveFeedback")
-	@PreAuthorize("hasRole('USER')")
+	@PostMapping()
 	public ResponseEntity<Feedback> saveFeedback(@RequestBody Feedback feedback) {
 		feedback.setCreatedDate(new Date());
 		feedback.setUpdatedDate(new Date());
@@ -42,26 +46,22 @@ public class FeedbackController {
 	 * @return
 	 */
 	@GetMapping("/getReportees")
-	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<List<ErrpUser>> getAllUsers() {
-		return ResponseEntity.ok(this.feedbackService.getAllReportees());
+		return ResponseEntity.ok(this.userService.getAllReportees());
 	}
 
-	@GetMapping("/getFeedbacks")
-	// @PreAuthorize("hasRole('USER')")
+	@GetMapping()
 	public ResponseEntity<List<Feedback>> getAllFeedbacks(@RequestParam boolean isMyFeedback, @RequestParam int pageNo,
 			@RequestParam int pageSize) {
 		return ResponseEntity.ok(this.feedbackService.getMyFeedbacks(isMyFeedback, pageNo, pageSize));
 	}
 
-	@PutMapping("/updateFeedback/{id}")
-	@PreAuthorize("hasRole('USER')")
+	@PutMapping("{id}")
 	public ResponseEntity<Feedback> updateFeedbacks(@RequestBody Feedback feedback, @PathVariable int id) {
 		return ResponseEntity.ok(this.feedbackService.updateFeedback(feedback, id));
 	}
 
-	@DeleteMapping("/removeFeedback/{id}")
-	@PreAuthorize("hasRole('USER')")
+	@DeleteMapping("{id}")
 	void removeFeedback(@PathVariable("id") int id) {
 		this.feedbackService.removeByFeedbackId(id);
 	}
@@ -72,8 +72,7 @@ public class FeedbackController {
 	 * @param id
 	 * @return
 	 */
-	@GetMapping("/getFeedback/{id}")
-	@PreAuthorize("hasRole('USER')")
+	@GetMapping("{id}")
 	Optional<Feedback> getFeedback(@PathVariable int id) {
 		return this.feedbackService.getFeedback(id);
 	}
