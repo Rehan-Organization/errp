@@ -6,17 +6,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class UnAuthorizedAccessException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
-	private String resourceName;
+	private String exceptionMesssage;
 	
-	public UnAuthorizedAccessException(String resourceName) {
-		this.resourceName = resourceName;
+	public UnAuthorizedAccessException(String exceptionMesssage) {
+		this.exceptionMesssage = exceptionMesssage;
 	}
 
-	public String getResourceName() {
-		return resourceName;
+	public String getExceptionMesssage() {
+		return exceptionMesssage;
 	}
 
-	public void setResourceName(String resourceName) {
-		this.resourceName = resourceName;
+	public void setExceptionMesssage(String exceptionMesssage) {
+		this.exceptionMesssage = exceptionMesssage;
 	}
+
 }
