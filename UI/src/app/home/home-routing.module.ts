@@ -4,19 +4,28 @@ import { FeedbackFormComponent } from '../feedback/feedback-form/feedback-form.c
 import { HomePage } from './home.page';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: HomePage,
-        children: [
-            {
-                path: 'viewFeedback',
-                loadChildren: () =>
-                    import('../feedback/feedback-list/feedback-list.module').then(
-                        (m) => m.FeedbackListModule
-                    ),
-            },
-        ],
-    },
+  {
+    path: '',
+    component: HomePage,
+    children:[
+      {
+        path:'awardTypes',
+        loadChildren: () => import('../award-type/award-list/award-list.module').then(m => m.AwardListModule)
+      },
+      {
+        path:'leaderboard',
+        loadChildren: () => import('../leaderboard/leaderboard/leaderboard.module').then(m => m.LeaderboardModule)
+      },
+      {
+        path: 'viewFeedback',
+        loadChildren: () =>
+            import('../feedback/feedback-list/feedback-list.module').then(
+                (m) => m.FeedbackListModule
+            ),
+    }
+     
+    ]
+  }
 ];
 
 @NgModule({

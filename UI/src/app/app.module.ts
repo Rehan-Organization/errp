@@ -20,6 +20,7 @@ export const httpInterceptorProviders = [
 
 @NgModule({
     declarations: [AppComponent],
+
     imports: [
       BrowserModule, 
       IonicModule.forRoot({mode:'ios'}), 

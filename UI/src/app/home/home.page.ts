@@ -39,5 +39,13 @@ export class HomePage {
 
     logout() {
         this.authService.logout().subscribe(() => {});
+
+    }
+    viewAwards() {
+        this.router.navigate(['/home/awardTypes']);
+    }
+    leaderBoard() {
+        this.router.navigate(['/home/leaderboard']);
+
     }
 }

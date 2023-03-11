@@ -2,7 +2,6 @@ package com.abs.errp.user;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,7 +41,6 @@ public class ErrpUser {
 	@ManyToOne
 	@JoinColumn(name = "SUPERVISOR_ID")
 	private ErrpUser supervisor;
-	
 	@JsonIgnore
 	@OneToMany(mappedBy = "supervisor")
 	private Set<ErrpUser> reportees;
@@ -54,6 +52,7 @@ public class ErrpUser {
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
     )
     private Set<Role> roles = new HashSet<>();
+	
 
 	public ErrpUser() {
 

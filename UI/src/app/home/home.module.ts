@@ -8,7 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HomePageRoutingModule } from './home-routing.module';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
+    imports: [CommonModule, FormsModule, IonicModule.forRoot(), HomePageRoutingModule],
     declarations: [HomePage],
 })
 export class HomePageModule {}
