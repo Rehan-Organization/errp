@@ -10,7 +10,7 @@
 <ion-content>
     <ion-card >
         <ion-list>
-        <ion-item *ngFor="let award of awardTypeList">
+        <ion-item button="true" routerLink="{{award.awardId}}" *ngFor="let award of awardTypeList">
             <ion-label>
                 <h4 
                    style="color: var(--ion-color-danger); font-weight: 700;" *ngIf="!award.awardStatus">Disabled
@@ -24,7 +24,7 @@
             </ion-label>
                 <div slot="end">
                     <ion-button slot="icon-only" color="primary" fill="clear" *ngIf="award.awardStatus" routerLink="{{award.awardId}}"><i class="fas fa-edit"></i></ion-button>
-                    <ion-button slot="icon-only" color="primary" fill="clear"  *ngIf="award.awardStatus" (click)="updateAward(award)"><i class="fas fa-ban"></i></ion-button>    
+                    <ion-button slot="icon-only" color="primary" fill="clear"  *ngIf="award.awardStatus" (click)="updateAward(award, $event)"><i class="fas fa-ban"></i></ion-button>    
                 </div>
             </ion-item>    
         </ion-list>   
