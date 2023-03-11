@@ -42,7 +42,6 @@ export class FeedbackListComponent implements OnInit {
         this.myFeedbacksPageNo = 0;
         this.givenFeedbacksPageNo = 0;
         this.fetchFeedbacks(false, null);
-        this.fetchReportees();
     }
 
     refreshList() {
@@ -136,10 +135,14 @@ export class FeedbackListComponent implements OnInit {
                     role: 'confirm',
                     handler: () => {
                         this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
-                            this.feedbacks.forEach(function (value) {});
-                            this.toastService.showSuccessToast('Feedback deleted successfully');
-                            this.fetchFeedbacks(false, null);
-                        });
+                            this.toastService.showSuccessToast("Feedback deleted successfully");
+                            this.feedbacks = this.feedbacks.filter(
+                                (newFeedback) => newFeedback.id != feedback.id,
+                            );
+                        },(error) => {
+                            this.errors = error;
+                            this.toastService.showErrorToast("Oops, Something went wrong!!! Please try again");
+                          },);
                     },
                 },
             ],
