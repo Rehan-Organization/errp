@@ -116,9 +116,7 @@ public class Achievement {
 
 	public int getAchievementStatus() {
 		return achievementStatus;
-	}<<<<<<<HEAD=======
-
-	>>>>>>>main
+	}
 
 	public Achievement(int employeeId, String title, String achievementDesc, Date createdDate, Date updatedDate,
 			int createdBy, int updatedBy, int achievementStatus) {
@@ -139,8 +137,6 @@ public class Achievement {
 
 	public Achievement() {
 		super();
-	}<<<<<<<HEAD=======
-
-	>>>>>>>main
+	}
 
 }
