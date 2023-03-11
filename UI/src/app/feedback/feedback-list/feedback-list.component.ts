@@ -143,7 +143,7 @@ export class FeedbackListComponent implements OnInit {
                                 );
                             },
                             (error) => {
-                                this.toastService.showErrorToast('Oops, Something went wrong!!!');
+                                this.toastService.showErrorToast(error);
                             }
                         );
                     },

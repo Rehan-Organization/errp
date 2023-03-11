@@ -21,14 +21,14 @@ export class FeedbackFormComponent implements OnInit {
     ) {}
 
     newFeedback: Feedback = {
-        senderId: {},
-        receiverId: {},
+        sender: {},
+        receiver: {},
         title: '',
         description: '',
     };
     feedback: Feedback = {
-        senderId: {},
-        receiverId: {},
+        sender: {},
+        receiver: {},
         title: '',
         description: '',
     };
@@ -76,7 +76,7 @@ export class FeedbackFormComponent implements OnInit {
                         text: 'Submit',
                         role: 'confirm',
                         handler: () => {
-                            feedback.receiverId.employeeId = this.selectedFeedbackId;
+                            feedback.receiver.employeeId = this.selectedFeedbackId;
                             this.feedbackService.saveFeedback(feedback).subscribe(
                                 (feedbackResponse) => {
                                     if (feedbackResponse != null) {

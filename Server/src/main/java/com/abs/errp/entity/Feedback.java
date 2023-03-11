@@ -26,11 +26,11 @@ public class Feedback {
 	
     @OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "SENDER_ID", referencedColumnName = "EMPLOYEE_ID")
-	private ErrpUser senderId;
+	private ErrpUser sender;
 	
     @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "RECEIVER_ID", referencedColumnName = "EMPLOYEE_ID")
-	private ErrpUser receiverId;
+	private ErrpUser receiver;
 	
 	@Column(name ="TITLE")
 	private String title;
@@ -50,8 +50,8 @@ public class Feedback {
 		return id;
 	}
 
-	public ErrpUser getReceiverId() {
-		return receiverId;
+	public ErrpUser getReceiver() {
+		return receiver;
 	}
 
 	public String getTitle() {
@@ -71,16 +71,16 @@ public class Feedback {
 	}
 
 
-	public ErrpUser getSenderId() {
-		return senderId;
+	public ErrpUser getSender() {
+		return sender;
 	}
 
-	public void setSenderId(ErrpUser senderId) {
-		this.senderId = senderId;
+	public void setSender(ErrpUser sender) {
+		this.sender = sender;
 	}
 
-	public void setReceiverId(ErrpUser receiverId) {
-		this.receiverId = receiverId;
+	public void setReceiver(ErrpUser receiver) {
+		this.receiver = receiver;
 	}
 
 	public void setTitle(String title) {
@@ -113,7 +113,7 @@ public class Feedback {
 	
 	@Override
 	public String toString() {
-		return "Feedback [id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", title=" + title
+		return "Feedback [id=" + id + ", senderId=" + sender + ", receiverId=" + receiver + ", title=" + title
 				+ ", description=" + description + ", createdDate=" + createdDate + ", lastUpdatedDate="
 				+ updatedDate + "]";
 	}	

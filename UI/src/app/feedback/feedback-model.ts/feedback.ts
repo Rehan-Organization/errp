@@ -2,8 +2,8 @@ import { Employee } from './employee';
 
 export interface Feedback {
     id?: number;
-    senderId: Employee;
-    receiverId: Employee;
+    sender: Employee;
+    receiver: Employee;
     title?: String;
     description?: string;
     created_date?: Date;

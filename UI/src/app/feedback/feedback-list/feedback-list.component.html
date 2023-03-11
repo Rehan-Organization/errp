@@ -22,16 +22,16 @@
         </ion-row>
     </ion-grid>
     <ion-card *ngFor="let feedback of feedbacks; let i = index">
-        <div *ngIf="searchReportee === '' || feedback.receiverId.employeeName?.toLowerCase()?.includes(searchReportee)">
+        <div *ngIf="searchReportee === '' || feedback.receiver.employeeName?.toLowerCase()?.includes(searchReportee)">
             <ion-card-header>
                 <ion-card-subtitle>
                     <ion-grid>
                         <ion-row>
                             <ion-col *ngIf="choosenOption == 'My Feedbacks'">
-                                {{ feedback.senderId.employeeName }}
+                                {{ feedback.sender.employeeName }}
                             </ion-col>
                             <ion-col *ngIf="isAuthorizedUser && choosenOption == 'Feedbacks Given By Me'">
-                                {{ feedback.receiverId.employeeName }}
+                                {{ feedback.receiver.employeeName }}
                             </ion-col>
 
                             <ion-col size="auto">{{ feedback.updatedDate | amDateFormat : 'LL' }}</ion-col>

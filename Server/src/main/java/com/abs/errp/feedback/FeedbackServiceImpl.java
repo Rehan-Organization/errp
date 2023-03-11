@@ -45,8 +45,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Override
 	public Feedback saveFeedback(Feedback feedback) {
 		ErrpUser e = setErrpUser();
-		feedback.setSenderId(e);
-		int receiverId=feedback.getReceiverId().getEmployeeId();
+		feedback.setSender(e);
+		int receiverId=feedback.getReceiver().getEmployeeId();
 		Optional<ErrpUser> receiver= errpUserRepository.findById(receiverId);
 		if (receiver.get().getSupervisor().getEmployeeId()==getUser().getEmployeeId())
 			return feedbackRepository.save(feedback);
@@ -73,9 +73,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 		ErrpUser errpUser = setErrpUser();
 
 		if (isMyFeedback) {
-			return feedbackRepository.findAllByReceiverId(errpUser, pages);
+			return feedbackRepository.findAllByReceiver(errpUser, pages);
 		} else {			
-				return feedbackRepository.findAllBySenderId(errpUser, pages);
+				return feedbackRepository.findAllBySender(errpUser, pages);
 //			else
 //				throw new UnAuthorizedAccessException("User is not Authorized");
 		}
@@ -90,7 +90,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 		Feedback updateFeedback = feedbackRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Feedback not exist with id: " + id));
 		
-		int receiverId=feedback.getReceiverId().getEmployeeId();
+		int receiverId=feedback.getReceiver().getEmployeeId();
 		Optional<ErrpUser> receiver= errpUserRepository.findById(receiverId);
 		if (receiver.get().getSupervisor().getEmployeeId()==getUser().getEmployeeId()) {
 			updateFeedback.setTitle(feedback.getTitle());
@@ -110,7 +110,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	public void removeByFeedbackId(int id) {
 		if (feedbackRepository.findById(id).isPresent()) {		
 			Optional<Feedback> feedback=this.feedbackRepository.findById(id);
-			int receiverId=feedback.get().getReceiverId().getEmployeeId();
+			int receiverId=feedback.get().getReceiver().getEmployeeId();
 			Optional<ErrpUser> receiver= errpUserRepository.findById(receiverId);
 			if(receiver.get().getSupervisor().getEmployeeId()==getUser().getEmployeeId())
 				this.feedbackRepository.deleteById(id);
