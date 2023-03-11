@@ -14,7 +14,7 @@ export class AwardFormComponent implements OnInit {
     awardTypeList: AwardType[] = [];
     awardType: AwardType = {};
     errorMessage: string = '';
-    typeCheck: boolean = false;
+    isIdPresent : boolean;
 
     constructor(
         private router: Router,
@@ -23,11 +23,11 @@ export class AwardFormComponent implements OnInit {
         private alertController: AlertController,
         private toasterService: ToastService
     ) {
-        if (this.router.url == '/home/awardTypes/create') {
-            this.typeCheck = true;
-        } else if (this.router.url == '/home/awardTypes/edit/award.id') {
-            this.typeCheck = false;
-        }
+        // if (this.router.url == '/home/awardTypes/create') {
+        //     this.typeCheck = true;
+        // } else if (this.router.url == '/home/awardTypes/edit/award.id') {
+        //     this.typeCheck = false;
+        // }
     }
 
     numericOnly(event: { key: string }): boolean {
@@ -45,8 +45,8 @@ export class AwardFormComponent implements OnInit {
         if (this.validate()) {
             this.alertController
                 .create({
-                    header: 'ARE YOU SURE?',
-                    message: 'CREATE NEW AWARD?',
+                    header: 'Are you sure?',
+                    message: 'Create new award?',
                     buttons: [
                         {
                             text: 'Cancel',
@@ -99,8 +99,8 @@ export class AwardFormComponent implements OnInit {
         if (this.validate()) {
             this.alertController
                 .create({
-                    header: 'ARE YOU SURE',
-                    message: 'UPDATE AWARD?',
+                    header: 'Are you sure',
+                    message: 'Update award?',
                     buttons: [
                         {
                             text: 'Cancel',
@@ -148,8 +148,8 @@ export class AwardFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        const isIdPresent = this.route.snapshot.paramMap.has('awardId');
-        if (isIdPresent) {
+         this.isIdPresent = this.route.snapshot.paramMap.has('awardId');
+        if (this.isIdPresent) {
             const award = this.route.snapshot.paramMap.get('awardId');
             this.awardTypeService.getAwardType(award).subscribe(
                 (data) => {

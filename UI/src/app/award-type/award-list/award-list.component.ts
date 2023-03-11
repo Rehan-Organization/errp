@@ -19,6 +19,7 @@ export class AwardListComponent implements OnInit {
     ) {}
 
     awardTypeList: AwardType[] = [];
+    disabledAward: AwardType = {};
 
     ngOnInit() {
         this.getAllAwards();
@@ -42,8 +43,8 @@ export class AwardListComponent implements OnInit {
     updateAward(award: AwardType) {
         this.alertController
             .create({
-                header: 'ARE YOU SURE?',
-                message: 'DISABLE THIS AWARD?',
+                header: 'Are you sure?',
+                message: 'Disable this award?',
                 buttons: [
                     {
                         text: 'Cancel',
@@ -51,8 +52,10 @@ export class AwardListComponent implements OnInit {
                     {
                         text: 'Confirm',
                         handler: () => {
-                            award.awardStatus = 0;
-                            this.awardTypeService.updateAwardType(award.awardId, award).subscribe(
+                            
+                            this.disabledAward = Object.assign({}, award);
+                            this.disabledAward.awardStatus = 0;
+                            this.awardTypeService.updateAwardType(this.disabledAward.awardId, this.disabledAward).subscribe(
                                 (data) => {
                                     this.toasterService.showSuccessToast('Award disabled successfully')
                                 },

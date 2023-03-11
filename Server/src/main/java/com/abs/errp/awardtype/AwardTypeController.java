@@ -39,7 +39,7 @@ public class AwardTypeController {
 	}
 	
 	
-	@PostMapping("/newAwardType")
+	@PostMapping()
 	public ResponseEntity<AwardType> saveAwardType(@RequestBody AwardType awardType) throws AwardNameAlreadyExistsException{
 		
 		return new ResponseEntity<AwardType>(awardTypeServices.saveAwardType(awardType),HttpStatus.CREATED);
@@ -49,13 +49,13 @@ public class AwardTypeController {
 	
 
 
-	@PutMapping("/updateAwardType/{awardId}")
+	@PutMapping("{awardId}")
 	public ResponseEntity<AwardType> updateAwardType(@PathVariable long awardId,@RequestBody AwardType awardType){
 		return new ResponseEntity<AwardType>(awardTypeServices.updateAwardType(awardId,awardType),HttpStatus.CREATED);
 		
 	}
 	
-	@GetMapping("/getAwardType/{awardId}")
+	@GetMapping("{awardId}")
 	public ResponseEntity<AwardType> getAwardTypeById(@PathVariable("awardId") long awardId){
 		return new ResponseEntity<AwardType>(awardTypeServices.getAwardTypeById(awardId), HttpStatus.OK);
 	

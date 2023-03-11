@@ -4,8 +4,8 @@
             <ion-back-button></ion-back-button>
         </ion-buttons>
 
-        <ion-title *ngIf="typeCheck">Create Award</ion-title>
-        <ion-title *ngIf="!typeCheck">Update Award</ion-title>
+        <ion-title *ngIf="!isIdPresent">Create Award</ion-title>
+        <ion-title *ngIf="isIdPresent">Update Award</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -50,8 +50,8 @@
                 </ion-list>
 
                 
-                    <ion-button (click)="createAward()" *ngIf="typeCheck">Create</ion-button>
-                    <ion-button (click)="updateAward()" *ngIf="!typeCheck">Update</ion-button>
+                    <ion-button (click)="createAward()" *ngIf="!isIdPresent">Create</ion-button>
+                    <ion-button (click)="updateAward()" *ngIf="isIdPresent">Update</ion-button>
 
               
 
