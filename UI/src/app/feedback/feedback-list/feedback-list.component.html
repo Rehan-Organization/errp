@@ -1,0 +1,64 @@
+<ion-header class="abs-menu-header">
+    <ion-toolbar color="primary"> </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-segment value="default" [(ngModel)]="choosenOption" (ionChange)="fetchFeedbacks(false, null)">
+                    <ion-segment-button value="My Feedbacks">
+                        <ion-label>My Feedbacks</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button *ngIf="isAuthorizedUser" value="Feedbacks Given By Me">
+                        <ion-label>Feedbacks Given By Me</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+                <ion-searchbar *ngIf="!isMyFeedbacks" [(ngModel)]="searchReportee"></ion-searchbar>
+            </ion-col>
+
+            <ion-col size="auto">
+                <ion-button *ngIf="isAuthorizedUser" color="medium" (click)="addFeedback()"><i class="fa fa-plus" aria-hidden="true"></i>Add Feedback</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-card *ngFor="let feedback of feedbacks; let i = index">
+        <div *ngIf="searchReportee === '' || feedback.receiver.employeeName?.toLowerCase()?.includes(searchReportee)">
+            <ion-card-header>
+                <ion-card-subtitle>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col *ngIf="choosenOption == 'My Feedbacks'">
+                                {{ feedback.sender.employeeName }}
+                            </ion-col>
+                            <ion-col *ngIf="isAuthorizedUser && choosenOption == 'Feedbacks Given By Me'">
+                                {{ feedback.receiver.employeeName }}
+                            </ion-col>
+
+                            <ion-col size="auto">{{ feedback.updatedDate | amDateFormat : 'LL' }}</ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-subtitle>
+                <ion-card-title>
+                    {{ feedback.title }}
+                </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>{{ feedback.description }}</ion-card-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col></ion-col>
+                    <ion-col size="auto" *ngIf="!isMyFeedbacks"
+                        ><ion-button fill="clears" color="danger" (click)="deleteFeedback(feedback)"
+                            ><i class="fa fa-trash" aria-hidden="true"></i>Delete</ion-button
+                        ></ion-col
+                    >
+                    <ion-col size="auto" *ngIf="!isMyFeedbacks"
+                        ><ion-button (click)="updateFeedback(feedback)"><i class="fa fa-pencil" aria-hidden="true"></i>Update</ion-button></ion-col
+                    >
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ion-card>
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

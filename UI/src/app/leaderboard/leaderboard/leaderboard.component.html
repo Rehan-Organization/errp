@@ -5,96 +5,96 @@
         </ion-buttons>
         <ion-title>Leaderboard</ion-title>
     </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-segment style="width: 100%;" value="default">
+            <ion-segment-button value="default" (click)="forMonth()">
+                <ion-label>Monthly</ion-label>
+            </ion-segment-button>
+    
+            <ion-segment-button value="quarterly" (click)="forQuarter()">
+                <ion-label>Quarterly</ion-label>
+            </ion-segment-button>
+    
+            <ion-segment-button value="half-yearly" (click)="forHalfYear()">
+                <ion-label>Half-yearly</ion-label>
+            </ion-segment-button>
+    
+            <ion-segment-button value="yearly" (click)="forYear()">
+                <ion-label>Yearly</ion-label>
+            </ion-segment-button>
+    
+            <ion-segment-button value="Custom Date" (click)="forCustomDate()">
+                <ion-label>Custom date</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-segment value="default">
-        <ion-segment-button value="default" (click)="forMonth()">
-            <ion-label>Monthly</ion-label>
-        </ion-segment-button>
+    <ion-card *ngIf="isCustomDate">
+        <ion-item>
+            <ion-label>Select start date</ion-label>
+            <ion-input
+                placeholder="Select date here"
+                value="{{ customStartDate | date : 'dd.MM.yyyy' }}"
+                id="customStartDate"
+                class="ion-text-end"
+            ></ion-input>
+            <ion-popover trigger="customStartDate" size="cover">
+                <ng-template>
+                    <ion-datetime [showDefaultButtons]="true" [(ngModel)]="customStartDate"></ion-datetime>
+                </ng-template>
+            </ion-popover>
+        </ion-item>
 
-        <ion-segment-button value="quarterly" (click)="forQuarter()">
-            <ion-label>Quarterly</ion-label>
-        </ion-segment-button>
+        <ion-item>
+            <ion-label>Select end date</ion-label>
+            <ion-input
+                placeholder="Select date here"
+                value="{{ customEndDate | date : 'dd.MM.yyyy' }}"
+                id="customEndDate"
+                class="ion-text-end"
+            ></ion-input>
+            <ion-popover trigger="customEndDate" size="cover">
+                <ng-template>
+                    <ion-datetime [showDefaultButtons]="true" [(ngModel)]="customEndDate"></ion-datetime>
+                </ng-template>
+            </ion-popover>
+        </ion-item>
+        <ion-button (click)="customDate()"> Apply Filter </ion-button>
+    </ion-card>
 
-        <ion-segment-button value="half-yearly" (click)="forHalfYear()">
-            <ion-label>Half-yearly</ion-label>
-        </ion-segment-button>
-
-        <ion-segment-button value="yearly" (click)="forYear()">
-            <ion-label>Yearly</ion-label>
-        </ion-segment-button>
-
-        <ion-segment-button value="Custom Date" (click)="forCustomDate()">
-            <ion-label>Custom date</ion-label>
-        </ion-segment-button>
-    </ion-segment>
-
-    <ion-content>
-        <ion-card *ngIf="isCustomDate">
-            <ion-item>
-                <ion-label>Select start date</ion-label>
-                <ion-input
-                    placeholder="Select date here"
-                    value="{{ customStartDate | date : 'dd.MM.yyyy' }}"
-                    id="customStartDate"
-                    class="ion-text-end"
-                ></ion-input>
-                <ion-popover trigger="customStartDate" size="cover">
-                    <ng-template>
-                        <ion-datetime [showDefaultButtons]="true" [(ngModel)]="customStartDate"></ion-datetime>
-                    </ng-template>
-                </ion-popover>
+    <ion-card>
+        <ion-list>
+            <ion-item *ngFor="let emp of leaderboardList; let i = index" >
+                <i
+                    *ngIf="i <= 2"
+                    slot="start"
+                    class="fad fa-trophy"
+                    [ngStyle]="
+                        i == 0
+                            ? { color: 'gold' }
+                            : i == 1
+                            ? { color: 'silver' }
+                            : i == 2
+                            ? { color: '#CD7F32' }
+                            : { color: 'black' }
+                    "
+                ></i>
+                <div *ngIf="i > 2" slot="start" style="min-width: 19px; text-align: center;">
+                    <h5>{{ i + 1 }}</h5>
+                </div>
+                <ion-label>
+                    <h2 style="font-weight: 700;">{{ emp.employeeName }}</h2>
+                    <p>{{ emp.supervisorName }}</p>
+                </ion-label>
+                <div slot="end">
+                    <h5 style="color: var(--ion-color-success);font-weight: 700;">{{ emp.awardPoints }}</h5>
+                </div>
             </ion-item>
-
-            <ion-item>
-                <ion-label>Select end date</ion-label>
-                <ion-input
-                    placeholder="Select date here"
-                    value="{{ customEndDate | date : 'dd.MM.yyyy' }}"
-                    id="customEndDate"
-                    class="ion-text-end"
-                ></ion-input>
-                <ion-popover trigger="customEndDate" size="cover">
-                    <ng-template>
-                        <ion-datetime [showDefaultButtons]="true" [(ngModel)]="customEndDate"></ion-datetime>
-                    </ng-template>
-                </ion-popover>
-            </ion-item>
-            <ion-button (click)="customDate()"> Apply Filter </ion-button>
-        </ion-card>
-
-        <ion-card>
-            <ion-list>
-                <ion-item *ngFor="let emp of leaderboardList; let i = index" >
-                    <i
-                        slot="start"
-                        class="fad fa-trophy"
-                        [ngStyle]="
-                            this.i == 0
-                                ? { color: 'gold' }
-                                : this.i == 1
-                                ? { color: 'silver' }
-                                : this.i == 2
-                                ? { color: '#CD7F32' }
-                                : { color: 'black' }
-                        "
-                    ></i>
-                    <div slot="start">
-                        <h5>{{ i + 1 }}</h5>
-                    </div>
-                    <ion-label>
-                        <h2>{{ emp.employeeName }}</h2>
-                        <p>{{ emp.supervisorName }}</p>
-                    </ion-label>
-                    <div slot="end">
-                        <h5>{{ emp.awardPoints }}</h5>
-                    </div>
-                </ion-item>
-            </ion-list>
-        </ion-card>
-        <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-            <ion-infinite-scroll-content></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-    </ion-content>
+        </ion-list>
+    </ion-card>
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

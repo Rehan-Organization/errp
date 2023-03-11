@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment';
+ import { environment } from './../../environments/environment';
 export const URLS = {
     base: environment.baseUrl,
     LOGIN: '/authenticate',
@@ -14,5 +14,14 @@ export const URLS = {
     NEW_AWARD_TYPE: '/awardTypes/',
     UPDATE_AWARD_TYPE: '/awardTypes/',
     GET_AWARD_TYPE: '/awardTypes/',
-    GET_LEADERBOARD_LIST: '/leaderboard'
+    GET_LEADERBOARD_LIST: '/leaderboard',
+    FEEDBACK: '/api/v1',
+    SAVEFEEDBACK :'/feedback',
+    FETCHREPORTEES:'/feedback/getReportees',
+    FETCHFEEDBACKS:'/feedback/?isMyFeedback=',
+    DELETEFEEDBACK:'/feedback/',
+    FETCHFEEDBACK:'/feedback/',
+    UPDATEFEEDBACK:'/feedback/',
+    
+
 }
