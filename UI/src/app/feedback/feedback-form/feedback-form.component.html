@@ -8,15 +8,15 @@
 <ion-content>
     <ion-card>
         <ion-card-header>
-            <ion-card-title *ngIf="urlId == null">Add Feedback</ion-card-title>
-            <ion-card-title *ngIf="urlId != null">Update Feedback</ion-card-title>
+            <ion-card-title *ngIf="updateFeedbackId == null">Add Feedback</ion-card-title>
+            <ion-card-title *ngIf="updateFeedbackId != null">Update Feedback</ion-card-title>
         </ion-card-header>
         <ion-card-content>
             <ion-list>
-                <ion-item fill="outline" *ngIf="urlId == null">
-                    <ion-select [(ngModel)]="selectedValue" placeholder="Select employee">
-                        <ion-select-option *ngFor="let employee of employees" [value]="employee.employeeId">
-                            {{ employee.employeeName }}
+                <ion-item fill="outline" *ngIf="updateFeedbackId == null">
+                    <ion-select [(ngModel)]="selectedFeedbackId" placeholder="Select reportee">
+                        <ion-select-option *ngFor="let reportee of reportees" [value]="reportee.employeeId">
+                            {{ reportee.employeeName }}
                         </ion-select-option>
                     </ion-select>
                 </ion-item>
@@ -37,14 +37,14 @@
                 </ion-item>
             </ion-list>
             <ion-button
-                *ngIf="urlId == null"
+                *ngIf="updateFeedbackId == null"
                 color="primary"
                 class="ion-float-right"
                 (click)="addFeedback(newFeedback)"
             >
                 Submit
             </ion-button>
-            <ion-button *ngIf="urlId != null" color="primary" class="ion-float-right" (click)="updateFeedback()">
+            <ion-button *ngIf="updateFeedbackId != null" color="primary" class="ion-float-right" (click)="updateFeedback()">
                 Update
             </ion-button>
             <ion-button fill="clear" class="ion-float-right" (click)="cancelForm()">Cancel</ion-button>

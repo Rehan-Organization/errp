@@ -9,20 +9,20 @@
                     <ion-segment-button value="My Feedbacks">
                         <ion-label>My Feedbacks</ion-label>
                     </ion-segment-button>
-                    <ion-segment-button *ngIf="isSupervisor" value="Feedbacks Given By Me">
+                    <ion-segment-button *ngIf="isAuthorizedUser" value="Feedbacks Given By Me">
                         <ion-label>Feedbacks Given By Me</ion-label>
                     </ion-segment-button>
                 </ion-segment>
-                <ion-searchbar *ngIf="!isMyFeedbacks" [(ngModel)]="searchEmployee"></ion-searchbar>
+                <ion-searchbar *ngIf="!isMyFeedbacks" [(ngModel)]="searchReportee"></ion-searchbar>
             </ion-col>
 
             <ion-col size="auto">
-                <ion-button color="medium" (click)="addFeedback()">Add Feedback</ion-button>
+                <ion-button *ngIf="isAuthorizedUser" color="medium" (click)="addFeedback()">Add Feedback</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
     <ion-card *ngFor="let feedback of feedbacks; let i = index">
-        <div *ngIf="searchEmployee === '' || feedback.receiverId.employeeName?.toLowerCase()?.includes(searchEmployee)">
+        <div *ngIf="searchReportee === '' || feedback.receiverId.employeeName?.toLowerCase()?.includes(searchReportee)">
             <ion-card-header>
                 <ion-card-subtitle>
                     <ion-grid>
@@ -30,7 +30,7 @@
                             <ion-col *ngIf="choosenOption == 'My Feedbacks'">
                                 {{ feedback.senderId.employeeName }}
                             </ion-col>
-                            <ion-col *ngIf="isSupervisor && choosenOption == 'Feedbacks Given By Me'">
+                            <ion-col *ngIf="isAuthorizedUser && choosenOption == 'Feedbacks Given By Me'">
                                 {{ feedback.receiverId.employeeName }}
                             </ion-col>
 

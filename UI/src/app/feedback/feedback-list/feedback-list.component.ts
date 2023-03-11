@@ -14,31 +14,28 @@ import { ToastService } from 'src/app/errp-service/toast.service';
     styleUrls: ['./feedback-list.component.scss'],
 })
 export class FeedbackListComponent implements OnInit {
-    private updateSubscription?: Subscription;
+  
 
     constructor(
         private feedbackService: FeedbackService,
         private router: Router,
         private alertController: AlertController,
-        private toastService: ToastService,
-        private userContext: LoggedInUserContext
+        private toastService: ToastService
     ) {}
 
-    isSupervisor: boolean = false;
-    userRole: any;
-    employees: Employee[] = [];
+    isAuthorizedUser: boolean = false;
+    reportees: Employee[] = [];
     feedbacks: Feedback[] = [];
     myFeedback: Feedback[] = [];
     givenFeedback: Feedback[] = [];
     options: string[] = ['My Feedbacks', 'Feedbacks Given By Me'];
     choosenOption: string = 'My Feedbacks';
     isMyFeedbacks?: boolean;
-    searchEmployee: string = '';
+    searchReportee: string = '';
     myFeedbacksPageNo: number = 0;
     givenFeedbacksPageNo: number = 0;
     pageSize: number = 4;
     ngOnInit() {
-        this.userRole = this.userContext.getLoggedInUser()?.authorities[0].authority;
         this.myFeedbacksPageNo = 0;
         this.givenFeedbacksPageNo = 0;
         this.fetchFeedbacks(false, null);
@@ -52,10 +49,16 @@ export class FeedbackListComponent implements OnInit {
     }
 
     fetchReportees() {
-        this.feedbackService.getReportees().subscribe((reportee) => {
-            this.employees = reportee;
-            if (this.employees.length > 0) this.isSupervisor = true;
-        });
+        this.feedbackService.getReportees().subscribe(
+            (reportee) => {
+                this.reportees = reportee;
+                if (this.reportees.length > 0) this.isAuthorizedUser = true;
+                console.log(this.isAuthorizedUser);
+            },
+            (error) => {
+                this.toastService.showErrorToast('Oops, Something went wrong!!!');
+            }
+        );
     }
 
     onIonInfinite(ev: Event) {
@@ -86,7 +89,7 @@ export class FeedbackListComponent implements OnInit {
                         this.myFeedbacksPageNo++;
                     },
                     (error) => {
-                        console.error(error);
+                        this.toastService.showErrorToast('Oops, Something went wrong!!!');
                     }
                 );
         } else {
@@ -109,7 +112,7 @@ export class FeedbackListComponent implements OnInit {
                         this.givenFeedbacksPageNo++;
                     },
                     (error) => {
-                        console.error(error);
+                        this.toastService.showErrorToast('Oops, Something went wrong!!!');
                     }
                 );
         }
@@ -119,7 +122,7 @@ export class FeedbackListComponent implements OnInit {
     }
 
     updateFeedback(feedback: Feedback) {
-        this.router.navigate(['home/viewFeedback/add/' + feedback.id]);
+        this.router.navigate(['home/viewFeedback/update/' + feedback.id]);
     }
 
     async deleteFeedback(feedback: Feedback) {
@@ -135,11 +138,17 @@ export class FeedbackListComponent implements OnInit {
                     text: 'Delete',
                     role: 'confirm',
                     handler: () => {
-                        this.feedbackService.removeFeedback(feedback.id).subscribe((feedback) => {
-                            this.feedbacks.forEach(function (value) {});
-                            this.toastService.showSuccessToast('Feedback deleted successfully');
-                            this.fetchFeedbacks(false, null);
-                        });
+                        this.feedbackService.removeFeedback(feedback.id).subscribe(
+                            (feedback) => {
+                                this.toastService.showSuccessToast('Feedback deleted successfully');
+                                this.feedbacks = this.feedbacks.filter(
+                                    (newFeedback) => newFeedback.id != feedback.id
+                                );
+                            },
+                            (error) => {
+                                this.toastService.showErrorToast('Oops, Something went wrong!!!');
+                            }
+                        );
                     },
                 },
             ],

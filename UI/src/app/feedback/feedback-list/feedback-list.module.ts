@@ -20,7 +20,7 @@ import { MomentModule } from 'ngx-moment';
         RouterModule.forChild([
             { path: '', component: FeedbackListComponent },
             { path: 'add', component: FeedbackFormComponent },
-            { path: 'add/:id', component: FeedbackFormComponent },
+            { path: 'update/:id', component: FeedbackFormComponent },
         ]),
     ],
 })
