@@ -6,6 +6,17 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
+    children:[
+      {
+        path:'awardTypes',
+        loadChildren: () => import('../award-type/award-list/award-list.module').then(m => m.AwardListModule)
+      },
+      {
+        path:'leaderboard',
+        loadChildren: () => import('../leaderboard/leaderboard/leaderboard.module').then(m => m.LeaderboardModule)
+      }
+     
+    ]
   }
 ];
 

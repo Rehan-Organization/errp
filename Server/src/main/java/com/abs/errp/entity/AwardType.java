@@ -14,105 +14,142 @@ import javax.persistence.Table;
 public class AwardType {
 	
 	@Id
-	@GeneratedValue(strategy =GenerationType.AUTO )
-	private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="AWARD_ID")
+	private long awardId;
 
-	@Column(name="NAME")
+	@Column(name="AWARD_NAME")
 	private String awardName;
 	
-	@Column(name="DESCRIPTION")
+	@Column(name="AWARD_DESC")
 	private String description;
 	
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
-	@Column(name="LAST_UPDATED_DATE")
-	private Date lastUpdatedDate;
+	@Column(name="UPDATED_DATE")
+	private Date updatedDate;
 	
 	@Column(name = "AWARD_STATUS")
-	private int awardStatus;
+	private int awardStatus = 1;
 	
 	@Column(name="AWARD_POINTS")
 	private int awardPoints;
 	
+	@Column(name="CREATED_BY")
+	private long createdBy;
 	
+	@Column(name="UPDATED_BY")
+	private long updatedBy;
 	
 
 	public AwardType() {
 		super();
 	}
-	
-	
 
-	public AwardType(String awardName, String description, Date createdDate, Date lastUpdatedDate, int awardStatus,
-			int awardPoints) {
+
+	public AwardType(long awardId, String awardName, String description, Date createdDate, Date updatedDate,
+			int awardStatus, int awardPoints, long createdBy, long updatedBy) {
 		super();
+		this.awardId = awardId;
 		this.awardName = awardName;
 		this.description = description;
 		this.createdDate = createdDate;
-		this.lastUpdatedDate = lastUpdatedDate;
+		this.updatedDate = updatedDate;
 		this.awardStatus = awardStatus;
 		this.awardPoints = awardPoints;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
 	}
 
 
-
-	public long getId() {
-		return id;
+	public long getAwardId() {
+		return awardId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+
+	public void setAwardId(long awardId) {
+		this.awardId = awardId;
 	}
+
 
 	public String getAwardName() {
 		return awardName;
 	}
 
+
 	public void setAwardName(String awardName) {
 		this.awardName = awardName;
 	}
+
 
 	public String getDescription() {
 		return description;
 	}
 
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
+
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public Date getLastUpdatedDate() {
-		return lastUpdatedDate;
+
+	public Date getUpdatedDate() {
+		return updatedDate;
 	}
 
-	public void setLastUpdatedDate(Date lastUpdatedDate) {
-		this.lastUpdatedDate = lastUpdatedDate;
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
+
 
 	public int getAwardStatus() {
 		return awardStatus;
 	}
 
+
 	public void setAwardStatus(int awardStatus) {
 		this.awardStatus = awardStatus;
 	}
+
 
 	public int getAwardPoints() {
 		return awardPoints;
 	}
 
+
 	public void setAwardPoints(int awardPoints) {
 		this.awardPoints = awardPoints;
 	}
-	
-	
+
+
+	public long getCreatedBy() {
+		return createdBy;
+	}
+
+
+	public void setCreatedBy(long createdBy) {
+		this.createdBy = createdBy;
+	}
+
+
+	public long getUpdatedBy() {
+		return updatedBy;
+	}
+
+
+	public void setUpdatedBy(long updatedBy) {
+		this.updatedBy = updatedBy;
+	}
 	
 }

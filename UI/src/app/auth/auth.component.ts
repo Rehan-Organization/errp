@@ -9,7 +9,11 @@ import { AppAuthService } from './../providers/app-auth.service';
     styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
-    constructor(private authService: AppAuthService, private router: Router, private toaster: ToastController) {}
+    constructor(
+        private authService: AppAuthService,
+        private router: Router,
+        private toaster: ToastController
+    ) {}
 
     login(form: any) {
         console.log(form.value);
@@ -19,12 +23,14 @@ export class AuthComponent {
             },
             (error) => {
                 console.error(error.error);
-                this.toaster.create({
-                    message: error.error,
-                    color: 'danger'
-                }).then(toast => {
-                    toast.present();
-                })
+                this.toaster
+                    .create({
+                        message: error.error,
+                        color: 'danger',
+                    })
+                    .then((toast) => {
+                        toast.present();
+                    });
             }
         );
     }
@@ -33,4 +39,3 @@ export class AuthComponent {
         this.router.navigateByUrl('home', { replaceUrl: true });
     }
 }
-
