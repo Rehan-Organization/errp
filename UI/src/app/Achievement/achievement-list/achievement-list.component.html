@@ -28,7 +28,7 @@
                         fill="solid"
                         *ngIf="achievement.achievementStatus == 0"
                         routerLink="editAchievement/{{ achievement.achievementId }}"
-                        ><span title="update"><i class="fa fa-edit" aria-hidden="true"> Update</i></span></ion-button
+                        ><span title="update"><i class="far fa-edit" aria-hidden="true"> Update</i></span></ion-button
                     ></ion-col
                 >
                 <ion-col size="auto"
@@ -36,7 +36,7 @@
                         fill="solid"
                         *ngIf="achievement.achievementStatus == 1 || achievement.achievementStatus == 0"
                         (click)="deleteAchievement(achievement)"
-                        ><span title="delete"><i class="fa fa-trash" aria-hidden="true"> Delete</i></span></ion-button
+                        ><span title="delete"><i class="far fa-trash" aria-hidden="true"> Delete</i></span></ion-button
                     ></ion-col
                 >
                 <ion-col size="auto"
@@ -45,7 +45,7 @@
                         *ngIf="achievement.achievementStatus == 0"
                         (click)="submitAchievement(achievement)"
                         ><span title="submit"
-                            ><i class="fa fa-paper-plane" aria-hidden="true"> Submit</i></span
+                            ><i class="far fa-paper-plane" aria-hidden="true"> Submit</i></span
                         ></ion-button
                     ></ion-col
                 >

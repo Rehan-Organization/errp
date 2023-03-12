@@ -5,12 +5,13 @@ import { Feedback } from '../feedback-model.ts/feedback';
 import { FeedbackService } from '../feedback.service';
 import { AlertController } from '@ionic/angular';
 import { ToastService } from 'src/app/errp-service/toast.service';
+import { BaseForm } from 'src/app/base-form/base-form.component';
 @Component({
     selector: 'app-feedback-form',
     templateUrl: './feedback-form.component.html',
     styleUrls: ['./feedback-form.component.scss'],
 })
-export class FeedbackFormComponent implements OnInit {
+export class FeedbackFormComponent extends BaseForm implements OnInit {
     errors: any;
     constructor(
         private alertController: AlertController,
@@ -18,7 +19,9 @@ export class FeedbackFormComponent implements OnInit {
         private route: ActivatedRoute,
         private toastService: ToastService,
         private router: Router
-    ) {}
+    ) {
+        super();
+    }
 
     newFeedback: Feedback = {
         sender: {},
@@ -86,6 +89,7 @@ export class FeedbackFormComponent implements OnInit {
                                         this.toastService.showSuccessToast(
                                             'Feedback added successfully'
                                         );
+                                        this.closeForm();
                                     }
                                     if (feedbackResponse == null) {
                                         this.toastService.showErrorToast(
@@ -145,6 +149,7 @@ export class FeedbackFormComponent implements OnInit {
                                             this.toastService.showSuccessToast(
                                                 'Feedback added successfully'
                                             );
+                                            this.closeForm();
                                         }
                                         if (feedbackResponse == null) {
                                             this.toastService.showErrorToast(
@@ -167,12 +172,7 @@ export class FeedbackFormComponent implements OnInit {
     }
 
     cancelForm() {
-        if (this.updateFeedbackId != null) {
-            this.router.navigate(['home/viewFeedback']);
-        }
-        this.selectedFeedbackId = null;
-        this.newFeedback.title = '';
-        this.newFeedback.description = '';
+        this.closeForm();
     }
 
     showAlert(message: string) {
