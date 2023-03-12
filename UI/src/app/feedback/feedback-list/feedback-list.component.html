@@ -20,11 +20,11 @@
         </ion-buttons>
     </ion-toolbar>
     <ion-toolbar *ngIf="!isMyFeedbacks" color="primary">
-        <ion-searchbar [(ngModel)]="searchReportee"></ion-searchbar>
+        <ion-searchbar color="light" [(ngModel)]="searchReportee"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <div class="card-container" *ngFor="let feedback of feedbacks; let i = index">
+    <div class="actions-card-container" *ngFor="let feedback of feedbacks; let i = index">
         <ion-card>
             <ng-container
                 *ngIf="searchReportee === '' || feedback.receiver.employeeName?.toLowerCase()?.includes(searchReportee)"
