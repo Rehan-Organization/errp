@@ -7,51 +7,82 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-card *ngFor="let achievement of achievements">
-        <ion-card-header>
-            <ion-card-subtitle class="ion-text-right">
-                {{ achievement.updatedDate | amDateFormat : 'LL' }}
-            </ion-card-subtitle>
-            <ion-card-title>{{ achievement.title }}</ion-card-title>
-            <ion-card-title *ngIf="achievement.achievementStatus == 1" class="ion-text-right"> Pending </ion-card-title>
-            <ion-card-title *ngIf="achievement.achievementStatus == 2" class="ion-text-right"> Approved</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-            {{ achievement.achievementDesc }}
-        </ion-card-content>
+    <div class="actions-card-container" *ngFor="let achievement of achievements">
+        <ion-card>
+            <ion-card-header>
+                <ion-card-subtitle>
+                    {{ achievement.updatedDate | amDateFormat : 'LL' }}
+                </ion-card-subtitle>
+                <ion-card-title>{{ achievement.title }}</ion-card-title>
+                <ion-card-subtitle *ngIf="achievement.achievementStatus == 1" color="secondary">
+                    <i class="far fa-clock" style="margin-right: 4px"></i>Submitted to Supervisor
+                </ion-card-subtitle>
+                <ion-card-subtitle *ngIf="achievement.achievementStatus == 2" color="success">
+                    <i class="far fa-trophy" style="margin-right: 4px"></i>You received an Award for this Achievement!</ion-card-subtitle
+                >
+            </ion-card-header>
+            <ion-card-content>
+                {{ achievement.achievementDesc }}
+            </ion-card-content>
 
-        <ion-grid>
-            <ion-row>
-                <ion-col></ion-col>
-                <ion-col size="auto"
-                    ><ion-button
-                        fill="solid"
-                        *ngIf="achievement.achievementStatus == 0"
-                        routerLink="editAchievement/{{ achievement.achievementId }}"
-                        ><span title="update"><i class="fa fa-edit" aria-hidden="true"> Update</i></span></ion-button
-                    ></ion-col
-                >
-                <ion-col size="auto"
-                    ><ion-button
-                        fill="solid"
-                        *ngIf="achievement.achievementStatus == 1 || achievement.achievementStatus == 0"
-                        (click)="deleteAchievement(achievement)"
-                        ><span title="delete"><i class="fa fa-trash" aria-hidden="true"> Delete</i></span></ion-button
-                    ></ion-col
-                >
-                <ion-col size="auto"
-                    ><ion-button
-                        fill="solid"
-                        *ngIf="achievement.achievementStatus == 0"
-                        (click)="submitAchievement(achievement)"
-                        ><span title="submit"
-                            ><i class="fa fa-paper-plane" aria-hidden="true"> Submit</i></span
-                        ></ion-button
-                    ></ion-col
-                >
-            </ion-row>
-        </ion-grid>
-    </ion-card>
+            <!-- <ion-grid>
+                <ion-row>
+                    <ion-col></ion-col>
+                    <ion-col size="auto"
+                        ><ion-button
+                            fill="solid"
+                            *ngIf="achievement.achievementStatus == 0"
+                            routerLink="editAchievement/{{ achievement.achievementId }}"
+                            ><span title="update"
+                                ><i class="far fa-edit" aria-hidden="true"> Update</i></span
+                            ></ion-button
+                        ></ion-col
+                    >
+                    <ion-col size="auto"
+                        ><ion-button
+                            fill="solid"
+                            *ngIf="achievement.achievementStatus == 1 || achievement.achievementStatus == 0"
+                            (click)="deleteAchievement(achievement)"
+                            ><span title="delete"
+                                ><i class="far fa-trash" aria-hidden="true"> Delete</i></span
+                            ></ion-button
+                        ></ion-col
+                    >
+                    <ion-col size="auto"
+                        ><ion-button
+                            fill="solid"
+                            *ngIf="achievement.achievementStatus == 0"
+                            (click)="submitAchievement(achievement)"
+                            ><span title="submit"
+                                ><i class="far fa-paper-plane" aria-hidden="true"> Submit</i></span
+                            ></ion-button
+                        ></ion-col
+                    >
+                </ion-row>
+            </ion-grid> -->
+        </ion-card>
+        <div class="buttons-container">
+            <ion-button
+                color="light"
+                *ngIf="achievement.achievementStatus == 0"
+                routerLink="editAchievement/{{ achievement.achievementId }}"
+                ><i class="far fa-pencil" aria-hidden="true"></i
+            ></ion-button>
+            <ion-button
+                color="secondary"
+                *ngIf="achievement.achievementStatus == 0"
+                (click)="submitAchievement(achievement)"
+                ><i class="far fa-paper-plane" aria-hidden="true"></i
+            ></ion-button>
+            <ion-button
+                color="danger"
+                *ngIf="achievement.achievementStatus == 1 || achievement.achievementStatus == 0"
+                (click)="deleteAchievement(achievement)"
+                ><i class="far fa-trash" aria-hidden="true"></i
+            ></ion-button>
+        </div>
+    </div>
+
     <ion-fab slot="fixed" horizontal="end" vertical="bottom">
         <ion-fab-button (click)="addAchievement()">
             <ion-icon name="add"> </ion-icon>
