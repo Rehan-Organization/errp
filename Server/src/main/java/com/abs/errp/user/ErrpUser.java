@@ -1,7 +1,6 @@
 package com.abs.errp.user;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,8 +17,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.abs.errp.entity.Achievement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import com.abs.errp.entity.Achievement;
 
 @Entity(name = "ERRP_USER")
 @Table(name="ERRP_USER")
@@ -42,9 +39,6 @@ public class ErrpUser {
 
 	@Column(name = "ENABLED")
 	private boolean enabled;
-	
-
-	
 
 	@OneToMany
 	@JoinColumn(name = "EMPLOYEE_ID")

@@ -31,13 +31,6 @@ export class HomePage {
         this.router.navigate(['home/viewFeedback']);
     }
 
-    myAchievement(){
-        this.router.navigate(["/home/myAchievement"])
-    }
-    myAwards(){
-        this.router.navigate(["/home/myAwards"])
-    }
-
     logout() {
         this.authService.logout().subscribe(() => {});
     }
