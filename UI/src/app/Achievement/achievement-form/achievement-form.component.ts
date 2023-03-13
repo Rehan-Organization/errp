@@ -7,6 +7,7 @@ import { LoggedInUserContext } from 'src/app/providers/logged-in-user-context.se
 import { LoggedInUser } from 'src/app/providers/logged-in-user.model';
 import { ToastService } from 'src/app/errp-service/toast.service';
 import { BaseForm } from 'src/app/base-form/base-form.component';
+import { error } from 'console';
 
 @Component({
     selector: 'app-achievement-form',
@@ -38,6 +39,7 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
 
             this.achievementService.getAchievement(id).subscribe((data) => {
                 this.achievement = data;
+                ///console.log(data);
             });
         }
 
@@ -111,7 +113,14 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
                                             this.closeForm();
                                         },
                                         (err) => {
-                                            this.toastService.showErrorToast(this.errorMessage);
+                                            if(err.status==401) {
+                                                this.toastService.showSuccessToast(
+                                                    'Unauthorized User'
+                                                );
+                                            }
+                                            else {
+                                            this.toastService.showErrorToast('Achievement submitted unsuccessfully');
+                                        }
                                         }
                                     );
                             },
@@ -148,7 +157,14 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
                                             );
                                         },
                                         (err) => {
-                                            this.toastService.showErrorToast(this.errorMessage);
+                                            if(err.status==401) {
+                                                this.toastService.showSuccessToast(
+                                                    'Unauthorized User'
+                                                );
+                                            }
+                                            else {
+                                            this.toastService.showErrorToast('updateAchievement unsuccessfully');
+                                        }
                                         }
                                     );
                             },
@@ -186,7 +202,14 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
                                         );
                                     },
                                     (err) => {
-                                        this.toastService.showErrorToast(this.errorMessage);
+                                        if(err.status==401) {
+                                            this.toastService.showSuccessToast(
+                                                'Unauthorized User'
+                                            );
+                                        }
+                                        else {
+                                        this.toastService.showErrorToast('saveAchievement unsuccessfully');
+                                    }
                                     }
                                 );
                             },
