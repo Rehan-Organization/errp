@@ -37,7 +37,6 @@ export class AwardFormComponent extends BaseForm implements OnInit {
         const today = new Date();
         this.awardType.createdDate = today;
         this.awardType.updatedDate = today;
-        console.log(today);
 
         if (this.validate()) {
             this.alertController
@@ -60,8 +59,14 @@ export class AwardFormComponent extends BaseForm implements OnInit {
                                             this.closeForm();
                                     },
                                     (err) => {
-                                        (this.errorMessage = err.message),
-                                            this.showAlert(this.errorMessage);
+
+                                        if(err.status == 409)
+                                        {
+                                            this.toasterService.showErrorToast("Award name already exsists");
+                                        }else{
+                                            this.toasterService.showErrorToast("Failed to create award");
+                                        }
+                                        
                                     }
                                 );
                             },
@@ -113,11 +118,15 @@ export class AwardFormComponent extends BaseForm implements OnInit {
                                                 this.toasterService.showSuccessToast(
                                                     'Award updated successfully'
                                                 );
-                                            this.router.navigate(['/home/awardTypes']);
+                                            this.closeForm();
                                         },
                                         (err) => {
-                                            (this.errorMessage = err.message),
-                                                this.showAlert(this.errorMessage);
+                                            if(err.status == 409)
+                                            {
+                                                this.toasterService.showErrorToast("Award name alredy exsists");
+                                            }else{
+                                                this.toasterService.showErrorToast("Failed to update award");
+                                            }
                                         }
                                     );
                             },
@@ -159,3 +168,7 @@ export class AwardFormComponent extends BaseForm implements OnInit {
         }
     }
 }
+function handleError(error: any, any: any) {
+    throw new Error('Function not implemented.');
+}
+

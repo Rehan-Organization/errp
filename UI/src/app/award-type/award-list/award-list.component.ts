@@ -25,6 +25,10 @@ export class AwardListComponent implements OnInit {
         this.getAllAwards();
     }
 
+    ionViewWillEnter(){
+        this.getAllAwards();
+    }
+
     getAllAwards() {
         this.awardTypeService.getAwardTypeList().subscribe(
             (awardTypeList) => {
@@ -60,9 +64,10 @@ export class AwardListComponent implements OnInit {
                             this.awardTypeService.updateAwardType(this.disabledAward.awardId, this.disabledAward).subscribe(
                                 (data) => {
                                     this.toasterService.showSuccessToast('Award disabled successfully')
+                                    this.getAllAwards();
                                 },
                                 (err) => {
-                                   this.toasterService.showErrorToast('Failed to disabled award')
+                                   this.toasterService.showErrorToast('Failed to disable award')
                                 }
                             );
                         },

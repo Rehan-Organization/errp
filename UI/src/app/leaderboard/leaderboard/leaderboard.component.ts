@@ -22,7 +22,7 @@ export class LeaderboardComponent implements OnInit {
     customEndDate: Date;
     date = new Date();
     pageNumber: number = 0;
-    pageSize: number = 10;
+    pageSize: number = 50;
 
     leaderboardList: Leaderboard[] = [];
 
@@ -67,7 +67,6 @@ export class LeaderboardComponent implements OnInit {
         } else if (this.customStartDate > this.customEndDate) {
             this.toasterService.showErrorToast('Start date cant be greater than end date');
         } else {
-            console.log(this.customStartDate);
             this.startDate = this.customStartDate;
             this.endDate = this.customEndDate;
             this.getLeaderboardList(false, null);
@@ -75,7 +74,6 @@ export class LeaderboardComponent implements OnInit {
     }
 
     onIonInfinite(ev: Event) {
-        console.log(this.startDate, this.endDate);
         this.getLeaderboardList(true, ev);
     }
 

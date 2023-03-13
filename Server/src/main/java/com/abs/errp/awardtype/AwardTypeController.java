@@ -48,7 +48,6 @@ public class AwardTypeController {
 	
 	
 
-
 	@PutMapping("{awardId}")
 	public ResponseEntity<AwardType> updateAwardType(@PathVariable long awardId,@RequestBody AwardType awardType){
 		return new ResponseEntity<AwardType>(awardTypeServices.updateAwardType(awardId,awardType),HttpStatus.CREATED);
