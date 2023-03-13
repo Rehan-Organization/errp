@@ -10,13 +10,13 @@ import com.abs.errp.user.ErrpUser;
 
 @Repository
 public interface FeedbackRepository extends PagingAndSortingRepository<Feedback, Integer> {
-	
+
 	List<Feedback> findAllBySender(ErrpUser user, Pageable pageable);
 
 	List<Feedback> findAllByReceiver(ErrpUser user, Pageable pageable);
 
 	Optional<Feedback> deleteById(int id);
-	
+
 	List<Feedback> findAllById(int id);
 
 }

@@ -44,7 +44,11 @@ export class FeedbackFormComponent extends BaseForm implements OnInit {
         this.updateFeedbackId = this.route.snapshot.paramMap.get('id');
         if (this.updateFeedbackId != null) {
             this.feedbackService.fetchFeedback(this.updateFeedbackId).subscribe(
-                (feedback) => (this.newFeedback = feedback),
+                (feedback) => {
+                    if (this.feedback == null) {
+                        this.toastService.showErrorToast('Feedback not found');
+                    } else this.newFeedback = feedback;
+                },
                 (error) => {
                     this.toastService.showErrorToast(
                         'Oops, Something went wrong!!! Please try again'
@@ -90,17 +94,13 @@ export class FeedbackFormComponent extends BaseForm implements OnInit {
                                             'Feedback added successfully'
                                         );
                                         this.closeForm();
-                                    }
-                                    if (feedbackResponse == null) {
-                                        this.toastService.showErrorToast(
-                                            'Oops, Something went wrong!!! Please try again'
-                                        );
+                                    } else {
+                                        this.toastService.showErrorToast('Feedback not found');
                                     }
                                 },
                                 (error) => {
-                                    this.toastService.showErrorToast(
-                                        'Oops, Something went wrong!!! Please try again'
-                                    );
+                                    if (error.status == 401)
+                                        this.toastService.showErrorToast('User is not Authorized');
                                 }
                             );
                         },
@@ -114,10 +114,10 @@ export class FeedbackFormComponent extends BaseForm implements OnInit {
     fetchReportees() {
         this.feedbackService.getReportees().subscribe(
             (reportee) => {
-                this.reportees = reportee;
+                if (reportee != null) this.reportees = reportee;
             },
             (error) => {
-                this.toastService.showErrorToast('Oops, Something went wrong!!! Please try again');
+                this.toastService.showErrorToast('Oops, Something went wrong!!!');
             }
         );
     }
@@ -150,17 +150,17 @@ export class FeedbackFormComponent extends BaseForm implements OnInit {
                                                 'Feedback added successfully'
                                             );
                                             this.closeForm();
-                                        }
-                                        if (feedbackResponse == null) {
-                                            this.toastService.showErrorToast(
-                                                'Oops, Something went wrong!!! Please try again'
-                                            );
+                                        } else {
+                                            this.toastService.showErrorToast('Feedback not found');
                                         }
                                     },
                                     (error) => {
-                                        this.toastService.showErrorToast(
-                                            'Oops, Something went wrong!!! Please try again'
-                                        );
+                                        if (error.status == 401)
+                                            this.toastService.showErrorToast(
+                                                'User is not Authorized'
+                                            );
+                                        else if (error.status == 404)
+                                            this.toastService.showErrorToast('Feedback not found');
                                     }
                                 );
                         },

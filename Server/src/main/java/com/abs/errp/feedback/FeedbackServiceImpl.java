@@ -47,17 +47,26 @@ public class FeedbackServiceImpl implements FeedbackService {
 		feedback.setSender(e);
 		int receiverId = feedback.getReceiver().getEmployeeId();
 		Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
-	
-		if (receiver.get().getSupervisor() != null && receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
+		System.out.println(receiver.get().getEmployeeId());
+
+		/**
+		 * check receiver, which is reportee object present or not
+		 * reciever should not be supervisor user 
+		 * check receiver has any supervisor or not 
+		 * check current logged in user and receiver's supervisor is same
+		 */
+
+		if (receiver != null && receiver.get().getEmployeeId() != getUser().getEmployeeId()
+				&& receiver.get().getSupervisor() != null
+				&& receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
 			return feedbackRepository.save(feedback);
 		else
 			throw new UnAuthorizedAccessException("User is not Authorized");
 	}
 
 	/**
-	 * If isMyFeedback is true then returns feedback received by user If
-	 * isMyFeedback is false then returns feedback sent by supervisor to associated
-	 * reportees
+	 * If isMyFeedback is true then returns feedback received by user 
+	 * If isMyFeedback is false then returns feedback sent by supervisor to associated reportees
 	 */
 	@Override
 	public List<Feedback> getMyFeedbacks(boolean isMyFeedback, int pageNo, int pageSize) {
@@ -68,7 +77,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 		if (isMyFeedback) {
 			return feedbackRepository.findAllByReceiver(errpUser, pages);
-			
+
 		} else {
 			return feedbackRepository.findAllBySender(errpUser, pages);
 		}
@@ -85,7 +94,15 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 		int receiverId = feedback.getReceiver().getEmployeeId();
 		Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
-		if (receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId()) {
+
+		/**
+		 * check receiver, which is reportee object present or not
+		 * check receiver has any supervisor or not 
+		 * check current logged in user and receiver's supervisor is same
+		 */
+
+		if (receiver != null && receiver.get().getSupervisor() != null
+				&& receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId()) {
 			updateFeedback.setTitle(feedback.getTitle());
 			updateFeedback.setDescription(feedback.getDescription());
 			updateFeedback.setUpdatedDate(new Date());
@@ -106,7 +123,13 @@ public class FeedbackServiceImpl implements FeedbackService {
 			int receiverId = feedback.get().getReceiver().getEmployeeId();
 			Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
 
-			if (receiver.get().getSupervisor() != null && receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
+			/**
+			 * check receiver, which is reportee object present or not
+			 * check receiver has any supervisor or not 
+			 * check current logged in user and receiver's supervisor is same
+			 */
+			if (receiver != null && receiver.get().getSupervisor() != null
+					&& receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
 				this.feedbackRepository.deleteById(id);
 			else
 				throw new UnAuthorizedAccessException("User is not Authorized");

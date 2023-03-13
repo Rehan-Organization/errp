@@ -25,8 +25,6 @@ public class FeedbackController {
 	private FeedbackService feedbackService;
 	private UserService userService;
 
-	
-
 	public FeedbackController(FeedbackService feedbackService, UserService userService) {
 		super();
 		this.feedbackService = feedbackService;

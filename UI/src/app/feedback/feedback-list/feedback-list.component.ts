@@ -1,4 +1,3 @@
-
 import { AlertController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -6,14 +5,13 @@ import { Employee } from '../feedback-model.ts/employee';
 import { Feedback } from '../feedback-model.ts/feedback';
 import { FeedbackService } from '../feedback.service';
 import { ToastService } from 'src/app/errp-service/toast.service';
+
 @Component({
     selector: 'app-feedback-list',
     templateUrl: './feedback-list.component.html',
     styleUrls: ['./feedback-list.component.scss'],
 })
 export class FeedbackListComponent implements OnInit {
-  
-
     constructor(
         private feedbackService: FeedbackService,
         private router: Router,
@@ -33,27 +31,46 @@ export class FeedbackListComponent implements OnInit {
     myFeedbacksPageNo: number = 0;
     givenFeedbacksPageNo: number = 0;
     pageSize: number = 4;
+
     ngOnInit() {
         this.myFeedbacksPageNo = 0;
         this.givenFeedbacksPageNo = 0;
-        this.fetchFeedbacks(false, null);
         this.fetchReportees();
+    }
+
+    ionViewWillEnter() {
+        this.refreshList();
     }
 
     refreshList() {
         this.myFeedbacksPageNo = 0;
         this.givenFeedbacksPageNo = 0;
         this.fetchFeedbacks(false, null);
+        this.feedbackService
+            .fetchAllFeedbacks(
+                this.choosenOption == 'My Feedbacks',
+                this.myFeedbacksPageNo,
+                this.pageSize
+            )
+            .subscribe((data) => {
+                if (data == null) this.toastService.showErrorToast('Feeback not raised');
+                else this.feedbacks = data;
+            });
     }
 
     fetchReportees() {
         this.feedbackService.getReportees().subscribe(
             (reportee) => {
-                this.reportees = reportee;
-                if (this.reportees.length > 0) this.isAuthorizedUser = true;
+                if (reportee != null) {
+                    this.reportees = reportee;
+                    this.isAuthorizedUser = true;
+                } else {
+                    if (this.isAuthorizedUser)
+                        this.toastService.showErrorToast('No reportees assigned');
+                }
             },
             (error) => {
-                this.toastService.showErrorToast('Oops, Something went wrong!!!');
+                if (error.status == 404) this.toastService.showErrorToast('No reportees assigned');
             }
         );
     }
@@ -61,59 +78,45 @@ export class FeedbackListComponent implements OnInit {
     onIonInfinite(ev: Event) {
         this.fetchFeedbacks(true, ev);
     }
-
     // If isMyFeedback is true then returns feedback received by user
     // If isMyFeedback is false then returns feedback sent by supervisor to associated reportees
 
     fetchFeedbacks(isFirstLoad: boolean, event: any) {
-        if (this.choosenOption == 'My Feedbacks') {
-            this.feedbacks = [];
-            for (let i = 0; i < this.myFeedback.length; i++) {
-                this.feedbacks.push(this.myFeedback[i]);
-            }
-            this.isMyFeedbacks = true;
-            this.feedbackService
-                .fetchAllFeedbacks(this.isMyFeedbacks, this.myFeedbacksPageNo, this.pageSize)
-                .subscribe(
-                    (feedback) => {
-                        for (let i = 0; i < feedback.length; i++) {
-                            this.feedbacks.push(feedback[i]);
-                            this.myFeedback.push(this.feedbacks[i]);
+        if (this.choosenOption == 'My Feedbacks') this.isMyFeedbacks = true;
+        else this.isMyFeedbacks = false;
+        this.feedbackService
+            .fetchAllFeedbacks(this.isMyFeedbacks, this.myFeedbacksPageNo, this.pageSize)
+            .subscribe(
+                (feedback) => {
+                    if (feedback == null) {
+                        this.toastService.showErrorToast('Feeback not raised');
+                    } else {
+                        if (this.choosenOption == 'My Feedbacks') {
+                            if (!this.myFeedback) {
+                                this.myFeedback = [];
+                            }
+                            this.myFeedback = this.myFeedback.concat(...feedback);
+                            this.feedbacks = this.myFeedback;
+                        } else {
+                            if (!this.givenFeedback) {
+                                this.givenFeedback = [];
+                            }
+                            this.givenFeedback = this.givenFeedback.concat(...feedback);
+                            this.feedbacks = this.givenFeedback;
                         }
                         if (isFirstLoad) {
                             event.target.complete();
                         }
-                        this.myFeedbacksPageNo++;
-                    },
-                    (error) => {
-                        this.toastService.showErrorToast('Oops, Something went wrong!!!');
+                        if (this.choosenOption == 'My Feedbacks') this.myFeedbacksPageNo++;
+                        else this.givenFeedbacksPageNo++;
                     }
-                );
-        } else {
-            this.isMyFeedbacks = false;
-            this.feedbacks = []
-            for (let i = 0; i < this.givenFeedback.length; i++) {
-                this.feedbacks.push(this.givenFeedback[i]);
-            }
-            this.feedbackService
-                .fetchAllFeedbacks(this.isMyFeedbacks, this.givenFeedbacksPageNo, this.pageSize)
-                .subscribe(
-                    (feedback) => {
-                        for (let i = 0; i < feedback.length; i++) {
-                            this.feedbacks.push(feedback[i]);
-                            this.givenFeedback.push(this.feedbacks[i]);
-                        }
-                        if (isFirstLoad) {
-                            event.target.complete();
-                        }
-                        this.givenFeedbacksPageNo++;
-                    },
-                    (error) => {
-                        this.toastService.showErrorToast('Oops, Something went wrong!!!');
-                    }
-                );
-        }
+                },
+                (error) => {
+                    this.toastService.showErrorToast('Oops, Something went wrong!!!');
+                }
+            );
     }
+
     addFeedback() {
         this.router.navigate(['home/viewFeedback/add']);
     }
@@ -122,34 +125,58 @@ export class FeedbackListComponent implements OnInit {
         this.router.navigate(['home/viewFeedback/update/' + feedback.id]);
     }
 
-    async deleteFeedback(feedback: Feedback) {
-        const alert = await this.alertController.create({
-            header: 'Are you sure you want to delete ?',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    role: 'cancel',
-                    handler: () => {},
-                },
-                {
-                    text: 'Delete',
-                    role: 'confirm',
-                    handler: () => {
-                        this.feedbackService.removeFeedback(feedback.id).subscribe(
-                            (feedback) => {
-                                this.toastService.showSuccessToast('Feedback deleted successfully');
-                                this.feedbacks = this.feedbacks.filter(
-                                    (newFeedback) => newFeedback.id != feedback.id
-                                );
-                            },(error) => {
-                                this.toastService.showErrorToast("Oops, Something went wrong!!! while deleting feedback");
-                            }
-                        );
+    deleteFeedback(feedback: Feedback) {
+        this.alertController
+            .create({
+                header: 'Are you sure you want to delete ?',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => {},
                     },
-                },
-            ],
-        });
-        await alert.present();
+                    {
+                        text: 'Delete',
+                        role: 'confirm',
+                        handler: () => {
+                            this.feedbackService.removeFeedback(feedback.id).subscribe(
+                                (feedback) => {
+                                    this.toastService.showSuccessToast(
+                                        'Feedback deleted successfully'
+                                    );
+                                    this.refreshList();
+                                },
+                                (error) => {
+                                    if (error.status == 401)
+                                        this.toastService.showErrorToast('User is not Authorized');
+                                    else if (error.status == 404)
+                                        this.toastService.showErrorToast('Feedback not found');
+                                }
+                            );
+                        },
+                    },
+                ],
+            })
+            .then((res) => res.present());
     }
-   
+
+    searchReportees(event: any) {
+        const query = event.target.value.toLowerCase();
+        console.log('Search worked');
+        this.myFeedback;
+        let feedbackListToFilter;
+        if (this.choosenOption == 'My Feedbacks') {
+            feedbackListToFilter = this.myFeedback;
+        } else {
+            feedbackListToFilter = this.givenFeedback;
+        }
+
+        if (!this.searchReportee) {
+            this.feedbacks = feedbackListToFilter;
+        }
+
+        this.feedbacks = feedbackListToFilter.filter(
+            (d) => d.receiver!.employeeName!.toLowerCase().indexOf(query) > -1
+        );
+    }
 }

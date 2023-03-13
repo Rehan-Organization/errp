@@ -16,36 +16,34 @@ import com.abs.errp.user.ErrpUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="feedback")
+@Table(name = "feedback")
 public class Feedback {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="FEEDBACK_ID")
+	@Column(name = "FEEDBACK_ID")
 	private int id;
-	
-    @OneToOne(cascade = CascadeType.DETACH)
+
+	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "SENDER_ID", referencedColumnName = "EMPLOYEE_ID")
 	private ErrpUser sender;
-	
-    @OneToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "RECEIVER_ID", referencedColumnName = "EMPLOYEE_ID")
+
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "RECEIVER_ID", referencedColumnName = "EMPLOYEE_ID")
 	private ErrpUser receiver;
-	
-	@Column(name ="TITLE")
+
+	@Column(name = "TITLE")
 	private String title;
-	
-	@Column(name="FEEDBACK_DESC")
+
+	@Column(name = "FEEDBACK_DESC")
 	private String description;
-	
-	@Column(name="CREATED_DATE")
+
+	@Column(name = "CREATED_DATE")
 	private Date createdDate;
-	
-	@Column(name="UPDATED_DATE")
+
+	@Column(name = "UPDATED_DATE")
 	private Date updatedDate;
 
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -58,18 +56,13 @@ public class Feedback {
 		return title;
 	}
 
-	
-
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public ErrpUser getSender() {
 		return sender;
@@ -87,12 +80,9 @@ public class Feedback {
 		this.title = title;
 	}
 
-
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-
-	
 
 	public Date getUpdatedDate() {
 		return updatedDate;
@@ -110,12 +100,11 @@ public class Feedback {
 		this.description = description;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Feedback [id=" + id + ", senderId=" + sender + ", receiverId=" + receiver + ", title=" + title
-				+ ", description=" + description + ", createdDate=" + createdDate + ", lastUpdatedDate="
-				+ updatedDate + "]";
-	}	
+				+ ", description=" + description + ", createdDate=" + createdDate + ", lastUpdatedDate=" + updatedDate
+				+ "]";
+	}
 
 }
