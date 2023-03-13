@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppAuthService } from '../providers/app-auth.service';
+import { LoggedInUser } from '../providers/logged-in-user.model';
+import { LoggedInUserContext } from './../providers/logged-in-user-context.service';
 
 @Component({
     selector: 'app-home',
@@ -9,15 +10,25 @@ import { AppAuthService } from '../providers/app-auth.service';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    constructor(private http: HttpClient, private authService: AppAuthService, private router:Router) {
-        this.http.get('/test').subscribe(
-            () => {
-                console.log('TEST SUCCESS');
-            },
-            (error) => {
-                console.error('TEST ERROR', error);
-            }
-        );
+    loggedInUser: LoggedInUser | undefined;
+    constructor(
+        private authService: AppAuthService,
+        private router: Router,
+        private userContext: LoggedInUserContext
+    ) {
+    }
+    ngOnInit() {
+        this.loggedInUser = this.userContext.getLoggedInUser();
+    }
+
+    myAchievement() {
+        this.router.navigate(['/home/Achievement']);
+    }
+    myAwards() {
+        this.router.navigate(['/home/Awards']);
+    }
+    viewFeedBack() {
+        this.router.navigate(['home/viewFeedback']);
     }
 
     myAchievement(){
@@ -28,9 +39,12 @@ export class HomePage {
     }
 
     logout() {
-        this.authService.logout().subscribe(() => {
-            
-        })
+        this.authService.logout().subscribe(() => {});
+    }
+    viewAwards() {
+        this.router.navigate(['/home/awardTypes']);
+    }
+    leaderBoard() {
+        this.router.navigate(['/home/leaderboard']);
     }
 }
-

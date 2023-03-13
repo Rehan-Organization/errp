@@ -3,8 +3,6 @@ package com.abs.errp.user;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,19 +12,28 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.abs.errp.entity.Achievement;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.abs.errp.entity.Achievement;
 
 @Entity(name = "ERRP_USER")
+@Table(name="ERRP_USER")
 public class ErrpUser {
 
 	@Id
 	@Column(name = "EMPLOYEE_ID")
-	private Long employeeId;
-
+	private int employeeId;
+	
+	@JsonIgnore
 	@Column(name = "USERNAME", nullable = false, unique = true)
 	private String username;
-
+	
+	@JsonIgnore
 	@Column(name = "PASSWORD")
 	private String password;
 
@@ -39,14 +46,18 @@ public class ErrpUser {
 
 	
 
+	@OneToMany
+	@JoinColumn(name = "EMPLOYEE_ID")
+	private Set<Achievement> achievements;
+
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "SUPERVISOR_ID")
 	private ErrpUser supervisor;
-	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "supervisor")
 	private Set<ErrpUser> reportees;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USER_ROLE",
@@ -54,16 +65,17 @@ public class ErrpUser {
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
     )
     private Set<Role> roles = new HashSet<>();
+	
 
 	public ErrpUser() {
 
 	}
 
-	public Long getEmployeeId() {
+	public int getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(Long employeeId) {
+	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
 

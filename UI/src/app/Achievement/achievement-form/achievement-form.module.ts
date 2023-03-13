@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 
+
 @NgModule({
-  declarations: [AchievementFormComponent],
+  declarations: [],
   imports: [
     CommonModule,
-    IonicModule,
     FormsModule,
+    IonicModule,
+
     RouterModule.forChild([{
       path: '',
       component: AchievementFormComponent

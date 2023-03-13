@@ -8,9 +8,14 @@
         style="overflow-y: auto"
     >
         <ion-menu-toggle autoHide="false">
-            <ion-header class="abs-menu-header">
+            <ion-header>
                 <ion-toolbar color="primary">
-                    <div class="abs-main-logo"></div>
+                    <ion-item lines="none" color="primary">
+                        <ion-label>
+                            <p>Welcome!</p>
+                            <h1>{{loggedInUser?.employeeName}}</h1>
+                        </ion-label>
+                    </ion-item>
                 </ion-toolbar>
             </ion-header>
         </ion-menu-toggle>
@@ -21,13 +26,13 @@
                     <ion-icon name="trophy-outline" slot="start"></ion-icon>
                     My Awards
                 </ion-item>
-                <ion-item lines="inset"  button color="secondary">
+                <ion-item (click)="viewFeedBack()" lines="inset" button color="secondary">
                     <ion-icon name="chatbox-outline" slot="start"></ion-icon>
                     My Feedbacks
                 </ion-item>
                 <ion-item (click)="myAchievement()" lines="inset" button color="secondary">
-                    <ion-icon name="log-out-outline" slot="start"></ion-icon>
-                    My Achievement
+                    <ion-icon name="medal-outline" slot="start"></ion-icon>
+                    My Achievements
                 </ion-item>
                 <ion-item (click)="logout()" lines="inset" button color="secondary">
                     <ion-icon name="log-out-outline" slot="start"></ion-icon>
@@ -35,9 +40,21 @@
                 </ion-item>
 
             </ion-list>
+            <ion-list class="menu-list">
+                <ion-list-header color="secondary">
+                    <ion-label>Admin</ion-label>
+                </ion-list-header>
+                <ion-item (click)="viewAwards()" lines="inset" button color="secondary">
+                    <ion-icon name="trophy-outline" slot="start"></ion-icon>
+                    Award Types
+                </ion-item>
+                <ion-item (click)="leaderBoard()" lines="inset" button color="secondary">
+                    <ion-icon name="podium-outline" slot="start"></ion-icon>
+                    Leaderboard
+                </ion-item>
+            </ion-list>
         </ion-content>
     </ion-menu>
 
     <ion-router-outlet id="home-content"></ion-router-outlet>
 </ion-split-pane>
-

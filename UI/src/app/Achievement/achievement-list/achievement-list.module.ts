@@ -4,7 +4,8 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { AchievementListComponent } from './achievement-list.component';
 import { AchievementFormComponent } from '../achievement-form/achievement-form.component';
-
+import { FormsModule } from '@angular/forms';
+import { MomentModule } from 'ngx-moment';
 
 
 @NgModule({
@@ -12,16 +13,22 @@ import { AchievementFormComponent } from '../achievement-form/achievement-form.c
   imports: [
     CommonModule,
     IonicModule,
-    RouterModule.forChild([
-    {
-      path: '',
-      component: AchievementListComponent
-    },
-    {
-      path: 'addAchievement',
-      component: AchievementFormComponent
-    },
-  ])
+    MomentModule,
+    FormsModule,
+  RouterModule.forChild([
+      {
+        path: '',
+        component: AchievementListComponent
+      },
+      {
+        path: 'addAchievement',
+        component: AchievementFormComponent
+      },
+      {
+        path: 'editAchievement/:id',
+        component: AchievementFormComponent
+      }
+    ])
   ]
 })
-export class MyAchievementModule { }
+export class AchievementListModule { }

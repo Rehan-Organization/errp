@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+
+        <ion-title *ngIf="!isIdPresent">Create Award</ion-title>
+        <ion-title *ngIf="isIdPresent">Update Award</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <form>
+                <ion-list>
+                    <ion-item>
+                        <ion-label position="stacked">Name for Award</ion-label>
+                        <ion-input
+                            placeholder="Name"
+                            [(ngModel)]="awardType.awardName"
+                            name="name"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Points for Award</ion-label>
+                        <ion-input
+                            type="number"
+                            placeholder="Points"
+                            (keypress)="numericOnly($event)"
+                            [(ngModel)]="awardType.awardPoints"
+                            name="awardPoints"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Description for Award</ion-label>
+                        <ion-input
+                            placeholder="Description"
+                            [(ngModel)]="awardType.description"
+                            name="awardDescription"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                </ion-list>
+
+                <ion-button class="ion-float-right" (click)="createAward()" *ngIf="!isIdPresent">Create</ion-button>
+                <ion-button class="ion-float-right" (click)="updateAward()" *ngIf="isIdPresent">Update</ion-button>
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
