@@ -22,10 +22,10 @@ export class HomePage {
     }
 
     myAchievement() {
-        this.router.navigate(['/home/Achievement']);
+        this.router.navigate(['/home/achievement']);
     }
     myAwards() {
-        this.router.navigate(['/home/Awards']);
+        this.router.navigate(['/home/award']);
     }
     viewFeedBack() {
         this.router.navigate(['home/viewFeedback']);

@@ -150,4 +150,11 @@ public class AchievementServiceImpl implements AchievementService {
 		}
 	}
 
+	@Override
+	public List<Achievement> getAllAchievement() {
+		
+		
+		return achievementRepository.findAllByEmployeeId(this.getUser().getEmployeeId());
+	}
+
 }
