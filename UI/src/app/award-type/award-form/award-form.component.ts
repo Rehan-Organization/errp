@@ -60,8 +60,14 @@ export class AwardFormComponent extends BaseForm implements OnInit {
                                             this.closeForm();
                                     },
                                     (err) => {
-                                        (this.errorMessage = err.message),
-                                            this.showAlert(this.errorMessage);
+
+                                        if(err.status == 409)
+                                        {
+                                            this.toasterService.showErrorToast("Award name already exsists");
+                                        }else{
+                                            this.toasterService.showErrorToast("Failed to create award");
+                                        }
+                                        
                                     }
                                 );
                             },
@@ -113,11 +119,15 @@ export class AwardFormComponent extends BaseForm implements OnInit {
                                                 this.toasterService.showSuccessToast(
                                                     'Award updated successfully'
                                                 );
-                                                this.closeForm();
+                                            this.closeForm();
                                         },
                                         (err) => {
-                                            (this.errorMessage = err.message),
-                                                this.showAlert(this.errorMessage);
+                                            if(err.status == 409)
+                                            {
+                                                this.toasterService.showErrorToast("Award name already exsists");
+                                            }else{
+                                                this.toasterService.showErrorToast("Failed to update award");
+                                            }
                                         }
                                     );
                             },

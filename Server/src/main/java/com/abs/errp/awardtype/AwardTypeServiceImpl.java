@@ -40,7 +40,6 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 	public AwardType saveAwardType(AwardType awardType) {
 		
 		LoggedInUser user = this.userContext.getLoggedInUser();
-
         String awardName = awardType.getAwardName();
 		Optional<AwardType> award = Optional.ofNullable(findAwardByName(awardName));
 		
@@ -72,8 +71,16 @@ public class AwardTypeServiceImpl implements AwardTypeService {
 		LoggedInUser user = this.userContext.getLoggedInUser();
 		if(awardServiceRespository.findById(awardId).isPresent()) {
 			
-			awardType.setUpdatedBy(user.getEmployeeId());
-			return awardServiceRespository.save(awardType);
+			 String awardName = awardType.getAwardName();
+				Optional<AwardType> award = Optional.ofNullable(findAwardByName(awardName));
+				
+					if(award.isPresent()) {	
+						throw new AwardNameAlreadyExistsException("Award name alredy exsists");
+					}
+					else{		
+						awardType.setUpdatedBy(user.getEmployeeId());
+						return awardServiceRespository.save(awardType);
+					}
 		}
 		else {
 			
