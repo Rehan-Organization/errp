@@ -19,7 +19,7 @@ import com.abs.errp.security.LoggedInUserContext;
 
 @Service
 public class AchievementServiceImpl implements AchievementService {
-	private static final char[] UpdatedDate = null;
+	
 
 	private AchievementRepository achievementRepository;
 

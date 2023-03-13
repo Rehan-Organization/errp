@@ -89,8 +89,14 @@ export class AchievementListComponent implements OnInit {
                     this.getAchievement(true, null);
                   },
                   (err) => {
-                    (this.errorMessage = err.message),
-                      this.toastService.showErrorToast(this.errorMessage)
+                    if(err.status==401) {
+                      this.toastService.showSuccessToast(
+                          'Unauthorized User'
+                      );
+                  }
+                  else {
+                  this.toastService.showErrorToast('submitAchievement unsuccessfully');
+              }
                   }
                 );
               }
@@ -127,7 +133,14 @@ export class AchievementListComponent implements OnInit {
                   this.getAchievement(true, null);
                 },
                 (err) => {
-                  this.toastService.showErrorToast(this.errorMessage);
+                  if(err.status==401) {
+                    this.toastService.showSuccessToast(
+                        'Unauthorized User'
+                    );
+                }
+                else {
+                this.toastService.showErrorToast('deleteAchievement unsuccessfully');
+            }
                 }
               );
             },
