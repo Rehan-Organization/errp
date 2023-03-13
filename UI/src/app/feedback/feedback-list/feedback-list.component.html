@@ -15,7 +15,12 @@
         </ion-buttons>
     </ion-toolbar>
     <ion-toolbar *ngIf="choosenOption != 'My Feedbacks'" color="primary">
-        <ion-searchbar color="light" [(ngModel)]="searchReportee"></ion-searchbar>
+        <ion-searchbar
+            color="light"
+            [(ngModel)]="searchReportee"
+            [debounce]="1000"
+            (ionChange)="searchReportees($event)"
+        ></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 <ion-content>
