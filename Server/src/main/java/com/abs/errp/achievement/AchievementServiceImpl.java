@@ -19,6 +19,8 @@ import com.abs.errp.security.LoggedInUserContext;
 
 @Service
 public class AchievementServiceImpl implements AchievementService {
+	private static final char[] UpdatedDate = null;
+
 	private AchievementRepository achievementRepository;
 
 	@Autowired
@@ -96,10 +98,15 @@ public class AchievementServiceImpl implements AchievementService {
 
 		if (validateRequest(achievement.getAchievementId())) {
 
-			achievement.setUpdatedBy(this.getUser().getEmployeeId());
-			achievement.setUpdatedDate(new Date());
+			Optional<Achievement> optionalAchievement = this.achievementRepository.findById(achievement.getAchievementId());
+			Achievement updateAchievement = optionalAchievement.get();
+			updateAchievement.setUpdatedBy(this.getUser().getEmployeeId());
+			updateAchievement.setUpdatedDate(new Date());
+			updateAchievement.setAchievementDesc(achievement.getAchievementDesc());
+			updateAchievement.setTitle(achievement.getTitle());
+			
 
-			return this.saveAchievement(achievement);
+			return this.achievementRepository.save(updateAchievement);
 
 		} else {
 			throw new ResourceNotFoundException(
@@ -131,7 +138,6 @@ public class AchievementServiceImpl implements AchievementService {
 			achievement.setCreatedDate(new Date());
 			achievement.setUpdatedDate(new Date());
 			achievement.setAchievementStatus(1);
-			
 			achievementRepository.save(achievement);
 			
 			
