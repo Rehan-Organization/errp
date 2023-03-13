@@ -22,7 +22,7 @@ export class LeaderboardComponent implements OnInit {
     customEndDate: Date;
     date = new Date();
     pageNumber: number = 0;
-    pageSize: number = 10;
+    pageSize: number = 50;
 
     leaderboardList: Leaderboard[] = [];
 
