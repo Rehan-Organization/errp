@@ -67,7 +67,7 @@ export class AwardListComponent implements OnInit {
                                     this.getAllAwards();
                                 },
                                 (err) => {
-                                   this.toasterService.showErrorToast('Failed to disabled award')
+                                   this.toasterService.showErrorToast('Failed to disable award')
                                 }
                             );
                         },
