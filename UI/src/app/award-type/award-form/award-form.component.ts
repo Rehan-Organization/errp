@@ -37,7 +37,6 @@ export class AwardFormComponent extends BaseForm implements OnInit {
         const today = new Date();
         this.awardType.createdDate = today;
         this.awardType.updatedDate = today;
-        console.log(today);
 
         if (this.validate()) {
             this.alertController
@@ -124,7 +123,7 @@ export class AwardFormComponent extends BaseForm implements OnInit {
                                         (err) => {
                                             if(err.status == 409)
                                             {
-                                                this.toasterService.showErrorToast("Award name already exsists");
+                                                this.toasterService.showErrorToast("Award name alredy exsists");
                                             }else{
                                                 this.toasterService.showErrorToast("Failed to update award");
                                             }
@@ -169,3 +168,7 @@ export class AwardFormComponent extends BaseForm implements OnInit {
         }
     }
 }
+function handleError(error: any, any: any) {
+    throw new Error('Function not implemented.');
+}
+
