@@ -8,7 +8,6 @@ import { LoggedInUser } from 'src/app/providers/logged-in-user.model';
 import { ToastService } from 'src/app/errp-service/toast.service';
 import { BaseForm } from 'src/app/base-form/base-form.component';
 
-
 @Component({
     selector: 'app-achievement-form',
     templateUrl: './achievement-form.component.html',
@@ -32,7 +31,6 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
     }
 
     ngOnInit() {
-
         this.isIdPresent = this.activatedRoute.snapshot.paramMap.has('id');
 
         if (this.isIdPresent) {
@@ -45,20 +43,18 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
         }
 
         this.loggedInUser = this.userContext.getLoggedInUser();
-
     }
-
-
 
     validateInput(): boolean {
-
         this.achievement.title = this.achievement.title?.trim();
         this.achievement.achievementDesc = this.achievement.achievementDesc?.trim();
-        return (this.achievement.title == "" || this.achievement.achievementDesc == "" || !this.achievement.title || !this.achievement.achievementDesc)
-
+        return (
+            this.achievement.title == '' ||
+            this.achievement.achievementDesc == '' ||
+            !this.achievement.title ||
+            !this.achievement.achievementDesc
+        );
     }
-
-
 
     customCounterFormatter(inputLength: number, maxLength: number) {
         return `${maxLength - inputLength}/${maxLength}`;
@@ -92,7 +88,7 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
 
     submitAchievement() {
         if (this.validateInput()) {
-            this.toastService.showErrorToast("Fields can not be empty");
+            this.toastService.showErrorToast('Fields can not be empty');
         } else {
             this.alertController
                 .create({
@@ -105,16 +101,20 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
                         {
                             text: 'Submit',
                             handler: () => {
-                                this.achievementService.submitAchievement(this.achievement).subscribe(
-                                    (data) => {
-                                        this.toastService.showSuccessToast("Achievement submitted successfully");
-                                        (this.achievement = data)
-                                        this.closeForm();
-                                    },
-                                    (err) => {
-                                        this.toastService.showErrorToast(this.errorMessage);
-                                    }
-                                );
+                                this.achievementService
+                                    .submitAchievement(this.achievement)
+                                    .subscribe(
+                                        (data) => {
+                                            this.toastService.showSuccessToast(
+                                                'Achievement submitted successfully'
+                                            );
+                                            this.achievement = data;
+                                            this.closeForm();
+                                        },
+                                        (err) => {
+                                            this.toastService.showErrorToast(this.errorMessage);
+                                        }
+                                    );
                             },
                         },
                     ],
@@ -123,11 +123,10 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
                     res.present();
                 });
         }
-
     }
     updateAchievement() {
         if (this.validateInput()) {
-            this.toastService.showErrorToast("Fields can not be empty");
+            this.toastService.showErrorToast('Fields can not be empty');
         } else {
             this.alertController
                 .create({
@@ -140,16 +139,19 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
                         {
                             text: 'Update',
                             handler: () => {
-                                this.achievementService.updateAchievement(this.achievement).subscribe(
-                                    (data) => {
-                                        (this.achievement = data),
-                                            this.closeForm();
-                                        this.toastService.showSuccessToast("Achievement updated successfully");
-                                    },
-                                    (err) => {
-                                        this.toastService.showErrorToast(this.errorMessage);
-                                    }
-                                );
+                                this.achievementService
+                                    .updateAchievement(this.achievement)
+                                    .subscribe(
+                                        (data) => {
+                                            (this.achievement = data), this.closeForm();
+                                            this.toastService.showSuccessToast(
+                                                'Achievement updated successfully'
+                                            );
+                                        },
+                                        (err) => {
+                                            this.toastService.showErrorToast(this.errorMessage);
+                                        }
+                                    );
                             },
                         },
                     ],
@@ -161,13 +163,10 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
     }
 
     saveAchievement() {
-
         this.achievement.employeeId = this.loggedInUser?.employeeId;
 
         if (this.validateInput()) {
-
-            this.toastService.showErrorToast("Fields can not be empty");
-
+            this.toastService.showErrorToast('Fields can not be empty');
         } else {
             this.alertController
                 .create({
@@ -182,10 +181,10 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
                             handler: () => {
                                 this.achievementService.saveAchievement(this.achievement).subscribe(
                                     (data) => {
-                                        (this.achievement = data),
-                                            this.closeForm();
-                                        this.toastService.showSuccessToast("Achievement saved successfully");
-
+                                        (this.achievement = data), this.closeForm();
+                                        this.toastService.showSuccessToast(
+                                            'Achievement saved successfully'
+                                        );
                                     },
                                     (err) => {
                                         this.toastService.showErrorToast(this.errorMessage);
@@ -193,7 +192,6 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
                                 );
                             },
                         },
-
                     ],
                 })
                 .then((res) => {
