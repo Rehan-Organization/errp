@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class UnAuthorizedAccessException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	private String exceptionMesssage;
-	
+
 	public UnAuthorizedAccessException(String exceptionMesssage) {
 		this.exceptionMesssage = exceptionMesssage;
 	}

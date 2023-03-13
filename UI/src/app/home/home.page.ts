@@ -15,8 +15,7 @@ export class HomePage {
         private authService: AppAuthService,
         private router: Router,
         private userContext: LoggedInUserContext
-    ) {
-    }
+    ) {}
     ngOnInit() {
         this.loggedInUser = this.userContext.getLoggedInUser();
     }

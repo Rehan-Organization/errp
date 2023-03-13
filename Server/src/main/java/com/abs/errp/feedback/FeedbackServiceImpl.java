@@ -48,7 +48,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 		int receiverId = feedback.getReceiver().getEmployeeId();
 		Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
 		System.out.println(receiver.get().getEmployeeId());
-		if (receiver!=null && receiver.get().getEmployeeId()!=getUser().getEmployeeId() && receiver.get().getSupervisor() != null && receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
+		if (receiver != null && receiver.get().getEmployeeId() != getUser().getEmployeeId()
+				&& receiver.get().getSupervisor() != null
+				&& receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
 			return feedbackRepository.save(feedback);
 		else
 			throw new UnAuthorizedAccessException("User is not Authorized");
@@ -68,7 +70,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 		if (isMyFeedback) {
 			return feedbackRepository.findAllByReceiver(errpUser, pages);
-			
+
 		} else {
 			return feedbackRepository.findAllBySender(errpUser, pages);
 		}
@@ -85,7 +87,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 		int receiverId = feedback.getReceiver().getEmployeeId();
 		Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
-		if (receiver!=null && receiver.get().getSupervisor() != null && receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId()) {
+		if (receiver != null && receiver.get().getSupervisor() != null
+				&& receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId()) {
 			updateFeedback.setTitle(feedback.getTitle());
 			updateFeedback.setDescription(feedback.getDescription());
 			updateFeedback.setUpdatedDate(new Date());
@@ -106,7 +109,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 			int receiverId = feedback.get().getReceiver().getEmployeeId();
 			Optional<ErrpUser> receiver = errpUserRepository.findById(receiverId);
 
-			if (receiver!=null && receiver.get().getSupervisor() != null && receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
+			if (receiver != null && receiver.get().getSupervisor() != null
+					&& receiver.get().getSupervisor().getEmployeeId() == getUser().getEmployeeId())
 				this.feedbackRepository.deleteById(id);
 			else
 				throw new UnAuthorizedAccessException("User is not Authorized");

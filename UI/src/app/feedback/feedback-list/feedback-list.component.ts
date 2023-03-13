@@ -1,4 +1,3 @@
-
 import { AlertController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -12,14 +11,12 @@ import { ToastService } from 'src/app/errp-service/toast.service';
     styleUrls: ['./feedback-list.component.scss'],
 })
 export class FeedbackListComponent implements OnInit {
-
-
     constructor(
         private feedbackService: FeedbackService,
         private router: Router,
         private alertController: AlertController,
         private toastService: ToastService
-    ) { }
+    ) {}
 
     isAuthorizedUser: boolean = false;
     reportees: Employee[] = [];
@@ -46,9 +43,15 @@ export class FeedbackListComponent implements OnInit {
     refreshList() {
         this.myFeedbacksPageNo = 0;
         this.givenFeedbacksPageNo = 0;
-        this.feedbackService.fetchAllFeedbacks(this.choosenOption == "My Feedbacks", this.myFeedbacksPageNo, this.pageSize).subscribe((data) => {
-            this.feedbacks = data;
-        })
+        this.feedbackService
+            .fetchAllFeedbacks(
+                this.choosenOption == 'My Feedbacks',
+                this.myFeedbacksPageNo,
+                this.pageSize
+            )
+            .subscribe((data) => {
+                this.feedbacks = data;
+            });
     }
 
     fetchReportees() {
@@ -58,7 +61,8 @@ export class FeedbackListComponent implements OnInit {
                 if (this.reportees.length > 0) this.isAuthorizedUser = true;
             },
             (error) => {
-                this.toastService.showErrorToast('Oops, Something went wrong!!!');
+                if(error.message)
+                this.toastService.showErrorToast("hi");
             }
         );
     }
@@ -67,48 +71,44 @@ export class FeedbackListComponent implements OnInit {
         this.fetchFeedbacks(true, ev);
     }
 
+    counter: number = 0;
+
+    log(feedback: any) {
+        this.counter = this.counter + 1;
+        console.log(this.counter);
+
+        this.searchReportee === '' ||
+            feedback.receiver.employeeName?.toLowerCase()?.includes(this.searchReportee);
+    }
     // If isMyFeedback is true then returns feedback received by user
     // If isMyFeedback is false then returns feedback sent by supervisor to associated reportees
 
     fetchFeedbacks(isFirstLoad: boolean, event: any) {
-
-        if (this.choosenOption == 'My Feedbacks') {
-            this.isMyFeedbacks = true;
-            this.feedbackService
-                .fetchAllFeedbacks(this.isMyFeedbacks, this.myFeedbacksPageNo, this.pageSize)
-                .subscribe(
-                    (feedback) => {
+        if (this.choosenOption == 'My Feedbacks') this.isMyFeedbacks = true;
+        else this.isMyFeedbacks = false;
+        this.feedbackService
+            .fetchAllFeedbacks(this.isMyFeedbacks, this.myFeedbacksPageNo, this.pageSize)
+            .subscribe(
+                (feedback) => {
+                    if (this.choosenOption == 'My Feedbacks') {
                         this.myFeedback = this.myFeedback.concat(...feedback);
                         this.feedbacks = this.myFeedback;
-                        if (isFirstLoad) {
-                            event.target.complete();
-                        }
-                        this.myFeedbacksPageNo++;
-                    },
-                    (error) => {
-                        this.toastService.showErrorToast('Oops, Something went wrong!!!');
-                    }
-                );
-        } else {
-            this.isMyFeedbacks = false;
-
-            this.feedbackService
-                .fetchAllFeedbacks(this.isMyFeedbacks, this.givenFeedbacksPageNo, this.pageSize)
-                .subscribe(
-                    (feedback) => {
+                    } else {
                         this.givenFeedback = this.givenFeedback.concat(...feedback);
                         this.feedbacks = this.givenFeedback;
-                        if (isFirstLoad) {
-                            event.target.complete();
-                        }
-                        this.givenFeedbacksPageNo++;
-                    },
-                    (error) => {
-                        this.toastService.showErrorToast('Oops, Something went wrong!!!');
                     }
-                );
-        }
+                    if (isFirstLoad) {
+                        event.target.complete();
+                    }
+                    if (this.choosenOption == 'My Feedbacks') this.myFeedbacksPageNo++;
+                    else this.givenFeedbacksPageNo++;
+                },
+                (error) => {
+                    this.toastService.showErrorToast('Oops, Something went wrong!!!');
+                }
+            );
     }
+
     addFeedback() {
         this.router.navigate(['home/viewFeedback/add']);
     }
@@ -118,32 +118,36 @@ export class FeedbackListComponent implements OnInit {
     }
 
     deleteFeedback(feedback: Feedback) {
-        this.alertController.create({
-            header: 'Are you sure you want to delete ?',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    role: 'cancel',
-                    handler: () => { },
-                },
-                {
-                    text: 'Delete',
-                    role: 'confirm',
-                    handler: () => {
-                        this.feedbackService.removeFeedback(feedback.id).subscribe(
-                            (feedback) => {
-                                this.toastService.showSuccessToast('Feedback deleted successfully');
-                                this.refreshList();
-                            }, (error) => {
-                                this.toastService.showErrorToast("Oops, Something went wrong!!! while deleting feedback");
-                            }
-                        );
+        this.alertController
+            .create({
+                header: 'Are you sure you want to delete ?',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => {},
                     },
-                },
-            ],
-        }).then((res)=>
-        res.present()
-        )
+                    {
+                        text: 'Delete',
+                        role: 'confirm',
+                        handler: () => {
+                            this.feedbackService.removeFeedback(feedback.id).subscribe(
+                                (feedback) => {
+                                    this.toastService.showSuccessToast(
+                                        'Feedback deleted successfully'
+                                    );
+                                    this.refreshList();
+                                },
+                                (error) => {
+                                    this.toastService.showErrorToast(
+                                        'Oops, Something went wrong!!! while deleting feedback'
+                                    );
+                                }
+                            );
+                        },
+                    },
+                ],
+            })
+            .then((res) => res.present());
     }
-
 }

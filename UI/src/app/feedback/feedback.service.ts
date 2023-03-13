@@ -11,8 +11,14 @@ export class FeedbackService {
     updateadd: number = 0;
     constructor(private http: HttpClient) {}
 
-    fetchAllFeedbacks(isMyFeedbacks: boolean,pageNo: number,pageSize: number): Observable<Feedback[]> {
-        return this.http.get<Feedback[]>(URLS.FETCHFEEDBACKS+isMyFeedbacks+'&pageNo='+pageNo+'&pageSize='+pageSize);
+    fetchAllFeedbacks(
+        isMyFeedbacks: boolean,
+        pageNo: number,
+        pageSize: number
+    ): Observable<Feedback[]> {
+        return this.http.get<Feedback[]>(
+            URLS.FETCHFEEDBACKS + isMyFeedbacks + '&pageNo=' + pageNo + '&pageSize=' + pageSize
+        );
     }
     removeFeedback(feedbackId: any): Observable<any> {
         return this.http.delete(URLS.DELETEFEEDBACK + feedbackId);
@@ -25,11 +31,11 @@ export class FeedbackService {
     getReportees(): Observable<Employee[]> {
         return this.http.get<Employee[]>(URLS.FETCHREPORTEES);
     }
-  
+
     fetchFeedback(id: number) {
         return this.http.get<Feedback>(URLS.FETCHFEEDBACK + id);
     }
-    
+
     updateFeedback(feedback: Feedback, id: number) {
         return this.http.put<Feedback>(URLS.UPDATEFEEDBACK + id, feedback);
     }
