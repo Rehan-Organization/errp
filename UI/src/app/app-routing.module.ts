@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   {
     path: 'award-list',
-    loadChildren: () => import('./Awards/award-list/award-list.module').then(m => m.AwardListModule)
+    loadChildren: () => import('./award/award-list/award-list.module').then(m => m.AwardListModule)
   },
 
 ];

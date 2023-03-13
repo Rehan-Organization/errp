@@ -38,7 +38,7 @@ export class AchievementFormComponent extends BaseForm implements OnInit {
 
             this.achievementService.getAchievement(id).subscribe((data) => {
                 this.achievement = data;
-                console.log(data);
+                ///console.log(data);
             });
         }
 

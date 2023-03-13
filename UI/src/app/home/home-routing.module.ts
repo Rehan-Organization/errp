@@ -11,11 +11,11 @@ const routes: Routes = [
 
       {
         path: 'Achievement',
-        loadChildren: () => import('../Achievement/achievement-list/achievement-list.module').then(m => m.AchievementListModule)
+        loadChildren: () => import('../achievement/achievement-list/achievement-list.module').then(m => m.AchievementListModule)
       },
       {
         path: 'Awards',
-        loadChildren: () => import('../Awards/award-list/award-list.module').then(m => m.AwardListModule)
+        loadChildren: () => import('../award/award-list/award-list.module').then(m => m.AwardListModule)
       },
       {
         path: 'awardTypes',

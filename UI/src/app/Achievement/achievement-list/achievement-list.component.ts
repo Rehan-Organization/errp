@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ToastService } from 'src/app/errp-service/toast.service';
 import { Achievement } from '../achievement';
-import { AchievementService } from '../achievement.service';
+import { AchievementService } from '../achievement.service';   
+// import { Achievement } from '../achievement';
+// import { AchievementService } from '../achievement.service';
 
 @Component({
   selector: 'app-achievement-list',
