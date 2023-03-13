@@ -15,11 +15,11 @@ import com.abs.errp.entity.Achievement;
 
 @RequestMapping("/achievement")
 @RestController
-public class AchievmentController {
+public class AchievementController {
 
 	private AchievementService achievementService;
 
-	public AchievmentController(AchievementService achievementService) {
+	public AchievementController(AchievementService achievementService) {
 		super();
 		this.achievementService = achievementService;
 	}
@@ -31,10 +31,15 @@ public class AchievmentController {
 	}
 
 	@GetMapping("/paginated/{pageNo}/{pageSize}")
-	public List<Achievement> getPaginatedCountries(@PathVariable int pageNo,
+	public List<Achievement> getPaginatedAchievements(@PathVariable int pageNo,
 			@PathVariable int pageSize) {
 
 		return achievementService.findPaginated(pageNo, pageSize);
+	}
+	
+	@GetMapping()
+	public List<Achievement> getAllAchievement(){
+		return achievementService.getAllAchievement();
 	}
 
 	@PutMapping()
@@ -60,5 +65,7 @@ public class AchievmentController {
 	public void submitAchievement(@RequestBody Achievement achievement) {
 		achievementService.submitAchievement(achievement);
 	}
+	
+	
 
 }

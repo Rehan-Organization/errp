@@ -9,6 +9,8 @@ public interface AchievementService {
 	Achievement saveAchievement(Achievement achievement);
 
 	List<Achievement> findPaginated(int pageNo, int pageSize);
+	
+	List<Achievement> getAllAchievement();
 
 	Achievement getAchievementById(int id);
 

@@ -11,4 +11,6 @@ public interface AchievementRepository extends PagingAndSortingRepository<Achiev
 	List<Achievement> findByEmployeeId(int employeeId);
 
 	List<Achievement> findAllByEmployeeId(int employeeId, Pageable paging);
+	
+	List<Achievement> findAllByEmployeeId(int employeeId);
 }
