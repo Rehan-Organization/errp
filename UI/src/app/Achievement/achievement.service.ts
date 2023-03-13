@@ -19,8 +19,15 @@ export class AchievementService {
     return this.httpClient.get<Achievement[]>(URLS.GET_PAGINATED + '/' + pageNo + "/" + pageSize);
   }
 
+  
+  getAllAchievement(): Observable<Achievement[]> {
+    return this.httpClient.get<Achievement[]>(URLS.GET);
+  }
+
+
+
   saveAchievement(achievement: Achievement): Observable<Achievement> {
-    
+
     achievement.employeeId = this.userContext.getLoggedInUser()?.employeeId;
     return this.httpClient.post<Achievement>(URLS.SAVE, achievement)
   }

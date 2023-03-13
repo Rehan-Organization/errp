@@ -22,29 +22,17 @@ export class AchievementListComponent implements OnInit {
 
   achievements: Achievement[] = [];
   pageNo: number = 0
-  pageSize: number = 4
+  pageSize: number = 10
   errorMessage = ""
   ngOnInit() {
-
-    this.pageNo = 0;
-    this.achievements = [];
     this.getAchievement(false, null);
-
-
-  }
-  refreshList() {
-    this.pageNo = 0;
-    this.achievementService.getPaginatedAchievement(this.pageNo, this.pageSize).subscribe((data) => {
-      this.achievements = data;
-    })
   }
 
   ionViewWillEnter() {
-    this.refreshList();
+    this.getAchievement(true, null);
   }
 
   validateInput(achievement: Achievement): boolean {
-
     achievement.title = achievement.title?.trim();
     achievement.achievementDesc = achievement.achievementDesc?.trim();
     return (achievement.title == "" || achievement.achievementDesc == "" || !achievement.title || !achievement.achievementDesc)
@@ -52,26 +40,28 @@ export class AchievementListComponent implements OnInit {
   }
 
   onIonInfinite(ev: Event) {
-
-    this.getAchievement(true, ev)
-
+    console.log("infinite");
+    this.getAchievement(false, ev);
   }
 
-  getAchievement(isFirstLoad: boolean, event: any) {
+  getAchievement(isRefresh: boolean, event: any) {
 
+    if (isRefresh) this.pageNo = 0;
     this.achievementService.getPaginatedAchievement(this.pageNo, this.pageSize).subscribe(data => {
-      this.achievements = this.achievements.concat(...data);
-      if (isFirstLoad) {
+      if (isRefresh) {
+        this.achievements = data;
+      }
+      else {
+        this.achievements = this.achievements.concat(...data);
+      }
+      if (event) {
         event.target.complete();
       }
       this.pageNo++;
-
     }, error => {
       this.toastService.showErrorToast(error);
     })
-
   }
-
 
   submitAchievement(achievement: Achievement) {
     this.alertController
@@ -96,7 +86,7 @@ export class AchievementListComponent implements OnInit {
 
                   (resp) => {
                     this.toastService.showSuccessToast("Achievement submitted successfully");
-                    this.refreshList();
+                    this.getAchievement(true, null);
                   },
                   (err) => {
                     (this.errorMessage = err.message),
@@ -114,7 +104,6 @@ export class AchievementListComponent implements OnInit {
         res.present();
       });
   }
-
 
   addAchievement() {
     this.router.navigate(["/home/achievement/addAchievement"])
@@ -135,7 +124,7 @@ export class AchievementListComponent implements OnInit {
               this.achievementService.deleteAchievement(achievement.achievementId).subscribe(
                 (resp) => {
                   this.toastService.showSuccessToast("Achievement deleted successfully");
-                  this.refreshList();
+                  this.getAchievement(true, null);
                 },
                 (err) => {
                   this.toastService.showErrorToast(this.errorMessage);
