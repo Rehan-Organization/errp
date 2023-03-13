@@ -12,14 +12,14 @@ import { ToastService } from 'src/app/errp-service/toast.service';
     styleUrls: ['./feedback-list.component.scss'],
 })
 export class FeedbackListComponent implements OnInit {
-  
+
 
     constructor(
         private feedbackService: FeedbackService,
         private router: Router,
         private alertController: AlertController,
         private toastService: ToastService
-    ) {}
+    ) { }
 
     isAuthorizedUser: boolean = false;
     reportees: Employee[] = [];
@@ -40,10 +40,15 @@ export class FeedbackListComponent implements OnInit {
         this.fetchReportees();
     }
 
+    ionViewWillEnter() {
+        this.refreshList();
+    }
     refreshList() {
         this.myFeedbacksPageNo = 0;
         this.givenFeedbacksPageNo = 0;
-        this.fetchFeedbacks(false, null);
+        this.feedbackService.fetchAllFeedbacks(this.choosenOption == "My Feedbacks", this.myFeedbacksPageNo, this.pageSize).subscribe((data) => {
+            this.feedbacks = data;
+        })
     }
 
     fetchReportees() {
@@ -66,20 +71,15 @@ export class FeedbackListComponent implements OnInit {
     // If isMyFeedback is false then returns feedback sent by supervisor to associated reportees
 
     fetchFeedbacks(isFirstLoad: boolean, event: any) {
+
         if (this.choosenOption == 'My Feedbacks') {
-            this.feedbacks = [];
-            for (let i = 0; i < this.myFeedback.length; i++) {
-                this.feedbacks.push(this.myFeedback[i]);
-            }
             this.isMyFeedbacks = true;
             this.feedbackService
                 .fetchAllFeedbacks(this.isMyFeedbacks, this.myFeedbacksPageNo, this.pageSize)
                 .subscribe(
                     (feedback) => {
-                        for (let i = 0; i < feedback.length; i++) {
-                            this.feedbacks.push(feedback[i]);
-                            this.myFeedback.push(this.feedbacks[i]);
-                        }
+                        this.myFeedback = this.myFeedback.concat(...feedback);
+                        this.feedbacks = this.myFeedback;
                         if (isFirstLoad) {
                             event.target.complete();
                         }
@@ -91,18 +91,13 @@ export class FeedbackListComponent implements OnInit {
                 );
         } else {
             this.isMyFeedbacks = false;
-            this.feedbacks = []
-            for (let i = 0; i < this.givenFeedback.length; i++) {
-                this.feedbacks.push(this.givenFeedback[i]);
-            }
+
             this.feedbackService
                 .fetchAllFeedbacks(this.isMyFeedbacks, this.givenFeedbacksPageNo, this.pageSize)
                 .subscribe(
                     (feedback) => {
-                        for (let i = 0; i < feedback.length; i++) {
-                            this.feedbacks.push(feedback[i]);
-                            this.givenFeedback.push(this.feedbacks[i]);
-                        }
+                        this.givenFeedback = this.givenFeedback.concat(...feedback);
+                        this.feedbacks = this.givenFeedback;
                         if (isFirstLoad) {
                             event.target.complete();
                         }
@@ -122,14 +117,14 @@ export class FeedbackListComponent implements OnInit {
         this.router.navigate(['home/viewFeedback/update/' + feedback.id]);
     }
 
-    async deleteFeedback(feedback: Feedback) {
-        const alert = await this.alertController.create({
+    deleteFeedback(feedback: Feedback) {
+        this.alertController.create({
             header: 'Are you sure you want to delete ?',
             buttons: [
                 {
                     text: 'Cancel',
                     role: 'cancel',
-                    handler: () => {},
+                    handler: () => { },
                 },
                 {
                     text: 'Delete',
@@ -138,18 +133,17 @@ export class FeedbackListComponent implements OnInit {
                         this.feedbackService.removeFeedback(feedback.id).subscribe(
                             (feedback) => {
                                 this.toastService.showSuccessToast('Feedback deleted successfully');
-                                this.feedbacks = this.feedbacks.filter(
-                                    (newFeedback) => newFeedback.id != feedback.id
-                                );
-                            },(error) => {
+                                this.refreshList();
+                            }, (error) => {
                                 this.toastService.showErrorToast("Oops, Something went wrong!!! while deleting feedback");
                             }
                         );
                     },
                 },
             ],
-        });
-        await alert.present();
+        }).then((res)=>
+        res.present()
+        )
     }
-   
+
 }

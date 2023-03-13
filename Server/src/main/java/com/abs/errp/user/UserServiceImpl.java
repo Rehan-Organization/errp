@@ -29,6 +29,14 @@ public class UserServiceImpl implements UserService{
 		ErrpUser e=new ErrpUser();
 		e.setEmployeeId(user.getEmployeeId());
 		List<ErrpUser> ErrpUsers=UserRepository.findBySupervisor(e);
+		int index=-1;
+		for(int i=0;i<ErrpUsers.size();i++) {
+			if(ErrpUsers.get(i).getEmployeeId()==user.getEmployeeId()) {
+				index=i;
+			}
+		}
+		if(index!=-1)
+			ErrpUsers.remove(index);
 		if (ErrpUsers.size() > 0) {
 			return ErrpUsers;
 		} else {

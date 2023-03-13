@@ -4,7 +4,8 @@
             style="width: 100%"
             value="default"
             [(ngModel)]="choosenOption"
-            (ionChange)="fetchFeedbacks(false, null)"
+            (click)="refreshList()"
+
         >
             <ion-segment-button value="My Feedbacks">
                 <ion-label>My Feedbacks</ion-label>
@@ -19,7 +20,7 @@
             >
         </ion-buttons>
     </ion-toolbar>
-    <ion-toolbar *ngIf="!isMyFeedbacks" color="primary">
+    <ion-toolbar *ngIf="choosenOption != 'My Feedbacks'" color="primary">
         <ion-searchbar color="light" [(ngModel)]="searchReportee"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
@@ -46,7 +47,7 @@
                 <ion-card-content>{{ feedback.description }}</ion-card-content>
             </ng-container>
         </ion-card>
-        <div class="buttons-container" *ngIf="!isMyFeedbacks">
+        <div class="buttons-container" *ngIf="isAuthorizedUser">
             <ion-button color="light" (click)="deleteFeedback(feedback)"
                 ><i class="far fa-trash" aria-hidden="true"></i
             ></ion-button>
